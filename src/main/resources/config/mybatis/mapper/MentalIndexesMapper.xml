@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.yikangyiliao.pension.dao.MentalIndexesDao" >
+  <resultMap id="BaseResultMap" type="com.yikangyiliao.pension.entity.MentalIndexes" >
+    <id column="mental_indexes_id" property="mentalIndexesId" jdbcType="VARCHAR" />
+    <id column="assessment_id" property="assessmentId" jdbcType="BIGINT" />
+    <result column="mental_id" property="mentalId" jdbcType="BIGINT" />
+    <result column="cognitive_function" property="cognitiveFunction" jdbcType="TINYINT" />
+    <result column="attack_behavior" property="attackBehavior" jdbcType="TINYINT" />
+    <result column="depressive_symptoms" property="depressiveSymptoms" jdbcType="TINYINT" />
+    <result column="total_score" property="totalScore" jdbcType="INTEGER" />
+    <result column="create_time" property="createTime" jdbcType="BIGINT" />
+    <result column="update_time" property="updateTime" jdbcType="BIGINT" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    mental_indexes_id, assessment_id, mental_id, cognitive_function, attack_behavior, 
+    depressive_symptoms, total_score, create_time, update_time
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="com.yikangyiliao.pension.entity.MentalIndexesKey" >
+    select 
+    <include refid="Base_Column_List" />
+    from mental_indexes
+    where mental_indexes_id = #{mentalIndexesId,jdbcType=VARCHAR}
+      and assessment_id = #{assessmentId,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="com.yikangyiliao.pension.entity.MentalIndexesKey" >
+    delete from mental_indexes
+    where mental_indexes_id = #{mentalIndexesId,jdbcType=VARCHAR}
+      and assessment_id = #{assessmentId,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.yikangyiliao.pension.entity.MentalIndexes" >
+    insert into mental_indexes (mental_indexes_id, assessment_id, mental_id, 
+      cognitive_function, attack_behavior, depressive_symptoms, 
+      total_score, create_time, update_time
+      )
+    values (#{mentalIndexesId,jdbcType=VARCHAR}, #{assessmentId,jdbcType=BIGINT}, #{mentalId,jdbcType=BIGINT}, 
+      #{cognitiveFunction,jdbcType=TINYINT}, #{attackBehavior,jdbcType=TINYINT}, #{depressiveSymptoms,jdbcType=TINYINT}, 
+      #{totalScore,jdbcType=INTEGER}, #{createTime,jdbcType=BIGINT}, #{updateTime,jdbcType=BIGINT}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.yikangyiliao.pension.entity.MentalIndexes" >
+    insert into mental_indexes
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="mentalIndexesId != null" >
+        mental_indexes_id,
+      </if>
+      <if test="assessmentId != null" >
+        assessment_id,
+      </if>
+      <if test="mentalId != null" >
+        mental_id,
+      </if>
+      <if test="cognitiveFunction != null" >
+        cognitive_function,
+      </if>
+      <if test="attackBehavior != null" >
+        attack_behavior,
+      </if>
+      <if test="depressiveSymptoms != null" >
+        depressive_symptoms,
+      </if>
+      <if test="totalScore != null" >
+        total_score,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+      <if test="updateTime != null" >
+        update_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="mentalIndexesId != null" >
+        #{mentalIndexesId,jdbcType=VARCHAR},
+      </if>
+      <if test="assessmentId != null" >
+        #{assessmentId,jdbcType=BIGINT},
+      </if>
+      <if test="mentalId != null" >
+        #{mentalId,jdbcType=BIGINT},
+      </if>
+      <if test="cognitiveFunction != null" >
+        #{cognitiveFunction,jdbcType=TINYINT},
+      </if>
+      <if test="attackBehavior != null" >
+        #{attackBehavior,jdbcType=TINYINT},
+      </if>
+      <if test="depressiveSymptoms != null" >
+        #{depressiveSymptoms,jdbcType=TINYINT},
+      </if>
+      <if test="totalScore != null" >
+        #{totalScore,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=BIGINT},
+      </if>
+      <if test="updateTime != null" >
+        #{updateTime,jdbcType=BIGINT},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.yikangyiliao.pension.entity.MentalIndexes" >
+    update mental_indexes
+    <set >
+      <if test="mentalId != null" >
+        mental_id = #{mentalId,jdbcType=BIGINT},
+      </if>
+      <if test="cognitiveFunction != null" >
+        cognitive_function = #{cognitiveFunction,jdbcType=TINYINT},
+      </if>
+      <if test="attackBehavior != null" >
+        attack_behavior = #{attackBehavior,jdbcType=TINYINT},
+      </if>
+      <if test="depressiveSymptoms != null" >
+        depressive_symptoms = #{depressiveSymptoms,jdbcType=TINYINT},
+      </if>
+      <if test="totalScore != null" >
+        total_score = #{totalScore,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=BIGINT},
+      </if>
+      <if test="updateTime != null" >
+        update_time = #{updateTime,jdbcType=BIGINT},
+      </if>
+    </set>
+    where mental_indexes_id = #{mentalIndexesId,jdbcType=VARCHAR}
+      and assessment_id = #{assessmentId,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.yikangyiliao.pension.entity.MentalIndexes" >
+    update mental_indexes
+    set mental_id = #{mentalId,jdbcType=BIGINT},
+      cognitive_function = #{cognitiveFunction,jdbcType=TINYINT},
+      attack_behavior = #{attackBehavior,jdbcType=TINYINT},
+      depressive_symptoms = #{depressiveSymptoms,jdbcType=TINYINT},
+      total_score = #{totalScore,jdbcType=INTEGER},
+      create_time = #{createTime,jdbcType=BIGINT},
+      update_time = #{updateTime,jdbcType=BIGINT}
+    where mental_indexes_id = #{mentalIndexesId,jdbcType=VARCHAR}
+      and assessment_id = #{assessmentId,jdbcType=BIGINT}
+  </update>
+</mapper>

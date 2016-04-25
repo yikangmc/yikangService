@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.yikangyiliao.pension.dao.SurveyScoreDetailDao" >
+  <resultMap id="BaseResultMap" type="com.yikangyiliao.pension.entity.SurveyScoreDetail" >
+    <id column="survey_score_detail_id" property="surveyScoreDetailId" jdbcType="BIGINT" />
+    <result column="survey_id" property="surveyId" jdbcType="BIGINT" />
+    <result column="question_id" property="questionId" jdbcType="BIGINT" />
+    <result column="score" property="score" jdbcType="FLOAT" />
+    <result column="answer_id" property="answerId" jdbcType="BIGINT" />
+    <result column="is_delete" property="isDelete" jdbcType="TINYINT" />
+    <result column="survey_score_id" property="surveyScoreId" jdbcType="BIGINT" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    survey_score_detail_id, survey_id, question_id, score, answer_id, is_delete, survey_score_id
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from survey_score_details
+    where survey_score_detail_id = #{surveyScoreDetailId,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from survey_score_details
+    where survey_score_detail_id = #{surveyScoreDetailId,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.yikangyiliao.pension.entity.SurveyScoreDetail" >
+    insert into survey_score_details (survey_score_detail_id, survey_id, question_id, 
+      score, answer_id, is_delete, 
+      survey_score_id)
+    values (#{surveyScoreDetailId,jdbcType=BIGINT}, #{surveyId,jdbcType=BIGINT}, #{questionId,jdbcType=BIGINT}, 
+      #{score,jdbcType=INTEGER}, #{answerId,jdbcType=BIGINT}, #{isDelete,jdbcType=TINYINT}, 
+      #{surveyScoreId,jdbcType=BIGINT})
+  </insert>
+  <insert id="insertSelective" parameterType="com.yikangyiliao.pension.entity.SurveyScoreDetail" >
+    insert into survey_score_details
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="surveyScoreDetailId != null" >
+        survey_score_detail_id,
+      </if>
+      <if test="surveyId != null" >
+        survey_id,
+      </if>
+      <if test="questionId != null" >
+        question_id,
+      </if>
+      <if test="score != null" >
+        score,
+      </if>
+      <if test="answerId != null" >
+        answer_id,
+      </if>
+      <if test="isDelete != null" >
+        is_delete,
+      </if>
+      <if test="surveyScoreId != null" >
+        survey_score_id,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="surveyScoreDetailId != null" >
+        #{surveyScoreDetailId,jdbcType=BIGINT},
+      </if>
+      <if test="surveyId != null" >
+        #{surveyId,jdbcType=BIGINT},
+      </if>
+      <if test="questionId != null" >
+        #{questionId,jdbcType=BIGINT},
+      </if>
+      <if test="score != null" >
+        #{score,jdbcType=FLOAT},
+      </if>
+      <if test="answerId != null" >
+        #{answerId,jdbcType=BIGINT},
+      </if>
+      <if test="isDelete != null" >
+        #{isDelete,jdbcType=TINYINT},
+      </if>
+      <if test="surveyScoreId != null" >
+        #{surveyScoreId,jdbcType=BIGINT},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.yikangyiliao.pension.entity.SurveyScoreDetail" >
+    update survey_score_details
+    <set >
+      <if test="surveyId != null" >
+        survey_id = #{surveyId,jdbcType=BIGINT},
+      </if>
+      <if test="questionId != null" >
+        question_id = #{questionId,jdbcType=BIGINT},
+      </if>
+      <if test="score != null" >
+        score = #{score,jdbcType=FLOAT},
+      </if>
+      <if test="answerId != null" >
+        answer_id = #{answerId,jdbcType=BIGINT},
+      </if>
+      <if test="isDelete != null" >
+        is_delete = #{isDelete,jdbcType=TINYINT},
+      </if>
+      <if test="surveyScoreId != null" >
+        survey_score_id = #{surveyScoreId,jdbcType=BIGINT},
+      </if>
+    </set>
+    where survey_score_detail_id = #{surveyScoreDetailId,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.yikangyiliao.pension.entity.SurveyScoreDetail" >
+    update survey_score_details
+    set survey_id = #{surveyId,jdbcType=BIGINT},
+      question_id = #{questionId,jdbcType=BIGINT},
+      score = #{score,jdbcType=FLOAT},
+      answer_id = #{answerId,jdbcType=BIGINT},
+      is_delete = #{isDelete,jdbcType=TINYINT},
+      survey_score_id = #{surveyScoreId,jdbcType=BIGINT}
+    where survey_score_detail_id = #{surveyScoreDetailId,jdbcType=BIGINT}
+  </update>
+  
+  <delete id="deleteSurveyScoreDetailBySurveyScoreId" parameterType="long">
+  	delete from survey_score_details
+ 	where survey_score_details.survey_score_id=#{surveyScoreId}
+  </delete>
+  
+  <delete id="deleteSurveyScoreDetailBySurveyScoreIdAndQuestionId" parameterType="map">
+  	delete from survey_score_details
+ 	where survey_score_details.survey_score_id=#{surveyScoreId}
+ 	and question_id=#{quetionId}
+  </delete>
+  
+  <delete id="deleteSurveyScoreDetailBySurveyScoreIdAndQuestionCrosswiseId" parameterType="map">
+    delete from survey_score_details
+	where survey_score_details.survey_score_id in (
+		select surey_score_id from survey_scores where survey_table_id=#{surveyTableId} and assessment_id=#{assessmentId}
+	)
+	and question_id in (
+		select question_portrait_id from question_units qc 
+		where qc.question_crosswise_id=#{questionCrosswiseId}
+	)
+  </delete>
+
+  
+</mapper>

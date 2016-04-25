@@ -1,0 +1,167 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.yikangyiliao.pension.dao.UserFromDao" >
+  <resultMap id="BaseResultMap" type="com.yikangyiliao.pension.entity.UserFrom">
+    <id column="user_from_id" jdbcType="BIGINT" property="userFromId" />
+    <result column="user_id" jdbcType="BIGINT" property="userId" />
+    <result column="user_from" jdbcType="VARCHAR" property="userFrom" />
+    <result column="from_url" jdbcType="VARCHAR" property="fromUrl" />
+    <result column="numbers" jdbcType="BIGINT" property="numbers" />
+    <result column="create_time" jdbcType="BIGINT" property="createTime" />
+    <result column="update_time" jdbcType="BIGINT" property="updateTime" />
+    <result column="active_time" jdbcType="BIGINT" property="activeTime" />
+    <result column="invitation_code" jdbcType="VARCHAR" property="invitationCode" />
+    <result column="user_status" jdbcType="TINYINT" property="userStatus" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    user_from_id, user_id, user_from, from_url, numbers, create_time, update_time, active_time, 
+    invitation_code, user_status
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from user_froms
+    where user_from_id = #{userFromId,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from user_froms
+    where user_from_id = #{userFromId,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.yikangyiliao.pension.entity.UserFrom">
+    insert into user_froms (user_from_id, user_id, user_from, 
+      from_url, numbers, create_time, 
+      update_time, active_time, invitation_code, 
+      user_status)
+    values (#{userFromId,jdbcType=BIGINT}, #{userId,jdbcType=BIGINT}, #{userFrom,jdbcType=VARCHAR}, 
+      #{fromUrl,jdbcType=VARCHAR}, #{numbers,jdbcType=BIGINT}, #{createTime,jdbcType=BIGINT}, 
+      #{updateTime,jdbcType=BIGINT}, #{activeTime,jdbcType=BIGINT}, #{invitationCode,jdbcType=VARCHAR}, 
+      #{userStatus,jdbcType=TINYINT})
+  </insert>
+  <insert id="insertSelective" parameterType="com.yikangyiliao.pension.entity.UserFrom">
+    insert into user_froms
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="userFromId != null">
+        user_from_id,
+      </if>
+      <if test="userId != null">
+        user_id,
+      </if>
+      <if test="userFrom != null">
+        user_from,
+      </if>
+      <if test="fromUrl != null">
+        from_url,
+      </if>
+      <if test="numbers != null">
+        numbers,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="updateTime != null">
+        update_time,
+      </if>
+      <if test="activeTime != null">
+        active_time,
+      </if>
+      <if test="invitationCode != null">
+        invitation_code,
+      </if>
+      <if test="userStatus != null">
+        user_status,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="userFromId != null">
+        #{userFromId,jdbcType=BIGINT},
+      </if>
+      <if test="userId != null">
+        #{userId,jdbcType=BIGINT},
+      </if>
+      <if test="userFrom != null">
+        #{userFrom,jdbcType=VARCHAR},
+      </if>
+      <if test="fromUrl != null">
+        #{fromUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="numbers != null">
+        #{numbers,jdbcType=BIGINT},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=BIGINT},
+      </if>
+      <if test="updateTime != null">
+        #{updateTime,jdbcType=BIGINT},
+      </if>
+      <if test="activeTime != null">
+        #{activeTime,jdbcType=BIGINT},
+      </if>
+      <if test="invitationCode != null">
+        #{invitationCode,jdbcType=VARCHAR},
+      </if>
+      <if test="userStatus != null">
+        #{userStatus,jdbcType=TINYINT},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.yikangyiliao.pension.entity.UserFrom">
+    update user_froms
+    <set>
+      <if test="userId != null">
+        user_id = #{userId,jdbcType=BIGINT},
+      </if>
+      <if test="userFrom != null">
+        user_from = #{userFrom,jdbcType=VARCHAR},
+      </if>
+      <if test="fromUrl != null">
+        from_url = #{fromUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="numbers != null">
+        numbers = #{numbers,jdbcType=BIGINT},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=BIGINT},
+      </if>
+      <if test="updateTime != null">
+        update_time = #{updateTime,jdbcType=BIGINT},
+      </if>
+      <if test="activeTime != null">
+        active_time = #{activeTime,jdbcType=BIGINT},
+      </if>
+      <if test="invitationCode != null">
+        invitation_code = #{invitationCode,jdbcType=VARCHAR},
+      </if>
+      <if test="userStatus != null">
+        user_status = #{userStatus,jdbcType=TINYINT},
+      </if>
+    </set>
+    where user_from_id = #{userFromId,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.yikangyiliao.pension.entity.UserFrom">
+    update user_froms
+    set user_id = #{userId,jdbcType=BIGINT},
+      user_from = #{userFrom,jdbcType=VARCHAR},
+      from_url = #{fromUrl,jdbcType=VARCHAR},
+      numbers = #{numbers,jdbcType=BIGINT},
+      create_time = #{createTime,jdbcType=BIGINT},
+      update_time = #{updateTime,jdbcType=BIGINT},
+      active_time = #{activeTime,jdbcType=BIGINT},
+      invitation_code = #{invitationCode,jdbcType=VARCHAR},
+      user_status = #{userStatus,jdbcType=TINYINT}
+    where user_from_id = #{userFromId,jdbcType=BIGINT}
+  </update>
+  
+  <!-- 修改定单状态 -->
+  <update id="updateUserStatusByUserId" parameterType="map">
+  	update user_froms set user_status=#{userStatus} where user_id=#{userId}
+  </update>
+  
+  <!-- 查询用户来源 根据 userId -->
+  <select id="selectByUserId" parameterType="long">
+    select 
+    <include refid="Base_Column_List" />
+    from user_froms
+    where user_id = #{user_id,jdbcType=BIGINT}
+  </select>
+  
+</mapper>

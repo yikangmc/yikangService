@@ -1,0 +1,153 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.yikangyiliao.pension.dao.AreaDao" >
+  <resultMap id="BaseResultMap" type="com.yikangyiliao.pension.entity.Area" >
+    <id column="area_id" property="areaId" jdbcType="BIGINT" />
+    <result column="area_name" property="areaName" jdbcType="VARCHAR" />
+    <result column="zip_code" property="zipCode" jdbcType="VARCHAR" />
+    <result column="parent_id" property="parentId" jdbcType="BIGINT" />
+    <result column="area_level" property="areaLevel" jdbcType="TINYINT" />
+    <result column="create_time" property="createTime" jdbcType="BIGINT" />
+    <result column="update_time" property="updateTime" jdbcType="BIGINT" />
+    <result column="create_user_id" property="createUserId" jdbcType="BIGINT" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    area_id, area_name, zip_code, parent_id, area_level, create_time, update_time, create_user_id
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from areas
+    where area_id = #{areaId,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from areas
+    where area_id = #{areaId,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.yikangyiliao.pension.entity.Area" >
+    insert into areas (area_id, area_name, zip_code, 
+      parent_id, area_level, create_time, 
+      update_time, create_user_id)
+    values (#{areaId,jdbcType=BIGINT}, #{areaName,jdbcType=VARCHAR}, #{zipCode,jdbcType=VARCHAR}, 
+      #{parentId,jdbcType=BIGINT}, #{areaLevel,jdbcType=TINYINT}, #{createTime,jdbcType=BIGINT}, 
+      #{updateTime,jdbcType=BIGINT}, #{createUserId,jdbcType=BIGINT})
+  </insert>
+  <insert id="insertSelective" parameterType="com.yikangyiliao.pension.entity.Area" >
+    insert into areas
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="areaId != null" >
+        area_id,
+      </if>
+      <if test="areaName != null" >
+        area_name,
+      </if>
+      <if test="zipCode != null" >
+        zip_code,
+      </if>
+      <if test="parentId != null" >
+        parent_id,
+      </if>
+      <if test="areaLevel != null" >
+        area_level,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+      <if test="updateTime != null" >
+        update_time,
+      </if>
+      <if test="createUserId != null" >
+        create_user_id,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="areaId != null" >
+        #{areaId,jdbcType=BIGINT},
+      </if>
+      <if test="areaName != null" >
+        #{areaName,jdbcType=VARCHAR},
+      </if>
+      <if test="zipCode != null" >
+        #{zipCode,jdbcType=VARCHAR},
+      </if>
+      <if test="parentId != null" >
+        #{parentId,jdbcType=BIGINT},
+      </if>
+      <if test="areaLevel != null" >
+        #{areaLevel,jdbcType=TINYINT},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=BIGINT},
+      </if>
+      <if test="updateTime != null" >
+        #{updateTime,jdbcType=BIGINT},
+      </if>
+      <if test="createUserId != null" >
+        #{createUserId,jdbcType=BIGINT},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.yikangyiliao.pension.entity.Area" >
+    update areas
+    <set >
+      <if test="areaName != null" >
+        area_name = #{areaName,jdbcType=VARCHAR},
+      </if>
+      <if test="zipCode != null" >
+        zip_code = #{zipCode,jdbcType=VARCHAR},
+      </if>
+      <if test="parentId != null" >
+        parent_id = #{parentId,jdbcType=BIGINT},
+      </if>
+      <if test="areaLevel != null" >
+        area_level = #{areaLevel,jdbcType=TINYINT},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=BIGINT},
+      </if>
+      <if test="updateTime != null" >
+        update_time = #{updateTime,jdbcType=BIGINT},
+      </if>
+      <if test="createUserId != null" >
+        create_user_id = #{createUserId,jdbcType=BIGINT},
+      </if>
+    </set>
+    where area_id = #{areaId,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.yikangyiliao.pension.entity.Area" >
+    update areas
+    set area_name = #{areaName,jdbcType=VARCHAR},
+      zip_code = #{zipCode,jdbcType=VARCHAR},
+      parent_id = #{parentId,jdbcType=BIGINT},
+      area_level = #{areaLevel,jdbcType=TINYINT},
+      create_time = #{createTime,jdbcType=BIGINT},
+      update_time = #{updateTime,jdbcType=BIGINT},
+      create_user_id = #{createUserId,jdbcType=BIGINT}
+    where area_id = #{areaId,jdbcType=BIGINT}
+  </update>
+  
+  
+  <resultMap type="map" id="getAreaCityDistrictMap">
+  	<result column="provenceId" property="provenceId"/>
+  	<result column="provenceName" property="provenceName"/>
+  	<collection property="citys" ofType="map" javaType="list">
+  		<result column="cityId" property="cityId"/>
+  		<result column="cityName" property="cityName"/>
+  		<collection property="districts" ofType="map" javaType="list">
+  			<result column="districtId" property="districtId"/>
+  			<result column="districtName" property="districtName"/>
+  		</collection>
+  	</collection>
+  </resultMap>
+  <select id="getAreaCityDistrict" resultMap="getAreaCityDistrictMap">
+  	select
+		a.area_id as provenceId,a.area_name as provenceName,
+		a2.area_id as cityId,a2.area_name as cityName,
+		a3.area_id as districtId,a3.area_name as districtName
+	 from areas a inner join 
+	areas a2 on a.area_id=a2.parent_id
+	inner join areas a3 on a2.area_id=a3.parent_id
+  </select>
+  
+  
+</mapper>

@@ -1,0 +1,343 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.yikangyiliao.pension.dao.SurveyTableDao" >
+  <resultMap id="BaseResultMap" type="com.yikangyiliao.pension.entity.SurveyTable" >
+    <id column="survey_table_id" property="surveyTableId" jdbcType="BIGINT" />
+    <result column="table_name" property="tableName" jdbcType="VARCHAR" />
+    <result column="table_type" property="tableType" jdbcType="INTEGER" />
+    <result column="is_delete" property="isDelete" jdbcType="TINYINT" />
+    <result column="create_time" property="createTime" jdbcType="BIGINT" />
+    <result column="update_time" property="updateTime" jdbcType="BIGINT" />
+    <result column="surevey_talbe_number" property="sureveyTalbeNumber" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    survey_table_id, table_name, table_type, is_delete, create_time, update_time, surevey_talbe_number
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from survey_tables
+    where survey_table_id = #{surveyTableId,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from survey_tables
+    where survey_table_id = #{surveyTableId,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.yikangyiliao.pension.entity.SurveyTable" >
+    insert into survey_tables (survey_table_id, table_name, table_type, 
+      is_delete, create_time, update_time, 
+      surevey_talbe_number)
+    values (#{surveyTableId,jdbcType=BIGINT}, #{tableName,jdbcType=VARCHAR}, #{tableType,jdbcType=INTEGER}, 
+      #{isDelete,jdbcType=TINYINT}, #{createTime,jdbcType=BIGINT}, #{updateTime,jdbcType=BIGINT}, 
+      #{sureveyTalbeNumber,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.yikangyiliao.pension.entity.SurveyTable" >
+    insert into survey_tables
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="surveyTableId != null" >
+        survey_table_id,
+      </if>
+      <if test="tableName != null" >
+        table_name,
+      </if>
+      <if test="tableType != null" >
+        table_type,
+      </if>
+      <if test="isDelete != null" >
+        is_delete,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+      <if test="updateTime != null" >
+        update_time,
+      </if>
+      <if test="sureveyTalbeNumber != null" >
+        surevey_talbe_number,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="surveyTableId != null" >
+        #{surveyTableId,jdbcType=BIGINT},
+      </if>
+      <if test="tableName != null" >
+        #{tableName,jdbcType=VARCHAR},
+      </if>
+      <if test="tableType != null" >
+        #{tableType,jdbcType=INTEGER},
+      </if>
+      <if test="isDelete != null" >
+        #{isDelete,jdbcType=TINYINT},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=BIGINT},
+      </if>
+      <if test="updateTime != null" >
+        #{updateTime,jdbcType=BIGINT},
+      </if>
+      <if test="sureveyTalbeNumber != null" >
+        #{sureveyTalbeNumber,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.yikangyiliao.pension.entity.SurveyTable" >
+    update survey_tables
+    <set >
+      <if test="tableName != null" >
+        table_name = #{tableName,jdbcType=VARCHAR},
+      </if>
+      <if test="tableType != null" >
+        table_type = #{tableType,jdbcType=INTEGER},
+      </if>
+      <if test="isDelete != null" >
+        is_delete = #{isDelete,jdbcType=TINYINT},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=BIGINT},
+      </if>
+      <if test="updateTime != null" >
+        update_time = #{updateTime,jdbcType=BIGINT},
+      </if>
+      <if test="sureveyTalbeNumber != null" >
+        surevey_talbe_number = #{sureveyTalbeNumber,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where survey_table_id = #{surveyTableId,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.yikangyiliao.pension.entity.SurveyTable" >
+    update survey_tables
+    set table_name = #{tableName,jdbcType=VARCHAR},
+      table_type = #{tableType,jdbcType=INTEGER},
+      is_delete = #{isDelete,jdbcType=TINYINT},
+      create_time = #{createTime,jdbcType=BIGINT},
+      update_time = #{updateTime,jdbcType=BIGINT},
+      surevey_talbe_number = #{sureveyTalbeNumber,jdbcType=VARCHAR}
+    where survey_table_id = #{surveyTableId,jdbcType=BIGINT}
+  </update>
+  
+  <resultMap type="map" id="getQuestionCrosswiseByTableNameMap">
+  	<result column="table_name" property="tableName"/>
+  	<result column="survey_table_id" property="surveyTableId"/>
+  	<collection property="questions" ofType="map" javaType="list">
+  		<result column="question_crosswise_id" property="questionCrosswiseId"/>
+  		<result column="question_crosswise_name" property="questionCrosswiseName"/>
+  	</collection>
+  </resultMap>
+  <select id="getQuestionCrosswiseByTableName" resultMap="getQuestionCrosswiseByTableNameMap"  parameterType="string">
+  	select 
+		st.table_name,
+		st.survey_table_id ,
+	    qc.question_crosswise_id,
+		qc.question_crosswise_name
+    from survey_tables st 
+	inner join question_crosswises qc
+	on st.survey_table_id = qc.survey_table_id
+	where st.table_name=#{tableName}
+  </select>
+  
+  <resultMap type="map" id="getQuestionCrosswiseByTableNameTwoMap">
+  	<result column="table_name" property="tableName"/>
+  	<result column="survey_table_id" property="surveyTableId"/>
+  	<collection property="questionGrooup" ofType="map" javaType="list">
+  		<result column="question_crosswise_id" property="questionCrosswiseId"/>
+  		<result column="question_crosswise_name" property="questionCrosswiseName"/>
+		<collection property="questions"  fetchType="eager" column="question_crosswise_id" select="com.yikangyiliao.pension.dao.QuestionUnitDao.getQuestionUnitAnswerMapByQuetionCrosswiseId"></collection>
+<!-- 		<collection property="questions"  fetchType="eager" select="com.yikangyiliao.pension.dao.QuestionUnitDao.getQuestionUnitAnswerMapByQuetionCrosswiseId"></collection> -->
+  	</collection>
+  </resultMap>
+  
+    <select id="getQuestionCrosswiseByTableNameTwo" resultMap="getQuestionCrosswiseByTableNameTwoMap"  parameterType="string">
+  	select 
+		st.table_name,
+		st.survey_table_id ,
+	    qc.question_crosswise_id,
+		qc.question_crosswise_name
+    from survey_tables st 
+	inner join question_crosswises qc
+	on st.survey_table_id = qc.survey_table_id
+	where st.table_name=#{tableName}
+  </select>
+  
+  
+  <!-- 查询某一个量表中的所有问题及答案 -->
+  <resultMap type="map" id="GetQuestionsAndAnswersByTableNameMap">
+  	<result column="survey_table_id" property="surveyTableId"/>
+  	<result column="table_name"		 property="tableName"/>
+  	<collection property="questions" ofType="map" javaType="list">
+  		<result column="question_id" 	property="questionId"/>
+  		<result column="question_text" 	property="questionText"/>
+  		<result column="description" 	property="descriptions"/>
+  		<collection property="answers"  ofType="map" javaType="list">
+  			<result column="answer_id" 		property="answerId"/>
+  			<result column="answer_text" 	property="answerText"/>
+  			<result column="answer_val" 	property="answerVal"/>
+  		</collection>
+  	</collection>
+  </resultMap>
+  
+  <select id="getQuestionsAndAnswersByTableName" resultMap="GetQuestionsAndAnswersByTableNameMap" parameterType="string">
+	select 
+		st.survey_table_id,st.table_name,
+		que.question_text,que.question_id,
+		que.description,
+		an.answer_id,
+		an.answer_text,
+		an.answer_val
+	from 
+	survey_tables st  inner join  question_survey_maps qsm on st.survey_table_id=qsm.survey_id
+	inner join questions que 				on qsm.question_id=que.question_id
+	inner join question_answer_maps qam 	on que.question_id=qam.question_id
+	inner join answers an 					on qam.answer_id=an.answer_id
+	where st.table_name =#{tableName}
+  </select>
+  
+  <!--获取某一个表中的某一个老人 评估状态  -->
+  <select id="getTableListByAssessmentId" parameterType="long" resultType="map">
+  	select 
+		st.survey_table_id 	as surveyTableId,
+	    st.table_name 		as tableName,
+	    case 
+			when ss.surey_score_id is null then 0
+			else 1
+	    end as isTest
+	from survey_tables st left join survey_scores ss 
+		on (st.survey_table_id=ss.survey_table_id and ss.assessment_id=#{assessmentId})
+  </select>
+  
+  
+  
+  <resultMap type="map" id="getQuestionsAndAnswersIsCheckMap">
+  	<result column="surveyId" property="surveyId"/>
+  	<collection property="questions" ofType="map" javaType="list">
+  		<result column="question_id" property="questionId"/>
+  		<result column="question_text" property="questionText"/>
+  		<collection property="answers" ofType="map" javaType="list">
+  			<result column="answer_id" property="answerId"/>
+  			<result column="answer_text" property="answerText"/>
+  			<result column="answer_val" property="answerVal"/>
+  			<result column="checked" property="checked"/>
+  		</collection>
+  	</collection>
+  </resultMap>
+  <!-- 获取某一表的问题及答案，s及答案是否选中 -->
+  <select id="getQuestionsAndAnswersIsCheck" resultMap="getQuestionsAndAnswersIsCheckMap"  parameterType="map">
+	select 
+		distinct
+		qsm.survey_id 		,
+		que.question_id 	,
+		que.question_text 	,
+	    ans.answer_id		,
+	    ans.answer_text 	,
+	    ans.answer_val		,
+		case 
+			when ssd.answer_id is not null then '1'
+	        else '0'
+		end 				as 		'checked'
+	from questions que
+	inner join question_survey_maps qsm on (que.question_id=qsm.question_id and  qsm.survey_id=#{surveyTableId})
+	inner join question_answer_maps qam on que.question_id=qam.question_id
+	inner join answers ans on ans.answer_id=qam.answer_id
+	inner join survey_scores ss 
+	on ( qsm.survey_id=ss.survey_table_id and  ss.assessment_id=#{assessmentId} )
+	inner join survey_score_details ssd 
+	on (
+		ans.answer_id=ssd.answer_id
+		and ssd.survey_score_id=ss.surey_score_id
+		and que.question_id= ssd.question_id
+	)
+	order by qsm.survey_id asc, que.question_id asc
+  </select>
+  
+  <resultMap type="map" id="getQuestionAndAnswersIsCheckTwoMap">
+  	<result column="question_crosswise_id" 		property="questionCrosswiseId"/>
+  	<result column="question_crosswise_name" 	property="questionCrosswiseName"/>
+  	<collection property="questions"	ofType="map" javaType="list">
+  		<result column="question_portrait_id" 	property="questionPortraitId"/>
+  		<result column="question_portrait_name" property="questionPortraitName"/>
+  		<result column="weight_value" 			property="weightVal"/>
+  		<collection property="answers" 	ofType="map" javaType="list">
+  			<result column="answer_id"   property="answerId"/>
+  			<result column="answer_text" property="answerText"/>
+  			<result column="answer_val"  property="answerVal"/>
+  			<result column="checked"     property="checked"/>
+  		</collection>
+  	</collection>
+  </resultMap>
+  
+  <!-- 查询二维表结构 答案及问题的数据 -->
+  <select id="getQuestionAndAnswersIsCheckTwo" resultMap="getQuestionAndAnswersIsCheckTwoMap" parameterType="map">
+	select 
+			qc.question_crosswise_id,
+		    qc.question_crosswise_name,
+			qu.question_portrait_id,
+			qu.question_portrait_name,
+			ans.answer_id,
+			ans.answer_text,
+			ans.answer_val,
+		    case 
+				when ssd.answer_id is not null then '1'
+		        else '0'
+			end  as  'checked',
+			quw.weight_value
+	from question_units qu
+		inner join question_unit_answer_maps quam on qu.question_portrait_id=quam.question_portrait_group
+		inner join question_crosswises qc 	on qu.question_crosswise_id=qc.question_crosswise_id
+		inner join answers ans 				on quam.answer_id=ans.answer_id
+		inner  join survey_scores ss 		on (ss.survey_table_id=qu.survey_table_id and ss.assessment_id= #{assessmentId})
+		inner  join survey_score_details ssd on (ss.surey_score_id=ssd.survey_score_id and ssd.answer_id=quam.answer_id)
+		left   join  question_unit_weights quw on (qu.question_portrait_id=quw.question_portrait_id)
+	where qc.survey_table_id=#{surveyTableId} and qc.question_crosswise_id=#{questionCrosswiseId}
+  </select>
+  
+  
+  
+  <!-- 查询某一个表中的 -->
+    <resultMap type="map" id="getQuestionAndAnswersIsCheckThreeMap">
+    	<result column="survey_table_id" property="surveyTableId"/>
+    	<result column="table_name"		 property="tableName"/>
+		   	<collection property="questionGroups" ofType="map" javaType="list">
+			  	<result column="question_crosswise_id" 		property="questionCrosswiseId"/>
+			  	<result column="question_crosswise_name" 	property="questionCrosswiseName"/>
+			  	<collection property="questions"	ofType="map" javaType="list">
+			  		<result column="question_portrait_id" 	property="questionPortraitId"/>
+			  		<result column="question_portrait_name" property="questionPortraitName"/>
+			  		<result column="weight_value" 			property="weightVal"/>
+			  		<collection property="answers" 	ofType="map" javaType="list">
+			  			<result column="answer_id"   property="answerId"/>
+			  			<result column="answer_text" property="answerText"/>
+			  			<result column="answer_val"  property="answerVal"/>
+			  			<result column="checked"     property="checked"/>
+			  		</collection>
+			  	</collection>
+		  	</collection>
+	</resultMap>
+  
+  <!-- 查询出某一个表的名称，及 所有问题，及问题答案  -->
+  <select id="getQuestionAndAnswersIsCheckThree" resultMap="getQuestionAndAnswersIsCheckThreeMap">
+	select
+		qc.survey_table_id,
+	    st.table_name,
+		qc.question_crosswise_id,
+	    qc.question_crosswise_name,
+		qu.question_portrait_id,
+		qu.question_portrait_name,
+		ans.answer_id,
+		ans.answer_text,
+		ans.answer_val,
+	    case 
+			when ssd.answer_id is not null then '1'
+	        else '0'
+		end  as  'checked',
+		quw.weight_value
+	from question_units qu
+	inner join question_unit_answer_maps quam on qu.question_portrait_id=quam.question_portrait_group
+	inner join question_crosswises qc 	on qu.question_crosswise_id=qc.question_crosswise_id
+	inner join survey_tables st 		on qc.survey_table_id=st.survey_table_id
+	inner join answers ans 				on quam.answer_id=ans.answer_id
+	inner  join survey_scores ss 		on (ss.survey_table_id=qu.survey_table_id and ss.assessment_id=#{assessmentId})
+	inner  join survey_score_details ssd on (ss.surey_score_id=ssd.survey_score_id and ssd.answer_id=quam.answer_id)
+	left   join  question_unit_weights quw on (qu.question_portrait_id=quw.question_portrait_id)
+	where qc.survey_table_id=#{surveyTableId}
+  </select>
+  
+</mapper>

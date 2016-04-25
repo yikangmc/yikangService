@@ -1,0 +1,160 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yikangyiliao.pension.dao.UserConfigrationMapper">
+  <resultMap id="BaseResultMap" type="com.yikangyiliao.pension.entity.UserConfigration">
+    <id column="user_configrations_id" jdbcType="BIGINT" property="userConfigrationsId" />
+    <result column="user_id" jdbcType="BIGINT" property="userId" />
+    <result column="system_alert" jdbcType="TINYINT" property="systemAlert" />
+    <result column="dynamic_alert" jdbcType="TINYINT" property="dynamicAlert" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    user_configrations_id, user_id, system_alert, dynamic_alert
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from user_configrations
+    where user_configrations_id = #{userConfigrationsId,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from user_configrations
+    where user_configrations_id = #{userConfigrationsId,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.yikangyiliao.pension.entity.UserConfigration">
+    insert into user_configrations (user_configrations_id, user_id, system_alert, 
+      dynamic_alert)
+    values (#{userConfigrationsId,jdbcType=BIGINT}, #{userId,jdbcType=BIGINT}, #{systemAlert,jdbcType=TINYINT}, 
+      #{dynamicAlert,jdbcType=TINYINT})
+  </insert>
+  <insert id="insertSelective" parameterType="com.yikangyiliao.pension.entity.UserConfigration">
+    insert into user_configrations
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="userConfigrationsId != null">
+        user_configrations_id,
+      </if>
+      <if test="userId != null">
+        user_id,
+      </if>
+      <if test="systemAlert != null">
+        system_alert,
+      </if>
+      <if test="dynamicAlert != null">
+        dynamic_alert,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="userConfigrationsId != null">
+        #{userConfigrationsId,jdbcType=BIGINT},
+      </if>
+      <if test="userId != null">
+        #{userId,jdbcType=BIGINT},
+      </if>
+      <if test="systemAlert != null">
+        #{systemAlert,jdbcType=TINYINT},
+      </if>
+      <if test="dynamicAlert != null">
+        #{dynamicAlert,jdbcType=TINYINT},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.yikangyiliao.pension.entity.UserConfigration">
+    update user_configrations
+    <set>
+      <if test="userId != null">
+        user_id = #{userId,jdbcType=BIGINT},
+      </if>
+      <if test="systemAlert != null">
+        system_alert = #{systemAlert,jdbcType=TINYINT},
+      </if>
+      <if test="dynamicAlert != null">
+        dynamic_alert = #{dynamicAlert,jdbcType=TINYINT},
+      </if>
+    </set>
+    where user_configrations_id = #{userConfigrationsId,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.yikangyiliao.pension.entity.UserConfigration">
+    update user_configrations
+    set user_id = #{userId,jdbcType=BIGINT},
+      system_alert = #{systemAlert,jdbcType=TINYINT},
+      dynamic_alert = #{dynamicAlert,jdbcType=TINYINT}
+    where user_configrations_id = #{userConfigrationsId,jdbcType=BIGINT}
+  </update>
+  <resultMap id="BaseResultMap" type="com.yikangyiliao.pension.entity.UserConfigration">
+    <id column="user_configrations_id" jdbcType="BIGINT" property="userConfigrationsId" />
+    <result column="user_id" jdbcType="BIGINT" property="userId" />
+    <result column="system_alert" jdbcType="TINYINT" property="systemAlert" />
+    <result column="dynamic_alert" jdbcType="TINYINT" property="dynamicAlert" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    user_configrations_id, user_id, system_alert, dynamic_alert
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from user_configrations
+    where user_configrations_id = #{userConfigrationsId,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from user_configrations
+    where user_configrations_id = #{userConfigrationsId,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.yikangyiliao.pension.entity.UserConfigration">
+    insert into user_configrations (user_configrations_id, user_id, system_alert, 
+      dynamic_alert)
+    values (#{userConfigrationsId,jdbcType=BIGINT}, #{userId,jdbcType=BIGINT}, #{systemAlert,jdbcType=TINYINT}, 
+      #{dynamicAlert,jdbcType=TINYINT})
+  </insert>
+  <insert id="insertSelective" parameterType="com.yikangyiliao.pension.entity.UserConfigration">
+    insert into user_configrations
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="userConfigrationsId != null">
+        user_configrations_id,
+      </if>
+      <if test="userId != null">
+        user_id,
+      </if>
+      <if test="systemAlert != null">
+        system_alert,
+      </if>
+      <if test="dynamicAlert != null">
+        dynamic_alert,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="userConfigrationsId != null">
+        #{userConfigrationsId,jdbcType=BIGINT},
+      </if>
+      <if test="userId != null">
+        #{userId,jdbcType=BIGINT},
+      </if>
+      <if test="systemAlert != null">
+        #{systemAlert,jdbcType=TINYINT},
+      </if>
+      <if test="dynamicAlert != null">
+        #{dynamicAlert,jdbcType=TINYINT},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.yikangyiliao.pension.entity.UserConfigration">
+    update user_configrations
+    <set>
+      <if test="userId != null">
+        user_id = #{userId,jdbcType=BIGINT},
+      </if>
+      <if test="systemAlert != null">
+        system_alert = #{systemAlert,jdbcType=TINYINT},
+      </if>
+      <if test="dynamicAlert != null">
+        dynamic_alert = #{dynamicAlert,jdbcType=TINYINT},
+      </if>
+    </set>
+    where user_configrations_id = #{userConfigrationsId,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.yikangyiliao.pension.entity.UserConfigration">
+    update user_configrations
+    set user_id = #{userId,jdbcType=BIGINT},
+      system_alert = #{systemAlert,jdbcType=TINYINT},
+      dynamic_alert = #{dynamicAlert,jdbcType=TINYINT}
+    where user_configrations_id = #{userConfigrationsId,jdbcType=BIGINT}
+  </update>
+</mapper>

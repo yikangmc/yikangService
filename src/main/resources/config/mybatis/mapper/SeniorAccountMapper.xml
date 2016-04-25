@@ -1,0 +1,327 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.yikangyiliao.pension.dao.SeniorAccountDao" >
+  <resultMap id="BaseResultMap" type="com.yikangyiliao.pension.entity.SeniorAccount" >
+    <id column="senior_id" property="seniorId" jdbcType="BIGINT" />
+    <result column="name" property="name" jdbcType="VARCHAR" />
+    <result column="sex" property="sex" jdbcType="TINYINT" />
+    <result column="birthday" property="birthday" jdbcType="BIGINT" />
+    <result column="birth_year" property="birthYear" jdbcType="INTEGER" />
+    <result column="card_number" property="cardNumber" jdbcType="VARCHAR" />
+    <result column="card_type" property="cardType" jdbcType="TINYINT" />
+    <result column="social_security" property="socialSecurity" jdbcType="VARCHAR" />
+    <result column="race" property="race" jdbcType="BIT" />
+    <result column="faith" property="faith" jdbcType="TINYINT" />
+    <result column="living_conditions" property="livingConditions" jdbcType="TINYINT" />
+    <result column="payment_type" property="paymentType" jdbcType="TINYINT" />
+    <result column="income_sources" property="incomeSources" jdbcType="TINYINT" />
+    <result column="phone_no" property="phoneNo" jdbcType="VARCHAR" />
+    <result column="profession" property="profession" jdbcType="VARCHAR" />
+    <result column="create_time" property="createTime" jdbcType="BIGINT" />
+    <result column="update_time" property="updateTime" jdbcType="BIGINT" />
+    <result column="create_user_id" property="createUserId" jdbcType="BIGINT" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    senior_id, name, sex, birthday, birth_year, card_number, card_type, social_security, 
+    race, faith, living_conditions, payment_type, income_sources, phone_no, profession, 
+    create_time, update_time, create_user_id
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from senior_account
+    where senior_id = #{seniorId,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from senior_account
+    where senior_id = #{seniorId,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.yikangyiliao.pension.entity.SeniorAccount" >
+    insert into senior_account (senior_id, name, sex, 
+      birthday, birth_year, card_number, 
+      card_type, social_security, race, 
+      faith, living_conditions, payment_type, 
+      income_sources, phone_no, profession, 
+      create_time, update_time, create_user_id
+      )
+    values (#{seniorId,jdbcType=BIGINT}, #{name,jdbcType=VARCHAR}, #{sex,jdbcType=TINYINT}, 
+      #{birthday,jdbcType=BIGINT}, #{birthYear,jdbcType=INTEGER}, #{cardNumber,jdbcType=VARCHAR}, 
+      #{cardType,jdbcType=TINYINT}, #{socialSecurity,jdbcType=VARCHAR}, #{race,jdbcType=BIT}, 
+      #{faith,jdbcType=TINYINT}, #{livingConditions,jdbcType=TINYINT}, #{paymentType,jdbcType=TINYINT}, 
+      #{incomeSources,jdbcType=TINYINT}, #{phoneNo,jdbcType=VARCHAR}, #{profession,jdbcType=VARCHAR}, 
+      #{createTime,jdbcType=BIGINT}, #{updateTime,jdbcType=BIGINT}, #{createUserId,jdbcType=BIGINT}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.yikangyiliao.pension.entity.SeniorAccount" >
+  	
+  	<selectKey resultType="long" order="AFTER" keyProperty="seniorId">
+	SELECT LAST_INSERT_ID()
+	</selectKey>
+  
+    insert into senior_account
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="seniorId != null" >
+        senior_id,
+      </if>
+      <if test="name != null" >
+        name,
+      </if>
+      <if test="sex != null" >
+        sex,
+      </if>
+      <if test="birthday != null" >
+        birthday,
+      </if>
+      <if test="birthYear != null" >
+        birth_year,
+      </if>
+      <if test="cardNumber != null" >
+        card_number,
+      </if>
+      <if test="cardType != null" >
+        card_type,
+      </if>
+      <if test="socialSecurity != null" >
+        social_security,
+      </if>
+      <if test="race != null" >
+        race,
+      </if>
+      <if test="faith != null" >
+        faith,
+      </if>
+      <if test="livingConditions != null" >
+        living_conditions,
+      </if>
+      <if test="paymentType != null" >
+        payment_type,
+      </if>
+      <if test="incomeSources != null" >
+        income_sources,
+      </if>
+      <if test="phoneNo != null" >
+        phone_no,
+      </if>
+      <if test="profession != null" >
+        profession,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+      <if test="updateTime != null" >
+        update_time,
+      </if>
+      <if test="createUserId != null" >
+        create_user_id,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="seniorId != null" >
+        #{seniorId,jdbcType=BIGINT},
+      </if>
+      <if test="name != null" >
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="sex != null" >
+        #{sex,jdbcType=TINYINT},
+      </if>
+      <if test="birthday != null" >
+        #{birthday,jdbcType=BIGINT},
+      </if>
+      <if test="birthYear != null" >
+        #{birthYear,jdbcType=INTEGER},
+      </if>
+      <if test="cardNumber != null" >
+        #{cardNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="cardType != null" >
+        #{cardType,jdbcType=TINYINT},
+      </if>
+      <if test="socialSecurity != null" >
+        #{socialSecurity,jdbcType=VARCHAR},
+      </if>
+      <if test="race != null" >
+        #{race,jdbcType=BIT},
+      </if>
+      <if test="faith != null" >
+        #{faith,jdbcType=TINYINT},
+      </if>
+      <if test="livingConditions != null" >
+        #{livingConditions,jdbcType=TINYINT},
+      </if>
+      <if test="paymentType != null" >
+        #{paymentType,jdbcType=TINYINT},
+      </if>
+      <if test="incomeSources != null" >
+        #{incomeSources,jdbcType=TINYINT},
+      </if>
+      <if test="phoneNo != null" >
+        #{phoneNo,jdbcType=VARCHAR},
+      </if>
+      <if test="profession != null" >
+        #{profession,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=BIGINT},
+      </if>
+      <if test="updateTime != null" >
+        #{updateTime,jdbcType=BIGINT},
+      </if>
+      <if test="createUserId != null" >
+        #{createUserId,jdbcType=BIGINT},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.yikangyiliao.pension.entity.SeniorAccount" >
+    update senior_account
+    <set >
+      <if test="name != null" >
+        name = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="sex != null" >
+        sex = #{sex,jdbcType=TINYINT},
+      </if>
+      <if test="birthday != null" >
+        birthday = #{birthday,jdbcType=BIGINT},
+      </if>
+      <if test="birthYear != null" >
+        birth_year = #{birthYear,jdbcType=INTEGER},
+      </if>
+      <if test="cardNumber != null" >
+        card_number = #{cardNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="cardType != null" >
+        card_type = #{cardType,jdbcType=TINYINT},
+      </if>
+      <if test="socialSecurity != null" >
+        social_security = #{socialSecurity,jdbcType=VARCHAR},
+      </if>
+      <if test="race != null" >
+        race = #{race,jdbcType=BIT},
+      </if>
+      <if test="faith != null" >
+        faith = #{faith,jdbcType=TINYINT},
+      </if>
+      <if test="livingConditions != null" >
+        living_conditions = #{livingConditions,jdbcType=TINYINT},
+      </if>
+      <if test="paymentType != null" >
+        payment_type = #{paymentType,jdbcType=TINYINT},
+      </if>
+      <if test="incomeSources != null" >
+        income_sources = #{incomeSources,jdbcType=TINYINT},
+      </if>
+      <if test="phoneNo != null" >
+        phone_no = #{phoneNo,jdbcType=VARCHAR},
+      </if>
+      <if test="profession != null" >
+        profession = #{profession,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=BIGINT},
+      </if>
+      <if test="updateTime != null" >
+        update_time = #{updateTime,jdbcType=BIGINT},
+      </if>
+      <if test="createUserId != null" >
+        create_user_id = #{createUserId,jdbcType=BIGINT},
+      </if>
+    </set>
+    where senior_id = #{seniorId,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.yikangyiliao.pension.entity.SeniorAccount" >
+    update senior_account
+    set name = #{name,jdbcType=VARCHAR},
+      sex = #{sex,jdbcType=TINYINT},
+      birthday = #{birthday,jdbcType=BIGINT},
+      birth_year = #{birthYear,jdbcType=INTEGER},
+      card_number = #{cardNumber,jdbcType=VARCHAR},
+      card_type = #{cardType,jdbcType=TINYINT},
+      social_security = #{socialSecurity,jdbcType=VARCHAR},
+      race = #{race,jdbcType=BIT},
+      faith = #{faith,jdbcType=TINYINT},
+      living_conditions = #{livingConditions,jdbcType=TINYINT},
+      payment_type = #{paymentType,jdbcType=TINYINT},
+      income_sources = #{incomeSources,jdbcType=TINYINT},
+      phone_no = #{phoneNo,jdbcType=VARCHAR},
+      profession = #{profession,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=BIGINT},
+      update_time = #{updateTime,jdbcType=BIGINT},
+      create_user_id = #{createUserId,jdbcType=BIGINT}
+    where senior_id = #{seniorId,jdbcType=BIGINT}
+  </update>
+  
+<!--   查询某一个用户下的所有的老人信息 -->
+  <select id="getSeniorAccountByUserId" parameterType="long" resultMap="BaseResultMap">
+<!--   	select senior_id,name from senior_account -->
+<!--   	<where> -->
+<!--   		<if test="null != userId"> -->
+<!--   			create_user_id=#{userId} -->
+<!--   		</if> -->
+<!--   	</where> -->
+<!--   	order by create_time desc -->
+	
+	select  
+		sa.senior_id,sa.name 
+	from appointment_orders ao inner join order_service_details osd 
+	on (ao.appointment_order_id=osd.order_id and service_user_id=#{userId} )
+	inner join senior_account sa on ao.senior_id=sa.senior_id
+	order by sa.create_time desc
+	
+  </select>
+  
+  
+  
+  
+  <!-- 获取患者根据创建人 -->
+  <select id="getSeniorAccountByCreateUserId" parameterType="long" resultMap="BaseResultMap">
+  	select senior_id,name from senior_account
+  	<where>
+  		<if test="null != userId">
+  			create_user_id=#{userId}
+  		</if>
+  	</where>
+  	order by create_time desc
+  </select>
+  
+  <!-- 根据邀请人的id 查询 出被邀请患者的信息  -->
+  <select id="getSeniorAccountInfoByInvitationUserId" parameterType="map" resultType="map">
+  	select 
+  		distinct
+	   	users.user_name as name, 
+		sa.sex 			as sex, 
+		sa.birth_year	as birthYear, 
+			case 
+				when sa.name is null then null 
+			    else ''
+			end 		as photoUrl, 
+			case 
+				when sa.name is null then null 
+			    else uf.user_status
+			end 		as userStatus,
+		 users.create_time as createTime,
+ 		 sa.senior_id  as seniorId,
+ 		 uf.user_id    as userId
+	from users
+	inner join user_froms uf 			on users.user_id=uf.user_id
+	left  join appointment_orders ao	on users.user_id=ao.create_user_id
+	left  join senior_account sa 		on ao.senior_id=sa.senior_id
+	inner join users servicerUser		on uf.invitation_code=servicerUser.invitation_code
+	where
+		servicerUser.user_id=#{userId}
+	<if test=" userStatus == 0 or  userStatus == 1">
+			and  uf.user_status=#{userStatus}
+	</if>
+  </select>
+  
+  
+  <!--获取患者列表  -->
+  <select id="getSeniorAccountListPage" parameterType="map" resultMap="BaseResultMap">
+  
+	  select 
+	  	<include refid="Base_Column_List"></include>
+	  from senior_account
+  	
+  </select>
+  	
+</mapper>

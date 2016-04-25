@@ -1,0 +1,5 @@
+<interfaces>
+	<model id="0-0" name="testService" path="com.yikangyiliao.Test">
+		<interface id="0-0-1" serviceName="test" path="com.yikangyiliao.Test.sayHello"></interface>
+	</model>
+</interfaces>

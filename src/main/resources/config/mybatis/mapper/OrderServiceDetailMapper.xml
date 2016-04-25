@@ -1,0 +1,278 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.yikangyiliao.pension.dao.OrderServiceDetailDao" >
+ <resultMap id="BaseResultMap" type="com.yikangyiliao.pension.entity.OrderServiceDetail">
+    <id column="order_service_detail_id" jdbcType="BIGINT" property="orderServiceDetailId" />
+    <result column="service_user_id" jdbcType="BIGINT" property="serviceUserId" />
+    <result column="service_type" jdbcType="TINYINT" property="serviceType" />
+    <result column="service_date" jdbcType="TIMESTAMP" property="serviceDate" />
+    <result column="time_quantum_id" jdbcType="BIGINT" property="timeQuantumId" />
+    <result column="appointment_date" jdbcType="VARCHAR" property="appointmentDate" />
+    <result column="service_record" jdbcType="VARCHAR" property="serviceRecord" />
+    <result column="create_time" jdbcType="BIGINT" property="createTime" />
+    <result column="update_time" jdbcType="BIGINT" property="updateTime" />
+    <result column="service_detail_status" jdbcType="TINYINT" property="serviceDetailStatus" />
+    <result column="order_id" jdbcType="BIGINT" property="orderId" />
+    <result column="certain_service_user_status" jdbcType="TINYINT" property="certainServiceUserStatus" />
+    <result column="service_item_id" jdbcType="BIGINT" property="serviceItemId" />
+    <result column="feedback" jdbcType="VARCHAR" property="feedback" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    order_service_detail_id, service_user_id, service_type, service_date, time_quantum_id, 
+    appointment_date, service_record, create_time, update_time, service_detail_status, 
+    order_id, certain_service_user_status, service_item_id, feedback
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from order_service_details
+    where order_service_detail_id = #{orderServiceDetailId,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from order_service_details
+    where order_service_detail_id = #{orderServiceDetailId,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.yikangyiliao.pension.entity.OrderServiceDetail">
+    insert into order_service_details (order_service_detail_id, service_user_id, 
+      service_type, service_date, time_quantum_id, 
+      appointment_date, service_record, create_time, 
+      update_time, service_detail_status, order_id, 
+      certain_service_user_status, service_item_id, 
+      feedback)
+    values (#{orderServiceDetailId,jdbcType=BIGINT}, #{serviceUserId,jdbcType=BIGINT}, 
+      #{serviceType,jdbcType=TINYINT}, #{serviceDate,jdbcType=TIMESTAMP}, #{timeQuantumId,jdbcType=BIGINT}, 
+      #{appointmentDate,jdbcType=VARCHAR}, #{serviceRecord,jdbcType=VARCHAR}, #{createTime,jdbcType=BIGINT}, 
+      #{updateTime,jdbcType=BIGINT}, #{serviceDetailStatus,jdbcType=TINYINT}, #{orderId,jdbcType=BIGINT}, 
+      #{certainServiceUserStatus,jdbcType=TINYINT}, #{serviceItemId,jdbcType=BIGINT}, 
+      #{feedback,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.yikangyiliao.pension.entity.OrderServiceDetail">
+    insert into order_service_details
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="orderServiceDetailId != null">
+        order_service_detail_id,
+      </if>
+      <if test="serviceUserId != null">
+        service_user_id,
+      </if>
+      <if test="serviceType != null">
+        service_type,
+      </if>
+      <if test="serviceDate != null">
+        service_date,
+      </if>
+      <if test="timeQuantumId != null">
+        time_quantum_id,
+      </if>
+      <if test="appointmentDate != null">
+        appointment_date,
+      </if>
+      <if test="serviceRecord != null">
+        service_record,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="updateTime != null">
+        update_time,
+      </if>
+      <if test="serviceDetailStatus != null">
+        service_detail_status,
+      </if>
+      <if test="orderId != null">
+        order_id,
+      </if>
+      <if test="certainServiceUserStatus != null">
+        certain_service_user_status,
+      </if>
+      <if test="serviceItemId != null">
+        service_item_id,
+      </if>
+      <if test="feedback != null">
+        feedback,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="orderServiceDetailId != null">
+        #{orderServiceDetailId,jdbcType=BIGINT},
+      </if>
+      <if test="serviceUserId != null">
+        #{serviceUserId,jdbcType=BIGINT},
+      </if>
+      <if test="serviceType != null">
+        #{serviceType,jdbcType=TINYINT},
+      </if>
+      <if test="serviceDate != null">
+        #{serviceDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="timeQuantumId != null">
+        #{timeQuantumId,jdbcType=BIGINT},
+      </if>
+      <if test="appointmentDate != null">
+        #{appointmentDate,jdbcType=VARCHAR},
+      </if>
+      <if test="serviceRecord != null">
+        #{serviceRecord,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=BIGINT},
+      </if>
+      <if test="updateTime != null">
+        #{updateTime,jdbcType=BIGINT},
+      </if>
+      <if test="serviceDetailStatus != null">
+        #{serviceDetailStatus,jdbcType=TINYINT},
+      </if>
+      <if test="orderId != null">
+        #{orderId,jdbcType=BIGINT},
+      </if>
+      <if test="certainServiceUserStatus != null">
+        #{certainServiceUserStatus,jdbcType=TINYINT},
+      </if>
+      <if test="serviceItemId != null">
+        #{serviceItemId,jdbcType=BIGINT},
+      </if>
+      <if test="feedback != null">
+        #{feedback,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.yikangyiliao.pension.entity.OrderServiceDetail">
+    update order_service_details
+    <set>
+      <if test="serviceUserId != null">
+        service_user_id = #{serviceUserId,jdbcType=BIGINT},
+      </if>
+      <if test="serviceType != null">
+        service_type = #{serviceType,jdbcType=TINYINT},
+      </if>
+      <if test="serviceDate != null">
+        service_date = #{serviceDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="timeQuantumId != null">
+        time_quantum_id = #{timeQuantumId,jdbcType=BIGINT},
+      </if>
+      <if test="appointmentDate != null">
+        appointment_date = #{appointmentDate,jdbcType=VARCHAR},
+      </if>
+      <if test="serviceRecord != null">
+        service_record = #{serviceRecord,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=BIGINT},
+      </if>
+      <if test="updateTime != null">
+        update_time = #{updateTime,jdbcType=BIGINT},
+      </if>
+      <if test="serviceDetailStatus != null">
+        service_detail_status = #{serviceDetailStatus,jdbcType=TINYINT},
+      </if>
+      <if test="orderId != null">
+        order_id = #{orderId,jdbcType=BIGINT},
+      </if>
+      <if test="certainServiceUserStatus != null">
+        certain_service_user_status = #{certainServiceUserStatus,jdbcType=TINYINT},
+      </if>
+      <if test="serviceItemId != null">
+        service_item_id = #{serviceItemId,jdbcType=BIGINT},
+      </if>
+      <if test="feedback != null">
+        feedback = #{feedback,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where order_service_detail_id = #{orderServiceDetailId,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.yikangyiliao.pension.entity.OrderServiceDetail">
+    update order_service_details
+    set service_user_id = #{serviceUserId,jdbcType=BIGINT},
+      service_type = #{serviceType,jdbcType=TINYINT},
+      service_date = #{serviceDate,jdbcType=TIMESTAMP},
+      time_quantum_id = #{timeQuantumId,jdbcType=BIGINT},
+      appointment_date = #{appointmentDate,jdbcType=VARCHAR},
+      service_record = #{serviceRecord,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=BIGINT},
+      update_time = #{updateTime,jdbcType=BIGINT},
+      service_detail_status = #{serviceDetailStatus,jdbcType=TINYINT},
+      order_id = #{orderId,jdbcType=BIGINT},
+      certain_service_user_status = #{certainServiceUserStatus,jdbcType=TINYINT},
+      service_item_id = #{serviceItemId,jdbcType=BIGINT},
+      feedback = #{feedback,jdbcType=VARCHAR}
+    where order_service_detail_id = #{orderServiceDetailId,jdbcType=BIGINT}
+  </update>
+  
+  
+    <!-- 修改定单反馈，状态为反馈完成，已结束 -->
+  <update id="updateFeedbackDetailStatus5FeedBackByOrderServiceDetailIdAndServiceUserId"  parameterType="map">
+  	update order_service_details 
+	set feedback=#{feedback},service_detail_status=5  
+	where order_service_detail_id=#{orderServiceDetailId}
+		and service_user_id=#{serviceUserId}
+  </update>
+  
+  
+  <!-- 获取某一个定单的， 评估人员 -->
+  <select id="getEstimateOrderServiceDetailByOrderId" resultMap="BaseResultMap" parameterType="java.lang.Long">
+  	select 
+    	<include refid="Base_Column_List" />
+    from order_service_details
+    where order_id=#{orderId}
+    and service_type=0
+  </select>
+  
+    <!-- 查询某一个订单的服务人员 -->
+  <select id="getUserServiceInfoByOrderId" parameterType="long" resultType="map">
+  	select 
+  		usi.* 
+  	from order_service_details ssd 
+	inner join user_service_infos usi on ssd.service_user_id=usi.user_id
+	where ssd.order_id=#{orderId}
+  </select>
+  
+  
+  <!-- 查询的服务列表 -->
+  <select id="getMyServiceScheduleByUserIdServiceDetailId" parameterType="map" resultType="map">
+  	select 
+		sa.name, 
+	    1 as 'isRead',
+	    ao.address,
+	    osd.service_date,
+	    ao.appointment_order_id,
+	    osd.service_detail_status
+	from appointment_orders ao
+	inner join senior_account sa 
+	on ao.senior_id =sa.senior_id
+	inner join order_service_details osd
+	on osd.order_id=ao.appointment_order_id
+	where osd.order_service_detail_id=#{orderServiceDetailId}
+	and  osd.service_user_id=#{serviceUserId}
+  </select>
+  
+  
+  <!-- 查询某一个订单的详情， 根据 orderServiceId 和 userId  -->
+  <select id="getOrderServiceDetailByOrderServiceDetailIdAndUserId"  parameterType="map" resultType="map">
+  	select
+		osd.time_quantum_id			as timeQuantumId,
+		sa.sex,
+		ao.phone_number 			as phoneNumber,
+		osd.service_detail_status 	as serviceDetailStatus,
+		osd.order_service_detail_id as orderServiceDetailId,
+		ctq.start_time 				as startTime,
+		ctq.end_time 				as endTime,
+      	ao.address					as address,
+        ao.map_postion_address		as mapPositionAddress,
+        ao.detail_address			as detailAddress,
+        sa.birth_year				as birthYear,
+        ao.my_phone_number			as myPhoneNumber,
+        osd.feedback				as feedback,
+        ''							as conclusion,
+        date_format(osd.service_date,'%Y-%m-%d') as serviceDate
+	from order_service_details osd 
+	inner join appointment_orders ao on osd.order_id=ao.appointment_order_id
+	inner join senior_account sa on  ao.senior_id=sa.senior_id
+	inner join custumer_time_quantums ctq on osd.time_quantum_id = ctq.custumer_time_quantum_id
+	where 
+	 osd.order_service_detail_id=#{orderServiceDetailId}
+	 and osd.service_user_id=#{serviceUserId}
+  </select>
+  
+</mapper>

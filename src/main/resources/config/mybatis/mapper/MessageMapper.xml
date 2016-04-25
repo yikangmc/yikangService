@@ -1,0 +1,164 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.yikangyiliao.pension.dao.MessageMapper" >
+  <resultMap id="BaseResultMap" type="com.yikangyiliao.pension.entity.Message" >
+    <id column="messages_id" property="messagesId" jdbcType="BIGINT" />
+    <result column="title" property="title" jdbcType="VARCHAR" />
+    <result column="content" property="content" jdbcType="VARCHAR" />
+    <result column="from_user_id" property="fromUserId" jdbcType="BIGINT" />
+    <result column="to_user_id" property="toUserId" jdbcType="BIGINT" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="create_time_ millisecond" property="createTimeMillisecond" jdbcType="BIGINT" />
+    <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+    <result column="is_read" property="isRead" jdbcType="TINYINT" />
+    <result column="message_group" property="messageGroup" jdbcType="TINYINT" />
+    <result column="content_group" property="contentGroup" jdbcType="TINYINT" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    messages_id, title, content, from_user_id, to_user_id, create_time, "create_time_ millisecond", 
+    update_time, is_read, message_group, content_group
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from messages
+    where messages_id = #{messagesId,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from messages
+    where messages_id = #{messagesId,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.yikangyiliao.pension.entity.Message" >
+    insert into messages (messages_id, title, content, 
+      from_user_id, to_user_id, create_time, 
+      "create_time_ millisecond", update_time, is_read, 
+      message_group, content_group)
+    values (#{messagesId,jdbcType=BIGINT}, #{title,jdbcType=VARCHAR}, #{content,jdbcType=VARCHAR}, 
+      #{fromUserId,jdbcType=BIGINT}, #{toUserId,jdbcType=BIGINT}, #{createTime,jdbcType=TIMESTAMP}, 
+      #{createTimeMillisecond,jdbcType=BIGINT}, #{updateTime,jdbcType=TIMESTAMP}, #{isRead,jdbcType=TINYINT}, 
+      #{messageGroup,jdbcType=TINYINT}, #{contentGroup,jdbcType=TINYINT})
+  </insert>
+  <insert id="insertSelective" parameterType="com.yikangyiliao.pension.entity.Message" >
+    insert into messages
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="messagesId != null" >
+        messages_id,
+      </if>
+      <if test="title != null" >
+        title,
+      </if>
+      <if test="content != null" >
+        content,
+      </if>
+      <if test="fromUserId != null" >
+        from_user_id,
+      </if>
+      <if test="toUserId != null" >
+        to_user_id,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+      <if test="createTimeMillisecond != null" >
+        "create_time_ millisecond",
+      </if>
+      <if test="updateTime != null" >
+        update_time,
+      </if>
+      <if test="isRead != null" >
+        is_read,
+      </if>
+      <if test="messageGroup != null" >
+        message_group,
+      </if>
+      <if test="contentGroup != null" >
+        content_group,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="messagesId != null" >
+        #{messagesId,jdbcType=BIGINT},
+      </if>
+      <if test="title != null" >
+        #{title,jdbcType=VARCHAR},
+      </if>
+      <if test="content != null" >
+        #{content,jdbcType=VARCHAR},
+      </if>
+      <if test="fromUserId != null" >
+        #{fromUserId,jdbcType=BIGINT},
+      </if>
+      <if test="toUserId != null" >
+        #{toUserId,jdbcType=BIGINT},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createTimeMillisecond != null" >
+        #{createTimeMillisecond,jdbcType=BIGINT},
+      </if>
+      <if test="updateTime != null" >
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="isRead != null" >
+        #{isRead,jdbcType=TINYINT},
+      </if>
+      <if test="messageGroup != null" >
+        #{messageGroup,jdbcType=TINYINT},
+      </if>
+      <if test="contentGroup != null" >
+        #{contentGroup,jdbcType=TINYINT},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.yikangyiliao.pension.entity.Message" >
+    update messages
+    <set >
+      <if test="title != null" >
+        title = #{title,jdbcType=VARCHAR},
+      </if>
+      <if test="content != null" >
+        content = #{content,jdbcType=VARCHAR},
+      </if>
+      <if test="fromUserId != null" >
+        from_user_id = #{fromUserId,jdbcType=BIGINT},
+      </if>
+      <if test="toUserId != null" >
+        to_user_id = #{toUserId,jdbcType=BIGINT},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createTimeMillisecond != null" >
+        "create_time_ millisecond" = #{createTimeMillisecond,jdbcType=BIGINT},
+      </if>
+      <if test="updateTime != null" >
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="isRead != null" >
+        is_read = #{isRead,jdbcType=TINYINT},
+      </if>
+      <if test="messageGroup != null" >
+        message_group = #{messageGroup,jdbcType=TINYINT},
+      </if>
+      <if test="contentGroup != null" >
+        content_group = #{contentGroup,jdbcType=TINYINT},
+      </if>
+    </set>
+    where messages_id = #{messagesId,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.yikangyiliao.pension.entity.Message" >
+    update messages
+    set title = #{title,jdbcType=VARCHAR},
+      content = #{content,jdbcType=VARCHAR},
+      from_user_id = #{fromUserId,jdbcType=BIGINT},
+      to_user_id = #{toUserId,jdbcType=BIGINT},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      "create_time_ millisecond" = #{createTimeMillisecond,jdbcType=BIGINT},
+      update_time = #{updateTime,jdbcType=TIMESTAMP},
+      is_read = #{isRead,jdbcType=TINYINT},
+      message_group = #{messageGroup,jdbcType=TINYINT},
+      content_group = #{contentGroup,jdbcType=TINYINT}
+    where messages_id = #{messagesId,jdbcType=BIGINT}
+  </update>
+</mapper>

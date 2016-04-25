@@ -1,0 +1,168 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.yikangyiliao.pension.dao.ServiceScheduleDetailDao" >
+
+  <resultMap id="BaseResultMap" type="com.yikangyiliao.pension.entity.ServiceScheduleDetail" >
+    <id column="service_schedule_detail_id" property="serviceScheduleDetailId" jdbcType="BIGINT" />
+    <result column="service_schedule_id" property="serviceScheduleId" jdbcType="BIGINT" />
+    <result column="time_quantum_id" property="timeQuantumId" jdbcType="BIGINT" />
+    <result column="create_time" property="createTime" jdbcType="BIGINT" />
+    <result column="update_time" property="updateTime" jdbcType="BIGINT" />
+    <result column="create_user_id" property="createUserId" jdbcType="BIGINT" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    service_schedule_detail_id, service_schedule_id, time_quantum_id, create_time, update_time, 
+    create_user_id
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from service_schedule_details
+    where service_schedule_detail_id = #{serviceScheduleDetailId,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from service_schedule_details
+    where service_schedule_detail_id = #{serviceScheduleDetailId,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.yikangyiliao.pension.entity.ServiceScheduleDetail" >
+    insert into service_schedule_details (service_schedule_detail_id, service_schedule_id, 
+      time_quantum_id, create_time, update_time, 
+      create_user_id)
+    values (#{serviceScheduleDetailId,jdbcType=BIGINT}, #{serviceScheduleId,jdbcType=BIGINT}, 
+      #{timeQuantumId,jdbcType=BIGINT}, #{createTime,jdbcType=BIGINT}, #{updateTime,jdbcType=BIGINT}, 
+      #{createUserId,jdbcType=BIGINT})
+  </insert>
+  <insert id="insertSelective" parameterType="com.yikangyiliao.pension.entity.ServiceScheduleDetail" >
+    insert into service_schedule_details
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="serviceScheduleDetailId != null" >
+        service_schedule_detail_id,
+      </if>
+      <if test="serviceScheduleId != null" >
+        service_schedule_id,
+      </if>
+      <if test="timeQuantumId != null" >
+        time_quantum_id,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+      <if test="updateTime != null" >
+        update_time,
+      </if>
+      <if test="createUserId != null" >
+        create_user_id,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="serviceScheduleDetailId != null" >
+        #{serviceScheduleDetailId,jdbcType=BIGINT},
+      </if>
+      <if test="serviceScheduleId != null" >
+        #{serviceScheduleId,jdbcType=BIGINT},
+      </if>
+      <if test="timeQuantumId != null" >
+        #{timeQuantumId,jdbcType=BIGINT},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=BIGINT},
+      </if>
+      <if test="updateTime != null" >
+        #{updateTime,jdbcType=BIGINT},
+      </if>
+      <if test="createUserId != null" >
+        #{createUserId,jdbcType=BIGINT},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.yikangyiliao.pension.entity.ServiceScheduleDetail" >
+    update service_schedule_details
+    <set >
+      <if test="serviceScheduleId != null" >
+        service_schedule_id = #{serviceScheduleId,jdbcType=BIGINT},
+      </if>
+      <if test="timeQuantumId != null" >
+        time_quantum_id = #{timeQuantumId,jdbcType=BIGINT},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=BIGINT},
+      </if>
+      <if test="updateTime != null" >
+        update_time = #{updateTime,jdbcType=BIGINT},
+      </if>
+      <if test="createUserId != null" >
+        create_user_id = #{createUserId,jdbcType=BIGINT},
+      </if>
+    </set>
+    where service_schedule_detail_id = #{serviceScheduleDetailId,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.yikangyiliao.pension.entity.ServiceScheduleDetail" >
+    update service_schedule_details
+    set service_schedule_id = #{serviceScheduleId,jdbcType=BIGINT},
+      time_quantum_id = #{timeQuantumId,jdbcType=BIGINT},
+      create_time = #{createTime,jdbcType=BIGINT},
+      update_time = #{updateTime,jdbcType=BIGINT},
+      create_user_id = #{createUserId,jdbcType=BIGINT}
+    where service_schedule_detail_id = #{serviceScheduleDetailId,jdbcType=BIGINT}
+  </update>
+  
+  
+  <!--查询某个人员某一天的可工作时间  -->
+   <select id="getServiceScheduleDetailByServiceScheduleId" parameterType="long" resultType="map">
+  	select 
+	ssd.service_schedule_detail_id 	as serviceScheduleDetailId,
+	ssd.service_schedule_id 		as serviceScheduleDetailId,
+	ssd.time_quantum_id 			as serviceScheduleDetailId,
+	tq.start_time 					as startTime,
+	tq.end_time 					as endTime,
+	case 
+		when ssd.time_quantum_id=tq.time_quantum_id then 1
+	    else 0
+	end  as 'isChecked'
+	from service_schedule_details ssd right join  time_quantums tq on ssd.time_quantum_id=tq.time_quantum_id
+	where ssd.service_schedule_id=#{serviceScheduleId}
+  </select>
+  
+  
+    <!--查询某个人员某一天的可工作时间  -->
+  <select id="getServiceScheduleDetailByUserIdAndSelectDate" resultType="map" parameterType="map">
+<!--   	  	select  -->
+<!-- 		ssd.service_schedule_detail_id 	as serviceScheduleDetailId, -->
+<!-- 		ssd.service_schedule_id 		as serviceScheduleDetailId, -->
+<!-- 		ssd.time_quantum_id 			as timeQuantunId, -->
+<!-- 		tq.start_time 					as startTime, -->
+<!-- 		tq.end_time 					as endTime, -->
+<!-- 		case  -->
+<!-- 			when ssd.time_quantum_id=tq.time_quantum_id then 1 -->
+<!-- 		    else 0 -->
+<!-- 		end  as 'isChecked' -->
+<!-- 		 from service_schedule_details ssd right join  -->
+<!-- 		time_quantums tq on ssd.time_quantum_id=tq.time_quantum_id -->
+<!-- 		left join service_schedules ss on ssd.service_schedule_id=ss.service_schedule_id  -->
+<!-- 		where  ss.service_date=#{serviceDate} -->
+<!--  			and ss.service_user_id =#{userId} -->
+ 			
+ 			
+ 			select 
+				ssds.service_schedule_detail_id 	as serviceScheduleDetailId,
+				ssds.service_schedule_id 		as serviceScheduleId, 
+				ssds.time_quantum_id 			as timeQuantunId,
+				tq.start_time as startTime, tq.end_time as endTime,
+				 case when ssds.time_quantum_id=tq.time_quantum_id 
+					then 1 else 0 end 
+				 as 'isChecked',
+				tq.time_quantum_id  as timeQuantumId
+			from  time_quantums tq
+			left join(
+				select 
+			    ssd.service_schedule_detail_id,
+			    ssd.service_schedule_id,
+			    ssd.time_quantum_id from service_schedules ss inner join service_schedule_details ssd
+				on  ssd.service_schedule_id=ss.service_schedule_id 
+			    where ss.service_date=#{serviceDate} and ss.service_user_id =#{userId}
+			 ) as ssds on ssds.time_quantum_id=tq.time_quantum_id
+			
+  </select>
+  
+  
+</mapper>

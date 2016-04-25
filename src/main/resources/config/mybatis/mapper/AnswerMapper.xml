@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.yikangyiliao.pension.dao.AnswerDao" >
+  <resultMap id="BaseResultMap" type="com.yikangyiliao.pension.entity.Answer" >
+    <id column="answer_id" property="answerId" jdbcType="BIGINT" />
+    <result column="answer_text" property="answerText" jdbcType="VARCHAR" />
+    <result column="answer_val" property="answerVal" jdbcType="INTEGER" />
+    <result column="create_time" property="createTime" jdbcType="BIGINT" />
+    <result column="update_time" property="updateTime" jdbcType="BIGINT" />
+    <result column="create_user_id" property="createUserId" jdbcType="BIGINT" />
+    <result column="answers_data_source" property="answersDataSource" jdbcType="TINYINT" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    answer_id, answer_text, answer_val, create_time, update_time, create_user_id, answers_data_source
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from answers
+    where answer_id = #{answerId,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from answers
+    where answer_id = #{answerId,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.yikangyiliao.pension.entity.Answer" >
+    insert into answers (answer_id, answer_text, answer_val, 
+      create_time, update_time, create_user_id, 
+      answers_data_source)
+    values (#{answerId,jdbcType=BIGINT}, #{answerText,jdbcType=VARCHAR}, #{answerVal,jdbcType=INTEGER}, 
+      #{createTime,jdbcType=BIGINT}, #{updateTime,jdbcType=BIGINT}, #{createUserId,jdbcType=BIGINT}, 
+      #{answersDataSource,jdbcType=TINYINT})
+  </insert>
+  <insert id="insertSelective" parameterType="com.yikangyiliao.pension.entity.Answer" >
+    insert into answers
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="answerId != null" >
+        answer_id,
+      </if>
+      <if test="answerText != null" >
+        answer_text,
+      </if>
+      <if test="answerVal != null" >
+        answer_val,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+      <if test="updateTime != null" >
+        update_time,
+      </if>
+      <if test="createUserId != null" >
+        create_user_id,
+      </if>
+      <if test="answersDataSource != null" >
+        answers_data_source,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="answerId != null" >
+        #{answerId,jdbcType=BIGINT},
+      </if>
+      <if test="answerText != null" >
+        #{answerText,jdbcType=VARCHAR},
+      </if>
+      <if test="answerVal != null" >
+        #{answerVal,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=BIGINT},
+      </if>
+      <if test="updateTime != null" >
+        #{updateTime,jdbcType=BIGINT},
+      </if>
+      <if test="createUserId != null" >
+        #{createUserId,jdbcType=BIGINT},
+      </if>
+      <if test="answersDataSource != null" >
+        #{answersDataSource,jdbcType=TINYINT},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.yikangyiliao.pension.entity.Answer" >
+    update answers
+    <set >
+      <if test="answerText != null" >
+        answer_text = #{answerText,jdbcType=VARCHAR},
+      </if>
+      <if test="answerVal != null" >
+        answer_val = #{answerVal,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=BIGINT},
+      </if>
+      <if test="updateTime != null" >
+        update_time = #{updateTime,jdbcType=BIGINT},
+      </if>
+      <if test="createUserId != null" >
+        create_user_id = #{createUserId,jdbcType=BIGINT},
+      </if>
+      <if test="answersDataSource != null" >
+        answers_data_source = #{answersDataSource,jdbcType=TINYINT},
+      </if>
+    </set>
+    where answer_id = #{answerId,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.yikangyiliao.pension.entity.Answer" >
+    update answers
+    set answer_text = #{answerText,jdbcType=VARCHAR},
+      answer_val = #{answerVal,jdbcType=INTEGER},
+      create_time = #{createTime,jdbcType=BIGINT},
+      update_time = #{updateTime,jdbcType=BIGINT},
+      create_user_id = #{createUserId,jdbcType=BIGINT},
+      answers_data_source = #{answersDataSource,jdbcType=TINYINT}
+    where answer_id = #{answerId,jdbcType=BIGINT}
+  </update>
+</mapper>

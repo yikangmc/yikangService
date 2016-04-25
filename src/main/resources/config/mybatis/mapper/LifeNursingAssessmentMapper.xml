@@ -1,0 +1,320 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.yikangyiliao.pension.dao.LifeNursingAssessmentDao" >
+  <resultMap id="BaseResultMap" type="com.yikangyiliao.pension.entity.LifeNursingAssessment" >
+    <id column="life_nursing_id" property="lifeNursingId" jdbcType="BIGINT" />
+    <result column="assessment_id" property="assessmentId" jdbcType="BIGINT" />
+    <result column="senior_id" property="seniorId" jdbcType="BIGINT" />
+    <result column="hearing_state" property="hearingState" jdbcType="BIT" />
+    <result column="vision_state" property="visionState" jdbcType="BIT" />
+    <result column="laying_state" property="layingState" jdbcType="BIT" />
+    <result column="memory_state" property="memoryState" jdbcType="BIT" />
+    <result column="behavior_state" property="behaviorState" jdbcType="BIT" />
+    <result column="communication_state" property="communicationState" jdbcType="BIT" />
+    <result column="social_state" property="socialState" jdbcType="BIT" />
+    <result column="medication_state" property="medicationState" jdbcType="BIT" />
+    <result column="diet_state" property="dietState" jdbcType="BIT" />
+    <result column="wearing_state" property="wearingState" jdbcType="BIT" />
+    <result column="defecation_urination" property="defecationUrination" jdbcType="BIT" />
+    <result column="movement_state" property="movementState" jdbcType="BIT" />
+    <result column="consciousness_state" property="consciousnessState" jdbcType="BIT" />
+    <result column="psychology_state" property="psychologyState" jdbcType="BIT" />
+    <result column="social_relations" property="socialRelations" jdbcType="BIT" />
+    <result column="affairs_handling" property="affairsHandling" jdbcType="BIT" />
+    <result column="create_time" property="createTime" jdbcType="BIGINT" />
+    <result column="update_time" property="updateTime" jdbcType="BIGINT" />
+    <result column="appraisers_id" property="appraisersId" jdbcType="BIGINT" />
+    <result column="appraisers_name" property="appraisersName" jdbcType="VARCHAR" />
+    <result column="is_delete" property="isDelete" jdbcType="BIT" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    life_nursing_id, assessment_id, senior_id, hearing_state, vision_state, laying_state, 
+    memory_state, behavior_state, communication_state, social_state, medication_state, 
+    diet_state, wearing_state, defecation_urination, movement_state, consciousness_state, 
+    psychology_state, social_relations, affairs_handling, create_time, update_time, appraisers_id, 
+    appraisers_name, is_delete
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from life_nursing_assessments
+    where life_nursing_id = #{lifeNursingId,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from life_nursing_assessments
+    where life_nursing_id = #{lifeNursingId,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.yikangyiliao.pension.entity.LifeNursingAssessment" >
+    insert into life_nursing_assessments (life_nursing_id, assessment_id, senior_id, 
+      hearing_state, vision_state, laying_state, 
+      memory_state, behavior_state, communication_state, 
+      social_state, medication_state, diet_state, 
+      wearing_state, defecation_urination, movement_state, 
+      consciousness_state, psychology_state, social_relations, 
+      affairs_handling, create_time, update_time, 
+      appraisers_id, appraisers_name, is_delete
+      )
+    values (#{lifeNursingId,jdbcType=BIGINT}, #{assessmentId,jdbcType=BIGINT}, #{seniorId,jdbcType=BIGINT}, 
+      #{hearingState,jdbcType=BIT}, #{visionState,jdbcType=BIT}, #{layingState,jdbcType=BIT}, 
+      #{memoryState,jdbcType=BIT}, #{behaviorState,jdbcType=BIT}, #{communicationState,jdbcType=BIT}, 
+      #{socialState,jdbcType=BIT}, #{medicationState,jdbcType=BIT}, #{dietState,jdbcType=BIT}, 
+      #{wearingState,jdbcType=BIT}, #{defecationUrination,jdbcType=BIT}, #{movementState,jdbcType=BIT}, 
+      #{consciousnessState,jdbcType=BIT}, #{psychologyState,jdbcType=BIT}, #{socialRelations,jdbcType=BIT}, 
+      #{affairsHandling,jdbcType=BIT}, #{createTime,jdbcType=BIGINT}, #{updateTime,jdbcType=BIGINT}, 
+      #{appraisersId,jdbcType=BIGINT}, #{appraisersName,jdbcType=VARCHAR}, #{isDelete,jdbcType=BIT}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.yikangyiliao.pension.entity.LifeNursingAssessment" >
+    insert into life_nursing_assessments
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="lifeNursingId != null" >
+        life_nursing_id,
+      </if>
+      <if test="assessmentId != null" >
+        assessment_id,
+      </if>
+      <if test="seniorId != null" >
+        senior_id,
+      </if>
+      <if test="hearingState != null" >
+        hearing_state,
+      </if>
+      <if test="visionState != null" >
+        vision_state,
+      </if>
+      <if test="layingState != null" >
+        laying_state,
+      </if>
+      <if test="memoryState != null" >
+        memory_state,
+      </if>
+      <if test="behaviorState != null" >
+        behavior_state,
+      </if>
+      <if test="communicationState != null" >
+        communication_state,
+      </if>
+      <if test="socialState != null" >
+        social_state,
+      </if>
+      <if test="medicationState != null" >
+        medication_state,
+      </if>
+      <if test="dietState != null" >
+        diet_state,
+      </if>
+      <if test="wearingState != null" >
+        wearing_state,
+      </if>
+      <if test="defecationUrination != null" >
+        defecation_urination,
+      </if>
+      <if test="movementState != null" >
+        movement_state,
+      </if>
+      <if test="consciousnessState != null" >
+        consciousness_state,
+      </if>
+      <if test="psychologyState != null" >
+        psychology_state,
+      </if>
+      <if test="socialRelations != null" >
+        social_relations,
+      </if>
+      <if test="affairsHandling != null" >
+        affairs_handling,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+      <if test="updateTime != null" >
+        update_time,
+      </if>
+      <if test="appraisersId != null" >
+        appraisers_id,
+      </if>
+      <if test="appraisersName != null" >
+        appraisers_name,
+      </if>
+      <if test="isDelete != null" >
+        is_delete,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="lifeNursingId != null" >
+        #{lifeNursingId,jdbcType=BIGINT},
+      </if>
+      <if test="assessmentId != null" >
+        #{assessmentId,jdbcType=BIGINT},
+      </if>
+      <if test="seniorId != null" >
+        #{seniorId,jdbcType=BIGINT},
+      </if>
+      <if test="hearingState != null" >
+        #{hearingState,jdbcType=BIT},
+      </if>
+      <if test="visionState != null" >
+        #{visionState,jdbcType=BIT},
+      </if>
+      <if test="layingState != null" >
+        #{layingState,jdbcType=BIT},
+      </if>
+      <if test="memoryState != null" >
+        #{memoryState,jdbcType=BIT},
+      </if>
+      <if test="behaviorState != null" >
+        #{behaviorState,jdbcType=BIT},
+      </if>
+      <if test="communicationState != null" >
+        #{communicationState,jdbcType=BIT},
+      </if>
+      <if test="socialState != null" >
+        #{socialState,jdbcType=BIT},
+      </if>
+      <if test="medicationState != null" >
+        #{medicationState,jdbcType=BIT},
+      </if>
+      <if test="dietState != null" >
+        #{dietState,jdbcType=BIT},
+      </if>
+      <if test="wearingState != null" >
+        #{wearingState,jdbcType=BIT},
+      </if>
+      <if test="defecationUrination != null" >
+        #{defecationUrination,jdbcType=BIT},
+      </if>
+      <if test="movementState != null" >
+        #{movementState,jdbcType=BIT},
+      </if>
+      <if test="consciousnessState != null" >
+        #{consciousnessState,jdbcType=BIT},
+      </if>
+      <if test="psychologyState != null" >
+        #{psychologyState,jdbcType=BIT},
+      </if>
+      <if test="socialRelations != null" >
+        #{socialRelations,jdbcType=BIT},
+      </if>
+      <if test="affairsHandling != null" >
+        #{affairsHandling,jdbcType=BIT},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=BIGINT},
+      </if>
+      <if test="updateTime != null" >
+        #{updateTime,jdbcType=BIGINT},
+      </if>
+      <if test="appraisersId != null" >
+        #{appraisersId,jdbcType=BIGINT},
+      </if>
+      <if test="appraisersName != null" >
+        #{appraisersName,jdbcType=VARCHAR},
+      </if>
+      <if test="isDelete != null" >
+        #{isDelete,jdbcType=BIT},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.yikangyiliao.pension.entity.LifeNursingAssessment" >
+    update life_nursing_assessments
+    <set >
+      <if test="assessmentId != null" >
+        assessment_id = #{assessmentId,jdbcType=BIGINT},
+      </if>
+      <if test="seniorId != null" >
+        senior_id = #{seniorId,jdbcType=BIGINT},
+      </if>
+      <if test="hearingState != null" >
+        hearing_state = #{hearingState,jdbcType=BIT},
+      </if>
+      <if test="visionState != null" >
+        vision_state = #{visionState,jdbcType=BIT},
+      </if>
+      <if test="layingState != null" >
+        laying_state = #{layingState,jdbcType=BIT},
+      </if>
+      <if test="memoryState != null" >
+        memory_state = #{memoryState,jdbcType=BIT},
+      </if>
+      <if test="behaviorState != null" >
+        behavior_state = #{behaviorState,jdbcType=BIT},
+      </if>
+      <if test="communicationState != null" >
+        communication_state = #{communicationState,jdbcType=BIT},
+      </if>
+      <if test="socialState != null" >
+        social_state = #{socialState,jdbcType=BIT},
+      </if>
+      <if test="medicationState != null" >
+        medication_state = #{medicationState,jdbcType=BIT},
+      </if>
+      <if test="dietState != null" >
+        diet_state = #{dietState,jdbcType=BIT},
+      </if>
+      <if test="wearingState != null" >
+        wearing_state = #{wearingState,jdbcType=BIT},
+      </if>
+      <if test="defecationUrination != null" >
+        defecation_urination = #{defecationUrination,jdbcType=BIT},
+      </if>
+      <if test="movementState != null" >
+        movement_state = #{movementState,jdbcType=BIT},
+      </if>
+      <if test="consciousnessState != null" >
+        consciousness_state = #{consciousnessState,jdbcType=BIT},
+      </if>
+      <if test="psychologyState != null" >
+        psychology_state = #{psychologyState,jdbcType=BIT},
+      </if>
+      <if test="socialRelations != null" >
+        social_relations = #{socialRelations,jdbcType=BIT},
+      </if>
+      <if test="affairsHandling != null" >
+        affairs_handling = #{affairsHandling,jdbcType=BIT},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=BIGINT},
+      </if>
+      <if test="updateTime != null" >
+        update_time = #{updateTime,jdbcType=BIGINT},
+      </if>
+      <if test="appraisersId != null" >
+        appraisers_id = #{appraisersId,jdbcType=BIGINT},
+      </if>
+      <if test="appraisersName != null" >
+        appraisers_name = #{appraisersName,jdbcType=VARCHAR},
+      </if>
+      <if test="isDelete != null" >
+        is_delete = #{isDelete,jdbcType=BIT},
+      </if>
+    </set>
+    where life_nursing_id = #{lifeNursingId,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.yikangyiliao.pension.entity.LifeNursingAssessment" >
+    update life_nursing_assessments
+    set assessment_id = #{assessmentId,jdbcType=BIGINT},
+      senior_id = #{seniorId,jdbcType=BIGINT},
+      hearing_state = #{hearingState,jdbcType=BIT},
+      vision_state = #{visionState,jdbcType=BIT},
+      laying_state = #{layingState,jdbcType=BIT},
+      memory_state = #{memoryState,jdbcType=BIT},
+      behavior_state = #{behaviorState,jdbcType=BIT},
+      communication_state = #{communicationState,jdbcType=BIT},
+      social_state = #{socialState,jdbcType=BIT},
+      medication_state = #{medicationState,jdbcType=BIT},
+      diet_state = #{dietState,jdbcType=BIT},
+      wearing_state = #{wearingState,jdbcType=BIT},
+      defecation_urination = #{defecationUrination,jdbcType=BIT},
+      movement_state = #{movementState,jdbcType=BIT},
+      consciousness_state = #{consciousnessState,jdbcType=BIT},
+      psychology_state = #{psychologyState,jdbcType=BIT},
+      social_relations = #{socialRelations,jdbcType=BIT},
+      affairs_handling = #{affairsHandling,jdbcType=BIT},
+      create_time = #{createTime,jdbcType=BIGINT},
+      update_time = #{updateTime,jdbcType=BIGINT},
+      appraisers_id = #{appraisersId,jdbcType=BIGINT},
+      appraisers_name = #{appraisersName,jdbcType=VARCHAR},
+      is_delete = #{isDelete,jdbcType=BIT}
+    where life_nursing_id = #{lifeNursingId,jdbcType=BIGINT}
+  </update>
+</mapper>

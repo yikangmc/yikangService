@@ -1,0 +1,269 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.yikangyiliao.pension.dao.UserDao" >
+  <resultMap id="BaseResultMap" type="com.yikangyiliao.pension.entity.User" >
+    <id column="user_id" property="userId" jdbcType="BIGINT" />
+    <result column="user_name" property="userName" jdbcType="VARCHAR" />
+    <result column="login_name" property="loginName" jdbcType="VARCHAR" />
+    <result column="login_password" property="loginPassword" jdbcType="VARCHAR" />
+    <result column="salt" property="salt" jdbcType="VARCHAR" />
+    <result column="access_tiket" property="accessTiket" jdbcType="VARCHAR" />
+    <result column="create_time" property="createTime" jdbcType="BIGINT" />
+    <result column="login_time" property="loginTime" jdbcType="BIGINT" />
+    <result column="invitation_code" property="invitationCode" jdbcType="VARCHAR" />
+    <result column="push_alias" property="pushAlias" jdbcType="VARCHAR" />
+    <result column="info_write" property="infoWrite" jdbcType="TINYINT" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    user_id, user_name, login_name, login_password, salt, access_tiket, create_time, 
+    login_time, invitation_code, push_alias, info_write
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from users
+    where user_id = #{userId,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from users
+    where user_id = #{userId,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.yikangyiliao.pension.entity.User" >
+    <selectKey resultType="Long" keyProperty="userId" order="AFTER">
+		SELECT LAST_INSERT_ID()
+	</selectKey>
+    insert into users (user_id, user_name, login_name, 
+      login_password, salt, access_tiket, 
+      create_time, login_time, invitation_code, 
+      push_alias, info_write)
+    values (#{userId,jdbcType=BIGINT}, #{userName,jdbcType=VARCHAR}, #{loginName,jdbcType=VARCHAR}, 
+      #{loginPassword,jdbcType=VARCHAR}, #{salt,jdbcType=VARCHAR}, #{accessTiket,jdbcType=VARCHAR}, 
+      #{createTime,jdbcType=BIGINT}, #{loginTime,jdbcType=BIGINT}, #{invitationCode,jdbcType=VARCHAR}, 
+      #{pushAlias,jdbcType=VARCHAR}, #{infoWrite,jdbcType=TINYINT})
+  </insert>
+  <insert id="insertSelective" parameterType="com.yikangyiliao.pension.entity.User" >
+    <selectKey resultType="Long" keyProperty="userId" order="AFTER">
+		SELECT LAST_INSERT_ID()
+	</selectKey>
+    insert into users
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="userId != null" >
+        user_id,
+      </if>
+      <if test="userName != null" >
+        user_name,
+      </if>
+      <if test="loginName != null" >
+        login_name,
+      </if>
+      <if test="loginPassword != null" >
+        login_password,
+      </if>
+      <if test="salt != null" >
+        salt,
+      </if>
+      <if test="accessTiket != null" >
+        access_tiket,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+      <if test="loginTime != null" >
+        login_time,
+      </if>
+      <if test="invitationCode != null" >
+        invitation_code,
+      </if>
+      <if test="pushAlias != null" >
+        push_alias,
+      </if>
+      <if test="infoWrite != null" >
+        info_write,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="userId != null" >
+        #{userId,jdbcType=BIGINT},
+      </if>
+      <if test="userName != null" >
+        #{userName,jdbcType=VARCHAR},
+      </if>
+      <if test="loginName != null" >
+        #{loginName,jdbcType=VARCHAR},
+      </if>
+      <if test="loginPassword != null" >
+        #{loginPassword,jdbcType=VARCHAR},
+      </if>
+      <if test="salt != null" >
+        #{salt,jdbcType=VARCHAR},
+      </if>
+      <if test="accessTiket != null" >
+        #{accessTiket,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=BIGINT},
+      </if>
+      <if test="loginTime != null" >
+        #{loginTime,jdbcType=BIGINT},
+      </if>
+      <if test="invitationCode != null" >
+        #{invitationCode,jdbcType=VARCHAR},
+      </if>
+      <if test="pushAlias != null" >
+        #{pushAlias,jdbcType=VARCHAR},
+      </if>
+      <if test="infoWrite != null" >
+        #{infoWrite,jdbcType=TINYINT},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.yikangyiliao.pension.entity.User" >
+    update users
+    <set >
+      <if test="userName != null" >
+        user_name = #{userName,jdbcType=VARCHAR},
+      </if>
+      <if test="loginName != null" >
+        login_name = #{loginName,jdbcType=VARCHAR},
+      </if>
+      <if test="loginPassword != null" >
+        login_password = #{loginPassword,jdbcType=VARCHAR},
+      </if>
+      <if test="salt != null" >
+        salt = #{salt,jdbcType=VARCHAR},
+      </if>
+      <if test="accessTiket != null" >
+        access_tiket = #{accessTiket,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=BIGINT},
+      </if>
+      <if test="loginTime != null" >
+        login_time = #{loginTime,jdbcType=BIGINT},
+      </if>
+      <if test="invitationCode != null" >
+        invitation_code = #{invitationCode,jdbcType=VARCHAR},
+      </if>
+      <if test="pushAlias != null" >
+        push_alias = #{pushAlias,jdbcType=VARCHAR},
+      </if>
+      <if test="infoWrite != null" >
+        info_write = #{infoWrite,jdbcType=TINYINT},
+      </if>
+    </set>
+    where user_id = #{userId,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.yikangyiliao.pension.entity.User" >
+    update users
+    set user_name = #{userName,jdbcType=VARCHAR},
+      login_name = #{loginName,jdbcType=VARCHAR},
+      login_password = #{loginPassword,jdbcType=VARCHAR},
+      salt = #{salt,jdbcType=VARCHAR},
+      access_tiket = #{accessTiket,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=BIGINT},
+      login_time = #{loginTime,jdbcType=BIGINT},
+      invitation_code = #{invitationCode,jdbcType=VARCHAR},
+      push_alias = #{pushAlias,jdbcType=VARCHAR},
+      info_write = #{infoWrite,jdbcType=TINYINT}
+    where user_id = #{userId,jdbcType=BIGINT}
+  </update>
+ 
+ <!--修改用户的邀请码  -->
+  <update id="updateInvitationCodeByUserId" parameterType="map">
+  	update users set invitation_code = #{invitationCode,jdbcType=VARCHAR}
+  	where user_id=#{userId,jdbcType=BIGINT}
+  </update>
+
+  
+<!--   根据用户名称查询某一个用户信息 -->
+  <select id="getUserByLoginName" parameterType="string" resultMap="BaseResultMap">
+  	select 
+  		<include refid="Base_Column_List"></include> 
+  	from users
+  	<where>
+  		login_name=#{userName}
+  	</where>
+  </select>
+  
+  <!-- 修改用户的密码 -->
+  <update id="updatePasswordByLoginName" parameterType="map">
+  	update users us set us.login_password=#{password}
+  	where login_name=#{userName}
+  </update>
+  
+
+<!-- 获取邀请的用户列表  -->
+  <select id="getInvationUserInfoByInvationUserId"   resultType="com.yikangyiliao.pension.entity.UserModel">
+  	select 
+		users.user_id 	  as userId,
+		users.user_name   as name,
+	    ui.user_sex       as sex,
+	    ''				  as bithYear,
+	    ''				  as photoUrl,
+	    users.create_time as createTime,
+		uf.user_status    as userStatus
+	from users as invationUser
+	inner join user_froms uf 			on uf.invitation_code=invationUser.invitation_code
+	inner join users					on users.user_id=uf.user_id
+	left join user_infos ui				on ui.user_id   =users.user_id
+	left join appointment_orders as ao 	on users.user_id=ao.create_user_id 
+	where invationUser.user_id=#{userId}
+	<if test=" userStatus == 0 or  userStatus == 1">
+			and  uf.user_status=#{userStatus}
+	</if>
+  </select>
+  
+  <!-- 查询我不同状态下邀请的患者数量 -->
+  <select id="getInvationUserInfoByInvationUserIdAndUserStatus"   resultType="com.yikangyiliao.pension.entity.UserModel">
+  	select 
+		users.user_id 	  as userId,
+		users.user_name   as name,
+		users.login_name  as loginName,
+	    ui.user_sex       as sex,
+	    ''				  as bithYear,
+	    ''				  as photoUrl,
+	    users.create_time as createTime,
+		uf.user_status    as userStatus
+	from users as invationUser
+	inner join user_froms uf 			on uf.invitation_code=invationUser.invitation_code
+	inner join users					on users.user_id=uf.user_id
+	left join user_infos ui				on ui.user_id   =users.user_id
+	left join appointment_orders as ao 	on users.user_id=ao.create_user_id 
+	where invationUser.user_id=#{userId}
+	
+	<!--查询已注册  -->
+	<if test=" userStatus == 0 or  userStatus == 1">
+			and  uf.user_status=#{userStatus}
+	</if>
+	<!-- 查询定单完成的用户 -->
+	<if test=" userStatus == 2">
+			and  uf.user_status=1
+			and ao.order_status=3
+	</if>
+  </select>
+  
+  
+    <!-- 查询我不同状态下邀请的患者数量 -->
+  <select id="getInvationUserInfoNumsByInvationUserIdAndUserStatus"   resultType="long">
+  	select 
+		count(1) as nums
+	from users as invationUser
+	inner join user_froms uf 			on uf.invitation_code=invationUser.invitation_code
+	inner join users					on users.user_id=uf.user_id
+	left join user_infos ui				on ui.user_id   =users.user_id
+	left join appointment_orders as ao 	on users.user_id=ao.create_user_id 
+	where invationUser.user_id=#{userId}
+	
+	<!--查询已注册  -->
+	<if test=" userStatus == 0 or  userStatus == 1">
+			and  uf.user_status=#{userStatus}
+	</if>
+	<!-- 查询定单完成的用户 -->
+	<if test=" userStatus == 2">
+			and  uf.user_status=1
+			and  ao.order_status=3
+	</if>
+  </select>
+  
+  
+</mapper>

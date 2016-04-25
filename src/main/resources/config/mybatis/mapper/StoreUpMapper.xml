@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.yikangyiliao.pension.dao.StoreUpMapper" >
+  <resultMap id="BaseResultMap" type="com.yikangyiliao.pension.entity.StoreUp" >
+    <id column="store_ups_id" property="storeUpsId" jdbcType="BIGINT" />
+    <result column="forum_post_id" property="forumPostId" jdbcType="BIGINT" />
+    <result column="create_user_id" property="createUserId" jdbcType="BIGINT" />
+    <result column="group" property="group" jdbcType="TINYINT" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    store_ups_id, forum_post_id, create_user_id, group
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from store_ups
+    where store_ups_id = #{storeUpsId,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from store_ups
+    where store_ups_id = #{storeUpsId,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.yikangyiliao.pension.entity.StoreUp" >
+    insert into store_ups (store_ups_id, forum_post_id, create_user_id, 
+      group)
+    values (#{storeUpsId,jdbcType=BIGINT}, #{forumPostId,jdbcType=BIGINT}, #{createUserId,jdbcType=BIGINT}, 
+      #{group,jdbcType=TINYINT})
+  </insert>
+  <insert id="insertSelective" parameterType="com.yikangyiliao.pension.entity.StoreUp" >
+    insert into store_ups
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="storeUpsId != null" >
+        store_ups_id,
+      </if>
+      <if test="forumPostId != null" >
+        forum_post_id,
+      </if>
+      <if test="createUserId != null" >
+        create_user_id,
+      </if>
+      <if test="group != null" >
+        group,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="storeUpsId != null" >
+        #{storeUpsId,jdbcType=BIGINT},
+      </if>
+      <if test="forumPostId != null" >
+        #{forumPostId,jdbcType=BIGINT},
+      </if>
+      <if test="createUserId != null" >
+        #{createUserId,jdbcType=BIGINT},
+      </if>
+      <if test="group != null" >
+        #{group,jdbcType=TINYINT},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.yikangyiliao.pension.entity.StoreUp" >
+    update store_ups
+    <set >
+      <if test="forumPostId != null" >
+        forum_post_id = #{forumPostId,jdbcType=BIGINT},
+      </if>
+      <if test="createUserId != null" >
+        create_user_id = #{createUserId,jdbcType=BIGINT},
+      </if>
+      <if test="group != null" >
+        group = #{group,jdbcType=TINYINT},
+      </if>
+    </set>
+    where store_ups_id = #{storeUpsId,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.yikangyiliao.pension.entity.StoreUp" >
+    update store_ups
+    set forum_post_id = #{forumPostId,jdbcType=BIGINT},
+      create_user_id = #{createUserId,jdbcType=BIGINT},
+      group = #{group,jdbcType=TINYINT}
+    where store_ups_id = #{storeUpsId,jdbcType=BIGINT}
+  </update>
+</mapper>

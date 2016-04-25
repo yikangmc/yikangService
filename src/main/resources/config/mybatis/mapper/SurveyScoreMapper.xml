@@ -1,0 +1,201 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.yikangyiliao.pension.dao.SurveyScoreDao" >
+ <resultMap id="BaseResultMap" type="com.yikangyiliao.pension.entity.SurveyScore" >
+    <id column="surey_score_id" property="sureyScoreId" jdbcType="BIGINT" />
+    <result column="senor_id" property="senorId" jdbcType="BIGINT" />
+    <result column="total" property="total" jdbcType="INTEGER" />
+    <result column="assessor_user_id" property="assessorUserId" jdbcType="BIGINT" />
+    <result column="conclusion" property="conclusion" jdbcType="VARCHAR" />
+    <result column="conclusion_user_id" property="conclusionUserId" jdbcType="BIGINT" />
+    <result column="data_source" property="dataSource" jdbcType="TINYINT" />
+    <result column="survey_table_id" property="surveyTableId" jdbcType="BIGINT" />
+    <result column="assessment_id" property="assessmentId" jdbcType="BIGINT" />
+    <result column="assessment_number" property="assessmentNumber" jdbcType="VARCHAR" />
+    <result column="is_delete" property="isDelete" jdbcType="TINYINT" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    surey_score_id, senor_id, total, assessor_user_id, conclusion, conclusion_user_id, 
+    data_source, survey_table_id, assessment_id, assessment_number, is_delete
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from survey_scores
+    where surey_score_id = #{sureyScoreId,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from survey_scores
+    where surey_score_id = #{sureyScoreId,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.yikangyiliao.pension.entity.SurveyScore" >
+    insert into survey_scores (surey_score_id, senor_id, total, 
+      assessor_user_id, conclusion, conclusion_user_id, 
+      data_source, survey_table_id, assessment_id, 
+      assessment_number, is_delete)
+    values (#{sureyScoreId,jdbcType=BIGINT}, #{senorId,jdbcType=BIGINT}, #{total,jdbcType=INTEGER}, 
+      #{assessorUserId,jdbcType=BIGINT}, #{conclusion,jdbcType=VARCHAR}, #{conclusionUserId,jdbcType=BIGINT}, 
+      #{dataSource,jdbcType=TINYINT}, #{surveyTableId,jdbcType=BIGINT}, #{assessmentId,jdbcType=BIGINT}, 
+      #{assessmentNumber,jdbcType=VARCHAR}, #{isDelete,jdbcType=TINYINT})
+  </insert>
+  <insert id="insertSelective" parameterType="com.yikangyiliao.pension.entity.SurveyScore" >
+  	<selectKey resultType="Long" keyProperty="sureyScoreId" order="AFTER">
+		SELECT LAST_INSERT_ID()
+	</selectKey>
+    insert into survey_scores
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="sureyScoreId != null" >
+        surey_score_id,
+      </if>
+      <if test="senorId != null" >
+        senor_id,
+      </if>
+      <if test="total != null" >
+        total,
+      </if>
+      <if test="assessorUserId != null" >
+        assessor_user_id,
+      </if>
+      <if test="conclusion != null" >
+        conclusion,
+      </if>
+      <if test="conclusionUserId != null" >
+        conclusion_user_id,
+      </if>
+      <if test="dataSource != null" >
+        data_source,
+      </if>
+      <if test="surveyTableId != null" >
+        survey_table_id,
+      </if>
+      <if test="assessmentId != null" >
+        assessment_id,
+      </if>
+      <if test="assessmentNumber != null" >
+        assessment_number,
+      </if>
+      <if test="isDelete != null" >
+        is_delete,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="sureyScoreId != null" >
+        #{sureyScoreId,jdbcType=BIGINT},
+      </if>
+      <if test="senorId != null" >
+        #{senorId,jdbcType=BIGINT},
+      </if>
+      <if test="total != null" >
+        #{total,jdbcType=INTEGER},
+      </if>
+      <if test="assessorUserId != null" >
+        #{assessorUserId,jdbcType=BIGINT},
+      </if>
+      <if test="conclusion != null" >
+        #{conclusion,jdbcType=VARCHAR},
+      </if>
+      <if test="conclusionUserId != null" >
+        #{conclusionUserId,jdbcType=BIGINT},
+      </if>
+      <if test="dataSource != null" >
+        #{dataSource,jdbcType=TINYINT},
+      </if>
+      <if test="surveyTableId != null" >
+        #{surveyTableId,jdbcType=BIGINT},
+      </if>
+      <if test="assessmentId != null" >
+        #{assessmentId,jdbcType=BIGINT},
+      </if>
+      <if test="assessmentNumber != null" >
+        #{assessmentNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="isDelete != null" >
+        #{isDelete,jdbcType=TINYINT},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.yikangyiliao.pension.entity.SurveyScore" >
+    update survey_scores
+    <set >
+      <if test="senorId != null" >
+        senor_id = #{senorId,jdbcType=BIGINT},
+      </if>
+      <if test="total != null" >
+        total = #{total,jdbcType=INTEGER},
+      </if>
+      <if test="assessorUserId != null" >
+        assessor_user_id = #{assessorUserId,jdbcType=BIGINT},
+      </if>
+      <if test="conclusion != null" >
+        conclusion = #{conclusion,jdbcType=VARCHAR},
+      </if>
+      <if test="conclusionUserId != null" >
+        conclusion_user_id = #{conclusionUserId,jdbcType=BIGINT},
+      </if>
+      <if test="dataSource != null" >
+        data_source = #{dataSource,jdbcType=TINYINT},
+      </if>
+      <if test="surveyTableId != null" >
+        survey_table_id = #{surveyTableId,jdbcType=BIGINT},
+      </if>
+      <if test="assessmentId != null" >
+        assessment_id = #{assessmentId,jdbcType=BIGINT},
+      </if>
+      <if test="assessmentNumber != null" >
+        assessment_number = #{assessmentNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="isDelete != null" >
+        is_delete = #{isDelete,jdbcType=TINYINT},
+      </if>
+    </set>
+    where surey_score_id = #{sureyScoreId,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.yikangyiliao.pension.entity.SurveyScore" >
+    update survey_scores
+    set senor_id = #{senorId,jdbcType=BIGINT},
+      total = #{total,jdbcType=INTEGER},
+      assessor_user_id = #{assessorUserId,jdbcType=BIGINT},
+      conclusion = #{conclusion,jdbcType=VARCHAR},
+      conclusion_user_id = #{conclusionUserId,jdbcType=BIGINT},
+      data_source = #{dataSource,jdbcType=TINYINT},
+      survey_table_id = #{surveyTableId,jdbcType=BIGINT},
+      assessment_id = #{assessmentId,jdbcType=BIGINT},
+      assessment_number = #{assessmentNumber,jdbcType=VARCHAR},
+      is_delete = #{isDelete,jdbcType=TINYINT}
+    where surey_score_id = #{sureyScoreId,jdbcType=BIGINT}
+  </update>
+  
+  
+  
+    <!-- 根据 档案袋id 与 查询表id， 查询出某一个表的总评分 -->
+  <select id="getSureyScoreByAssessmentIdAndSureyTableId" resultMap="BaseResultMap"
+  parameterType="map">
+  	select
+  	 <include refid="Base_Column_List"></include>
+  	from survey_scores
+	where 
+		assessment_id=#{assessmentId}
+	and survey_table_id=#{surveyTableId}
+  </select>
+  
+  
+  <!-- 修改某一个问卷的总得分 -->
+  <update id="updateTotalBySurveyScoreId" parameterType="long">
+  	update survey_scores set total=(
+		select 
+			 sum(
+				case 
+					when quw.weight_value is not null then ssd.score*quw.weight_value
+					else ssd.score
+		        end
+			 )
+		from
+		 survey_score_details ssd left join question_unit_weights quw
+		on ssd.question_id= quw.question_portrait_id
+		where ssd.survey_score_id=#{surveyScoreId}
+	)
+	where survey_scores.surey_score_id=#{surveyScoreId}
+  </update>
+  
+  
+</mapper>

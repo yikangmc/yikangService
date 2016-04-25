@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.yikangyiliao.pension.dao.QuestionAnswerMapper" >
+  <resultMap id="BaseResultMap" type="com.yikangyiliao.pension.entity.QuestionAnswer" >
+    <id column="question_answer_id" property="questionAnswerId" jdbcType="BIGINT" />
+    <result column="create_user_id" property="createUserId" jdbcType="BIGINT" />
+    <result column="data_source" property="dataSource" jdbcType="TINYINT" />
+    <result column="content" property="content" jdbcType="VARCHAR" />
+    <result column="question_id" property="questionId" jdbcType="BIGINT" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    question_answer_id, create_user_id, data_source, content, question_id
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from question_answers
+    where question_answer_id = #{questionAnswerId,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from question_answers
+    where question_answer_id = #{questionAnswerId,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.yikangyiliao.pension.entity.QuestionAnswer" >
+    insert into question_answers (question_answer_id, create_user_id, data_source, 
+      content, question_id)
+    values (#{questionAnswerId,jdbcType=BIGINT}, #{createUserId,jdbcType=BIGINT}, #{dataSource,jdbcType=TINYINT}, 
+      #{content,jdbcType=VARCHAR}, #{questionId,jdbcType=BIGINT})
+  </insert>
+  <insert id="insertSelective" parameterType="com.yikangyiliao.pension.entity.QuestionAnswer" >
+    insert into question_answers
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="questionAnswerId != null" >
+        question_answer_id,
+      </if>
+      <if test="createUserId != null" >
+        create_user_id,
+      </if>
+      <if test="dataSource != null" >
+        data_source,
+      </if>
+      <if test="content != null" >
+        content,
+      </if>
+      <if test="questionId != null" >
+        question_id,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="questionAnswerId != null" >
+        #{questionAnswerId,jdbcType=BIGINT},
+      </if>
+      <if test="createUserId != null" >
+        #{createUserId,jdbcType=BIGINT},
+      </if>
+      <if test="dataSource != null" >
+        #{dataSource,jdbcType=TINYINT},
+      </if>
+      <if test="content != null" >
+        #{content,jdbcType=VARCHAR},
+      </if>
+      <if test="questionId != null" >
+        #{questionId,jdbcType=BIGINT},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.yikangyiliao.pension.entity.QuestionAnswer" >
+    update question_answers
+    <set >
+      <if test="createUserId != null" >
+        create_user_id = #{createUserId,jdbcType=BIGINT},
+      </if>
+      <if test="dataSource != null" >
+        data_source = #{dataSource,jdbcType=TINYINT},
+      </if>
+      <if test="content != null" >
+        content = #{content,jdbcType=VARCHAR},
+      </if>
+      <if test="questionId != null" >
+        question_id = #{questionId,jdbcType=BIGINT},
+      </if>
+    </set>
+    where question_answer_id = #{questionAnswerId,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.yikangyiliao.pension.entity.QuestionAnswer" >
+    update question_answers
+    set create_user_id = #{createUserId,jdbcType=BIGINT},
+      data_source = #{dataSource,jdbcType=TINYINT},
+      content = #{content,jdbcType=VARCHAR},
+      question_id = #{questionId,jdbcType=BIGINT}
+    where question_answer_id = #{questionAnswerId,jdbcType=BIGINT}
+  </update>
+</mapper>

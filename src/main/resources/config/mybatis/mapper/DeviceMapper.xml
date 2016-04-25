@@ -1,0 +1,155 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.yikangyiliao.pension.dao.DeviceDao" >
+  <resultMap id="BaseResultMap" type="com.yikangyiliao.pension.entity.Device" >
+    <id column="device_id" property="deviceId" jdbcType="BIGINT" />
+    <result column="device_type" property="deviceType" jdbcType="TINYINT" />
+    <result column="device_code" property="deviceCode" jdbcType="VARCHAR" />
+    <result column="code_type" property="codeType" jdbcType="VARCHAR" />
+    <result column="create_time" property="createTime" jdbcType="BIGINT" />
+    <result column="update_time" property="updateTime" jdbcType="BIGINT" />
+    <result column="push_alias" property="pushAlias" jdbcType="VARCHAR" />
+    <result column="is_used" property="isUsed" jdbcType="TINYINT" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    device_id, device_type, device_code, code_type, create_time, update_time, push_alias, 
+    is_used
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from devices
+    where device_id = #{deviceId,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from devices
+    where device_id = #{deviceId,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.yikangyiliao.pension.entity.Device" >
+    insert into devices (device_id, device_type, device_code, 
+      code_type, create_time, update_time, 
+      push_alias, is_used)
+    values (#{deviceId,jdbcType=BIGINT}, #{deviceType,jdbcType=TINYINT}, #{deviceCode,jdbcType=VARCHAR}, 
+      #{codeType,jdbcType=VARCHAR}, #{createTime,jdbcType=BIGINT}, #{updateTime,jdbcType=BIGINT}, 
+      #{pushAlias,jdbcType=VARCHAR}, #{isUsed,jdbcType=TINYINT})
+  </insert>
+  <insert id="insertSelective" parameterType="com.yikangyiliao.pension.entity.Device" >
+    <selectKey resultType="Long" keyProperty="deviceId" order="AFTER">
+		SELECT LAST_INSERT_ID()
+	</selectKey>
+    insert into devices
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="deviceId != null" >
+        device_id,
+      </if>
+      <if test="deviceType != null" >
+        device_type,
+      </if>
+      <if test="deviceCode != null" >
+        device_code,
+      </if>
+      <if test="codeType != null" >
+        code_type,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+      <if test="updateTime != null" >
+        update_time,
+      </if>
+      <if test="pushAlias != null" >
+        push_alias,
+      </if>
+      <if test="isUsed != null" >
+        is_used,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="deviceId != null" >
+        #{deviceId,jdbcType=BIGINT},
+      </if>
+      <if test="deviceType != null" >
+        #{deviceType,jdbcType=TINYINT},
+      </if>
+      <if test="deviceCode != null" >
+        #{deviceCode,jdbcType=VARCHAR},
+      </if>
+      <if test="codeType != null" >
+        #{codeType,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=BIGINT},
+      </if>
+      <if test="updateTime != null" >
+        #{updateTime,jdbcType=BIGINT},
+      </if>
+      <if test="pushAlias != null" >
+        #{pushAlias,jdbcType=VARCHAR},
+      </if>
+      <if test="isUsed != null" >
+        #{isUsed,jdbcType=TINYINT},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.yikangyiliao.pension.entity.Device" >
+    update devices
+    <set >
+      <if test="deviceType != null" >
+        device_type = #{deviceType,jdbcType=TINYINT},
+      </if>
+      <if test="deviceCode != null" >
+        device_code = #{deviceCode,jdbcType=VARCHAR},
+      </if>
+      <if test="codeType != null" >
+        code_type = #{codeType,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=BIGINT},
+      </if>
+      <if test="updateTime != null" >
+        update_time = #{updateTime,jdbcType=BIGINT},
+      </if>
+      <if test="pushAlias != null" >
+        push_alias = #{pushAlias,jdbcType=VARCHAR},
+      </if>
+      <if test="isUsed != null" >
+        is_used = #{isUsed,jdbcType=TINYINT},
+      </if>
+    </set>
+    where device_id = #{deviceId,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.yikangyiliao.pension.entity.Device" >
+    update devices
+    set device_type = #{deviceType,jdbcType=TINYINT},
+      device_code = #{deviceCode,jdbcType=VARCHAR},
+      code_type = #{codeType,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=BIGINT},
+      update_time = #{updateTime,jdbcType=BIGINT},
+      push_alias = #{pushAlias,jdbcType=VARCHAR},
+      is_used = #{isUsed,jdbcType=TINYINT}
+    where device_id = #{deviceId,jdbcType=BIGINT}
+  </update>
+  
+  <!--修改设备为当前不使用的  -->
+  <update id="updateDeviceIsUsedIs0ByUserId" parameterType="long">
+<!--   	update devices inner join user_device_tabs on devices.device_id=user_device_tabs.device_id -->
+<!--  	set devices.is_used=0 -->
+<!--  	where user_device_tabs.user_id=#{userId} -->
+  	update devices inner join user_device_tabs on devices.device_id=user_device_tabs.device_id
+ 	set devices.is_used=0
+ 	where 
+ 		user_device_tabs.user_id=#{userId}
+ 	and devices.is_used=1
+  </update>
+  
+  
+  <!-- 查询某一个用户，现在使用的 设备 -->
+  <select id="getIsUsedDeviceByUserId" resultMap="BaseResultMap" parameterType="long">
+  	select 
+	 devices.*
+	from devices inner join user_device_tabs on devices.device_id=user_device_tabs.device_id 
+		where devices.is_used=1 and user_device_tabs.user_id=#{userId}
+  </select>
+  
+  
+</mapper>

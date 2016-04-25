@@ -1,0 +1,153 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.yikangyiliao.pension.dao.TaglibMapper" >
+  <resultMap id="BaseResultMap" type="com.yikangyiliao.pension.entity.Taglib" >
+    <id column="taglib_id" property="taglibId" jdbcType="BIGINT" />
+    <result column="tag_name" property="tagName" jdbcType="VARCHAR" />
+    <result column="tag_pic" property="tagPic" jdbcType="VARCHAR" />
+    <result column="parent_id" property="parentId" jdbcType="BIGINT" />
+    <result column="order" property="order" jdbcType="TINYINT" />
+    <result column="is_delete" property="isDelete" jdbcType="VARCHAR" />
+    <result column="create_time" property="createTime" jdbcType="VARCHAR" />
+    <result column="update_time" property="updateTime" jdbcType="VARCHAR" />
+    <result column="create_user_id" property="createUserId" jdbcType="BIGINT" />
+    <result column="is_recommend" property="isRecommend" jdbcType="TINYINT" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    taglib_id, tag_name, tag_pic, parent_id, order, is_delete, create_time, update_time, 
+    create_user_id, is_recommend
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from taglibs
+    where taglib_id = #{taglibId,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from taglibs
+    where taglib_id = #{taglibId,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.yikangyiliao.pension.entity.Taglib" >
+    insert into taglibs (taglib_id, tag_name, tag_pic, 
+      parent_id, order, is_delete, 
+      create_time, update_time, create_user_id, 
+      is_recommend)
+    values (#{taglibId,jdbcType=BIGINT}, #{tagName,jdbcType=VARCHAR}, #{tagPic,jdbcType=VARCHAR}, 
+      #{parentId,jdbcType=BIGINT}, #{order,jdbcType=TINYINT}, #{isDelete,jdbcType=VARCHAR}, 
+      #{createTime,jdbcType=VARCHAR}, #{updateTime,jdbcType=VARCHAR}, #{createUserId,jdbcType=BIGINT}, 
+      #{isRecommend,jdbcType=TINYINT})
+  </insert>
+  <insert id="insertSelective" parameterType="com.yikangyiliao.pension.entity.Taglib" >
+    insert into taglibs
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="taglibId != null" >
+        taglib_id,
+      </if>
+      <if test="tagName != null" >
+        tag_name,
+      </if>
+      <if test="tagPic != null" >
+        tag_pic,
+      </if>
+      <if test="parentId != null" >
+        parent_id,
+      </if>
+      <if test="order != null" >
+        order,
+      </if>
+      <if test="isDelete != null" >
+        is_delete,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+      <if test="updateTime != null" >
+        update_time,
+      </if>
+      <if test="createUserId != null" >
+        create_user_id,
+      </if>
+      <if test="isRecommend != null" >
+        is_recommend,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="taglibId != null" >
+        #{taglibId,jdbcType=BIGINT},
+      </if>
+      <if test="tagName != null" >
+        #{tagName,jdbcType=VARCHAR},
+      </if>
+      <if test="tagPic != null" >
+        #{tagPic,jdbcType=VARCHAR},
+      </if>
+      <if test="parentId != null" >
+        #{parentId,jdbcType=BIGINT},
+      </if>
+      <if test="order != null" >
+        #{order,jdbcType=TINYINT},
+      </if>
+      <if test="isDelete != null" >
+        #{isDelete,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=VARCHAR},
+      </if>
+      <if test="updateTime != null" >
+        #{updateTime,jdbcType=VARCHAR},
+      </if>
+      <if test="createUserId != null" >
+        #{createUserId,jdbcType=BIGINT},
+      </if>
+      <if test="isRecommend != null" >
+        #{isRecommend,jdbcType=TINYINT},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.yikangyiliao.pension.entity.Taglib" >
+    update taglibs
+    <set >
+      <if test="tagName != null" >
+        tag_name = #{tagName,jdbcType=VARCHAR},
+      </if>
+      <if test="tagPic != null" >
+        tag_pic = #{tagPic,jdbcType=VARCHAR},
+      </if>
+      <if test="parentId != null" >
+        parent_id = #{parentId,jdbcType=BIGINT},
+      </if>
+      <if test="order != null" >
+        order = #{order,jdbcType=TINYINT},
+      </if>
+      <if test="isDelete != null" >
+        is_delete = #{isDelete,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=VARCHAR},
+      </if>
+      <if test="updateTime != null" >
+        update_time = #{updateTime,jdbcType=VARCHAR},
+      </if>
+      <if test="createUserId != null" >
+        create_user_id = #{createUserId,jdbcType=BIGINT},
+      </if>
+      <if test="isRecommend != null" >
+        is_recommend = #{isRecommend,jdbcType=TINYINT},
+      </if>
+    </set>
+    where taglib_id = #{taglibId,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.yikangyiliao.pension.entity.Taglib" >
+    update taglibs
+    set tag_name = #{tagName,jdbcType=VARCHAR},
+      tag_pic = #{tagPic,jdbcType=VARCHAR},
+      parent_id = #{parentId,jdbcType=BIGINT},
+      order = #{order,jdbcType=TINYINT},
+      is_delete = #{isDelete,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=VARCHAR},
+      update_time = #{updateTime,jdbcType=VARCHAR},
+      create_user_id = #{createUserId,jdbcType=BIGINT},
+      is_recommend = #{isRecommend,jdbcType=TINYINT}
+    where taglib_id = #{taglibId,jdbcType=BIGINT}
+  </update>
+</mapper>

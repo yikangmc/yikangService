@@ -1,0 +1,166 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.yikangyiliao.pension.dao.SocialParticipationDao" >
+  <resultMap id="BaseResultMap" type="com.yikangyiliao.pension.entity.SocialParticipation" >
+    <id column="social_participation_id" property="socialParticipationId" jdbcType="VARCHAR" />
+    <id column="assessment_id" property="assessmentId" jdbcType="BIGINT" />
+    <result column="sp_id" property="spId" jdbcType="BIGINT" />
+    <result column="viability" property="viability" jdbcType="TINYINT" />
+    <result column="working_ability" property="workingAbility" jdbcType="TINYINT" />
+    <result column="temporal_orientation" property="temporalOrientation" jdbcType="TINYINT" />
+    <result column="personal_orientation" property="personalOrientation" jdbcType="TINYINT" />
+    <result column="social_intercourse" property="socialIntercourse" jdbcType="TINYINT" />
+    <result column="total_score" property="totalScore" jdbcType="INTEGER" />
+    <result column="create_time" property="createTime" jdbcType="BIGINT" />
+    <result column="update_time" property="updateTime" jdbcType="BIGINT" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    social_participation_id, assessment_id, sp_id, viability, working_ability, temporal_orientation, 
+    personal_orientation, social_intercourse, total_score, create_time, update_time
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="com.yikangyiliao.pension.entity.SocialParticipationKey" >
+    select 
+    <include refid="Base_Column_List" />
+    from social_participations
+    where social_participation_id = #{socialParticipationId,jdbcType=VARCHAR}
+      and assessment_id = #{assessmentId,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="com.yikangyiliao.pension.entity.SocialParticipationKey" >
+    delete from social_participations
+    where social_participation_id = #{socialParticipationId,jdbcType=VARCHAR}
+      and assessment_id = #{assessmentId,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.yikangyiliao.pension.entity.SocialParticipation" >
+    insert into social_participations (social_participation_id, assessment_id, 
+      sp_id, viability, working_ability, 
+      temporal_orientation, personal_orientation, 
+      social_intercourse, total_score, create_time, 
+      update_time)
+    values (#{socialParticipationId,jdbcType=VARCHAR}, #{assessmentId,jdbcType=BIGINT}, 
+      #{spId,jdbcType=BIGINT}, #{viability,jdbcType=TINYINT}, #{workingAbility,jdbcType=TINYINT}, 
+      #{temporalOrientation,jdbcType=TINYINT}, #{personalOrientation,jdbcType=TINYINT}, 
+      #{socialIntercourse,jdbcType=TINYINT}, #{totalScore,jdbcType=INTEGER}, #{createTime,jdbcType=BIGINT}, 
+      #{updateTime,jdbcType=BIGINT})
+  </insert>
+  <insert id="insertSelective" parameterType="com.yikangyiliao.pension.entity.SocialParticipation" >
+    insert into social_participations
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="socialParticipationId != null" >
+        social_participation_id,
+      </if>
+      <if test="assessmentId != null" >
+        assessment_id,
+      </if>
+      <if test="spId != null" >
+        sp_id,
+      </if>
+      <if test="viability != null" >
+        viability,
+      </if>
+      <if test="workingAbility != null" >
+        working_ability,
+      </if>
+      <if test="temporalOrientation != null" >
+        temporal_orientation,
+      </if>
+      <if test="personalOrientation != null" >
+        personal_orientation,
+      </if>
+      <if test="socialIntercourse != null" >
+        social_intercourse,
+      </if>
+      <if test="totalScore != null" >
+        total_score,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+      <if test="updateTime != null" >
+        update_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="socialParticipationId != null" >
+        #{socialParticipationId,jdbcType=VARCHAR},
+      </if>
+      <if test="assessmentId != null" >
+        #{assessmentId,jdbcType=BIGINT},
+      </if>
+      <if test="spId != null" >
+        #{spId,jdbcType=BIGINT},
+      </if>
+      <if test="viability != null" >
+        #{viability,jdbcType=TINYINT},
+      </if>
+      <if test="workingAbility != null" >
+        #{workingAbility,jdbcType=TINYINT},
+      </if>
+      <if test="temporalOrientation != null" >
+        #{temporalOrientation,jdbcType=TINYINT},
+      </if>
+      <if test="personalOrientation != null" >
+        #{personalOrientation,jdbcType=TINYINT},
+      </if>
+      <if test="socialIntercourse != null" >
+        #{socialIntercourse,jdbcType=TINYINT},
+      </if>
+      <if test="totalScore != null" >
+        #{totalScore,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=BIGINT},
+      </if>
+      <if test="updateTime != null" >
+        #{updateTime,jdbcType=BIGINT},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.yikangyiliao.pension.entity.SocialParticipation" >
+    update social_participations
+    <set >
+      <if test="spId != null" >
+        sp_id = #{spId,jdbcType=BIGINT},
+      </if>
+      <if test="viability != null" >
+        viability = #{viability,jdbcType=TINYINT},
+      </if>
+      <if test="workingAbility != null" >
+        working_ability = #{workingAbility,jdbcType=TINYINT},
+      </if>
+      <if test="temporalOrientation != null" >
+        temporal_orientation = #{temporalOrientation,jdbcType=TINYINT},
+      </if>
+      <if test="personalOrientation != null" >
+        personal_orientation = #{personalOrientation,jdbcType=TINYINT},
+      </if>
+      <if test="socialIntercourse != null" >
+        social_intercourse = #{socialIntercourse,jdbcType=TINYINT},
+      </if>
+      <if test="totalScore != null" >
+        total_score = #{totalScore,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=BIGINT},
+      </if>
+      <if test="updateTime != null" >
+        update_time = #{updateTime,jdbcType=BIGINT},
+      </if>
+    </set>
+    where social_participation_id = #{socialParticipationId,jdbcType=VARCHAR}
+      and assessment_id = #{assessmentId,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.yikangyiliao.pension.entity.SocialParticipation" >
+    update social_participations
+    set sp_id = #{spId,jdbcType=BIGINT},
+      viability = #{viability,jdbcType=TINYINT},
+      working_ability = #{workingAbility,jdbcType=TINYINT},
+      temporal_orientation = #{temporalOrientation,jdbcType=TINYINT},
+      personal_orientation = #{personalOrientation,jdbcType=TINYINT},
+      social_intercourse = #{socialIntercourse,jdbcType=TINYINT},
+      total_score = #{totalScore,jdbcType=INTEGER},
+      create_time = #{createTime,jdbcType=BIGINT},
+      update_time = #{updateTime,jdbcType=BIGINT}
+    where social_participation_id = #{socialParticipationId,jdbcType=VARCHAR}
+      and assessment_id = #{assessmentId,jdbcType=BIGINT}
+  </update>
+</mapper>

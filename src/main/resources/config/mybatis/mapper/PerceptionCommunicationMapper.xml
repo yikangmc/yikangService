@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.yikangyiliao.pension.dao.PerceptionCommunicationDao" >
+  <resultMap id="BaseResultMap" type="com.yikangyiliao.pension.entity.PerceptionCommunication" >
+    <id column="perception_communication_id" property="perceptionCommunicationId" jdbcType="VARCHAR" />
+    <id column="assessment_id" property="assessmentId" jdbcType="BIGINT" />
+    <result column="pc_id" property="pcId" jdbcType="BIGINT" />
+    <result column="consciousness" property="consciousness" jdbcType="TINYINT" />
+    <result column="vision" property="vision" jdbcType="TINYINT" />
+    <result column="hearing" property="hearing" jdbcType="TINYINT" />
+    <result column="communication" property="communication" jdbcType="TINYINT" />
+    <result column="create_time" property="createTime" jdbcType="BIGINT" />
+    <result column="update_time" property="updateTime" jdbcType="BIGINT" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    perception_communication_id, assessment_id, pc_id, consciousness, vision, hearing, 
+    communication, create_time, update_time
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="com.yikangyiliao.pension.entity.PerceptionCommunicationKey" >
+    select 
+    <include refid="Base_Column_List" />
+    from perception_communications
+    where perception_communication_id = #{perceptionCommunicationId,jdbcType=VARCHAR}
+      and assessment_id = #{assessmentId,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="com.yikangyiliao.pension.entity.PerceptionCommunicationKey" >
+    delete from perception_communications
+    where perception_communication_id = #{perceptionCommunicationId,jdbcType=VARCHAR}
+      and assessment_id = #{assessmentId,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.yikangyiliao.pension.entity.PerceptionCommunication" >
+    insert into perception_communications (perception_communication_id, assessment_id, 
+      pc_id, consciousness, vision, 
+      hearing, communication, create_time, 
+      update_time)
+    values (#{perceptionCommunicationId,jdbcType=VARCHAR}, #{assessmentId,jdbcType=BIGINT}, 
+      #{pcId,jdbcType=BIGINT}, #{consciousness,jdbcType=TINYINT}, #{vision,jdbcType=TINYINT}, 
+      #{hearing,jdbcType=TINYINT}, #{communication,jdbcType=TINYINT}, #{createTime,jdbcType=BIGINT}, 
+      #{updateTime,jdbcType=BIGINT})
+  </insert>
+  <insert id="insertSelective" parameterType="com.yikangyiliao.pension.entity.PerceptionCommunication" >
+    insert into perception_communications
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="perceptionCommunicationId != null" >
+        perception_communication_id,
+      </if>
+      <if test="assessmentId != null" >
+        assessment_id,
+      </if>
+      <if test="pcId != null" >
+        pc_id,
+      </if>
+      <if test="consciousness != null" >
+        consciousness,
+      </if>
+      <if test="vision != null" >
+        vision,
+      </if>
+      <if test="hearing != null" >
+        hearing,
+      </if>
+      <if test="communication != null" >
+        communication,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+      <if test="updateTime != null" >
+        update_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="perceptionCommunicationId != null" >
+        #{perceptionCommunicationId,jdbcType=VARCHAR},
+      </if>
+      <if test="assessmentId != null" >
+        #{assessmentId,jdbcType=BIGINT},
+      </if>
+      <if test="pcId != null" >
+        #{pcId,jdbcType=BIGINT},
+      </if>
+      <if test="consciousness != null" >
+        #{consciousness,jdbcType=TINYINT},
+      </if>
+      <if test="vision != null" >
+        #{vision,jdbcType=TINYINT},
+      </if>
+      <if test="hearing != null" >
+        #{hearing,jdbcType=TINYINT},
+      </if>
+      <if test="communication != null" >
+        #{communication,jdbcType=TINYINT},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=BIGINT},
+      </if>
+      <if test="updateTime != null" >
+        #{updateTime,jdbcType=BIGINT},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.yikangyiliao.pension.entity.PerceptionCommunication" >
+    update perception_communications
+    <set >
+      <if test="pcId != null" >
+        pc_id = #{pcId,jdbcType=BIGINT},
+      </if>
+      <if test="consciousness != null" >
+        consciousness = #{consciousness,jdbcType=TINYINT},
+      </if>
+      <if test="vision != null" >
+        vision = #{vision,jdbcType=TINYINT},
+      </if>
+      <if test="hearing != null" >
+        hearing = #{hearing,jdbcType=TINYINT},
+      </if>
+      <if test="communication != null" >
+        communication = #{communication,jdbcType=TINYINT},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=BIGINT},
+      </if>
+      <if test="updateTime != null" >
+        update_time = #{updateTime,jdbcType=BIGINT},
+      </if>
+    </set>
+    where perception_communication_id = #{perceptionCommunicationId,jdbcType=VARCHAR}
+      and assessment_id = #{assessmentId,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.yikangyiliao.pension.entity.PerceptionCommunication" >
+    update perception_communications
+    set pc_id = #{pcId,jdbcType=BIGINT},
+      consciousness = #{consciousness,jdbcType=TINYINT},
+      vision = #{vision,jdbcType=TINYINT},
+      hearing = #{hearing,jdbcType=TINYINT},
+      communication = #{communication,jdbcType=TINYINT},
+      create_time = #{createTime,jdbcType=BIGINT},
+      update_time = #{updateTime,jdbcType=BIGINT}
+    where perception_communication_id = #{perceptionCommunicationId,jdbcType=VARCHAR}
+      and assessment_id = #{assessmentId,jdbcType=BIGINT}
+  </update>
+</mapper>

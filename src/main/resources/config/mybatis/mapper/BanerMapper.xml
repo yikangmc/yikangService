@@ -1,0 +1,153 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.yikangyiliao.pension.dao.BanerMapper" >
+  <resultMap id="BaseResultMap" type="com.yikangyiliao.pension.entity.Baner" >
+    <id column="baner_id" property="banerId" jdbcType="BIGINT" />
+    <result column="title" property="title" jdbcType="VARCHAR" />
+    <result column="content" property="content" jdbcType="VARCHAR" />
+    <result column="order" property="order" jdbcType="TINYINT" />
+    <result column="action_url" property="actionUrl" jdbcType="VARCHAR" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="upate_time" property="upateTime" jdbcType="TIMESTAMP" />
+    <result column="is_delete" property="isDelete" jdbcType="VARCHAR" />
+    <result column="create_user_id" property="createUserId" jdbcType="BIGINT" />
+    <result column="group" property="group" jdbcType="TINYINT" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    baner_id, title, content, order, action_url, create_time, upate_time, is_delete, 
+    create_user_id, group
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from baners
+    where baner_id = #{banerId,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from baners
+    where baner_id = #{banerId,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.yikangyiliao.pension.entity.Baner" >
+    insert into baners (baner_id, title, content, 
+      order, action_url, create_time, 
+      upate_time, is_delete, create_user_id, 
+      group)
+    values (#{banerId,jdbcType=BIGINT}, #{title,jdbcType=VARCHAR}, #{content,jdbcType=VARCHAR}, 
+      #{order,jdbcType=TINYINT}, #{actionUrl,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, 
+      #{upateTime,jdbcType=TIMESTAMP}, #{isDelete,jdbcType=VARCHAR}, #{createUserId,jdbcType=BIGINT}, 
+      #{group,jdbcType=TINYINT})
+  </insert>
+  <insert id="insertSelective" parameterType="com.yikangyiliao.pension.entity.Baner" >
+    insert into baners
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="banerId != null" >
+        baner_id,
+      </if>
+      <if test="title != null" >
+        title,
+      </if>
+      <if test="content != null" >
+        content,
+      </if>
+      <if test="order != null" >
+        order,
+      </if>
+      <if test="actionUrl != null" >
+        action_url,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+      <if test="upateTime != null" >
+        upate_time,
+      </if>
+      <if test="isDelete != null" >
+        is_delete,
+      </if>
+      <if test="createUserId != null" >
+        create_user_id,
+      </if>
+      <if test="group != null" >
+        group,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="banerId != null" >
+        #{banerId,jdbcType=BIGINT},
+      </if>
+      <if test="title != null" >
+        #{title,jdbcType=VARCHAR},
+      </if>
+      <if test="content != null" >
+        #{content,jdbcType=VARCHAR},
+      </if>
+      <if test="order != null" >
+        #{order,jdbcType=TINYINT},
+      </if>
+      <if test="actionUrl != null" >
+        #{actionUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="upateTime != null" >
+        #{upateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="isDelete != null" >
+        #{isDelete,jdbcType=VARCHAR},
+      </if>
+      <if test="createUserId != null" >
+        #{createUserId,jdbcType=BIGINT},
+      </if>
+      <if test="group != null" >
+        #{group,jdbcType=TINYINT},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.yikangyiliao.pension.entity.Baner" >
+    update baners
+    <set >
+      <if test="title != null" >
+        title = #{title,jdbcType=VARCHAR},
+      </if>
+      <if test="content != null" >
+        content = #{content,jdbcType=VARCHAR},
+      </if>
+      <if test="order != null" >
+        order = #{order,jdbcType=TINYINT},
+      </if>
+      <if test="actionUrl != null" >
+        action_url = #{actionUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="upateTime != null" >
+        upate_time = #{upateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="isDelete != null" >
+        is_delete = #{isDelete,jdbcType=VARCHAR},
+      </if>
+      <if test="createUserId != null" >
+        create_user_id = #{createUserId,jdbcType=BIGINT},
+      </if>
+      <if test="group != null" >
+        group = #{group,jdbcType=TINYINT},
+      </if>
+    </set>
+    where baner_id = #{banerId,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.yikangyiliao.pension.entity.Baner" >
+    update baners
+    set title = #{title,jdbcType=VARCHAR},
+      content = #{content,jdbcType=VARCHAR},
+      order = #{order,jdbcType=TINYINT},
+      action_url = #{actionUrl,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      upate_time = #{upateTime,jdbcType=TIMESTAMP},
+      is_delete = #{isDelete,jdbcType=VARCHAR},
+      create_user_id = #{createUserId,jdbcType=BIGINT},
+      group = #{group,jdbcType=TINYINT}
+    where baner_id = #{banerId,jdbcType=BIGINT}
+  </update>
+</mapper>

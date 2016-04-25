@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.yikangyiliao.pension.dao.DictionaryDao" >
+  <resultMap id="BaseResultMap" type="com.yikangyiliao.pension.entity.Dictionary" >
+    <id column="dictionary_id" property="dictionaryId" jdbcType="BIGINT" />
+    <result column="dic_name" property="dicName" jdbcType="VARCHAR" />
+    <result column="dic_group" property="dicGroup" jdbcType="VARCHAR" />
+    <result column="dic_code" property="dicCode" jdbcType="VARCHAR" />
+    <result column="dic_order" property="dicOrder" jdbcType="TINYINT" />
+    <result column="create_time" property="createTime" jdbcType="BIGINT" />
+    <result column="update_time" property="updateTime" jdbcType="BIGINT" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    dictionary_id, dic_name, dic_group, dic_code, dic_order, create_time, update_time
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from dictionarys
+    where dictionary_id = #{dictionaryId,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from dictionarys
+    where dictionary_id = #{dictionaryId,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.yikangyiliao.pension.entity.Dictionary" >
+    insert into dictionarys (dictionary_id, dic_name, dic_group, 
+      dic_code, dic_order, create_time, 
+      update_time)
+    values (#{dictionaryId,jdbcType=BIGINT}, #{dicName,jdbcType=VARCHAR}, #{dicGroup,jdbcType=VARCHAR}, 
+      #{dicCode,jdbcType=VARCHAR}, #{dicOrder,jdbcType=TINYINT}, #{createTime,jdbcType=BIGINT}, 
+      #{updateTime,jdbcType=BIGINT})
+  </insert>
+  <insert id="insertSelective" parameterType="com.yikangyiliao.pension.entity.Dictionary" >
+    insert into dictionarys
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="dictionaryId != null" >
+        dictionary_id,
+      </if>
+      <if test="dicName != null" >
+        dic_name,
+      </if>
+      <if test="dicGroup != null" >
+        dic_group,
+      </if>
+      <if test="dicCode != null" >
+        dic_code,
+      </if>
+      <if test="dicOrder != null" >
+        dic_order,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+      <if test="updateTime != null" >
+        update_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="dictionaryId != null" >
+        #{dictionaryId,jdbcType=BIGINT},
+      </if>
+      <if test="dicName != null" >
+        #{dicName,jdbcType=VARCHAR},
+      </if>
+      <if test="dicGroup != null" >
+        #{dicGroup,jdbcType=VARCHAR},
+      </if>
+      <if test="dicCode != null" >
+        #{dicCode,jdbcType=VARCHAR},
+      </if>
+      <if test="dicOrder != null" >
+        #{dicOrder,jdbcType=TINYINT},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=BIGINT},
+      </if>
+      <if test="updateTime != null" >
+        #{updateTime,jdbcType=BIGINT},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.yikangyiliao.pension.entity.Dictionary" >
+    update dictionarys
+    <set >
+      <if test="dicName != null" >
+        dic_name = #{dicName,jdbcType=VARCHAR},
+      </if>
+      <if test="dicGroup != null" >
+        dic_group = #{dicGroup,jdbcType=VARCHAR},
+      </if>
+      <if test="dicCode != null" >
+        dic_code = #{dicCode,jdbcType=VARCHAR},
+      </if>
+      <if test="dicOrder != null" >
+        dic_order = #{dicOrder,jdbcType=TINYINT},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=BIGINT},
+      </if>
+      <if test="updateTime != null" >
+        update_time = #{updateTime,jdbcType=BIGINT},
+      </if>
+    </set>
+    where dictionary_id = #{dictionaryId,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.yikangyiliao.pension.entity.Dictionary" >
+    update dictionarys
+    set dic_name = #{dicName,jdbcType=VARCHAR},
+      dic_group = #{dicGroup,jdbcType=VARCHAR},
+      dic_code = #{dicCode,jdbcType=VARCHAR},
+      dic_order = #{dicOrder,jdbcType=TINYINT},
+      create_time = #{createTime,jdbcType=BIGINT},
+      update_time = #{updateTime,jdbcType=BIGINT}
+    where dictionary_id = #{dictionaryId,jdbcType=BIGINT}
+  </update>
+</mapper>

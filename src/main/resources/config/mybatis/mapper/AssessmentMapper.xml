@@ -1,0 +1,298 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.yikangyiliao.pension.dao.AssessmentDao" >
+  <resultMap id="BaseResultMap" type="com.yikangyiliao.pension.entity.Assessment" >
+    <id column="assessment_id" property="assessmentId" jdbcType="BIGINT" />
+    <result column="senior_id" property="seniorId" jdbcType="BIGINT" />
+    <result column="assessment_number" property="assessmentNumber" jdbcType="VARCHAR" />
+    <result column="assessment_name" property="assessmentName" jdbcType="VARCHAR" />
+    <result column="online_assess" property="onlineAssess" jdbcType="BIT" />
+    <result column="daily_state" property="dailyState" jdbcType="BIT" />
+    <result column="mentality_state" property="mentalityState" jdbcType="BIT" />
+    <result column="perception_conmunication" property="perceptionConmunication" jdbcType="BIT" />
+    <result column="social_participation" property="socialParticipation" jdbcType="BIT" />
+    <result column="common_problem" property="commonProblem" jdbcType="BIT" />
+    <result column="fall_risk" property="fallRisk" jdbcType="BIT" />
+    <result column="dementia" property="dementia" jdbcType="BIT" />
+    <result column="life_nursings" property="lifeNursings" jdbcType="BIT" />
+    <result column="pathological_signs" property="pathologicalSigns" jdbcType="BIT" />
+    <result column="pp_assessment" property="ppAssessment" jdbcType="BIT" />
+    <result column="depression" property="depression" jdbcType="BIT" />
+    <result column="create_time" property="createTime" jdbcType="BIGINT" />
+    <result column="update_time" property="updateTime" jdbcType="BIGINT" />
+    <result column="appraisers_id" property="appraisersId" jdbcType="BIGINT" />
+    <result column="appraisers_name" property="appraisersName" jdbcType="VARCHAR" />
+    <result column="is_delete" property="isDelete" jdbcType="TINYINT" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    assessment_id, senior_id, assessment_number, assessment_name, online_assess, daily_state, 
+    mentality_state, perception_conmunication, social_participation, common_problem, 
+    fall_risk, dementia, life_nursings, pathological_signs, pp_assessment, depression, 
+    create_time, update_time, appraisers_id, appraisers_name, is_delete
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from assessments
+    where assessment_id = #{assessmentId,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from assessments
+    where assessment_id = #{assessmentId,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.yikangyiliao.pension.entity.Assessment" >
+    insert into assessments (assessment_id, senior_id, assessment_number, 
+      assessment_name, online_assess, daily_state, 
+      mentality_state, perception_conmunication, social_participation, 
+      common_problem, fall_risk, dementia, 
+      life_nursings, pathological_signs, pp_assessment, 
+      depression, create_time, update_time, 
+      appraisers_id, appraisers_name, is_delete
+      )
+    values (#{assessmentId,jdbcType=BIGINT}, #{seniorId,jdbcType=BIGINT}, #{assessmentNumber,jdbcType=VARCHAR}, 
+      #{assessmentName,jdbcType=VARCHAR}, #{onlineAssess,jdbcType=BIT}, #{dailyState,jdbcType=BIT}, 
+      #{mentalityState,jdbcType=BIT}, #{perceptionConmunication,jdbcType=BIT}, #{socialParticipation,jdbcType=BIT}, 
+      #{commonProblem,jdbcType=BIT}, #{fallRisk,jdbcType=BIT}, #{dementia,jdbcType=BIT}, 
+      #{lifeNursings,jdbcType=BIT}, #{pathologicalSigns,jdbcType=BIT}, #{ppAssessment,jdbcType=BIT}, 
+      #{depression,jdbcType=BIT}, #{createTime,jdbcType=BIGINT}, #{updateTime,jdbcType=BIGINT}, 
+      #{appraisersId,jdbcType=BIGINT}, #{appraisersName,jdbcType=VARCHAR}, #{isDelete,jdbcType=TINYINT}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.yikangyiliao.pension.entity.Assessment" >
+    <selectKey resultType="Long" keyProperty="assessmentId" order="AFTER">
+		SELECT LAST_INSERT_ID()
+	</selectKey>
+    insert into assessments
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="assessmentId != null" >
+        assessment_id,
+      </if>
+      <if test="seniorId != null" >
+        senior_id,
+      </if>
+      <if test="assessmentNumber != null" >
+        assessment_number,
+      </if>
+      <if test="assessmentName != null" >
+        assessment_name,
+      </if>
+      <if test="onlineAssess != null" >
+        online_assess,
+      </if>
+      <if test="dailyState != null" >
+        daily_state,
+      </if>
+      <if test="mentalityState != null" >
+        mentality_state,
+      </if>
+      <if test="perceptionConmunication != null" >
+        perception_conmunication,
+      </if>
+      <if test="socialParticipation != null" >
+        social_participation,
+      </if>
+      <if test="commonProblem != null" >
+        common_problem,
+      </if>
+      <if test="fallRisk != null" >
+        fall_risk,
+      </if>
+      <if test="dementia != null" >
+        dementia,
+      </if>
+      <if test="lifeNursings != null" >
+        life_nursings,
+      </if>
+      <if test="pathologicalSigns != null" >
+        pathological_signs,
+      </if>
+      <if test="ppAssessment != null" >
+        pp_assessment,
+      </if>
+      <if test="depression != null" >
+        depression,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+      <if test="updateTime != null" >
+        update_time,
+      </if>
+      <if test="appraisersId != null" >
+        appraisers_id,
+      </if>
+      <if test="appraisersName != null" >
+        appraisers_name,
+      </if>
+      <if test="isDelete != null" >
+        is_delete,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="assessmentId != null" >
+        #{assessmentId,jdbcType=BIGINT},
+      </if>
+      <if test="seniorId != null" >
+        #{seniorId,jdbcType=BIGINT},
+      </if>
+      <if test="assessmentNumber != null" >
+        #{assessmentNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="assessmentName != null" >
+        #{assessmentName,jdbcType=VARCHAR},
+      </if>
+      <if test="onlineAssess != null" >
+        #{onlineAssess,jdbcType=BIT},
+      </if>
+      <if test="dailyState != null" >
+        #{dailyState,jdbcType=BIT},
+      </if>
+      <if test="mentalityState != null" >
+        #{mentalityState,jdbcType=BIT},
+      </if>
+      <if test="perceptionConmunication != null" >
+        #{perceptionConmunication,jdbcType=BIT},
+      </if>
+      <if test="socialParticipation != null" >
+        #{socialParticipation,jdbcType=BIT},
+      </if>
+      <if test="commonProblem != null" >
+        #{commonProblem,jdbcType=BIT},
+      </if>
+      <if test="fallRisk != null" >
+        #{fallRisk,jdbcType=BIT},
+      </if>
+      <if test="dementia != null" >
+        #{dementia,jdbcType=BIT},
+      </if>
+      <if test="lifeNursings != null" >
+        #{lifeNursings,jdbcType=BIT},
+      </if>
+      <if test="pathologicalSigns != null" >
+        #{pathologicalSigns,jdbcType=BIT},
+      </if>
+      <if test="ppAssessment != null" >
+        #{ppAssessment,jdbcType=BIT},
+      </if>
+      <if test="depression != null" >
+        #{depression,jdbcType=BIT},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=BIGINT},
+      </if>
+      <if test="updateTime != null" >
+        #{updateTime,jdbcType=BIGINT},
+      </if>
+      <if test="appraisersId != null" >
+        #{appraisersId,jdbcType=BIGINT},
+      </if>
+      <if test="appraisersName != null" >
+        #{appraisersName,jdbcType=VARCHAR},
+      </if>
+      <if test="isDelete != null" >
+        #{isDelete,jdbcType=TINYINT},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.yikangyiliao.pension.entity.Assessment" >
+    update assessments
+    <set >
+      <if test="seniorId != null" >
+        senior_id = #{seniorId,jdbcType=BIGINT},
+      </if>
+      <if test="assessmentNumber != null" >
+        assessment_number = #{assessmentNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="assessmentName != null" >
+        assessment_name = #{assessmentName,jdbcType=VARCHAR},
+      </if>
+      <if test="onlineAssess != null" >
+        online_assess = #{onlineAssess,jdbcType=BIT},
+      </if>
+      <if test="dailyState != null" >
+        daily_state = #{dailyState,jdbcType=BIT},
+      </if>
+      <if test="mentalityState != null" >
+        mentality_state = #{mentalityState,jdbcType=BIT},
+      </if>
+      <if test="perceptionConmunication != null" >
+        perception_conmunication = #{perceptionConmunication,jdbcType=BIT},
+      </if>
+      <if test="socialParticipation != null" >
+        social_participation = #{socialParticipation,jdbcType=BIT},
+      </if>
+      <if test="commonProblem != null" >
+        common_problem = #{commonProblem,jdbcType=BIT},
+      </if>
+      <if test="fallRisk != null" >
+        fall_risk = #{fallRisk,jdbcType=BIT},
+      </if>
+      <if test="dementia != null" >
+        dementia = #{dementia,jdbcType=BIT},
+      </if>
+      <if test="lifeNursings != null" >
+        life_nursings = #{lifeNursings,jdbcType=BIT},
+      </if>
+      <if test="pathologicalSigns != null" >
+        pathological_signs = #{pathologicalSigns,jdbcType=BIT},
+      </if>
+      <if test="ppAssessment != null" >
+        pp_assessment = #{ppAssessment,jdbcType=BIT},
+      </if>
+      <if test="depression != null" >
+        depression = #{depression,jdbcType=BIT},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=BIGINT},
+      </if>
+      <if test="updateTime != null" >
+        update_time = #{updateTime,jdbcType=BIGINT},
+      </if>
+      <if test="appraisersId != null" >
+        appraisers_id = #{appraisersId,jdbcType=BIGINT},
+      </if>
+      <if test="appraisersName != null" >
+        appraisers_name = #{appraisersName,jdbcType=VARCHAR},
+      </if>
+      <if test="isDelete != null" >
+        is_delete = #{isDelete,jdbcType=TINYINT},
+      </if>
+    </set>
+    where assessment_id = #{assessmentId,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.yikangyiliao.pension.entity.Assessment" >
+    update assessments
+    set senior_id = #{seniorId,jdbcType=BIGINT},
+      assessment_number = #{assessmentNumber,jdbcType=VARCHAR},
+      assessment_name = #{assessmentName,jdbcType=VARCHAR},
+      online_assess = #{onlineAssess,jdbcType=BIT},
+      daily_state = #{dailyState,jdbcType=BIT},
+      mentality_state = #{mentalityState,jdbcType=BIT},
+      perception_conmunication = #{perceptionConmunication,jdbcType=BIT},
+      social_participation = #{socialParticipation,jdbcType=BIT},
+      common_problem = #{commonProblem,jdbcType=BIT},
+      fall_risk = #{fallRisk,jdbcType=BIT},
+      dementia = #{dementia,jdbcType=BIT},
+      life_nursings = #{lifeNursings,jdbcType=BIT},
+      pathological_signs = #{pathologicalSigns,jdbcType=BIT},
+      pp_assessment = #{ppAssessment,jdbcType=BIT},
+      depression = #{depression,jdbcType=BIT},
+      create_time = #{createTime,jdbcType=BIGINT},
+      update_time = #{updateTime,jdbcType=BIGINT},
+      appraisers_id = #{appraisersId,jdbcType=BIGINT},
+      appraisers_name = #{appraisersName,jdbcType=VARCHAR},
+      is_delete = #{isDelete,jdbcType=TINYINT}
+    where assessment_id = #{assessmentId,jdbcType=BIGINT}
+  </update>
+  
+  <select id="getAssessmentBySeniorId" resultMap="BaseResultMap" parameterType="long">
+  	select 
+    	<include refid="Base_Column_List" />
+    from 
+    	assessments
+    where senior_id=#{seniorId}
+    order by create_time desc
+  </select>
+  
+  
+</mapper>

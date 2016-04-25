@@ -1,0 +1,235 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.yikangyiliao.pension.dao.DailyIndexesDao" >
+  <resultMap id="BaseResultMap" type="com.yikangyiliao.pension.entity.DailyIndexes" >
+    <id column="daily_indexes_id" property="dailyIndexesId" jdbcType="VARCHAR" />
+    <id column="assessment_id" property="assessmentId" jdbcType="BIGINT" />
+    <result column="daily_id" property="dailyId" jdbcType="BIGINT" />
+    <result column="senior_id" property="seniorId" jdbcType="BIGINT" />
+    <result column="eat" property="eat" jdbcType="INTEGER" />
+    <result column="bath" property="bath" jdbcType="INTEGER" />
+    <result column="facial_decency" property="facialDecency" jdbcType="INTEGER" />
+    <result column="dressing" property="dressing" jdbcType="INTEGER" />
+    <result column="urinate_control" property="urinateControl" jdbcType="INTEGER" />
+    <result column="defecate_control" property="defecateControl" jdbcType="INTEGER" />
+    <result column="toileting" property="toileting" jdbcType="INTEGER" />
+    <result column="bed_to_chair" property="bedToChair" jdbcType="INTEGER" />
+    <result column="flat_walking" property="flatWalking" jdbcType="INTEGER" />
+    <result column="upanddown_stairs" property="upanddownStairs" jdbcType="INTEGER" />
+    <result column="total_score" property="totalScore" jdbcType="INTEGER" />
+    <result column="create_time" property="createTime" jdbcType="BIGINT" />
+    <result column="update_time" property="updateTime" jdbcType="BIGINT" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    daily_indexes_id, assessment_id, daily_id, senior_id, eat, bath, facial_decency, 
+    dressing, urinate_control, defecate_control, toileting, bed_to_chair, flat_walking, 
+    upanddown_stairs, total_score, create_time, update_time
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="com.yikangyiliao.pension.entity.DailyIndexesKey" >
+    select 
+    <include refid="Base_Column_List" />
+    from daily_indexes
+    where daily_indexes_id = #{dailyIndexesId,jdbcType=VARCHAR}
+      and assessment_id = #{assessmentId,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="com.yikangyiliao.pension.entity.DailyIndexesKey" >
+    delete from daily_indexes
+    where daily_indexes_id = #{dailyIndexesId,jdbcType=VARCHAR}
+      and assessment_id = #{assessmentId,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.yikangyiliao.pension.entity.DailyIndexes" >
+    insert into daily_indexes (daily_indexes_id, assessment_id, daily_id, 
+      senior_id, eat, bath, 
+      facial_decency, dressing, urinate_control, 
+      defecate_control, toileting, bed_to_chair, 
+      flat_walking, upanddown_stairs, total_score, 
+      create_time, update_time)
+    values (#{dailyIndexesId,jdbcType=VARCHAR}, #{assessmentId,jdbcType=BIGINT}, #{dailyId,jdbcType=BIGINT}, 
+      #{seniorId,jdbcType=BIGINT}, #{eat,jdbcType=INTEGER}, #{bath,jdbcType=INTEGER}, 
+      #{facialDecency,jdbcType=INTEGER}, #{dressing,jdbcType=INTEGER}, #{urinateControl,jdbcType=INTEGER}, 
+      #{defecateControl,jdbcType=INTEGER}, #{toileting,jdbcType=INTEGER}, #{bedToChair,jdbcType=INTEGER}, 
+      #{flatWalking,jdbcType=INTEGER}, #{upanddownStairs,jdbcType=INTEGER}, #{totalScore,jdbcType=INTEGER}, 
+      #{createTime,jdbcType=BIGINT}, #{updateTime,jdbcType=BIGINT})
+  </insert>
+  <insert id="insertSelective" parameterType="com.yikangyiliao.pension.entity.DailyIndexes" >
+    insert into daily_indexes
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="dailyIndexesId != null" >
+        daily_indexes_id,
+      </if>
+      <if test="assessmentId != null" >
+        assessment_id,
+      </if>
+      <if test="dailyId != null" >
+        daily_id,
+      </if>
+      <if test="seniorId != null" >
+        senior_id,
+      </if>
+      <if test="eat != null" >
+        eat,
+      </if>
+      <if test="bath != null" >
+        bath,
+      </if>
+      <if test="facialDecency != null" >
+        facial_decency,
+      </if>
+      <if test="dressing != null" >
+        dressing,
+      </if>
+      <if test="urinateControl != null" >
+        urinate_control,
+      </if>
+      <if test="defecateControl != null" >
+        defecate_control,
+      </if>
+      <if test="toileting != null" >
+        toileting,
+      </if>
+      <if test="bedToChair != null" >
+        bed_to_chair,
+      </if>
+      <if test="flatWalking != null" >
+        flat_walking,
+      </if>
+      <if test="upanddownStairs != null" >
+        upanddown_stairs,
+      </if>
+      <if test="totalScore != null" >
+        total_score,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+      <if test="updateTime != null" >
+        update_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="dailyIndexesId != null" >
+        #{dailyIndexesId,jdbcType=VARCHAR},
+      </if>
+      <if test="assessmentId != null" >
+        #{assessmentId,jdbcType=BIGINT},
+      </if>
+      <if test="dailyId != null" >
+        #{dailyId,jdbcType=BIGINT},
+      </if>
+      <if test="seniorId != null" >
+        #{seniorId,jdbcType=BIGINT},
+      </if>
+      <if test="eat != null" >
+        #{eat,jdbcType=INTEGER},
+      </if>
+      <if test="bath != null" >
+        #{bath,jdbcType=INTEGER},
+      </if>
+      <if test="facialDecency != null" >
+        #{facialDecency,jdbcType=INTEGER},
+      </if>
+      <if test="dressing != null" >
+        #{dressing,jdbcType=INTEGER},
+      </if>
+      <if test="urinateControl != null" >
+        #{urinateControl,jdbcType=INTEGER},
+      </if>
+      <if test="defecateControl != null" >
+        #{defecateControl,jdbcType=INTEGER},
+      </if>
+      <if test="toileting != null" >
+        #{toileting,jdbcType=INTEGER},
+      </if>
+      <if test="bedToChair != null" >
+        #{bedToChair,jdbcType=INTEGER},
+      </if>
+      <if test="flatWalking != null" >
+        #{flatWalking,jdbcType=INTEGER},
+      </if>
+      <if test="upanddownStairs != null" >
+        #{upanddownStairs,jdbcType=INTEGER},
+      </if>
+      <if test="totalScore != null" >
+        #{totalScore,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=BIGINT},
+      </if>
+      <if test="updateTime != null" >
+        #{updateTime,jdbcType=BIGINT},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.yikangyiliao.pension.entity.DailyIndexes" >
+    update daily_indexes
+    <set >
+      <if test="dailyId != null" >
+        daily_id = #{dailyId,jdbcType=BIGINT},
+      </if>
+      <if test="seniorId != null" >
+        senior_id = #{seniorId,jdbcType=BIGINT},
+      </if>
+      <if test="eat != null" >
+        eat = #{eat,jdbcType=INTEGER},
+      </if>
+      <if test="bath != null" >
+        bath = #{bath,jdbcType=INTEGER},
+      </if>
+      <if test="facialDecency != null" >
+        facial_decency = #{facialDecency,jdbcType=INTEGER},
+      </if>
+      <if test="dressing != null" >
+        dressing = #{dressing,jdbcType=INTEGER},
+      </if>
+      <if test="urinateControl != null" >
+        urinate_control = #{urinateControl,jdbcType=INTEGER},
+      </if>
+      <if test="defecateControl != null" >
+        defecate_control = #{defecateControl,jdbcType=INTEGER},
+      </if>
+      <if test="toileting != null" >
+        toileting = #{toileting,jdbcType=INTEGER},
+      </if>
+      <if test="bedToChair != null" >
+        bed_to_chair = #{bedToChair,jdbcType=INTEGER},
+      </if>
+      <if test="flatWalking != null" >
+        flat_walking = #{flatWalking,jdbcType=INTEGER},
+      </if>
+      <if test="upanddownStairs != null" >
+        upanddown_stairs = #{upanddownStairs,jdbcType=INTEGER},
+      </if>
+      <if test="totalScore != null" >
+        total_score = #{totalScore,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=BIGINT},
+      </if>
+      <if test="updateTime != null" >
+        update_time = #{updateTime,jdbcType=BIGINT},
+      </if>
+    </set>
+    where daily_indexes_id = #{dailyIndexesId,jdbcType=VARCHAR}
+      and assessment_id = #{assessmentId,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.yikangyiliao.pension.entity.DailyIndexes" >
+    update daily_indexes
+    set daily_id = #{dailyId,jdbcType=BIGINT},
+      senior_id = #{seniorId,jdbcType=BIGINT},
+      eat = #{eat,jdbcType=INTEGER},
+      bath = #{bath,jdbcType=INTEGER},
+      facial_decency = #{facialDecency,jdbcType=INTEGER},
+      dressing = #{dressing,jdbcType=INTEGER},
+      urinate_control = #{urinateControl,jdbcType=INTEGER},
+      defecate_control = #{defecateControl,jdbcType=INTEGER},
+      toileting = #{toileting,jdbcType=INTEGER},
+      bed_to_chair = #{bedToChair,jdbcType=INTEGER},
+      flat_walking = #{flatWalking,jdbcType=INTEGER},
+      upanddown_stairs = #{upanddownStairs,jdbcType=INTEGER},
+      total_score = #{totalScore,jdbcType=INTEGER},
+      create_time = #{createTime,jdbcType=BIGINT},
+      update_time = #{updateTime,jdbcType=BIGINT}
+    where daily_indexes_id = #{dailyIndexesId,jdbcType=VARCHAR}
+      and assessment_id = #{assessmentId,jdbcType=BIGINT}
+  </update>
+</mapper>

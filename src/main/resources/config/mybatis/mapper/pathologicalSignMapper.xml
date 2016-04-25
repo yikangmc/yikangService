@@ -1,0 +1,224 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.yikangyiliao.pension.dao.pathologicalSignDao" >
+  <resultMap id="BaseResultMap" type="com.yikangyiliao.pension.entity.pathologicalSign" >
+    <id column="pathological_id" property="pathologicalId" jdbcType="BIGINT" />
+    <result column="assessment_id" property="assessmentId" jdbcType="BIGINT" />
+    <result column="senior_id" property="seniorId" jdbcType="BIGINT" />
+    <result column="respiratory_system" property="respiratorySystem" jdbcType="BIT" />
+    <result column="circulatory_system" property="circulatorySystem" jdbcType="BIT" />
+    <result column="digestive_system" property="digestiveSystem" jdbcType="BIT" />
+    <result column="urinary_system" property="urinarySystem" jdbcType="BIT" />
+    <result column="endocrine_system" property="endocrineSystem" jdbcType="BIT" />
+    <result column="nervous_system" property="nervousSystem" jdbcType="BIT" />
+    <result column="skeletal_system" property="skeletalSystem" jdbcType="BIT" />
+    <result column="other_system" property="otherSystem" jdbcType="BIT" />
+    <result column="create_time" property="createTime" jdbcType="BIGINT" />
+    <result column="update_time" property="updateTime" jdbcType="BIGINT" />
+    <result column="appraisers_id" property="appraisersId" jdbcType="BIGINT" />
+    <result column="appraisers_name" property="appraisersName" jdbcType="VARCHAR" />
+    <result column="is_delete" property="isDelete" jdbcType="BIT" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    pathological_id, assessment_id, senior_id, respiratory_system, circulatory_system, 
+    digestive_system, urinary_system, endocrine_system, nervous_system, skeletal_system, 
+    other_system, create_time, update_time, appraisers_id, appraisers_name, is_delete
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from pathological_signs
+    where pathological_id = #{pathologicalId,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from pathological_signs
+    where pathological_id = #{pathologicalId,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.yikangyiliao.pension.entity.pathologicalSign" >
+    insert into pathological_signs (pathological_id, assessment_id, senior_id, 
+      respiratory_system, circulatory_system, digestive_system, 
+      urinary_system, endocrine_system, nervous_system, 
+      skeletal_system, other_system, create_time, 
+      update_time, appraisers_id, appraisers_name, 
+      is_delete)
+    values (#{pathologicalId,jdbcType=BIGINT}, #{assessmentId,jdbcType=BIGINT}, #{seniorId,jdbcType=BIGINT}, 
+      #{respiratorySystem,jdbcType=BIT}, #{circulatorySystem,jdbcType=BIT}, #{digestiveSystem,jdbcType=BIT}, 
+      #{urinarySystem,jdbcType=BIT}, #{endocrineSystem,jdbcType=BIT}, #{nervousSystem,jdbcType=BIT}, 
+      #{skeletalSystem,jdbcType=BIT}, #{otherSystem,jdbcType=BIT}, #{createTime,jdbcType=BIGINT}, 
+      #{updateTime,jdbcType=BIGINT}, #{appraisersId,jdbcType=BIGINT}, #{appraisersName,jdbcType=VARCHAR}, 
+      #{isDelete,jdbcType=BIT})
+  </insert>
+  <insert id="insertSelective" parameterType="com.yikangyiliao.pension.entity.pathologicalSign" >
+    insert into pathological_signs
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="pathologicalId != null" >
+        pathological_id,
+      </if>
+      <if test="assessmentId != null" >
+        assessment_id,
+      </if>
+      <if test="seniorId != null" >
+        senior_id,
+      </if>
+      <if test="respiratorySystem != null" >
+        respiratory_system,
+      </if>
+      <if test="circulatorySystem != null" >
+        circulatory_system,
+      </if>
+      <if test="digestiveSystem != null" >
+        digestive_system,
+      </if>
+      <if test="urinarySystem != null" >
+        urinary_system,
+      </if>
+      <if test="endocrineSystem != null" >
+        endocrine_system,
+      </if>
+      <if test="nervousSystem != null" >
+        nervous_system,
+      </if>
+      <if test="skeletalSystem != null" >
+        skeletal_system,
+      </if>
+      <if test="otherSystem != null" >
+        other_system,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+      <if test="updateTime != null" >
+        update_time,
+      </if>
+      <if test="appraisersId != null" >
+        appraisers_id,
+      </if>
+      <if test="appraisersName != null" >
+        appraisers_name,
+      </if>
+      <if test="isDelete != null" >
+        is_delete,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="pathologicalId != null" >
+        #{pathologicalId,jdbcType=BIGINT},
+      </if>
+      <if test="assessmentId != null" >
+        #{assessmentId,jdbcType=BIGINT},
+      </if>
+      <if test="seniorId != null" >
+        #{seniorId,jdbcType=BIGINT},
+      </if>
+      <if test="respiratorySystem != null" >
+        #{respiratorySystem,jdbcType=BIT},
+      </if>
+      <if test="circulatorySystem != null" >
+        #{circulatorySystem,jdbcType=BIT},
+      </if>
+      <if test="digestiveSystem != null" >
+        #{digestiveSystem,jdbcType=BIT},
+      </if>
+      <if test="urinarySystem != null" >
+        #{urinarySystem,jdbcType=BIT},
+      </if>
+      <if test="endocrineSystem != null" >
+        #{endocrineSystem,jdbcType=BIT},
+      </if>
+      <if test="nervousSystem != null" >
+        #{nervousSystem,jdbcType=BIT},
+      </if>
+      <if test="skeletalSystem != null" >
+        #{skeletalSystem,jdbcType=BIT},
+      </if>
+      <if test="otherSystem != null" >
+        #{otherSystem,jdbcType=BIT},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=BIGINT},
+      </if>
+      <if test="updateTime != null" >
+        #{updateTime,jdbcType=BIGINT},
+      </if>
+      <if test="appraisersId != null" >
+        #{appraisersId,jdbcType=BIGINT},
+      </if>
+      <if test="appraisersName != null" >
+        #{appraisersName,jdbcType=VARCHAR},
+      </if>
+      <if test="isDelete != null" >
+        #{isDelete,jdbcType=BIT},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.yikangyiliao.pension.entity.pathologicalSign" >
+    update pathological_signs
+    <set >
+      <if test="assessmentId != null" >
+        assessment_id = #{assessmentId,jdbcType=BIGINT},
+      </if>
+      <if test="seniorId != null" >
+        senior_id = #{seniorId,jdbcType=BIGINT},
+      </if>
+      <if test="respiratorySystem != null" >
+        respiratory_system = #{respiratorySystem,jdbcType=BIT},
+      </if>
+      <if test="circulatorySystem != null" >
+        circulatory_system = #{circulatorySystem,jdbcType=BIT},
+      </if>
+      <if test="digestiveSystem != null" >
+        digestive_system = #{digestiveSystem,jdbcType=BIT},
+      </if>
+      <if test="urinarySystem != null" >
+        urinary_system = #{urinarySystem,jdbcType=BIT},
+      </if>
+      <if test="endocrineSystem != null" >
+        endocrine_system = #{endocrineSystem,jdbcType=BIT},
+      </if>
+      <if test="nervousSystem != null" >
+        nervous_system = #{nervousSystem,jdbcType=BIT},
+      </if>
+      <if test="skeletalSystem != null" >
+        skeletal_system = #{skeletalSystem,jdbcType=BIT},
+      </if>
+      <if test="otherSystem != null" >
+        other_system = #{otherSystem,jdbcType=BIT},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=BIGINT},
+      </if>
+      <if test="updateTime != null" >
+        update_time = #{updateTime,jdbcType=BIGINT},
+      </if>
+      <if test="appraisersId != null" >
+        appraisers_id = #{appraisersId,jdbcType=BIGINT},
+      </if>
+      <if test="appraisersName != null" >
+        appraisers_name = #{appraisersName,jdbcType=VARCHAR},
+      </if>
+      <if test="isDelete != null" >
+        is_delete = #{isDelete,jdbcType=BIT},
+      </if>
+    </set>
+    where pathological_id = #{pathologicalId,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.yikangyiliao.pension.entity.pathologicalSign" >
+    update pathological_signs
+    set assessment_id = #{assessmentId,jdbcType=BIGINT},
+      senior_id = #{seniorId,jdbcType=BIGINT},
+      respiratory_system = #{respiratorySystem,jdbcType=BIT},
+      circulatory_system = #{circulatorySystem,jdbcType=BIT},
+      digestive_system = #{digestiveSystem,jdbcType=BIT},
+      urinary_system = #{urinarySystem,jdbcType=BIT},
+      endocrine_system = #{endocrineSystem,jdbcType=BIT},
+      nervous_system = #{nervousSystem,jdbcType=BIT},
+      skeletal_system = #{skeletalSystem,jdbcType=BIT},
+      other_system = #{otherSystem,jdbcType=BIT},
+      create_time = #{createTime,jdbcType=BIGINT},
+      update_time = #{updateTime,jdbcType=BIGINT},
+      appraisers_id = #{appraisersId,jdbcType=BIGINT},
+      appraisers_name = #{appraisersName,jdbcType=VARCHAR},
+      is_delete = #{isDelete,jdbcType=BIT}
+    where pathological_id = #{pathologicalId,jdbcType=BIGINT}
+  </update>
+</mapper>

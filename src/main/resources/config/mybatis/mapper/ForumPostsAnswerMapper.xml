@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.yikangyiliao.pension.dao.ForumPostsAnswerMapper" >
+  <resultMap id="BaseResultMap" type="com.yikangyiliao.pension.entity.ForumPostsAnswer" >
+    <id column="forum_posts_answer_id" property="forumPostsAnswerId" jdbcType="BIGINT" />
+    <result column="form_post_id" property="formPostId" jdbcType="BIGINT" />
+    <result column="create_user_id" property="createUserId" jdbcType="BIGINT" />
+    <result column="to_user_id" property="toUserId" jdbcType="BIGINT" />
+    <result column="content" property="content" jdbcType="VARCHAR" />
+    <result column="answer_to" property="answerTo" jdbcType="TINYINT" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    forum_posts_answer_id, form_post_id, create_user_id, to_user_id, content, answer_to, 
+    create_time
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from forum_posts_answers
+    where forum_posts_answer_id = #{forumPostsAnswerId,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from forum_posts_answers
+    where forum_posts_answer_id = #{forumPostsAnswerId,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.yikangyiliao.pension.entity.ForumPostsAnswer" >
+    insert into forum_posts_answers (forum_posts_answer_id, form_post_id, create_user_id, 
+      to_user_id, content, answer_to, 
+      create_time)
+    values (#{forumPostsAnswerId,jdbcType=BIGINT}, #{formPostId,jdbcType=BIGINT}, #{createUserId,jdbcType=BIGINT}, 
+      #{toUserId,jdbcType=BIGINT}, #{content,jdbcType=VARCHAR}, #{answerTo,jdbcType=TINYINT}, 
+      #{createTime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.yikangyiliao.pension.entity.ForumPostsAnswer" >
+    insert into forum_posts_answers
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="forumPostsAnswerId != null" >
+        forum_posts_answer_id,
+      </if>
+      <if test="formPostId != null" >
+        form_post_id,
+      </if>
+      <if test="createUserId != null" >
+        create_user_id,
+      </if>
+      <if test="toUserId != null" >
+        to_user_id,
+      </if>
+      <if test="content != null" >
+        content,
+      </if>
+      <if test="answerTo != null" >
+        answer_to,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="forumPostsAnswerId != null" >
+        #{forumPostsAnswerId,jdbcType=BIGINT},
+      </if>
+      <if test="formPostId != null" >
+        #{formPostId,jdbcType=BIGINT},
+      </if>
+      <if test="createUserId != null" >
+        #{createUserId,jdbcType=BIGINT},
+      </if>
+      <if test="toUserId != null" >
+        #{toUserId,jdbcType=BIGINT},
+      </if>
+      <if test="content != null" >
+        #{content,jdbcType=VARCHAR},
+      </if>
+      <if test="answerTo != null" >
+        #{answerTo,jdbcType=TINYINT},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.yikangyiliao.pension.entity.ForumPostsAnswer" >
+    update forum_posts_answers
+    <set >
+      <if test="formPostId != null" >
+        form_post_id = #{formPostId,jdbcType=BIGINT},
+      </if>
+      <if test="createUserId != null" >
+        create_user_id = #{createUserId,jdbcType=BIGINT},
+      </if>
+      <if test="toUserId != null" >
+        to_user_id = #{toUserId,jdbcType=BIGINT},
+      </if>
+      <if test="content != null" >
+        content = #{content,jdbcType=VARCHAR},
+      </if>
+      <if test="answerTo != null" >
+        answer_to = #{answerTo,jdbcType=TINYINT},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where forum_posts_answer_id = #{forumPostsAnswerId,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.yikangyiliao.pension.entity.ForumPostsAnswer" >
+    update forum_posts_answers
+    set form_post_id = #{formPostId,jdbcType=BIGINT},
+      create_user_id = #{createUserId,jdbcType=BIGINT},
+      to_user_id = #{toUserId,jdbcType=BIGINT},
+      content = #{content,jdbcType=VARCHAR},
+      answer_to = #{answerTo,jdbcType=TINYINT},
+      create_time = #{createTime,jdbcType=TIMESTAMP}
+    where forum_posts_answer_id = #{forumPostsAnswerId,jdbcType=BIGINT}
+  </update>
+</mapper>

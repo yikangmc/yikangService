@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.yikangyiliao.pension.dao.UserActivetyListMapper" >
+  <resultMap id="BaseResultMap" type="com.yikangyiliao.pension.entity.UserActivetyList" >
+    <id column="user_activety_list_id" property="userActivetyListId" jdbcType="BIGINT" />
+    <result column="user_id" property="userId" jdbcType="BIGINT" />
+    <result column="activety_id" property="activetyId" jdbcType="BIGINT" />
+    <result column="pay_status" property="payStatus" jdbcType="TINYINT" />
+    <result column="audit_status" property="auditStatus" jdbcType="TINYINT" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    user_activety_list_id, user_id, activety_id, pay_status, audit_status
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from user_activety_lists
+    where user_activety_list_id = #{userActivetyListId,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from user_activety_lists
+    where user_activety_list_id = #{userActivetyListId,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.yikangyiliao.pension.entity.UserActivetyList" >
+    insert into user_activety_lists (user_activety_list_id, user_id, activety_id, 
+      pay_status, audit_status)
+    values (#{userActivetyListId,jdbcType=BIGINT}, #{userId,jdbcType=BIGINT}, #{activetyId,jdbcType=BIGINT}, 
+      #{payStatus,jdbcType=TINYINT}, #{auditStatus,jdbcType=TINYINT})
+  </insert>
+  <insert id="insertSelective" parameterType="com.yikangyiliao.pension.entity.UserActivetyList" >
+    insert into user_activety_lists
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="userActivetyListId != null" >
+        user_activety_list_id,
+      </if>
+      <if test="userId != null" >
+        user_id,
+      </if>
+      <if test="activetyId != null" >
+        activety_id,
+      </if>
+      <if test="payStatus != null" >
+        pay_status,
+      </if>
+      <if test="auditStatus != null" >
+        audit_status,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="userActivetyListId != null" >
+        #{userActivetyListId,jdbcType=BIGINT},
+      </if>
+      <if test="userId != null" >
+        #{userId,jdbcType=BIGINT},
+      </if>
+      <if test="activetyId != null" >
+        #{activetyId,jdbcType=BIGINT},
+      </if>
+      <if test="payStatus != null" >
+        #{payStatus,jdbcType=TINYINT},
+      </if>
+      <if test="auditStatus != null" >
+        #{auditStatus,jdbcType=TINYINT},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.yikangyiliao.pension.entity.UserActivetyList" >
+    update user_activety_lists
+    <set >
+      <if test="userId != null" >
+        user_id = #{userId,jdbcType=BIGINT},
+      </if>
+      <if test="activetyId != null" >
+        activety_id = #{activetyId,jdbcType=BIGINT},
+      </if>
+      <if test="payStatus != null" >
+        pay_status = #{payStatus,jdbcType=TINYINT},
+      </if>
+      <if test="auditStatus != null" >
+        audit_status = #{auditStatus,jdbcType=TINYINT},
+      </if>
+    </set>
+    where user_activety_list_id = #{userActivetyListId,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.yikangyiliao.pension.entity.UserActivetyList" >
+    update user_activety_lists
+    set user_id = #{userId,jdbcType=BIGINT},
+      activety_id = #{activetyId,jdbcType=BIGINT},
+      pay_status = #{payStatus,jdbcType=TINYINT},
+      audit_status = #{auditStatus,jdbcType=TINYINT}
+    where user_activety_list_id = #{userActivetyListId,jdbcType=BIGINT}
+  </update>
+</mapper>

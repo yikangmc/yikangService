@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.yikangyiliao.pension.dao.UserAdeptMapDao" >
+  <resultMap id="BaseResultMap" type="com.yikangyiliao.pension.entity.UserAdeptMap" >
+    <id column="user_adept_map_id" property="userAdeptMapId" jdbcType="BIGINT" />
+    <result column="user_id" property="userId" jdbcType="BIGINT" />
+    <result column="adept_id" property="adeptId" jdbcType="BIGINT" />
+    <result column="create_time" property="createTime" jdbcType="BIGINT" />
+    <result column="update_time" property="updateTime" jdbcType="BIGINT" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    user_adept_map_id, user_id, adept_id, create_time, update_time
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from user_adept_maps
+    where user_adept_map_id = #{userAdeptMapId,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from user_adept_maps
+    where user_adept_map_id = #{userAdeptMapId,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.yikangyiliao.pension.entity.UserAdeptMap" >
+    insert into user_adept_maps (user_adept_map_id, user_id, adept_id, 
+      create_time, update_time)
+    values (#{userAdeptMapId,jdbcType=BIGINT}, #{userId,jdbcType=BIGINT}, #{adeptId,jdbcType=BIGINT}, 
+      #{createTime,jdbcType=BIGINT}, #{updateTime,jdbcType=BIGINT})
+  </insert>
+  <insert id="insertSelective" parameterType="com.yikangyiliao.pension.entity.UserAdeptMap" >
+    insert into user_adept_maps
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="userAdeptMapId != null" >
+        user_adept_map_id,
+      </if>
+      <if test="userId != null" >
+        user_id,
+      </if>
+      <if test="adeptId != null" >
+        adept_id,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+      <if test="updateTime != null" >
+        update_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="userAdeptMapId != null" >
+        #{userAdeptMapId,jdbcType=BIGINT},
+      </if>
+      <if test="userId != null" >
+        #{userId,jdbcType=BIGINT},
+      </if>
+      <if test="adeptId != null" >
+        #{adeptId,jdbcType=BIGINT},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=BIGINT},
+      </if>
+      <if test="updateTime != null" >
+        #{updateTime,jdbcType=BIGINT},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.yikangyiliao.pension.entity.UserAdeptMap" >
+    update user_adept_maps
+    <set >
+      <if test="userId != null" >
+        user_id = #{userId,jdbcType=BIGINT},
+      </if>
+      <if test="adeptId != null" >
+        adept_id = #{adeptId,jdbcType=BIGINT},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=BIGINT},
+      </if>
+      <if test="updateTime != null" >
+        update_time = #{updateTime,jdbcType=BIGINT},
+      </if>
+    </set>
+    where user_adept_map_id = #{userAdeptMapId,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.yikangyiliao.pension.entity.UserAdeptMap" >
+    update user_adept_maps
+    set user_id = #{userId,jdbcType=BIGINT},
+      adept_id = #{adeptId,jdbcType=BIGINT},
+      create_time = #{createTime,jdbcType=BIGINT},
+      update_time = #{updateTime,jdbcType=BIGINT}
+    where user_adept_map_id = #{userAdeptMapId,jdbcType=BIGINT}
+  </update>
+  
+  
+  <!--删除用户的所有擅长  -->
+  <delete id="deleteUserAdeptAllByUserId" parameterType="long">
+  	delete from user_adept_maps where user_id=#{userId}
+  </delete>
+  
+</mapper>

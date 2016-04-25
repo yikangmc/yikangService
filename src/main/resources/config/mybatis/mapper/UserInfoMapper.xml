@@ -1,0 +1,194 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.yikangyiliao.pension.dao.UserInfoDao" >
+  <resultMap id="BaseResultMap" type="com.yikangyiliao.pension.entity.UserInfo" >
+    <id column="user_info_id" property="userInfoId" jdbcType="BIGINT" />
+    <result column="user_name" property="userName" jdbcType="VARCHAR" />
+    <result column="user_sex" property="userSex" jdbcType="TINYINT" />
+    <result column="provence_code" property="provenceCode" jdbcType="VARCHAR" />
+    <result column="city_code" property="cityCode" jdbcType="VARCHAR" />
+    <result column="district_code" property="districtCode" jdbcType="VARCHAR" />
+    <result column="address" property="address" jdbcType="VARCHAR" />
+    <result column="create_at" property="createAt" jdbcType="BIGINT" />
+    <result column="update_at" property="updateAt" jdbcType="BIGINT" />
+    <result column="user_id" property="userId" jdbcType="BIGINT" />
+    <result column="is_delete" property="isDelete" jdbcType="BIGINT" />
+    <result column="user_infos_col" property="userInfosCol" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    user_info_id, user_name, user_sex, provence_code, city_code, district_code, address, 
+    create_at, update_at, user_id, is_delete, user_infos_col
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from user_infos
+    where user_info_id = #{userInfoId,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from user_infos
+    where user_info_id = #{userInfoId,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.yikangyiliao.pension.entity.UserInfo" >
+    insert into user_infos (user_info_id, user_name, user_sex, 
+      provence_code, city_code, district_code, 
+      address, create_at, update_at, 
+      user_id, is_delete, user_infos_col
+      )
+    values (#{userInfoId,jdbcType=BIGINT}, #{userName,jdbcType=VARCHAR}, #{userSex,jdbcType=TINYINT}, 
+      #{provenceCode,jdbcType=VARCHAR}, #{cityCode,jdbcType=VARCHAR}, #{districtCode,jdbcType=VARCHAR}, 
+      #{address,jdbcType=VARCHAR}, #{createAt,jdbcType=BIGINT}, #{updateAt,jdbcType=BIGINT}, 
+      #{userId,jdbcType=BIGINT}, #{isDelete,jdbcType=BIGINT}, #{userInfosCol,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.yikangyiliao.pension.entity.UserInfo" >
+    insert into user_infos
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="userInfoId != null" >
+        user_info_id,
+      </if>
+      <if test="userName != null" >
+        user_name,
+      </if>
+      <if test="userSex != null" >
+        user_sex,
+      </if>
+      <if test="provenceCode != null" >
+        provence_code,
+      </if>
+      <if test="cityCode != null" >
+        city_code,
+      </if>
+      <if test="districtCode != null" >
+        district_code,
+      </if>
+      <if test="address != null" >
+        address,
+      </if>
+      <if test="createAt != null" >
+        create_at,
+      </if>
+      <if test="updateAt != null" >
+        update_at,
+      </if>
+      <if test="userId != null" >
+        user_id,
+      </if>
+      <if test="isDelete != null" >
+        is_delete,
+      </if>
+      <if test="userInfosCol != null" >
+        user_infos_col,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="userInfoId != null" >
+        #{userInfoId,jdbcType=BIGINT},
+      </if>
+      <if test="userName != null" >
+        #{userName,jdbcType=VARCHAR},
+      </if>
+      <if test="userSex != null" >
+        #{userSex,jdbcType=TINYINT},
+      </if>
+      <if test="provenceCode != null" >
+        #{provenceCode,jdbcType=VARCHAR},
+      </if>
+      <if test="cityCode != null" >
+        #{cityCode,jdbcType=VARCHAR},
+      </if>
+      <if test="districtCode != null" >
+        #{districtCode,jdbcType=VARCHAR},
+      </if>
+      <if test="address != null" >
+        #{address,jdbcType=VARCHAR},
+      </if>
+      <if test="createAt != null" >
+        #{createAt,jdbcType=BIGINT},
+      </if>
+      <if test="updateAt != null" >
+        #{updateAt,jdbcType=BIGINT},
+      </if>
+      <if test="userId != null" >
+        #{userId,jdbcType=BIGINT},
+      </if>
+      <if test="isDelete != null" >
+        #{isDelete,jdbcType=BIGINT},
+      </if>
+      <if test="userInfosCol != null" >
+        #{userInfosCol,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.yikangyiliao.pension.entity.UserInfo" >
+    update user_infos
+    <set >
+      <if test="userName != null" >
+        user_name = #{userName,jdbcType=VARCHAR},
+      </if>
+      <if test="userSex != null" >
+        user_sex = #{userSex,jdbcType=TINYINT},
+      </if>
+      <if test="provenceCode != null" >
+        provence_code = #{provenceCode,jdbcType=VARCHAR},
+      </if>
+      <if test="cityCode != null" >
+        city_code = #{cityCode,jdbcType=VARCHAR},
+      </if>
+      <if test="districtCode != null" >
+        district_code = #{districtCode,jdbcType=VARCHAR},
+      </if>
+      <if test="address != null" >
+        address = #{address,jdbcType=VARCHAR},
+      </if>
+      <if test="createAt != null" >
+        create_at = #{createAt,jdbcType=BIGINT},
+      </if>
+      <if test="updateAt != null" >
+        update_at = #{updateAt,jdbcType=BIGINT},
+      </if>
+      <if test="userId != null" >
+        user_id = #{userId,jdbcType=BIGINT},
+      </if>
+      <if test="isDelete != null" >
+        is_delete = #{isDelete,jdbcType=BIGINT},
+      </if>
+      <if test="userInfosCol != null" >
+        user_infos_col = #{userInfosCol,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where user_info_id = #{userInfoId,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.yikangyiliao.pension.entity.UserInfo" >
+    update user_infos
+    set user_name = #{userName,jdbcType=VARCHAR},
+      user_sex = #{userSex,jdbcType=TINYINT},
+      provence_code = #{provenceCode,jdbcType=VARCHAR},
+      city_code = #{cityCode,jdbcType=VARCHAR},
+      district_code = #{districtCode,jdbcType=VARCHAR},
+      address = #{address,jdbcType=VARCHAR},
+      create_at = #{createAt,jdbcType=BIGINT},
+      update_at = #{updateAt,jdbcType=BIGINT},
+      user_id = #{userId,jdbcType=BIGINT},
+      is_delete = #{isDelete,jdbcType=BIGINT},
+      user_infos_col = #{userInfosCol,jdbcType=VARCHAR}
+    where user_info_id = #{userInfoId,jdbcType=BIGINT}
+  </update>
+  
+  
+  <!-- 获取某一个用户信息，根据用户id -->
+  <select id="getUserInfoByUserId" resultMap="BaseResultMap" parameterType="long">
+  	select 
+  		<include refid="Base_Column_List" />
+  	from user_infos
+  	where user_id=#{userId}
+  	
+  </select>
+  
+  
+  <select id="getMyinvitationUserByUserId" resultMap="BaseResultMap" parameterType="long">
+	  
+  </select>
+  
+  
+</mapper>

@@ -1,0 +1,192 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.yikangyiliao.pension.dao.ServiceScheduleDao" >
+  <resultMap id="BaseResultMap" type="com.yikangyiliao.pension.entity.ServiceSchedule" >
+    <id column="service_schedule_id" property="serviceScheduleId" jdbcType="BIGINT" />
+    <result column="service_user_id" property="serviceUserId" jdbcType="BIGINT" />
+    <result column="service_date" property="serviceDate" jdbcType="TIMESTAMP" />
+    <result column="create_time" property="createTime" jdbcType="BIGINT" />
+    <result column="update_time" property="updateTime" jdbcType="BIGINT" />
+    <result column="create_user_id" property="createUserId" jdbcType="BIGINT" />
+    <result column="is_can_selected" property="isCanSelected" jdbcType="TINYINT" />
+    <result column="service_year" property="serviceYear" jdbcType="INTEGER" />
+    <result column="service_month" property="serviceMonth" jdbcType="INTEGER" />
+    <result column="servcie_day" property="servcieDay" jdbcType="INTEGER" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    service_schedule_id, service_user_id, service_date, create_time, update_time, create_user_id, 
+    is_can_selected, service_year, service_month, servcie_day
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from service_schedules
+    where service_schedule_id = #{serviceScheduleId,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from service_schedules
+    where service_schedule_id = #{serviceScheduleId,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.yikangyiliao.pension.entity.ServiceSchedule" >
+    insert into service_schedules (service_schedule_id, service_user_id, service_date, 
+      create_time, update_time, create_user_id, 
+      is_can_selected, service_year, service_month, 
+      servcie_day)
+    values (#{serviceScheduleId,jdbcType=BIGINT}, #{serviceUserId,jdbcType=BIGINT}, #{serviceDate,jdbcType=TIMESTAMP}, 
+      #{createTime,jdbcType=BIGINT}, #{updateTime,jdbcType=BIGINT}, #{createUserId,jdbcType=BIGINT}, 
+      #{isCanSelected,jdbcType=TINYINT}, #{serviceYear,jdbcType=INTEGER}, #{serviceMonth,jdbcType=INTEGER}, 
+      #{servcieDay,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="com.yikangyiliao.pension.entity.ServiceSchedule" >
+   	<selectKey resultType="Long" keyProperty="serviceScheduleId" order="AFTER">
+		SELECT LAST_INSERT_ID()
+	</selectKey>
+    insert into service_schedules
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="serviceScheduleId != null" >
+        service_schedule_id,
+      </if>
+      <if test="serviceUserId != null" >
+        service_user_id,
+      </if>
+      <if test="serviceDate != null" >
+        service_date,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+      <if test="updateTime != null" >
+        update_time,
+      </if>
+      <if test="createUserId != null" >
+        create_user_id,
+      </if>
+      <if test="isCanSelected != null" >
+        is_can_selected,
+      </if>
+      <if test="serviceYear != null" >
+        service_year,
+      </if>
+      <if test="serviceMonth != null" >
+        service_month,
+      </if>
+      <if test="servcieDay != null" >
+        servcie_day,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="serviceScheduleId != null" >
+        #{serviceScheduleId,jdbcType=BIGINT},
+      </if>
+      <if test="serviceUserId != null" >
+        #{serviceUserId,jdbcType=BIGINT},
+      </if>
+      <if test="serviceDate != null" >
+        #{serviceDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=BIGINT},
+      </if>
+      <if test="updateTime != null" >
+        #{updateTime,jdbcType=BIGINT},
+      </if>
+      <if test="createUserId != null" >
+        #{createUserId,jdbcType=BIGINT},
+      </if>
+      <if test="isCanSelected != null" >
+        #{isCanSelected,jdbcType=TINYINT},
+      </if>
+      <if test="serviceYear != null" >
+        #{serviceYear,jdbcType=INTEGER},
+      </if>
+      <if test="serviceMonth != null" >
+        #{serviceMonth,jdbcType=INTEGER},
+      </if>
+      <if test="servcieDay != null" >
+        #{servcieDay,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.yikangyiliao.pension.entity.ServiceSchedule" >
+    update service_schedules
+    <set >
+      <if test="serviceUserId != null" >
+        service_user_id = #{serviceUserId,jdbcType=BIGINT},
+      </if>
+      <if test="serviceDate != null" >
+        service_date = #{serviceDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=BIGINT},
+      </if>
+      <if test="updateTime != null" >
+        update_time = #{updateTime,jdbcType=BIGINT},
+      </if>
+      <if test="createUserId != null" >
+        create_user_id = #{createUserId,jdbcType=BIGINT},
+      </if>
+      <if test="isCanSelected != null" >
+        is_can_selected = #{isCanSelected,jdbcType=TINYINT},
+      </if>
+      <if test="serviceYear != null" >
+        service_year = #{serviceYear,jdbcType=INTEGER},
+      </if>
+      <if test="serviceMonth != null" >
+        service_month = #{serviceMonth,jdbcType=INTEGER},
+      </if>
+      <if test="servcieDay != null" >
+        servcie_day = #{servcieDay,jdbcType=INTEGER},
+      </if>
+    </set>
+    where service_schedule_id = #{serviceScheduleId,jdbcType=BIGINT}
+  </update>
+  
+  
+  <update id="updateByPrimaryKey" parameterType="com.yikangyiliao.pension.entity.ServiceSchedule" >
+    update service_schedules
+    set service_user_id = #{serviceUserId,jdbcType=BIGINT},
+      service_date = #{serviceDate,jdbcType=TIMESTAMP},
+      create_time = #{createTime,jdbcType=BIGINT},
+      update_time = #{updateTime,jdbcType=BIGINT},
+      create_user_id = #{createUserId,jdbcType=BIGINT},
+      is_can_selected = #{isCanSelected,jdbcType=TINYINT},
+      service_year = #{serviceYear,jdbcType=INTEGER},
+      service_month = #{serviceMonth,jdbcType=INTEGER},
+      servcie_day = #{servcieDay,jdbcType=INTEGER}
+    where service_schedule_id = #{serviceScheduleId,jdbcType=BIGINT}
+  </update>
+  
+  
+  
+  
+  <!-- 查询某一个服务人员是否，已经生成了某一天的，工作内容 -->
+  <select id="getServiceSchedule" parameterType="map" resultMap="BaseResultMap">
+ 	select 
+	<include refid="Base_Column_List"></include>
+ 	from service_schedules
+ 	where service_user_id=#{serviceUserId} and service_date=#{serviceDate}
+  </select>
+  
+  
+  <!-- 查询某一个人，某年某一个月的，所有工作时间计划 -->
+  <select id="getServiceScheduleByServiceYearAndServiceMonth" parameterType="map" resultMap="BaseResultMap">
+  	select 
+	<include refid="Base_Column_List"></include>
+	from service_schedules
+	where service_year=#{serviceYear}
+	and  service_month=#{serviceMonth}
+	and  service_user_id=#{userId}
+  </select>
+  
+  <!-- 修改某一天的，工作计划计划，是否已经选择 -->
+  <update id="updateIsCanSelected1ByServiceScheduleId" parameterType="map">
+  	update service_schedules set is_can_selected=1,update_time=#{updateTime} where service_schedule_id=#{serviceScheduleId}
+  </update>
+  
+  <!-- 修改一个服务人员的某一天，是否可以在操作 -->
+  <update id="updateIsCanSelected1ByServiceUserIdAndServiceDate" parameterType="long">
+  	update service_schedules set is_can_selected=1 
+  		where service_user_id=#{serviceUserId} and service_date=#{serviceDate}
+  </update>
+  
+</mapper>

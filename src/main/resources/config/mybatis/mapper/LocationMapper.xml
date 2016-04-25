@@ -1,0 +1,187 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.yikangyiliao.pension.dao.LocationDao" >
+  <resultMap id="BaseResultMap" type="com.yikangyiliao.pension.entity.Location" >
+    <id column="location_id" property="locationId" jdbcType="BIGINT" />
+    <result column="name" property="name" jdbcType="VARCHAR" />
+    <result column="administrative_code" property="administrativeCode" jdbcType="VARCHAR" />
+    <result column="create_time" property="createTime" jdbcType="BIGINT" />
+    <result column="update_time" property="updateTime" jdbcType="BIGINT" />
+    <result column="order_number" property="orderNumber" jdbcType="INTEGER" />
+    <result column="is_hidden" property="isHidden" jdbcType="TINYINT" />
+    <result column="zip_code" property="zipCode" jdbcType="VARCHAR" />
+    <result column="phone_code" property="phoneCode" jdbcType="VARCHAR" />
+    <result column="parent_id" property="parentId" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    location_id, name, administrative_code, create_time, update_time, order_number, is_hidden, 
+    zip_code, phone_code, parent_id
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from locations
+    where location_id = #{locationId,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from locations
+    where location_id = #{locationId,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.yikangyiliao.pension.entity.Location" >
+    insert into locations (location_id, name, administrative_code, 
+      create_time, update_time, order_number, 
+      is_hidden, zip_code, phone_code, 
+      parent_id)
+    values (#{locationId,jdbcType=BIGINT}, #{name,jdbcType=VARCHAR}, #{administrativeCode,jdbcType=VARCHAR}, 
+      #{createTime,jdbcType=BIGINT}, #{updateTime,jdbcType=BIGINT}, #{orderNumber,jdbcType=INTEGER}, 
+      #{isHidden,jdbcType=TINYINT}, #{zipCode,jdbcType=VARCHAR}, #{phoneCode,jdbcType=VARCHAR}, 
+      #{parentId,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.yikangyiliao.pension.entity.Location" >
+    insert into locations
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="locationId != null" >
+        location_id,
+      </if>
+      <if test="name != null" >
+        name,
+      </if>
+      <if test="administrativeCode != null" >
+        administrative_code,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+      <if test="updateTime != null" >
+        update_time,
+      </if>
+      <if test="orderNumber != null" >
+        order_number,
+      </if>
+      <if test="isHidden != null" >
+        is_hidden,
+      </if>
+      <if test="zipCode != null" >
+        zip_code,
+      </if>
+      <if test="phoneCode != null" >
+        phone_code,
+      </if>
+      <if test="parentId != null" >
+        parent_id,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="locationId != null" >
+        #{locationId,jdbcType=BIGINT},
+      </if>
+      <if test="name != null" >
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="administrativeCode != null" >
+        #{administrativeCode,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=BIGINT},
+      </if>
+      <if test="updateTime != null" >
+        #{updateTime,jdbcType=BIGINT},
+      </if>
+      <if test="orderNumber != null" >
+        #{orderNumber,jdbcType=INTEGER},
+      </if>
+      <if test="isHidden != null" >
+        #{isHidden,jdbcType=TINYINT},
+      </if>
+      <if test="zipCode != null" >
+        #{zipCode,jdbcType=VARCHAR},
+      </if>
+      <if test="phoneCode != null" >
+        #{phoneCode,jdbcType=VARCHAR},
+      </if>
+      <if test="parentId != null" >
+        #{parentId,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.yikangyiliao.pension.entity.Location" >
+    update locations
+    <set >
+      <if test="name != null" >
+        name = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="administrativeCode != null" >
+        administrative_code = #{administrativeCode,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=BIGINT},
+      </if>
+      <if test="updateTime != null" >
+        update_time = #{updateTime,jdbcType=BIGINT},
+      </if>
+      <if test="orderNumber != null" >
+        order_number = #{orderNumber,jdbcType=INTEGER},
+      </if>
+      <if test="isHidden != null" >
+        is_hidden = #{isHidden,jdbcType=TINYINT},
+      </if>
+      <if test="zipCode != null" >
+        zip_code = #{zipCode,jdbcType=VARCHAR},
+      </if>
+      <if test="phoneCode != null" >
+        phone_code = #{phoneCode,jdbcType=VARCHAR},
+      </if>
+      <if test="parentId != null" >
+        parent_id = #{parentId,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where location_id = #{locationId,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.yikangyiliao.pension.entity.Location" >
+    update locations
+    set name = #{name,jdbcType=VARCHAR},
+      administrative_code = #{administrativeCode,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=BIGINT},
+      update_time = #{updateTime,jdbcType=BIGINT},
+      order_number = #{orderNumber,jdbcType=INTEGER},
+      is_hidden = #{isHidden,jdbcType=TINYINT},
+      zip_code = #{zipCode,jdbcType=VARCHAR},
+      phone_code = #{phoneCode,jdbcType=VARCHAR},
+      parent_id = #{parentId,jdbcType=VARCHAR}
+    where location_id = #{locationId,jdbcType=BIGINT}
+  </update>
+  
+  
+    <!-- 获取市，by 县编码 -->
+  <select id="getCityByDistrictCode" resultMap="BaseResultMap" parameterType="string">
+ 	select 
+ 		parent.* 
+ 	from 
+ 		   locations loc,locations parent 
+ 	where  loc.parent_id=parent.location_id
+ 			and loc.administrative_code=#{administrativeCode}
+ 			and parent.level=2
+  </select>
+  
+    <!-- 获取省，by 市编码 -->
+  <select id="getProvenceByCityCode" resultMap="BaseResultMap" parameterType="string">
+	select
+ 	pp.* 
+	from locations loc,locations parent ,locations pp
+ where loc.parent_id=parent.location_id   and parent.parent_id=pp.location_id
+ 	and loc.administrative_code=#{administrativeCode}
+ 	and pp.level=1
+  </select>
+  
+      <!-- 获取城市 by 编码 -->
+  <select id="getLocationByAdministrativeCode" resultMap="BaseResultMap" parameterType="string">
+ 	select 
+ 		loc.* 
+ 	from 
+ 		   locations loc
+ 	where  loc.administrative_code=#{administrativeCode}
+  </select>
+  
+  
+  
+</mapper>

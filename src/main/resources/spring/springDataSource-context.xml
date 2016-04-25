@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:dwr="http://www.directwebremoting.org/schema/spring-dwr"
+	xmlns:aop="http://www.springframework.org/schema/aop" xmlns:tx="http://www.springframework.org/schema/tx"
+	xmlns:p="http://www.springframework.org/schema/p" xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="
+       http://www.springframework.org/schema/beans
+       http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+       http://www.springframework.org/schema/tx
+       http://www.springframework.org/schema/tx/spring-tx-3.0.xsd
+       http://www.springframework.org/schema/context
+       http://www.springframework.org/schema/context/spring-context-3.0.xsd
+       http://www.springframework.org/schema/aop
+       http://www.springframework.org/schema/aop/spring-aop-3.0.xsd
+       http://www.directwebremoting.org/schema/spring-dwr 
+       http://www.directwebremoting.org/schema/spring-dwr-3.0.xsd ">
+
+
+	<bean id="myDataSource" class="org.apache.commons.dbcp2.BasicDataSource">
+	<!-- 新加坡 -->
+<!-- 		<property name="url" value="jdbc:mysql://yikangtest.cippshngizwx.ap-southeast-1.rds.amazonaws.com:3306/yikangtest?useUnicode=yes&amp;characterEncoding=UTF8"></property> -->
+<!-- 			<property name="username" value="yikang"></property> -->
+<!-- 			<property name="password" value="yikang9988"></property> -->
+	<!-- 北京线上 -->
+		<property name="url" value="jdbc:mysql://yikangtest.cdry2qjq29ol.rds.cn-north-1.amazonaws.com.cn:3306/yikangtest?useUnicode=yes&amp;characterEncoding=UTF8"></property>
+		<property name="username" value="yikangtest"></property>
+		<property name="password" value="yikangtest"></property>
+
+<!-- 北京测试 -->
+<!-- 		<property name="url" value="jdbc:mysql://yikangstaging.cdry2qjq29ol.rds.cn-north-1.amazonaws.com.cn:3306/yikang?useUnicode=yes&amp;characterEncoding=UTF8"></property> -->
+<!-- 		<property name="username" value="yikangstaging"></property> -->
+<!-- 		<property name="password" value="yikangstaging"></property> -->
+		<property name="driverClassName" value="com.mysql.jdbc.Driver"></property>
+		<property name="validationQuery" value="select 1"></property>
+	</bean>
+
+	<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+		<property name="dataSource" ref="myDataSource"></property>
+		<property name="configLocation"
+			value="/WEB-INF/classes/config/mybatis/myBatisConfigration.xml"></property>
+		<property name="mapperLocations" value="/WEB-INF/classes/config/mybatis/mapper/*.xml" />
+	</bean>
+
+	<bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+		<property name="basePackage" value="com.yikangyiliao.pension.dao"></property>
+		<property name="sqlSessionFactoryBeanName" value="sqlSessionFactory"></property>
+	</bean>
+	
+	 <!-- ================================事务相关控制=================================================    -->
+   <bean name="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">     
+          <property name="dataSource" ref="myDataSource"></property>
+   </bean>     
+  
+  <tx:advice id="ykTxAdvice" transaction-manager="transactionManager" >
+    <tx:attributes>
+    
+      <tx:method name="delete*" propagation="REQUIRED"  read-only="false"  		rollback-for="java.lang.Exception" no-rollback-for="java.lang.RuntimeException"/>
+                            
+      <tx:method name="insert*" propagation="REQUIRED"  read-only="false"  		rollback-for="java.lang.RuntimeException" />
+      <tx:method name="save*" 	propagation="REQUIRED" 	read-only="false"    	rollback-for="java.lang.RuntimeException" />
+      
+      <tx:method name="update*" propagation="REQUIRED"  read-only="false"  		rollback-for="java.lang.Exception" />
+      
+      <tx:method name="find*" 	propagation="SUPPORTS"/>
+      <tx:method name="get*" 	propagation="SUPPORTS"/>
+      <tx:method name="select*" propagation="SUPPORTS"/>
+    </tx:attributes>
+  </tx:advice>
+  
+  <aop:config>    
+<!--     把事务控制在Service层 -->
+    <aop:pointcut id="ykTxAdvicePointCut" expression="execution(public * com.yikangyiliao.pension.service.*.*(..))" /> 
+    <aop:advisor pointcut-ref="ykTxAdvicePointCut" advice-ref="ykTxAdvice" />
+  </aop:config>
+
+
+</beans>

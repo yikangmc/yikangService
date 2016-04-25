@@ -1,0 +1,177 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.yikangyiliao.pension.dao.SeniorLivingConditionDao" >
+  <resultMap id="BaseResultMap" type="com.yikangyiliao.pension.entity.SeniorLivingCondition" >
+    <id column="slc_id" property="slcId" jdbcType="BIGINT" />
+    <result column="senior_id" property="seniorId" jdbcType="BIGINT" />
+    <result column="city" property="city" jdbcType="VARCHAR" />
+    <result column="district" property="district" jdbcType="VARCHAR" />
+    <result column="residential_quarter" property="residentialQuarter" jdbcType="VARCHAR" />
+    <result column="unit" property="unit" jdbcType="INTEGER" />
+    <result column="floor" property="floor" jdbcType="INTEGER" />
+    <result column="room_orientation" property="roomOrientation" jdbcType="TINYINT" />
+    <result column="out_window" property="outWindow" jdbcType="BIT" />
+    <result column="live_with" property="liveWith" jdbcType="TINYINT" />
+    <result column="longitude" property="longitude" jdbcType="DOUBLE" />
+    <result column="latitude" property="latitude" jdbcType="DOUBLE" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    slc_id, senior_id, city, district, residential_quarter, unit, floor, room_orientation, 
+    out_window, live_with, longitude, latitude
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from senior_living_conditions
+    where slc_id = #{slcId,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from senior_living_conditions
+    where slc_id = #{slcId,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.yikangyiliao.pension.entity.SeniorLivingCondition" >
+    insert into senior_living_conditions (slc_id, senior_id, city, 
+      district, residential_quarter, unit, 
+      floor, room_orientation, out_window, 
+      live_with, longitude, latitude
+      )
+    values (#{slcId,jdbcType=BIGINT}, #{seniorId,jdbcType=BIGINT}, #{city,jdbcType=VARCHAR}, 
+      #{district,jdbcType=VARCHAR}, #{residentialQuarter,jdbcType=VARCHAR}, #{unit,jdbcType=INTEGER}, 
+      #{floor,jdbcType=INTEGER}, #{roomOrientation,jdbcType=TINYINT}, #{outWindow,jdbcType=BIT}, 
+      #{liveWith,jdbcType=TINYINT}, #{longitude,jdbcType=DOUBLE}, #{latitude,jdbcType=DOUBLE}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.yikangyiliao.pension.entity.SeniorLivingCondition" >
+    insert into senior_living_conditions
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="slcId != null" >
+        slc_id,
+      </if>
+      <if test="seniorId != null" >
+        senior_id,
+      </if>
+      <if test="city != null" >
+        city,
+      </if>
+      <if test="district != null" >
+        district,
+      </if>
+      <if test="residentialQuarter != null" >
+        residential_quarter,
+      </if>
+      <if test="unit != null" >
+        unit,
+      </if>
+      <if test="floor != null" >
+        floor,
+      </if>
+      <if test="roomOrientation != null" >
+        room_orientation,
+      </if>
+      <if test="outWindow != null" >
+        out_window,
+      </if>
+      <if test="liveWith != null" >
+        live_with,
+      </if>
+      <if test="longitude != null" >
+        longitude,
+      </if>
+      <if test="latitude != null" >
+        latitude,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="slcId != null" >
+        #{slcId,jdbcType=BIGINT},
+      </if>
+      <if test="seniorId != null" >
+        #{seniorId,jdbcType=BIGINT},
+      </if>
+      <if test="city != null" >
+        #{city,jdbcType=VARCHAR},
+      </if>
+      <if test="district != null" >
+        #{district,jdbcType=VARCHAR},
+      </if>
+      <if test="residentialQuarter != null" >
+        #{residentialQuarter,jdbcType=VARCHAR},
+      </if>
+      <if test="unit != null" >
+        #{unit,jdbcType=INTEGER},
+      </if>
+      <if test="floor != null" >
+        #{floor,jdbcType=INTEGER},
+      </if>
+      <if test="roomOrientation != null" >
+        #{roomOrientation,jdbcType=TINYINT},
+      </if>
+      <if test="outWindow != null" >
+        #{outWindow,jdbcType=BIT},
+      </if>
+      <if test="liveWith != null" >
+        #{liveWith,jdbcType=TINYINT},
+      </if>
+      <if test="longitude != null" >
+        #{longitude,jdbcType=DOUBLE},
+      </if>
+      <if test="latitude != null" >
+        #{latitude,jdbcType=DOUBLE},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.yikangyiliao.pension.entity.SeniorLivingCondition" >
+    update senior_living_conditions
+    <set >
+      <if test="seniorId != null" >
+        senior_id = #{seniorId,jdbcType=BIGINT},
+      </if>
+      <if test="city != null" >
+        city = #{city,jdbcType=VARCHAR},
+      </if>
+      <if test="district != null" >
+        district = #{district,jdbcType=VARCHAR},
+      </if>
+      <if test="residentialQuarter != null" >
+        residential_quarter = #{residentialQuarter,jdbcType=VARCHAR},
+      </if>
+      <if test="unit != null" >
+        unit = #{unit,jdbcType=INTEGER},
+      </if>
+      <if test="floor != null" >
+        floor = #{floor,jdbcType=INTEGER},
+      </if>
+      <if test="roomOrientation != null" >
+        room_orientation = #{roomOrientation,jdbcType=TINYINT},
+      </if>
+      <if test="outWindow != null" >
+        out_window = #{outWindow,jdbcType=BIT},
+      </if>
+      <if test="liveWith != null" >
+        live_with = #{liveWith,jdbcType=TINYINT},
+      </if>
+      <if test="longitude != null" >
+        longitude = #{longitude,jdbcType=DOUBLE},
+      </if>
+      <if test="latitude != null" >
+        latitude = #{latitude,jdbcType=DOUBLE},
+      </if>
+    </set>
+    where slc_id = #{slcId,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.yikangyiliao.pension.entity.SeniorLivingCondition" >
+    update senior_living_conditions
+    set senior_id = #{seniorId,jdbcType=BIGINT},
+      city = #{city,jdbcType=VARCHAR},
+      district = #{district,jdbcType=VARCHAR},
+      residential_quarter = #{residentialQuarter,jdbcType=VARCHAR},
+      unit = #{unit,jdbcType=INTEGER},
+      floor = #{floor,jdbcType=INTEGER},
+      room_orientation = #{roomOrientation,jdbcType=TINYINT},
+      out_window = #{outWindow,jdbcType=BIT},
+      live_with = #{liveWith,jdbcType=TINYINT},
+      longitude = #{longitude,jdbcType=DOUBLE},
+      latitude = #{latitude,jdbcType=DOUBLE}
+    where slc_id = #{slcId,jdbcType=BIGINT}
+  </update>
+</mapper>

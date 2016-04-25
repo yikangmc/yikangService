@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.yikangyiliao.pension.dao.UserDeviceTabDao" >
+  <resultMap id="BaseResultMap" type="com.yikangyiliao.pension.entity.UserDeviceTab" >
+    <id column="user_device_tab_id" property="userDeviceTabId" jdbcType="BIGINT" />
+    <result column="user_id" property="userId" jdbcType="BIGINT" />
+    <result column="device_id" property="deviceId" jdbcType="BIGINT" />
+    <result column="create_time" property="createTime" jdbcType="BIGINT" />
+    <result column="update_time" property="updateTime" jdbcType="BIGINT" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    user_device_tab_id, user_id, device_id, create_time, update_time
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from user_device_tabs
+    where user_device_tab_id = #{userDeviceTabId,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from user_device_tabs
+    where user_device_tab_id = #{userDeviceTabId,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.yikangyiliao.pension.entity.UserDeviceTab" >
+    insert into user_device_tabs (user_device_tab_id, user_id, device_id, 
+      create_time, update_time)
+    values (#{userDeviceTabId,jdbcType=BIGINT}, #{userId,jdbcType=BIGINT}, #{deviceId,jdbcType=BIGINT}, 
+      #{createTime,jdbcType=BIGINT}, #{updateTime,jdbcType=BIGINT})
+  </insert>
+  <insert id="insertSelective" parameterType="com.yikangyiliao.pension.entity.UserDeviceTab" >
+    insert into user_device_tabs
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="userDeviceTabId != null" >
+        user_device_tab_id,
+      </if>
+      <if test="userId != null" >
+        user_id,
+      </if>
+      <if test="deviceId != null" >
+        device_id,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+      <if test="updateTime != null" >
+        update_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="userDeviceTabId != null" >
+        #{userDeviceTabId,jdbcType=BIGINT},
+      </if>
+      <if test="userId != null" >
+        #{userId,jdbcType=BIGINT},
+      </if>
+      <if test="deviceId != null" >
+        #{deviceId,jdbcType=BIGINT},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=BIGINT},
+      </if>
+      <if test="updateTime != null" >
+        #{updateTime,jdbcType=BIGINT},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.yikangyiliao.pension.entity.UserDeviceTab" >
+    update user_device_tabs
+    <set >
+      <if test="userId != null" >
+        user_id = #{userId,jdbcType=BIGINT},
+      </if>
+      <if test="deviceId != null" >
+        device_id = #{deviceId,jdbcType=BIGINT},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=BIGINT},
+      </if>
+      <if test="updateTime != null" >
+        update_time = #{updateTime,jdbcType=BIGINT},
+      </if>
+    </set>
+    where user_device_tab_id = #{userDeviceTabId,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.yikangyiliao.pension.entity.UserDeviceTab" >
+    update user_device_tabs
+    set user_id = #{userId,jdbcType=BIGINT},
+      device_id = #{deviceId,jdbcType=BIGINT},
+      create_time = #{createTime,jdbcType=BIGINT},
+      update_time = #{updateTime,jdbcType=BIGINT}
+    where user_device_tab_id = #{userDeviceTabId,jdbcType=BIGINT}
+  </update>
+</mapper>

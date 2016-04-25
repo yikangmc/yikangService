@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.yikangyiliao.pension.dao.OperateServiceLogDao" >
+  <resultMap id="BaseResultMap" type="com.yikangyiliao.pension.entity.OperateServiceLog" >
+    <id column="operate_service_log_id" property="operateServiceLogId" jdbcType="BIGINT" />
+    <result column="table_name" property="tableName" jdbcType="VARCHAR" />
+    <result column="operate_type" property="operateType" jdbcType="TINYINT" />
+    <result column="create_time" property="createTime" jdbcType="BIGINT" />
+    <result column="update_time" property="updateTime" jdbcType="BIGINT" />
+    <result column="create_user_id" property="createUserId" jdbcType="BIGINT" />
+  </resultMap>
+  <resultMap id="ResultMapWithBLOBs" type="com.yikangyiliao.pension.entity.OperateServiceLog" extends="BaseResultMap" >
+    <result column="opreate_content" property="opreateContent" jdbcType="LONGVARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    operate_service_log_id, table_name, operate_type, create_time, update_time, create_user_id
+  </sql>
+  <sql id="Blob_Column_List" >
+    opreate_content
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from operate_service_logs
+    where operate_service_log_id = #{operateServiceLogId,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from operate_service_logs
+    where operate_service_log_id = #{operateServiceLogId,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.yikangyiliao.pension.entity.OperateServiceLog" >
+    insert into operate_service_logs (operate_service_log_id, table_name, operate_type, 
+      create_time, update_time, create_user_id, 
+      opreate_content)
+    values (#{operateServiceLogId,jdbcType=BIGINT}, #{tableName,jdbcType=VARCHAR}, #{operateType,jdbcType=TINYINT}, 
+      #{createTime,jdbcType=BIGINT}, #{updateTime,jdbcType=BIGINT}, #{createUserId,jdbcType=BIGINT}, 
+      #{opreateContent,jdbcType=LONGVARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.yikangyiliao.pension.entity.OperateServiceLog" >
+    insert into operate_service_logs
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="operateServiceLogId != null" >
+        operate_service_log_id,
+      </if>
+      <if test="tableName != null" >
+        table_name,
+      </if>
+      <if test="operateType != null" >
+        operate_type,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+      <if test="updateTime != null" >
+        update_time,
+      </if>
+      <if test="createUserId != null" >
+        create_user_id,
+      </if>
+      <if test="opreateContent != null" >
+        opreate_content,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="operateServiceLogId != null" >
+        #{operateServiceLogId,jdbcType=BIGINT},
+      </if>
+      <if test="tableName != null" >
+        #{tableName,jdbcType=VARCHAR},
+      </if>
+      <if test="operateType != null" >
+        #{operateType,jdbcType=TINYINT},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=BIGINT},
+      </if>
+      <if test="updateTime != null" >
+        #{updateTime,jdbcType=BIGINT},
+      </if>
+      <if test="createUserId != null" >
+        #{createUserId,jdbcType=BIGINT},
+      </if>
+      <if test="opreateContent != null" >
+        #{opreateContent,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.yikangyiliao.pension.entity.OperateServiceLog" >
+    update operate_service_logs
+    <set >
+      <if test="tableName != null" >
+        table_name = #{tableName,jdbcType=VARCHAR},
+      </if>
+      <if test="operateType != null" >
+        operate_type = #{operateType,jdbcType=TINYINT},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=BIGINT},
+      </if>
+      <if test="updateTime != null" >
+        update_time = #{updateTime,jdbcType=BIGINT},
+      </if>
+      <if test="createUserId != null" >
+        create_user_id = #{createUserId,jdbcType=BIGINT},
+      </if>
+      <if test="opreateContent != null" >
+        opreate_content = #{opreateContent,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where operate_service_log_id = #{operateServiceLogId,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.yikangyiliao.pension.entity.OperateServiceLog" >
+    update operate_service_logs
+    set table_name = #{tableName,jdbcType=VARCHAR},
+      operate_type = #{operateType,jdbcType=TINYINT},
+      create_time = #{createTime,jdbcType=BIGINT},
+      update_time = #{updateTime,jdbcType=BIGINT},
+      create_user_id = #{createUserId,jdbcType=BIGINT},
+      opreate_content = #{opreateContent,jdbcType=LONGVARCHAR}
+    where operate_service_log_id = #{operateServiceLogId,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.yikangyiliao.pension.entity.OperateServiceLog" >
+    update operate_service_logs
+    set table_name = #{tableName,jdbcType=VARCHAR},
+      operate_type = #{operateType,jdbcType=TINYINT},
+      create_time = #{createTime,jdbcType=BIGINT},
+      update_time = #{updateTime,jdbcType=BIGINT},
+      create_user_id = #{createUserId,jdbcType=BIGINT}
+    where operate_service_log_id = #{operateServiceLogId,jdbcType=BIGINT}
+  </update>
+</mapper>

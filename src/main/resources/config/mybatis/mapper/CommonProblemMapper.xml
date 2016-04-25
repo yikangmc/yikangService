@@ -1,0 +1,284 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.yikangyiliao.pension.dao.CommonProblemDao" >
+  <resultMap id="BaseResultMap" type="com.yikangyiliao.pension.entity.CommonProblem" >
+    <id column="common_problem_id" property="commonProblemId" jdbcType="VARCHAR" />
+    <id column="assessment_id" property="assessmentId" jdbcType="BIGINT" />
+    <result column="cp_id" property="cpId" jdbcType="BIGINT" />
+    <result column="pressure_sore" property="pressureSore" jdbcType="TINYINT" />
+    <result column="epilepsy" property="epilepsy" jdbcType="TINYINT" />
+    <result column="limb_contracture" property="limbContracture" jdbcType="TINYINT" />
+    <result column="Tremor" property="tremor" jdbcType="TINYINT" />
+    <result column="edema" property="edema" jdbcType="TINYINT" />
+    <result column="lower_limb_ulcer" property="lowerLimbUlcer" jdbcType="TINYINT" />
+    <result column="Hemiplegia_paraplegia" property="hemiplegiaParaplegia" jdbcType="TINYINT" />
+    <result column="quadriplegia" property="quadriplegia" jdbcType="TINYINT" />
+    <result column="urinary_tract_infection" property="urinaryTractInfection" jdbcType="TINYINT" />
+    <result column="urinary_incontinence" property="urinaryIncontinence" jdbcType="TINYINT" />
+    <result column="incontinence" property="incontinence" jdbcType="TINYINT" />
+    <result column="fracture" property="fracture" jdbcType="TINYINT" />
+    <result column="amputation" property="amputation" jdbcType="TINYINT" />
+    <result column="terminal_illness" property="terminalIllness" jdbcType="TINYINT" />
+    <result column="stoma" property="stoma" jdbcType="TINYINT" />
+    <result column="indwelling_catheter" property="indwellingCatheter" jdbcType="TINYINT" />
+    <result column="nasogastric_tube" property="nasogastricTube" jdbcType="TINYINT" />
+    <result column="tracheotomy_tube" property="tracheotomyTube" jdbcType="TINYINT" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    common_problem_id, assessment_id, cp_id, pressure_sore, epilepsy, limb_contracture, 
+    Tremor, edema, lower_limb_ulcer, Hemiplegia_paraplegia, quadriplegia, urinary_tract_infection, 
+    urinary_incontinence, incontinence, fracture, amputation, terminal_illness, stoma, 
+    indwelling_catheter, nasogastric_tube, tracheotomy_tube
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="com.yikangyiliao.pension.entity.CommonProblemKey" >
+    select 
+    <include refid="Base_Column_List" />
+    from common_problems
+    where common_problem_id = #{commonProblemId,jdbcType=VARCHAR}
+      and assessment_id = #{assessmentId,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="com.yikangyiliao.pension.entity.CommonProblemKey" >
+    delete from common_problems
+    where common_problem_id = #{commonProblemId,jdbcType=VARCHAR}
+      and assessment_id = #{assessmentId,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.yikangyiliao.pension.entity.CommonProblem" >
+    insert into common_problems (common_problem_id, assessment_id, cp_id, 
+      pressure_sore, epilepsy, limb_contracture, 
+      Tremor, edema, lower_limb_ulcer, 
+      Hemiplegia_paraplegia, quadriplegia, urinary_tract_infection, 
+      urinary_incontinence, incontinence, fracture, 
+      amputation, terminal_illness, stoma, 
+      indwelling_catheter, nasogastric_tube, tracheotomy_tube
+      )
+    values (#{commonProblemId,jdbcType=VARCHAR}, #{assessmentId,jdbcType=BIGINT}, #{cpId,jdbcType=BIGINT}, 
+      #{pressureSore,jdbcType=TINYINT}, #{epilepsy,jdbcType=TINYINT}, #{limbContracture,jdbcType=TINYINT}, 
+      #{tremor,jdbcType=TINYINT}, #{edema,jdbcType=TINYINT}, #{lowerLimbUlcer,jdbcType=TINYINT}, 
+      #{hemiplegiaParaplegia,jdbcType=TINYINT}, #{quadriplegia,jdbcType=TINYINT}, #{urinaryTractInfection,jdbcType=TINYINT}, 
+      #{urinaryIncontinence,jdbcType=TINYINT}, #{incontinence,jdbcType=TINYINT}, #{fracture,jdbcType=TINYINT}, 
+      #{amputation,jdbcType=TINYINT}, #{terminalIllness,jdbcType=TINYINT}, #{stoma,jdbcType=TINYINT}, 
+      #{indwellingCatheter,jdbcType=TINYINT}, #{nasogastricTube,jdbcType=TINYINT}, #{tracheotomyTube,jdbcType=TINYINT}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.yikangyiliao.pension.entity.CommonProblem" >
+    insert into common_problems
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="commonProblemId != null" >
+        common_problem_id,
+      </if>
+      <if test="assessmentId != null" >
+        assessment_id,
+      </if>
+      <if test="cpId != null" >
+        cp_id,
+      </if>
+      <if test="pressureSore != null" >
+        pressure_sore,
+      </if>
+      <if test="epilepsy != null" >
+        epilepsy,
+      </if>
+      <if test="limbContracture != null" >
+        limb_contracture,
+      </if>
+      <if test="tremor != null" >
+        Tremor,
+      </if>
+      <if test="edema != null" >
+        edema,
+      </if>
+      <if test="lowerLimbUlcer != null" >
+        lower_limb_ulcer,
+      </if>
+      <if test="hemiplegiaParaplegia != null" >
+        Hemiplegia_paraplegia,
+      </if>
+      <if test="quadriplegia != null" >
+        quadriplegia,
+      </if>
+      <if test="urinaryTractInfection != null" >
+        urinary_tract_infection,
+      </if>
+      <if test="urinaryIncontinence != null" >
+        urinary_incontinence,
+      </if>
+      <if test="incontinence != null" >
+        incontinence,
+      </if>
+      <if test="fracture != null" >
+        fracture,
+      </if>
+      <if test="amputation != null" >
+        amputation,
+      </if>
+      <if test="terminalIllness != null" >
+        terminal_illness,
+      </if>
+      <if test="stoma != null" >
+        stoma,
+      </if>
+      <if test="indwellingCatheter != null" >
+        indwelling_catheter,
+      </if>
+      <if test="nasogastricTube != null" >
+        nasogastric_tube,
+      </if>
+      <if test="tracheotomyTube != null" >
+        tracheotomy_tube,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="commonProblemId != null" >
+        #{commonProblemId,jdbcType=VARCHAR},
+      </if>
+      <if test="assessmentId != null" >
+        #{assessmentId,jdbcType=BIGINT},
+      </if>
+      <if test="cpId != null" >
+        #{cpId,jdbcType=BIGINT},
+      </if>
+      <if test="pressureSore != null" >
+        #{pressureSore,jdbcType=TINYINT},
+      </if>
+      <if test="epilepsy != null" >
+        #{epilepsy,jdbcType=TINYINT},
+      </if>
+      <if test="limbContracture != null" >
+        #{limbContracture,jdbcType=TINYINT},
+      </if>
+      <if test="tremor != null" >
+        #{tremor,jdbcType=TINYINT},
+      </if>
+      <if test="edema != null" >
+        #{edema,jdbcType=TINYINT},
+      </if>
+      <if test="lowerLimbUlcer != null" >
+        #{lowerLimbUlcer,jdbcType=TINYINT},
+      </if>
+      <if test="hemiplegiaParaplegia != null" >
+        #{hemiplegiaParaplegia,jdbcType=TINYINT},
+      </if>
+      <if test="quadriplegia != null" >
+        #{quadriplegia,jdbcType=TINYINT},
+      </if>
+      <if test="urinaryTractInfection != null" >
+        #{urinaryTractInfection,jdbcType=TINYINT},
+      </if>
+      <if test="urinaryIncontinence != null" >
+        #{urinaryIncontinence,jdbcType=TINYINT},
+      </if>
+      <if test="incontinence != null" >
+        #{incontinence,jdbcType=TINYINT},
+      </if>
+      <if test="fracture != null" >
+        #{fracture,jdbcType=TINYINT},
+      </if>
+      <if test="amputation != null" >
+        #{amputation,jdbcType=TINYINT},
+      </if>
+      <if test="terminalIllness != null" >
+        #{terminalIllness,jdbcType=TINYINT},
+      </if>
+      <if test="stoma != null" >
+        #{stoma,jdbcType=TINYINT},
+      </if>
+      <if test="indwellingCatheter != null" >
+        #{indwellingCatheter,jdbcType=TINYINT},
+      </if>
+      <if test="nasogastricTube != null" >
+        #{nasogastricTube,jdbcType=TINYINT},
+      </if>
+      <if test="tracheotomyTube != null" >
+        #{tracheotomyTube,jdbcType=TINYINT},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.yikangyiliao.pension.entity.CommonProblem" >
+    update common_problems
+    <set >
+      <if test="cpId != null" >
+        cp_id = #{cpId,jdbcType=BIGINT},
+      </if>
+      <if test="pressureSore != null" >
+        pressure_sore = #{pressureSore,jdbcType=TINYINT},
+      </if>
+      <if test="epilepsy != null" >
+        epilepsy = #{epilepsy,jdbcType=TINYINT},
+      </if>
+      <if test="limbContracture != null" >
+        limb_contracture = #{limbContracture,jdbcType=TINYINT},
+      </if>
+      <if test="tremor != null" >
+        Tremor = #{tremor,jdbcType=TINYINT},
+      </if>
+      <if test="edema != null" >
+        edema = #{edema,jdbcType=TINYINT},
+      </if>
+      <if test="lowerLimbUlcer != null" >
+        lower_limb_ulcer = #{lowerLimbUlcer,jdbcType=TINYINT},
+      </if>
+      <if test="hemiplegiaParaplegia != null" >
+        Hemiplegia_paraplegia = #{hemiplegiaParaplegia,jdbcType=TINYINT},
+      </if>
+      <if test="quadriplegia != null" >
+        quadriplegia = #{quadriplegia,jdbcType=TINYINT},
+      </if>
+      <if test="urinaryTractInfection != null" >
+        urinary_tract_infection = #{urinaryTractInfection,jdbcType=TINYINT},
+      </if>
+      <if test="urinaryIncontinence != null" >
+        urinary_incontinence = #{urinaryIncontinence,jdbcType=TINYINT},
+      </if>
+      <if test="incontinence != null" >
+        incontinence = #{incontinence,jdbcType=TINYINT},
+      </if>
+      <if test="fracture != null" >
+        fracture = #{fracture,jdbcType=TINYINT},
+      </if>
+      <if test="amputation != null" >
+        amputation = #{amputation,jdbcType=TINYINT},
+      </if>
+      <if test="terminalIllness != null" >
+        terminal_illness = #{terminalIllness,jdbcType=TINYINT},
+      </if>
+      <if test="stoma != null" >
+        stoma = #{stoma,jdbcType=TINYINT},
+      </if>
+      <if test="indwellingCatheter != null" >
+        indwelling_catheter = #{indwellingCatheter,jdbcType=TINYINT},
+      </if>
+      <if test="nasogastricTube != null" >
+        nasogastric_tube = #{nasogastricTube,jdbcType=TINYINT},
+      </if>
+      <if test="tracheotomyTube != null" >
+        tracheotomy_tube = #{tracheotomyTube,jdbcType=TINYINT},
+      </if>
+    </set>
+    where common_problem_id = #{commonProblemId,jdbcType=VARCHAR}
+      and assessment_id = #{assessmentId,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.yikangyiliao.pension.entity.CommonProblem" >
+    update common_problems
+    set cp_id = #{cpId,jdbcType=BIGINT},
+      pressure_sore = #{pressureSore,jdbcType=TINYINT},
+      epilepsy = #{epilepsy,jdbcType=TINYINT},
+      limb_contracture = #{limbContracture,jdbcType=TINYINT},
+      Tremor = #{tremor,jdbcType=TINYINT},
+      edema = #{edema,jdbcType=TINYINT},
+      lower_limb_ulcer = #{lowerLimbUlcer,jdbcType=TINYINT},
+      Hemiplegia_paraplegia = #{hemiplegiaParaplegia,jdbcType=TINYINT},
+      quadriplegia = #{quadriplegia,jdbcType=TINYINT},
+      urinary_tract_infection = #{urinaryTractInfection,jdbcType=TINYINT},
+      urinary_incontinence = #{urinaryIncontinence,jdbcType=TINYINT},
+      incontinence = #{incontinence,jdbcType=TINYINT},
+      fracture = #{fracture,jdbcType=TINYINT},
+      amputation = #{amputation,jdbcType=TINYINT},
+      terminal_illness = #{terminalIllness,jdbcType=TINYINT},
+      stoma = #{stoma,jdbcType=TINYINT},
+      indwelling_catheter = #{indwellingCatheter,jdbcType=TINYINT},
+      nasogastric_tube = #{nasogastricTube,jdbcType=TINYINT},
+      tracheotomy_tube = #{tracheotomyTube,jdbcType=TINYINT}
+    where common_problem_id = #{commonProblemId,jdbcType=VARCHAR}
+      and assessment_id = #{assessmentId,jdbcType=BIGINT}
+  </update>
+</mapper>

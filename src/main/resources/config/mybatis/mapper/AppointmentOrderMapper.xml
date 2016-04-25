@@ -1,0 +1,496 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.yikangyiliao.pension.dao.AppointmentOrderDao" >
+  <resultMap id="BaseResultMap" type="com.yikangyiliao.pension.entity.AppointmentOrder" >
+    <id column="appointment_order_id" property="appointmentOrderId" jdbcType="BIGINT" />
+    <result column="parent_link_address" property="parentLinkAddress" jdbcType="VARCHAR" />
+    <result column="phone_number" property="phoneNumber" jdbcType="VARCHAR" />
+    <result column="my_phone_number" property="myPhoneNumber" jdbcType="VARCHAR" />
+    <result column="nick_name" property="nickName" jdbcType="VARCHAR" />
+    <result column="appointment_date_time" property="appointmentDateTime" jdbcType="BIGINT" />
+    <result column="time_quanturm_id" property="timeQuanturmId" jdbcType="BIGINT" />
+    <result column="start_time" property="startTime" jdbcType="VARCHAR" />
+    <result column="end_time" property="endTime" jdbcType="VARCHAR" />
+    <result column="order_status" property="orderStatus" jdbcType="INTEGER" />
+    <result column="provence_code" property="provenceCode" jdbcType="VARCHAR" />
+    <result column="city_code" property="cityCode" jdbcType="VARCHAR" />
+    <result column="district_code" property="districtCode" jdbcType="VARCHAR" />
+    <result column="longitude" property="longitude" jdbcType="DOUBLE" />
+    <result column="latitude" property="latitude" jdbcType="DOUBLE" />
+    <result column="detail_address" property="detailAddress" jdbcType="VARCHAR" />
+    <result column="map_postion_address" property="mapPostionAddress" jdbcType="VARCHAR" />
+    <result column="assessment_id" property="assessmentId" jdbcType="BIGINT" />
+    <result column="service_count" property="serviceCount" jdbcType="INTEGER" />
+    <result column="order_number" property="orderNumber" jdbcType="VARCHAR" />
+    <result column="data_source" property="dataSource" jdbcType="TINYINT" />
+    <result column="data_group" property="dataGroup" jdbcType="TINYINT" />
+    <result column="create_time" property="createTime" jdbcType="BIGINT" />
+    <result column="update_time" property="updateTime" jdbcType="BIGINT" />
+    <result column="link_user_name" property="linkUserName" jdbcType="VARCHAR" />
+    <result column="address" property="address" jdbcType="VARCHAR" />
+    <result column="senior_id" property="seniorId" jdbcType="BIGINT" />
+    <result column="create_user_id" property="createUserId" jdbcType="BIGINT" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    appointment_order_id, parent_link_address, phone_number, my_phone_number, nick_name, 
+    appointment_date_time, time_quanturm_id, start_time, end_time, order_status, provence_code, 
+    city_code, district_code, longitude, latitude, detail_address, map_postion_address, 
+    assessment_id, service_count, order_number, data_source, data_group, create_time, 
+    update_time, link_user_name, address, senior_id, create_user_id
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from appointment_orders
+    where appointment_order_id = #{appointmentOrderId,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from appointment_orders
+    where appointment_order_id = #{appointmentOrderId,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.yikangyiliao.pension.entity.AppointmentOrder" >
+    insert into appointment_orders (appointment_order_id, parent_link_address, 
+      phone_number, my_phone_number, nick_name, 
+      appointment_date_time, time_quanturm_id, start_time, 
+      end_time, order_status, provence_code, 
+      city_code, district_code, longitude, 
+      latitude, detail_address, map_postion_address, 
+      assessment_id, service_count, order_number, 
+      data_source, data_group, create_time, 
+      update_time, link_user_name, address, 
+      senior_id, create_user_id)
+    values (#{appointmentOrderId,jdbcType=BIGINT}, #{parentLinkAddress,jdbcType=VARCHAR}, 
+      #{phoneNumber,jdbcType=VARCHAR}, #{myPhoneNumber,jdbcType=VARCHAR}, #{nickName,jdbcType=VARCHAR}, 
+      #{appointmentDateTime,jdbcType=BIGINT}, #{timeQuanturmId,jdbcType=BIGINT}, #{startTime,jdbcType=VARCHAR}, 
+      #{endTime,jdbcType=VARCHAR}, #{orderStatus,jdbcType=INTEGER}, #{provenceCode,jdbcType=VARCHAR}, 
+      #{cityCode,jdbcType=VARCHAR}, #{districtCode,jdbcType=VARCHAR}, #{longitude,jdbcType=DOUBLE}, 
+      #{latitude,jdbcType=DOUBLE}, #{detailAddress,jdbcType=VARCHAR}, #{mapPostionAddress,jdbcType=VARCHAR}, 
+      #{assessmentId,jdbcType=BIGINT}, #{serviceCount,jdbcType=INTEGER}, #{orderNumber,jdbcType=VARCHAR}, 
+      #{dataSource,jdbcType=TINYINT}, #{dataGroup,jdbcType=TINYINT}, #{createTime,jdbcType=BIGINT}, 
+      #{updateTime,jdbcType=BIGINT}, #{linkUserName,jdbcType=VARCHAR}, #{address,jdbcType=VARCHAR}, 
+      #{seniorId,jdbcType=BIGINT}, #{createUserId,jdbcType=BIGINT})
+  </insert>
+  <insert id="insertSelective" parameterType="com.yikangyiliao.pension.entity.AppointmentOrder" >
+    <selectKey resultType="Long" keyProperty="appointmentOrderId" order="AFTER">
+		SELECT LAST_INSERT_ID()
+	</selectKey>
+    insert into appointment_orders
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="appointmentOrderId != null" >
+        appointment_order_id,
+      </if>
+      <if test="parentLinkAddress != null" >
+        parent_link_address,
+      </if>
+      <if test="phoneNumber != null" >
+        phone_number,
+      </if>
+      <if test="myPhoneNumber != null" >
+        my_phone_number,
+      </if>
+      <if test="nickName != null" >
+        nick_name,
+      </if>
+      <if test="appointmentDateTime != null" >
+        appointment_date_time,
+      </if>
+      <if test="timeQuanturmId != null" >
+        time_quanturm_id,
+      </if>
+      <if test="startTime != null" >
+        start_time,
+      </if>
+      <if test="endTime != null" >
+        end_time,
+      </if>
+      <if test="orderStatus != null" >
+        order_status,
+      </if>
+      <if test="provenceCode != null" >
+        provence_code,
+      </if>
+      <if test="cityCode != null" >
+        city_code,
+      </if>
+      <if test="districtCode != null" >
+        district_code,
+      </if>
+      <if test="longitude != null" >
+        longitude,
+      </if>
+      <if test="latitude != null" >
+        latitude,
+      </if>
+      <if test="detailAddress != null" >
+        detail_address,
+      </if>
+      <if test="mapPostionAddress != null" >
+        map_postion_address,
+      </if>
+      <if test="assessmentId != null" >
+        assessment_id,
+      </if>
+      <if test="serviceCount != null" >
+        service_count,
+      </if>
+      <if test="orderNumber != null" >
+        order_number,
+      </if>
+      <if test="dataSource != null" >
+        data_source,
+      </if>
+      <if test="dataGroup != null" >
+        data_group,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+      <if test="updateTime != null" >
+        update_time,
+      </if>
+      <if test="linkUserName != null" >
+        link_user_name,
+      </if>
+      <if test="address != null" >
+        address,
+      </if>
+      <if test="seniorId != null" >
+        senior_id,
+      </if>
+      <if test="createUserId != null" >
+        create_user_id,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="appointmentOrderId != null" >
+        #{appointmentOrderId,jdbcType=BIGINT},
+      </if>
+      <if test="parentLinkAddress != null" >
+        #{parentLinkAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="phoneNumber != null" >
+        #{phoneNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="myPhoneNumber != null" >
+        #{myPhoneNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="nickName != null" >
+        #{nickName,jdbcType=VARCHAR},
+      </if>
+      <if test="appointmentDateTime != null" >
+        #{appointmentDateTime,jdbcType=BIGINT},
+      </if>
+      <if test="timeQuanturmId != null" >
+        #{timeQuanturmId,jdbcType=BIGINT},
+      </if>
+      <if test="startTime != null" >
+        #{startTime,jdbcType=VARCHAR},
+      </if>
+      <if test="endTime != null" >
+        #{endTime,jdbcType=VARCHAR},
+      </if>
+      <if test="orderStatus != null" >
+        #{orderStatus,jdbcType=INTEGER},
+      </if>
+      <if test="provenceCode != null" >
+        #{provenceCode,jdbcType=VARCHAR},
+      </if>
+      <if test="cityCode != null" >
+        #{cityCode,jdbcType=VARCHAR},
+      </if>
+      <if test="districtCode != null" >
+        #{districtCode,jdbcType=VARCHAR},
+      </if>
+      <if test="longitude != null" >
+        #{longitude,jdbcType=DOUBLE},
+      </if>
+      <if test="latitude != null" >
+        #{latitude,jdbcType=DOUBLE},
+      </if>
+      <if test="detailAddress != null" >
+        #{detailAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="mapPostionAddress != null" >
+        #{mapPostionAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="assessmentId != null" >
+        #{assessmentId,jdbcType=BIGINT},
+      </if>
+      <if test="serviceCount != null" >
+        #{serviceCount,jdbcType=INTEGER},
+      </if>
+      <if test="orderNumber != null" >
+        #{orderNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="dataSource != null" >
+        #{dataSource,jdbcType=TINYINT},
+      </if>
+      <if test="dataGroup != null" >
+        #{dataGroup,jdbcType=TINYINT},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=BIGINT},
+      </if>
+      <if test="updateTime != null" >
+        #{updateTime,jdbcType=BIGINT},
+      </if>
+      <if test="linkUserName != null" >
+        #{linkUserName,jdbcType=VARCHAR},
+      </if>
+      <if test="address != null" >
+        #{address,jdbcType=VARCHAR},
+      </if>
+      <if test="seniorId != null" >
+        #{seniorId,jdbcType=BIGINT},
+      </if>
+      <if test="createUserId != null" >
+        #{createUserId,jdbcType=BIGINT},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.yikangyiliao.pension.entity.AppointmentOrder" >
+    update appointment_orders
+    <set >
+      <if test="parentLinkAddress != null" >
+        parent_link_address = #{parentLinkAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="phoneNumber != null" >
+        phone_number = #{phoneNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="myPhoneNumber != null" >
+        my_phone_number = #{myPhoneNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="nickName != null" >
+        nick_name = #{nickName,jdbcType=VARCHAR},
+      </if>
+      <if test="appointmentDateTime != null" >
+        appointment_date_time = #{appointmentDateTime,jdbcType=BIGINT},
+      </if>
+      <if test="timeQuanturmId != null" >
+        time_quanturm_id = #{timeQuanturmId,jdbcType=BIGINT},
+      </if>
+      <if test="startTime != null" >
+        start_time = #{startTime,jdbcType=VARCHAR},
+      </if>
+      <if test="endTime != null" >
+        end_time = #{endTime,jdbcType=VARCHAR},
+      </if>
+      <if test="orderStatus != null" >
+        order_status = #{orderStatus,jdbcType=INTEGER},
+      </if>
+      <if test="provenceCode != null" >
+        provence_code = #{provenceCode,jdbcType=VARCHAR},
+      </if>
+      <if test="cityCode != null" >
+        city_code = #{cityCode,jdbcType=VARCHAR},
+      </if>
+      <if test="districtCode != null" >
+        district_code = #{districtCode,jdbcType=VARCHAR},
+      </if>
+      <if test="longitude != null" >
+        longitude = #{longitude,jdbcType=DOUBLE},
+      </if>
+      <if test="latitude != null" >
+        latitude = #{latitude,jdbcType=DOUBLE},
+      </if>
+      <if test="detailAddress != null" >
+        detail_address = #{detailAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="mapPostionAddress != null" >
+        map_postion_address = #{mapPostionAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="assessmentId != null" >
+        assessment_id = #{assessmentId,jdbcType=BIGINT},
+      </if>
+      <if test="serviceCount != null" >
+        service_count = #{serviceCount,jdbcType=INTEGER},
+      </if>
+      <if test="orderNumber != null" >
+        order_number = #{orderNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="dataSource != null" >
+        data_source = #{dataSource,jdbcType=TINYINT},
+      </if>
+      <if test="dataGroup != null" >
+        data_group = #{dataGroup,jdbcType=TINYINT},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=BIGINT},
+      </if>
+      <if test="updateTime != null" >
+        update_time = #{updateTime,jdbcType=BIGINT},
+      </if>
+      <if test="linkUserName != null" >
+        link_user_name = #{linkUserName,jdbcType=VARCHAR},
+      </if>
+      <if test="address != null" >
+        address = #{address,jdbcType=VARCHAR},
+      </if>
+      <if test="seniorId != null" >
+        senior_id = #{seniorId,jdbcType=BIGINT},
+      </if>
+      <if test="createUserId != null" >
+        create_user_id = #{createUserId,jdbcType=BIGINT},
+      </if>
+    </set>
+    where appointment_order_id = #{appointmentOrderId,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.yikangyiliao.pension.entity.AppointmentOrder" >
+    update appointment_orders
+    set parent_link_address = #{parentLinkAddress,jdbcType=VARCHAR},
+      phone_number = #{phoneNumber,jdbcType=VARCHAR},
+      my_phone_number = #{myPhoneNumber,jdbcType=VARCHAR},
+      nick_name = #{nickName,jdbcType=VARCHAR},
+      appointment_date_time = #{appointmentDateTime,jdbcType=BIGINT},
+      time_quanturm_id = #{timeQuanturmId,jdbcType=BIGINT},
+      start_time = #{startTime,jdbcType=VARCHAR},
+      end_time = #{endTime,jdbcType=VARCHAR},
+      order_status = #{orderStatus,jdbcType=INTEGER},
+      provence_code = #{provenceCode,jdbcType=VARCHAR},
+      city_code = #{cityCode,jdbcType=VARCHAR},
+      district_code = #{districtCode,jdbcType=VARCHAR},
+      longitude = #{longitude,jdbcType=DOUBLE},
+      latitude = #{latitude,jdbcType=DOUBLE},
+      detail_address = #{detailAddress,jdbcType=VARCHAR},
+      map_postion_address = #{mapPostionAddress,jdbcType=VARCHAR},
+      assessment_id = #{assessmentId,jdbcType=BIGINT},
+      service_count = #{serviceCount,jdbcType=INTEGER},
+      order_number = #{orderNumber,jdbcType=VARCHAR},
+      data_source = #{dataSource,jdbcType=TINYINT},
+      data_group = #{dataGroup,jdbcType=TINYINT},
+      create_time = #{createTime,jdbcType=BIGINT},
+      update_time = #{updateTime,jdbcType=BIGINT},
+      link_user_name = #{linkUserName,jdbcType=VARCHAR},
+      address = #{address,jdbcType=VARCHAR},
+      senior_id = #{seniorId,jdbcType=BIGINT},
+      create_user_id = #{createUserId,jdbcType=BIGINT}
+    where appointment_order_id = #{appointmentOrderId,jdbcType=BIGINT}
+  </update>
+  
+  
+  
+  
+  <!-- 修改定单状态 -->
+  <update id="updateAppointmentOrderStatus" parameterType="map">
+  	update appointment_orders set order_status=#{orderStatus}
+  	where appointment_order_id = #{appointmentOrderId,jdbcType=BIGINT}
+  </update>
+  
+  <select id="getServicerScheduleByServiceUserId" parameterType="map" resultType="map">
+  
+	select 
+		sa.name, 
+	    1 as 'isRead',
+	    ao.address,
+        '' as photoUrl,
+	    date_format(osd.service_date,'%Y-%m-%d') as serviceDate,
+	    osd.order_service_detail_id as orderServiceDetailId,
+	    osd.service_detail_status   as serviceDetailStatus
+	from appointment_orders ao
+	inner join senior_account sa 
+	on ao.senior_id =sa.senior_id
+	inner join order_service_details osd
+	on osd.order_id=ao.appointment_order_id
+	where 
+		osd.service_user_id=#{serviceUserId}
+	<if test="serviceDetailStatus != -1">
+		<if test="serviceDetailStatus == 1">
+			and service_detail_status=5
+		</if>
+		<if test="serviceDetailStatus == 0">
+			and service_detail_status !=5
+		</if>
+	</if>
+	order by service_date ,start_time asc
+	
+  </select>
+  
+ <!--查询我的定单 根据userId,OrderStatus  --> 
+  <select id="getMyAppointmentOrderByUserIdOrderStatus" resultMap="BaseResultMap" parameterType="map">
+  	select 
+    <include refid="Base_Column_List" />
+    from appointment_orders
+    where user_id=#{userId}
+    <if test="null != orderStatus">
+    	and order_status=#{orderStatus}
+    </if>
+    order by create_time desc
+  </select>
+  
+  
+  
+   <resultMap id="appointmentOrderMap" type="com.yikangyiliao.pension.entity.AppointmentOrderServiceModel" >
+    <id column="appointment_order_id" 	property="appointmentOrderId" jdbcType="BIGINT" />
+    <result column="phone_number" 		property="phoneNumber" jdbcType="VARCHAR" />
+    <result column="my_phone_number" 	property="myPhoneNumber" jdbcType="VARCHAR" />
+    <result column="appointment_date_time" property="appointmentDateTime" jdbcType="BIGINT" />
+    <result column="time_quanturm_id" 	property="timeQuanturmId" jdbcType="BIGINT" />
+    <result column="start_time" 		property="startTime" jdbcType="VARCHAR" />
+    <result column="end_time" 			property="endTime" jdbcType="VARCHAR" />
+    <result column="order_status" 		property="orderStatus" jdbcType="INTEGER" />
+    <result column="city_code" 			property="cityCode" jdbcType="VARCHAR" />
+    <result column="district_code" 		property="districtCode" jdbcType="VARCHAR" />
+    <result column="longitude" 			property="longitude" jdbcType="DOUBLE" />
+    <result column="latitude" 			property="latitude" jdbcType="DOUBLE" />
+    <result column="detail_address" 	property="detailAddress" jdbcType="VARCHAR" />
+    <result column="map_postion_address" property="mapPostionAddress" jdbcType="VARCHAR" />
+    <result column="order_number" 		property="orderNumber" jdbcType="VARCHAR" />
+    <result column="data_source" 		property="dataSource" jdbcType="TINYINT" />
+    <result column="data_group" 		property="dataGroup" jdbcType="TINYINT" />
+    <result column="create_time" 		property="createTime" jdbcType="BIGINT" />
+    <result column="link_user_name" 	property="linkUserName" jdbcType="VARCHAR" />
+    <result column="address" 			property="address" jdbcType="VARCHAR" />
+    <result column="senior_id"	 		property="seniorId" jdbcType="BIGINT" />
+    
+    <result column="appointment_date"   property="appointmentDate"/>
+    
+    <result column="service_title"		property="serviceTitle" />
+    <result column="service_price"		property="servicePrice" />
+    <result column="service_item_id"		property="serviceItemId" />
+    
+    
+    <result column="login_name"		property="loginName" />
+    <result column="user_id"		property="userId" />
+    <result column="start_time"		property="startTime" />
+    
+  </resultMap>
+  
+   <!-- 查询个人的定单 -->
+  <select id="getAppointmentOrderListPageByUserId" parameterType="map" resultMap="appointmentOrderMap">
+  	select 
+  		ao.appointment_order_id,
+  		ao.phone_number,
+  		ao.my_phone_number,
+  		ao.order_status,
+  		ao.city_code,
+  		ao.district_code,
+  		ao.longitude,
+  		ao.latitude,
+  		ao.detail_address,
+  		ao.map_postion_address,
+  		ao.order_number,
+  		ao.data_source,
+  		ao.data_group,
+  		ao.create_time,
+  		ao.link_user_name,
+  		ao.address,
+  		ao.senior_id,
+  		
+	  	 osd.appointment_date,
+	     osd.service_item_id,
+	     si.service_title,
+	     si.service_price,
+	     
+	     users.login_name,
+	     users.user_id,
+	     ctq.start_time
+	from appointment_orders ao
+	left join order_service_details osd on ao.appointment_order_id=osd.order_id
+	left join service_items si 			on osd.service_item_id=si.service_item_id
+	left join users 					on  ao.create_user_id=users.user_id
+	left join custumer_time_quantums ctq on osd.time_quantum_id=ctq.custumer_time_quantum_id
+	where ao.create_user_id=#{paramUserId}
+  	order by create_time desc
+  </select>
+  
+</mapper>
