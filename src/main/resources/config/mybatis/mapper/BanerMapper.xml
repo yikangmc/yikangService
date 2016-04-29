@@ -1,21 +1,21 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="com.yikangyiliao.pension.dao.BanerMapper" >
-  <resultMap id="BaseResultMap" type="com.yikangyiliao.pension.entity.Baner" >
+<mapper namespace="com.yikangyiliao.pension.dao.BanerDao" >
+<resultMap id="BaseResultMap" type="com.yikangyiliao.pension.entity.Baner" >
     <id column="baner_id" property="banerId" jdbcType="BIGINT" />
     <result column="title" property="title" jdbcType="VARCHAR" />
     <result column="content" property="content" jdbcType="VARCHAR" />
-    <result column="order" property="order" jdbcType="TINYINT" />
+    <result column="orders" property="orders" jdbcType="TINYINT" />
     <result column="action_url" property="actionUrl" jdbcType="VARCHAR" />
     <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
     <result column="upate_time" property="upateTime" jdbcType="TIMESTAMP" />
     <result column="is_delete" property="isDelete" jdbcType="VARCHAR" />
     <result column="create_user_id" property="createUserId" jdbcType="BIGINT" />
-    <result column="group" property="group" jdbcType="TINYINT" />
+    <result column="groups" property="groups" jdbcType="TINYINT" />
   </resultMap>
   <sql id="Base_Column_List" >
-    baner_id, title, content, order, action_url, create_time, upate_time, is_delete, 
-    create_user_id, group
+    baner_id, title, content, orders, action_url, create_time, upate_time, is_delete, 
+    create_user_id, groups
   </sql>
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
     select 
@@ -29,13 +29,13 @@
   </delete>
   <insert id="insert" parameterType="com.yikangyiliao.pension.entity.Baner" >
     insert into baners (baner_id, title, content, 
-      order, action_url, create_time, 
+      orders, action_url, create_time, 
       upate_time, is_delete, create_user_id, 
-      group)
+      groups)
     values (#{banerId,jdbcType=BIGINT}, #{title,jdbcType=VARCHAR}, #{content,jdbcType=VARCHAR}, 
-      #{order,jdbcType=TINYINT}, #{actionUrl,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, 
+      #{orders,jdbcType=TINYINT}, #{actionUrl,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, 
       #{upateTime,jdbcType=TIMESTAMP}, #{isDelete,jdbcType=VARCHAR}, #{createUserId,jdbcType=BIGINT}, 
-      #{group,jdbcType=TINYINT})
+      #{groups,jdbcType=TINYINT})
   </insert>
   <insert id="insertSelective" parameterType="com.yikangyiliao.pension.entity.Baner" >
     insert into baners
@@ -49,8 +49,8 @@
       <if test="content != null" >
         content,
       </if>
-      <if test="order != null" >
-        order,
+      <if test="orders != null" >
+        orders,
       </if>
       <if test="actionUrl != null" >
         action_url,
@@ -67,8 +67,8 @@
       <if test="createUserId != null" >
         create_user_id,
       </if>
-      <if test="group != null" >
-        group,
+      <if test="groups != null" >
+        groups,
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
@@ -81,8 +81,8 @@
       <if test="content != null" >
         #{content,jdbcType=VARCHAR},
       </if>
-      <if test="order != null" >
-        #{order,jdbcType=TINYINT},
+      <if test="orders != null" >
+        #{orders,jdbcType=TINYINT},
       </if>
       <if test="actionUrl != null" >
         #{actionUrl,jdbcType=VARCHAR},
@@ -99,8 +99,8 @@
       <if test="createUserId != null" >
         #{createUserId,jdbcType=BIGINT},
       </if>
-      <if test="group != null" >
-        #{group,jdbcType=TINYINT},
+      <if test="groups != null" >
+        #{groups,jdbcType=TINYINT},
       </if>
     </trim>
   </insert>
@@ -113,8 +113,8 @@
       <if test="content != null" >
         content = #{content,jdbcType=VARCHAR},
       </if>
-      <if test="order != null" >
-        order = #{order,jdbcType=TINYINT},
+      <if test="orders != null" >
+        orders = #{orders,jdbcType=TINYINT},
       </if>
       <if test="actionUrl != null" >
         action_url = #{actionUrl,jdbcType=VARCHAR},
@@ -131,8 +131,8 @@
       <if test="createUserId != null" >
         create_user_id = #{createUserId,jdbcType=BIGINT},
       </if>
-      <if test="group != null" >
-        group = #{group,jdbcType=TINYINT},
+      <if test="groups != null" >
+        groups = #{groups,jdbcType=TINYINT},
       </if>
     </set>
     where baner_id = #{banerId,jdbcType=BIGINT}
@@ -141,13 +141,22 @@
     update baners
     set title = #{title,jdbcType=VARCHAR},
       content = #{content,jdbcType=VARCHAR},
-      order = #{order,jdbcType=TINYINT},
+      orders = #{orders,jdbcType=TINYINT},
       action_url = #{actionUrl,jdbcType=VARCHAR},
       create_time = #{createTime,jdbcType=TIMESTAMP},
       upate_time = #{upateTime,jdbcType=TIMESTAMP},
       is_delete = #{isDelete,jdbcType=VARCHAR},
       create_user_id = #{createUserId,jdbcType=BIGINT},
-      group = #{group,jdbcType=TINYINT}
+      groups = #{groups,jdbcType=TINYINT}
     where baner_id = #{banerId,jdbcType=BIGINT}
   </update>
+  
+  <!--查询 baner列表  -->
+  <select id="getBanerList" resultMap="BaseResultMap">
+  	select  
+  		<include refid="Base_Column_List"></include>
+  	from baners where is_delete=0
+  </select>
+  
+  
 </mapper>

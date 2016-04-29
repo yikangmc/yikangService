@@ -1,12 +1,14 @@
 package com.yikangyiliao.pension.common.response;
 
-public class ResponseMessage {
+import com.yikangyiliao.pension.common.error.ExceptionConstants;
 
-	public String status;
+public class ResponseMessage<T extends Object> {
+
+	public String status=ExceptionConstants.responseSuccess.responseSuccess.code;
 	
-	public String message;
+	public String message=ExceptionConstants.responseSuccess.responseSuccess.message;
 	
-	public Object data;
+	public T data;
 
 
 	public String getMessage() {
@@ -17,11 +19,11 @@ public class ResponseMessage {
 		this.message = message;
 	}
 
-	public Object getData() {
+	public T getData() {
 		return data;
 	}
 
-	public void setData(Object data) {
+	public void setData(T data) {
 		this.data = data;
 	}
 

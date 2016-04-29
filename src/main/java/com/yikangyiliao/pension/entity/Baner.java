@@ -9,7 +9,7 @@ public class Baner {
 
     private String content;
 
-    private Byte order;
+    private Byte orders;
 
     private String actionUrl;
 
@@ -21,7 +21,7 @@ public class Baner {
 
     private Long createUserId;
 
-    private Byte group;
+    private Byte groups;
 
     public Long getBanerId() {
         return banerId;
@@ -47,12 +47,12 @@ public class Baner {
         this.content = content == null ? null : content.trim();
     }
 
-    public Byte getOrder() {
-        return order;
+    public Byte getOrders() {
+        return orders;
     }
 
-    public void setOrder(Byte order) {
-        this.order = order;
+    public void setOrders(Byte orders) {
+        this.orders = orders;
     }
 
     public String getActionUrl() {
@@ -95,11 +95,11 @@ public class Baner {
         this.createUserId = createUserId;
     }
 
-    public Byte getGroup() {
-        return group;
+    public Byte getGroups() {
+        return groups;
     }
 
-    public void setGroup(Byte group) {
-        this.group = group;
+    public void setGroups(Byte groups) {
+        this.groups = groups;
     }
 }

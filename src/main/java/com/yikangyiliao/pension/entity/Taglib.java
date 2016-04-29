@@ -9,7 +9,7 @@ public class Taglib {
 
     private Long parentId;
 
-    private Byte order;
+    private Byte orders;
 
     private String isDelete;
 
@@ -53,12 +53,12 @@ public class Taglib {
         this.parentId = parentId;
     }
 
-    public Byte getOrder() {
-        return order;
+    public Byte getOrders() {
+        return orders;
     }
 
-    public void setOrder(Byte order) {
-        this.order = order;
+    public void setOrders(Byte orders) {
+        this.orders = orders;
     }
 
     public String getIsDelete() {

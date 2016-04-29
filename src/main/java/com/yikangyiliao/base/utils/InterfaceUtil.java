@@ -401,9 +401,28 @@ public class InterfaceUtil {
 		validateCaptchar.setIsFileter(false);
 		mathodServiceConfig.put("00-25-02",validateCaptchar);
 		
-		YiKangServiceConfige  userPasswordReset=new YiKangServiceConfige();
+		
+		serviceClassName.put("00-26","banerService");
+		YiKangServiceConfige getBanerList=new YiKangServiceConfige();
+		getBanerList.setServiceName("banerService");
+		getBanerList.setMethodName("getBanerList");
+		getBanerList.setIsFileter(true);
+		mathodServiceConfig.put("00-26-01",getBanerList);
 		
 		
+		serviceClassName.put("00-27","searchService");
+		YiKangServiceConfige getTaglibsList=new YiKangServiceConfige();
+		getTaglibsList.setServiceName("searchService");
+		getTaglibsList.setMethodName("getTaglibList");
+		getTaglibsList.setIsFileter(true);
+		mathodServiceConfig.put("00-27-01",getTaglibsList);
+		
+		serviceClassName.put("00-28","forumPostService");
+		YiKangServiceConfige getIsEssence=new YiKangServiceConfige();
+		getIsEssence.setServiceName("forumPostService");
+		getIsEssence.setMethodName("getIsEssence");
+		getIsEssence.setIsFileter(true);
+		mathodServiceConfig.put("00-28-01",getIsEssence);
 		
 		
 	}

@@ -5,7 +5,7 @@
 	<artifactId>yikangService</artifactId>
 	<packaging>war</packaging>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>yiKangPersionService</name>
+	<name>yiKangmcService</name>
 	<url>http://maven.apache.org</url>
 	<description>服务人员端接口服务</description>
 

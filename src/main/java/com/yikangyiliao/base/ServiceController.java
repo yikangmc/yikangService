@@ -92,6 +92,7 @@ public class ServiceController {
 							
 							Object res= returnMethod.invoke(invokObject, paramMap);
 							if(res instanceof Map){
+								
 								rtnMap=(Map<String,Object>)res;
 								
 								if(null != rtnMap && null != rtnMap.get("data")){

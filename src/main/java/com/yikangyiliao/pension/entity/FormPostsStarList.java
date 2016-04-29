@@ -9,6 +9,8 @@ public class FormPostsStarList {
 
     private Date createTime;
 
+    private Long forumPostsId;
+
     public Long getForumPostsStarListId() {
         return forumPostsStarListId;
     }
@@ -31,5 +33,13 @@ public class FormPostsStarList {
 
     public void setCreateTime(Date createTime) {
         this.createTime = createTime;
+    }
+
+    public Long getForumPostsId() {
+        return forumPostsId;
+    }
+
+    public void setForumPostsId(Long forumPostsId) {
+        this.forumPostsId = forumPostsId;
     }
 }

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="com.yikangyiliao.pension.dao.ForumPostsAnswerMapper" >
+<mapper namespace="com.yikangyiliao.pension.dao.ForumPostsAnswerDao" >
   <resultMap id="BaseResultMap" type="com.yikangyiliao.pension.entity.ForumPostsAnswer" >
     <id column="forum_posts_answer_id" property="forumPostsAnswerId" jdbcType="BIGINT" />
     <result column="form_post_id" property="formPostId" jdbcType="BIGINT" />
@@ -115,4 +115,15 @@
       create_time = #{createTime,jdbcType=TIMESTAMP}
     where forum_posts_answer_id = #{forumPostsAnswerId,jdbcType=BIGINT}
   </update>
+  
+  
+  <!-- 获取某一个文章的所有的回复 -->
+  <select id="getForumPostsAnswersByFormPostId" parameterType="long" resultMap="BaseResultMap">
+  	select 
+  	<include refid="Base_Column_List"></include>
+  	from forum_posts_answers
+  	where form_post_id = #{formPostId,jdbcType=BIGINT}
+  </select>
+  
+  
 </mapper>

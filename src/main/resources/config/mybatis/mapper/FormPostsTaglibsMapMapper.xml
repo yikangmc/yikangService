@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="com.yikangyiliao.pension.dao.FormPostsTaglibsMapMapper" >
+<mapper namespace="com.yikangyiliao.pension.dao.FormPostsTaglibsMapDao" >
   <resultMap id="BaseResultMap" type="com.yikangyiliao.pension.entity.FormPostsTaglibsMap" >
     <id column="forum_posts_taglibs_maps_id" property="forumPostsTaglibsMapsId" jdbcType="BIGINT" />
     <result column="tag_libs_id" property="tagLibsId" jdbcType="BIGINT" />

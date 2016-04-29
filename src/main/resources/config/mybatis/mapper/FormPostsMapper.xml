@@ -1,0 +1,188 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.yikangyiliao.pension.dao.FormPostsDao" >
+  <resultMap id="BaseResultMap" type="com.yikangyiliao.pension.entity.FormPosts" >
+    <id column="forum_post_id" property="forumPostId" jdbcType="BIGINT" />
+    <result column="title" property="title" jdbcType="VARCHAR" />
+    <result column="content" property="content" jdbcType="VARCHAR" />
+    <result column="report_complaints_status" property="reportComplaintsStatus" jdbcType="TINYINT" />
+    <result column="is_essence" property="isEssence" jdbcType="TINYINT" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+    <result column="stars" property="stars" jdbcType="INTEGER" />
+    <result column="share_num" property="shareNum" jdbcType="INTEGER" />
+    <result column="create_user_id" property="createUserId" jdbcType="BIGINT" />
+    <result column="share_url" property="shareUrl" jdbcType="VARCHAR" />
+    <result column="recommend_pic_url" property="recommendPicUrl" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    forum_post_id, title, content, report_complaints_status, is_essence, create_time, 
+    update_time, stars, share_num, create_user_id, share_url, recommend_pic_url
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from forum_posts
+    where forum_post_id = #{forumPostId,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from forum_posts
+    where forum_post_id = #{forumPostId,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.yikangyiliao.pension.entity.FormPosts" >
+    insert into forum_posts (forum_post_id, title, content, 
+      report_complaints_status, is_essence, create_time, 
+      update_time, stars, share_num, 
+      create_user_id, share_url, recommend_pic_url
+      )
+    values (#{forumPostId,jdbcType=BIGINT}, #{title,jdbcType=VARCHAR}, #{content,jdbcType=VARCHAR}, 
+      #{reportComplaintsStatus,jdbcType=TINYINT}, #{isEssence,jdbcType=TINYINT}, #{createTime,jdbcType=TIMESTAMP}, 
+      #{updateTime,jdbcType=TIMESTAMP}, #{stars,jdbcType=INTEGER}, #{shareNum,jdbcType=INTEGER}, 
+      #{createUserId,jdbcType=BIGINT}, #{shareUrl,jdbcType=VARCHAR}, #{recommendPicUrl,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.yikangyiliao.pension.entity.FormPosts" >
+    insert into forum_posts
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="forumPostId != null" >
+        forum_post_id,
+      </if>
+      <if test="title != null" >
+        title,
+      </if>
+      <if test="content != null" >
+        content,
+      </if>
+      <if test="reportComplaintsStatus != null" >
+        report_complaints_status,
+      </if>
+      <if test="isEssence != null" >
+        is_essence,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+      <if test="updateTime != null" >
+        update_time,
+      </if>
+      <if test="stars != null" >
+        stars,
+      </if>
+      <if test="shareNum != null" >
+        share_num,
+      </if>
+      <if test="createUserId != null" >
+        create_user_id,
+      </if>
+      <if test="shareUrl != null" >
+        share_url,
+      </if>
+      <if test="recommendPicUrl != null" >
+        recommend_pic_url,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="forumPostId != null" >
+        #{forumPostId,jdbcType=BIGINT},
+      </if>
+      <if test="title != null" >
+        #{title,jdbcType=VARCHAR},
+      </if>
+      <if test="content != null" >
+        #{content,jdbcType=VARCHAR},
+      </if>
+      <if test="reportComplaintsStatus != null" >
+        #{reportComplaintsStatus,jdbcType=TINYINT},
+      </if>
+      <if test="isEssence != null" >
+        #{isEssence,jdbcType=TINYINT},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null" >
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="stars != null" >
+        #{stars,jdbcType=INTEGER},
+      </if>
+      <if test="shareNum != null" >
+        #{shareNum,jdbcType=INTEGER},
+      </if>
+      <if test="createUserId != null" >
+        #{createUserId,jdbcType=BIGINT},
+      </if>
+      <if test="shareUrl != null" >
+        #{shareUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="recommendPicUrl != null" >
+        #{recommendPicUrl,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.yikangyiliao.pension.entity.FormPosts" >
+    update forum_posts
+    <set >
+      <if test="title != null" >
+        title = #{title,jdbcType=VARCHAR},
+      </if>
+      <if test="content != null" >
+        content = #{content,jdbcType=VARCHAR},
+      </if>
+      <if test="reportComplaintsStatus != null" >
+        report_complaints_status = #{reportComplaintsStatus,jdbcType=TINYINT},
+      </if>
+      <if test="isEssence != null" >
+        is_essence = #{isEssence,jdbcType=TINYINT},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null" >
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="stars != null" >
+        stars = #{stars,jdbcType=INTEGER},
+      </if>
+      <if test="shareNum != null" >
+        share_num = #{shareNum,jdbcType=INTEGER},
+      </if>
+      <if test="createUserId != null" >
+        create_user_id = #{createUserId,jdbcType=BIGINT},
+      </if>
+      <if test="shareUrl != null" >
+        share_url = #{shareUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="recommendPicUrl != null" >
+        recommend_pic_url = #{recommendPicUrl,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where forum_post_id = #{forumPostId,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.yikangyiliao.pension.entity.FormPosts" >
+    update forum_posts
+    set title = #{title,jdbcType=VARCHAR},
+      content = #{content,jdbcType=VARCHAR},
+      report_complaints_status = #{reportComplaintsStatus,jdbcType=TINYINT},
+      is_essence = #{isEssence,jdbcType=TINYINT},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      update_time = #{updateTime,jdbcType=TIMESTAMP},
+      stars = #{stars,jdbcType=INTEGER},
+      share_num = #{shareNum,jdbcType=INTEGER},
+      create_user_id = #{createUserId,jdbcType=BIGINT},
+      share_url = #{shareUrl,jdbcType=VARCHAR},
+      recommend_pic_url = #{recommendPicUrl,jdbcType=VARCHAR}
+    where forum_post_id = #{forumPostId,jdbcType=BIGINT}
+  </update>
+  
+  
+  <resultMap  id="" extends="BaseResultMap">
+  	
+  </resultMap>
+  <select id="" >
+  	
+  </select>
+  
+  
+  
+</mapper>

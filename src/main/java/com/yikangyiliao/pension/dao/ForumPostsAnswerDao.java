@@ -1,5 +1,7 @@
 package com.yikangyiliao.pension.dao;
 
+import java.util.List;
+
 import com.yikangyiliao.pension.entity.ForumPostsAnswer;
 
 public interface ForumPostsAnswerDao {
@@ -14,4 +16,12 @@ public interface ForumPostsAnswerDao {
     int updateByPrimaryKeySelective(ForumPostsAnswer record);
 
     int updateByPrimaryKey(ForumPostsAnswer record);
+    
+    
+    /**
+     * @author liushuaic
+     * @date 2016-04-28 19:15
+     * @descc 获取文章回复
+     * */
+    List<ForumPostsAnswer> getForumPostsAnswersByFormPostId(Long forumPostsId);
 }
