@@ -30,6 +30,9 @@
     where forum_post_id = #{forumPostId,jdbcType=BIGINT}
   </delete>
   <insert id="insert" parameterType="com.yikangyiliao.pension.entity.FormPosts" >
+    <selectKey resultType="Long" keyProperty="forumPostId" order="AFTER">
+		SELECT LAST_INSERT_ID()
+	</selectKey>
     insert into forum_posts (forum_post_id, title, content, 
       report_complaints_status, is_essence, create_time, 
       update_time, stars, share_num, 
@@ -42,6 +45,9 @@
       )
   </insert>
   <insert id="insertSelective" parameterType="com.yikangyiliao.pension.entity.FormPosts" >
+      <selectKey resultType="Long" keyProperty="forumPostId" order="AFTER">
+		SELECT LAST_INSERT_ID()
+	</selectKey>
     insert into forum_posts
     <trim prefix="(" suffix=")" suffixOverrides="," >
       <if test="forumPostId != null" >
@@ -176,13 +182,45 @@
   </update>
   
   
-  <resultMap  id="" extends="BaseResultMap">
-  	
+    <!-- 获取推荐的文章 -->
+  <resultMap type="com.yikangyiliao.pension.entity.FormPosts" id="formPostsResultMap"  extends="BaseResultMap">
+  	<result column="startNums" property="startNums"/>
+  	<result column="answersNums" property="answersNums"/>
+  	<collection property="taglibs" fetchType="eager" column="forum_post_id" select="com.yikangyiliao.pension.dao.TaglibDao.getFormpostsByFormPostId"></collection>
   </resultMap>
-  <select id="" >
-  	
+  <select id="getIsEssence" resultMap="formPostsResultMap">
+  	select 
+		<include refid="Base_Column_List"></include>,
+		(select count(1) from forum_posts_star_lists fpsl where fpsl.create_user_id=forum_post_id) as startNums,
+		(select count(1) from forum_posts_answers fpa 	  where fpa.form_post_id=forum_post_id) as answersNums
+  	from forum_posts where is_essence=1
   </select>
   
   
+  
+  <resultMap id="getFormPoustsDetailByForumPostIdResultMap" type="com.yikangyiliao.pension.entity.FormPosts"  extends="BaseResultMap">
+  	<result column="user_name" property="userName"/>
+  	<result column="photo_url" property="photoUrl"/>
+  	<collection property="taglibs" 		      	column="forum_post_id"	fetchType="eager" select="com.yikangyiliao.pension.dao.TaglibDao.getFormpostsByFormPostId"></collection>
+  	<collection property="formPostsStarLists" 	column="forum_post_id"  fetchType="eager" select="com.yikangyiliao.pension.dao.FormPostsStarListDao.getForumPostStartListByForumPostsId"></collection>
+  	<collection property="forumPostsAnswers"    column="forum_post_id"	fetchType="eager" select="com.yikangyiliao.pension.dao.ForumPostsAnswerDao.getForumPostsAnswersByFormPostId"></collection>
+  </resultMap>
+  <!-- 获取某一个文章的详情 -->
+  <select id="getFormPoustsDetailByForumPostId" resultMap="getFormPoustsDetailByForumPostIdResultMap" >
+  	select
+		fp.*,ui.user_name,ui.photo_url
+	from forum_posts fp inner join  user_infos ui on fp.create_user_id=ui.user_id
+	where forum_post_id=#{forumPostId}
+  </select>
+  
+  <!-- 支持+1 -->
+  <update id="formPostsStarsUpByForumPostId" parameterType="long">
+  	UPDATE forum_posts set stars=stars+1 where forum_post_id=#{forumPostId}
+  </update>
+  
+  <!--支持-1  -->
+  <update id="formPostsStarsDownByForumPostId" parameterType="long">
+  	UPDATE forum_posts set stars=stars-1 where forum_post_id=#{forumPostId}
+  </update>
   
 </mapper>

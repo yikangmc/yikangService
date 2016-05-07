@@ -16,6 +16,18 @@ public class ForumPostsAnswer {
     private Byte answerTo;
 
     private Date createTime;
+    
+    //回复创建人
+    private String createUserName;
+    
+    //回复创建人头像
+    private String createUserPhotoUrl;
+    
+    //给谁回复的
+    private String toUserName;
+    
+    //回复人的头像
+    private String toUserPhotoUrl;
 
     public Long getForumPostsAnswerId() {
         return forumPostsAnswerId;
@@ -72,4 +84,36 @@ public class ForumPostsAnswer {
     public void setCreateTime(Date createTime) {
         this.createTime = createTime;
     }
+
+	public String getCreateUserName() {
+		return createUserName;
+	}
+
+	public void setCreateUserName(String createUserName) {
+		this.createUserName = createUserName;
+	}
+
+	public String getCreateUserPhotoUrl() {
+		return createUserPhotoUrl;
+	}
+
+	public void setCreateUserPhotoUrl(String createUserPhotoUrl) {
+		this.createUserPhotoUrl = createUserPhotoUrl;
+	}
+
+	public String getToUserName() {
+		return toUserName;
+	}
+
+	public void setToUserName(String toUserName) {
+		this.toUserName = toUserName;
+	}
+
+	public String getToUserPhotoUrl() {
+		return toUserPhotoUrl;
+	}
+
+	public void setToUserPhotoUrl(String toUserPhotoUrl) {
+		this.toUserPhotoUrl = toUserPhotoUrl;
+	}
 }

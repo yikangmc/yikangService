@@ -425,6 +425,31 @@ public class InterfaceUtil {
 		mathodServiceConfig.put("00-28-01",getIsEssence);
 		
 		
+		
+		// 获取文章详情
+		YiKangServiceConfige getFourmPostDetail=new YiKangServiceConfige();
+		getFourmPostDetail.setServiceName("forumPostService");
+		getFourmPostDetail.setMethodName("getFourmPostDetail");
+		getFourmPostDetail.setIsFileter(true);
+		mathodServiceConfig.put("00-28-02",getFourmPostDetail);
+		
+		
+		//定单支持
+		YiKangServiceConfige udpateForumPostStar=new YiKangServiceConfige();
+		udpateForumPostStar.setServiceName("forumPostService");
+		udpateForumPostStar.setMethodName("udpateForumPostStar");
+		udpateForumPostStar.setIsFileter(true);
+		mathodServiceConfig.put("00-28-03",udpateForumPostStar);
+		
+		
+		//发布文章
+		YiKangServiceConfige publishForumPosts=new YiKangServiceConfige();
+		publishForumPosts.setServiceName("forumPostService");
+		publishForumPosts.setMethodName("insertPublishForumPosts");
+		publishForumPosts.setIsFileter(true);
+		mathodServiceConfig.put("00-28-04",publishForumPosts);
+		
+		
 	}
 	
 	

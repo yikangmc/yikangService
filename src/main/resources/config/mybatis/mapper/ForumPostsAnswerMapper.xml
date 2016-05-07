@@ -118,11 +118,28 @@
   
   
   <!-- 获取某一个文章的所有的回复 -->
-  <select id="getForumPostsAnswersByFormPostId" parameterType="long" resultMap="BaseResultMap">
-  	select 
-  	<include refid="Base_Column_List"></include>
-  	from forum_posts_answers
-  	where form_post_id = #{formPostId,jdbcType=BIGINT}
+  
+  <resultMap id="getForumPostsAnswersByFormPostId" type="com.yikangyiliao.pension.entity.ForumPostsAnswer" extends="BaseResultMap">
+  	<result column="createUserName" 	property="createUserName"/>
+  	<result column="createUserPhotoUrl" property="createUserPhotoUrl"/>
+  	<result column="toUserName" 		property="toUserName"/>
+  	<result column="toUserPhotoUrl" 	property="toUserPhotoUrl"/>
+  </resultMap>
+  <select id="getForumPostsAnswersByFormPostId" parameterType="long" resultMap="getForumPostsAnswersByFormPostId">
+  	select 	
+		fpa.form_post_id,
+	    fpa.content,
+	    fpa.create_time,	    
+	    ui.user_name as createUserName,
+	    ui.photo_url as createUserPhotoUrl,
+	    toui.user_name as toUserName,
+	    toui.photo_url as toUserPhotoUrl
+	    
+	from 
+		forum_posts_answers fpa 
+	inner join user_infos ui on fpa.create_user_id=ui.user_id
+	left join user_infos toui on fpa.to_user_id =ui.user_id
+	where fpa.form_post_id=#{formPostId}
   </select>
   
   

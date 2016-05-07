@@ -58,30 +58,34 @@ public class ForumPostService {
      * @desc 发布文章
      * 
      * */
-    public  ResponseMessage<List<FormPosts>> publishForumPosts(Map<String,Object> paramData){
+    public  ResponseMessage<List<FormPosts>> insertPublishForumPosts(Map<String,Object> paramData){
     	ResponseMessage<List<FormPosts>> res=new ResponseMessage<List<FormPosts>>();
     	
-    	try{
-    		
     		if(
-    			paramData.containsKey("content")
+    			paramData.containsKey("title")
+    			&&paramData.containsKey("content")
     			&& paramData.containsKey("taglibIds")
+    			&& paramData.containsKey("images")
     		){
     			String content=paramData.get("content").toString();
-    			Long[] taglibIds=(Long[])paramData.get("taglibIds");
+    			List<Integer> taglibIds=(List)paramData.get("taglibIds");
+    			List<String> images=(List)paramData.get("images");
     			String userId=paramData.get("userId").toString();
-    			formPostManager.insertPublishFormPosts(content, taglibIds,Long.valueOf(userId));
-    			
-    			
+    			String[] imgs=new String[images.size()];
+    			String title=paramData.get("title").toString();
+    			for(int j=0;j<images.size();j++){
+    				imgs[j]=images.get(j);
+    			}
+    			Long[] tags=new Long[taglibIds.size()];
+    			for(int i=0;i<taglibIds.size();i++){
+    				tags[i]=Long.valueOf(taglibIds.get(i).toString());
+    			}
+    			formPostManager.insertPublishFormPosts(title,content,tags,Long.valueOf(userId),imgs);
+    		}else{
+    			res.setStatus(ExceptionConstants.parameterException.parameterException.errorCode);
+        		res.setMessage(ExceptionConstants.parameterException.parameterException.errorMessage);
     		}
-    		
-    	}catch(Exception e){
-    		res.setStatus(ExceptionConstants.systemException.systemException.errorCode);
-    		res.setMessage(ExceptionConstants.systemException.systemException.errorMessage);
-    		e.printStackTrace();
-    		log.error(e.getMessage());
-    		
-    	}   
+    	
     	
     	return res;
     }
@@ -90,19 +94,21 @@ public class ForumPostService {
     /**
      * @author liushuaic
      * @date 2016-04-27 17:36
-     * @desc 文章支持
+     * @desc 文章支持UpAndDown
      * @param formPostId
      * @param userId
      * */
-    public ResponseMessage forumPostStar(Map<String,Object> paramData){
-    	ResponseMessage<List<FormPosts>> res=new ResponseMessage<List<FormPosts>>();
+    public ResponseMessage<String> udpateForumPostStar(Map<String,Object> paramData){
     	
+    	ResponseMessage<String> res=new ResponseMessage<String>();
     	try{
-    		if( paramData.containsKey("formPostId")
-    			){
-    			String userId=paramData.get("userId").toString();
-    			String forumPostsId=paramData.get("forumPostsId").toString();
-    			formPostManager.forumPostsStar(Long.valueOf(forumPostsId), Long.valueOf(userId));
+    		if(paramData.containsKey("forumPostId")){
+    			Long userId=Long.valueOf(paramData.get("userId").toString());
+    			Long forumPostsId=Long.valueOf(paramData.get("forumPostId").toString());
+    			formPostManager.updateForumPostStar(userId,forumPostsId);
+    		}else{
+    			res.setStatus(ExceptionConstants.parameterException.parameterException.errorCode);
+        		res.setMessage(ExceptionConstants.parameterException.parameterException.errorMessage);
     		}
     		
     	}catch(Exception e){
@@ -174,6 +180,9 @@ public class ForumPostService {
     			 Long forumPostId=Long.valueOf(paramData.get("forumPostId").toString());
     			 FormPosts fp=formPostManager.getForumPostsDetail(forumPostId);
     			 res.setData(fp);
+    		 }else{
+    			 res.setStatus(ExceptionConstants.parameterException.parameterException.errorCode);
+         		 res.setMessage(ExceptionConstants.parameterException.parameterException.errorMessage);
     		 }
     		 
     	 }catch(Exception e){

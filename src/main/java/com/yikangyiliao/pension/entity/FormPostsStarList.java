@@ -10,7 +10,10 @@ public class FormPostsStarList {
     private Date createTime;
 
     private Long forumPostsId;
-
+    
+    private String createUserName;
+    
+    
     public Long getForumPostsStarListId() {
         return forumPostsStarListId;
     }
@@ -42,4 +45,12 @@ public class FormPostsStarList {
     public void setForumPostsId(Long forumPostsId) {
         this.forumPostsId = forumPostsId;
     }
+
+	public String getCreateUserName() {
+		return createUserName;
+	}
+
+	public void setCreateUserName(String createUserName) {
+		this.createUserName = createUserName;
+	}
 }

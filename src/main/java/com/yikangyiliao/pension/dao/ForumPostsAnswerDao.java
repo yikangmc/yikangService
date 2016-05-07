@@ -24,4 +24,7 @@ public interface ForumPostsAnswerDao {
      * @descc 获取文章回复
      * */
     List<ForumPostsAnswer> getForumPostsAnswersByFormPostId(Long forumPostsId);
+    
+    
+    
 }

@@ -202,4 +202,5 @@ public class FormPosts {
 	public void setPhotoUrl(String photoUrl) {
 		this.photoUrl = photoUrl;
 	}
+
 }

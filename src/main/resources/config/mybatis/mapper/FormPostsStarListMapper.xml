@@ -79,4 +79,35 @@
       forum_posts_id = #{forumPostsId,jdbcType=BIGINT}
     where forum_posts_star_list_id = #{forumPostsStarListId,jdbcType=BIGINT}
   </update>
+  
+  
+  
+  <resultMap type="com.yikangyiliao.pension.entity.FormPostsStarList" id="getForumPostStartListsResultMap" extends="BaseResultMap" >
+  	<result column="user_name" property="userName"/>
+  	<result column="photo_url" property="photoUrl"/>
+  </resultMap>
+  <!-- 获取某一个文章的支持列表 -->
+  <select id="getForumPostStartListByForumPostsId" resultMap="getForumPostStartListsResultMap">
+  	select 
+		fpsl.*,
+		ui.user_name,
+	    ui.photo_url
+	from forum_posts_star_lists fpsl
+	inner join user_infos ui on fpsl.create_user_id=ui.user_id
+	where fpsl.forum_posts_id=#{forumPostsId}
+  </select>
+  
+  <!-- 删除支持 -->
+  <delete id="deleteForumPostStartList" parameterType="map">
+  	delete from forum_posts_star_lists where create_user_id=#{createUserId} and forum_posts_id=#{forumPostsId}
+  </delete>
+  
+  <!--查询某一个用户的支持数据 用于判断，是删除支持，还是添加支持  -->
+  <select id="selectForumPostStartListByCreateUserIdAndForumPostsId" parameterType="Map" resultMap="BaseResultMap">
+  	select
+  		<include refid="Base_Column_List"></include>
+  	from 	forum_posts_star_lists
+  	where  create_user_id=#{createUserId} and forum_posts_id=#{forumPostsId}
+  </select>
+  
 </mapper>
