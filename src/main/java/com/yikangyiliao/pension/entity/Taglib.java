@@ -21,6 +21,12 @@ public class Taglib {
 
     private Byte isRecommend;
 
+    private Integer followNumber;
+
+    private Integer fornumPostsNumber;
+
+    private Integer answerNumber;
+
     public Long getTaglibId() {
         return taglibId;
     }
@@ -99,5 +105,29 @@ public class Taglib {
 
     public void setIsRecommend(Byte isRecommend) {
         this.isRecommend = isRecommend;
+    }
+
+    public Integer getFollowNumber() {
+        return followNumber;
+    }
+
+    public void setFollowNumber(Integer followNumber) {
+        this.followNumber = followNumber;
+    }
+
+    public Integer getFornumPostsNumber() {
+        return fornumPostsNumber;
+    }
+
+    public void setFornumPostsNumber(Integer fornumPostsNumber) {
+        this.fornumPostsNumber = fornumPostsNumber;
+    }
+
+    public Integer getAnswerNumber() {
+        return answerNumber;
+    }
+
+    public void setAnswerNumber(Integer answerNumber) {
+        this.answerNumber = answerNumber;
     }
 }

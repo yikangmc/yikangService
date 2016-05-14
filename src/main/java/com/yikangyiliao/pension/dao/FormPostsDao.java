@@ -48,6 +48,12 @@ public interface FormPostsDao {
     void formPostsStarsDownByForumPostId(Long forumPostId);
     
     
+    /**
+     * @author liushuaic
+     * @date 2016-05-12 18:00
+     * @desc 获取某一个标签下的文章。
+     * */
+    List<FormPosts> getForumPostsByTaglibsId(Long taglibId);
     
     
 }

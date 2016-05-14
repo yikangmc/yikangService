@@ -90,4 +90,27 @@
       audit_status = #{auditStatus,jdbcType=TINYINT}
     where user_activety_list_id = #{userActivetyListId,jdbcType=BIGINT}
   </update>
+ 
+ 
+ <!-- 查询某一个活动的所有的参加的用户  -->
+ <resultMap type="com.yikangyiliao.pension.entity.UserInfo" id="getUserInfoListByActivetyIdResultMap">
+	 <result column="user_id"   property="userId"/>
+	 <result column="user_name" property="userName"/>
+	 <result column="photo_url" property="photoUrl"/>
+ </resultMap>
+  <select id="getUserInfoListByActivetyId" resultMap="getUserInfoListByActivetyIdResultMap" parameterType="long">
+  	select 
+		ui.user_id,
+		ui.user_name,
+		ui.photo_url  
+	from user_activety_lists ual inner join user_infos ui
+	on ual.user_id=ui.user_id
+	where activety_id=#{activetyId}
+  </select>
+  
+  
+  
+  
+  
+  
 </mapper>

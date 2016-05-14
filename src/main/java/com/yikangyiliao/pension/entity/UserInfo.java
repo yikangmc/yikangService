@@ -23,7 +23,7 @@ public class UserInfo {
 
     private Long isDelete;
 
-    private String userInfosCol;
+    private String photoUrl;
 
     public Long getUserInfoId() {
         return userInfoId;
@@ -113,11 +113,12 @@ public class UserInfo {
         this.isDelete = isDelete;
     }
 
-    public String getUserInfosCol() {
-        return userInfosCol;
-    }
+	public String getPhotoUrl() {
+		return photoUrl;
+	}
 
-    public void setUserInfosCol(String userInfosCol) {
-        this.userInfosCol = userInfosCol == null ? null : userInfosCol.trim();
-    }
+	public void setPhotoUrl(String photoUrl) {
+		this.photoUrl = photoUrl;
+	}
+
 }

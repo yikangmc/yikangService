@@ -11,6 +11,8 @@ public class QuestionAnswer {
 
     private Long questionId;
 
+    private Integer starNum;
+
     public Long getQuestionAnswerId() {
         return questionAnswerId;
     }
@@ -49,5 +51,13 @@ public class QuestionAnswer {
 
     public void setQuestionId(Long questionId) {
         this.questionId = questionId;
+    }
+
+    public Integer getStarNum() {
+        return starNum;
+    }
+
+    public void setStarNum(Integer starNum) {
+        this.starNum = starNum;
     }
 }

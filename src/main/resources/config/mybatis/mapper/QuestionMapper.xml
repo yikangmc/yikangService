@@ -6,12 +6,13 @@
     <result column="title" property="title" jdbcType="VARCHAR" />
     <result column="content" property="content" jdbcType="VARCHAR" />
     <result column="create_user_id" property="createUserId" jdbcType="BIGINT" />
-    <result column="create_time" property="createTime" jdbcType="VARCHAR" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
     <result column="is_delete" property="isDelete" jdbcType="TINYINT" />
     <result column="star" property="star" jdbcType="INTEGER" />
+    <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
   </resultMap>
   <sql id="Base_Column_List" >
-    question_id, title, content, create_user_id, create_time, is_delete, star
+    question_id, title, content, create_user_id, create_time, is_delete, star, update_time
   </sql>
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
     select 
@@ -24,14 +25,20 @@
     where question_id = #{questionId,jdbcType=BIGINT}
   </delete>
   <insert id="insert" parameterType="com.yikangyiliao.pension.entity.Question" >
+    <selectKey resultType="Long" keyProperty="questionId" order="AFTER">
+		SELECT LAST_INSERT_ID()
+	</selectKey>
     insert into questions (question_id, title, content, 
       create_user_id, create_time, is_delete, 
-      star)
+      star, update_time)
     values (#{questionId,jdbcType=BIGINT}, #{title,jdbcType=VARCHAR}, #{content,jdbcType=VARCHAR}, 
-      #{createUserId,jdbcType=BIGINT}, #{createTime,jdbcType=VARCHAR}, #{isDelete,jdbcType=TINYINT}, 
-      #{star,jdbcType=INTEGER})
+      #{createUserId,jdbcType=BIGINT}, #{createTime,jdbcType=TIMESTAMP}, #{isDelete,jdbcType=TINYINT}, 
+      #{star,jdbcType=INTEGER}, #{updateTime,jdbcType=TIMESTAMP})
   </insert>
   <insert id="insertSelective" parameterType="com.yikangyiliao.pension.entity.Question" >
+    <selectKey resultType="Long" keyProperty="questionId" order="AFTER">
+		SELECT LAST_INSERT_ID()
+	</selectKey>
     insert into questions
     <trim prefix="(" suffix=")" suffixOverrides="," >
       <if test="questionId != null" >
@@ -55,6 +62,9 @@
       <if test="star != null" >
         star,
       </if>
+      <if test="updateTime != null" >
+        update_time,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
       <if test="questionId != null" >
@@ -70,13 +80,16 @@
         #{createUserId,jdbcType=BIGINT},
       </if>
       <if test="createTime != null" >
-        #{createTime,jdbcType=VARCHAR},
+        #{createTime,jdbcType=TIMESTAMP},
       </if>
       <if test="isDelete != null" >
         #{isDelete,jdbcType=TINYINT},
       </if>
       <if test="star != null" >
         #{star,jdbcType=INTEGER},
+      </if>
+      <if test="updateTime != null" >
+        #{updateTime,jdbcType=TIMESTAMP},
       </if>
     </trim>
   </insert>
@@ -93,13 +106,16 @@
         create_user_id = #{createUserId,jdbcType=BIGINT},
       </if>
       <if test="createTime != null" >
-        create_time = #{createTime,jdbcType=VARCHAR},
+        create_time = #{createTime,jdbcType=TIMESTAMP},
       </if>
       <if test="isDelete != null" >
         is_delete = #{isDelete,jdbcType=TINYINT},
       </if>
       <if test="star != null" >
         star = #{star,jdbcType=INTEGER},
+      </if>
+      <if test="updateTime != null" >
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
       </if>
     </set>
     where question_id = #{questionId,jdbcType=BIGINT}
@@ -109,9 +125,31 @@
     set title = #{title,jdbcType=VARCHAR},
       content = #{content,jdbcType=VARCHAR},
       create_user_id = #{createUserId,jdbcType=BIGINT},
-      create_time = #{createTime,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
       is_delete = #{isDelete,jdbcType=TINYINT},
-      star = #{star,jdbcType=INTEGER}
+      star = #{star,jdbcType=INTEGER},
+      update_time = #{updateTime,jdbcType=TIMESTAMP}
     where question_id = #{questionId,jdbcType=BIGINT}
   </update>
+  
+  
+  
+  <resultMap type="com.yikangyiliao.pension.entity.Question" id="" extends="BaseResultMap">
+	<result column="user_name" property="userName"/>
+	<result column="photo_url" property="photoUrl"/>
+	
+	<collection property="taglibs" 		   column="question_id" select="com.yikangyiliao.pension.dao.QuestionTaglibMapDao.getQuestionTaglibsByQuestionId"></collection>
+	<collection property="questionAnswers" column="question_id" select="com.yikangyiliao.pension.dao.QuestionAnswerDao.selectQuestionAnswer"></collection>
+	
+  </resultMap>
+  
+  <!--查询某一个问题详情  -->
+  <select id="getQuestionDetailByQuestionId" parameterType="long" resultMap="BaseResultMap">
+  	select 
+  		<include refid="Base_Column_List"></include>
+  	from questions
+  	where question_id=#{questionId}
+  </select>
+  
+  
 </mapper>

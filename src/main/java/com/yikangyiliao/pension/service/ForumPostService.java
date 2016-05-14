@@ -195,6 +195,32 @@ public class ForumPostService {
     }
     
     
+    /**
+     * @author liushuaic
+     * @date 2016-05-12 18:16 
+     * @desc 获取文章内容根据标签id
+     * */
+    public  ResponseMessage<List<FormPosts>> getForumPostsByTaglibId(Map<String,Object> paramData){
+    	
+    	ResponseMessage<List<FormPosts>> res=new ResponseMessage<List<FormPosts>>();
+    	
+    	try{
+    		if(paramData.containsKey("taglibId")){
+    			
+    			Long taglibId=Long.valueOf(paramData.get("taglibId").toString());
+    			
+    			List<FormPosts> data=formPostManager.getForumPostsByTaglibsId(taglibId);
+    			res.setData(data);
+    		}
+    	}catch(Exception e){
+    		e.printStackTrace();
+    	}
+    	
+    	return res;
+    	
+    }
+    
+    
     
     
 }

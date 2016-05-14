@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.yikangyiliao.pension.dao.QuestionTaglibMapDao" >
+  <resultMap id="BaseResultMap" type="com.yikangyiliao.pension.entity.QuestionTaglibMap" >
+    <id column="question_taglib_maps_id" property="questionTaglibMapsId" jdbcType="BIGINT" />
+    <result column="taglibs_id" property="taglibsId" jdbcType="BIGINT" />
+    <result column="questions_id" property="questionsId" jdbcType="BIGINT" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    question_taglib_maps_id, taglibs_id, questions_id, create_time, update_time
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from question_taglib_maps
+    where question_taglib_maps_id = #{questionTaglibMapsId,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from question_taglib_maps
+    where question_taglib_maps_id = #{questionTaglibMapsId,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.yikangyiliao.pension.entity.QuestionTaglibMap" >
+    insert into question_taglib_maps (question_taglib_maps_id, taglibs_id, questions_id, 
+      create_time, update_time)
+    values (#{questionTaglibMapsId,jdbcType=BIGINT}, #{taglibsId,jdbcType=BIGINT}, #{questionsId,jdbcType=BIGINT}, 
+      #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.yikangyiliao.pension.entity.QuestionTaglibMap" >
+    insert into question_taglib_maps
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="questionTaglibMapsId != null" >
+        question_taglib_maps_id,
+      </if>
+      <if test="taglibsId != null" >
+        taglibs_id,
+      </if>
+      <if test="questionsId != null" >
+        questions_id,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+      <if test="updateTime != null" >
+        update_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="questionTaglibMapsId != null" >
+        #{questionTaglibMapsId,jdbcType=BIGINT},
+      </if>
+      <if test="taglibsId != null" >
+        #{taglibsId,jdbcType=BIGINT},
+      </if>
+      <if test="questionsId != null" >
+        #{questionsId,jdbcType=BIGINT},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null" >
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.yikangyiliao.pension.entity.QuestionTaglibMap" >
+    update question_taglib_maps
+    <set >
+      <if test="taglibsId != null" >
+        taglibs_id = #{taglibsId,jdbcType=BIGINT},
+      </if>
+      <if test="questionsId != null" >
+        questions_id = #{questionsId,jdbcType=BIGINT},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null" >
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where question_taglib_maps_id = #{questionTaglibMapsId,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.yikangyiliao.pension.entity.QuestionTaglibMap" >
+    update question_taglib_maps
+    set taglibs_id = #{taglibsId,jdbcType=BIGINT},
+      questions_id = #{questionsId,jdbcType=BIGINT},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      update_time = #{updateTime,jdbcType=TIMESTAMP}
+    where question_taglib_maps_id = #{questionTaglibMapsId,jdbcType=BIGINT}
+  </update>
+  
+  
+  <!--  查询某一个问题的所有标签  -->
+  <select id="getQuestionTaglibsByQuestionId" resultMap="BaseResultMap">
+  	select 
+  		taglibs.taglib_id,
+		taglibs.tag_name 
+	from question_taglib_maps qtm
+	inner join taglibs on qtm.taglibs_id=taglibs.taglib_id
+	where qtm.questions_id=#{questionId}
+  </select>
+  
+</mapper>

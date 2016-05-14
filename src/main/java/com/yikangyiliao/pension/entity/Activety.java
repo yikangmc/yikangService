@@ -1,6 +1,7 @@
 package com.yikangyiliao.pension.entity;
 
 import java.util.Date;
+import java.util.List;
 
 public class Activety {
     private Long activetyId;
@@ -21,6 +22,8 @@ public class Activety {
 
     private Long createUserId;
 
+    private String createUsername;
+    
     private String mapPsitionAddress;
 
     private String detailAddress;
@@ -29,6 +32,8 @@ public class Activety {
 
     private Date endTime;
 
+    private List<UserInfo> followUsers;
+    
     public Long getActivetyId() {
         return activetyId;
     }
@@ -132,4 +137,20 @@ public class Activety {
     public void setEndTime(Date endTime) {
         this.endTime = endTime;
     }
+
+	public String getCreateUsername() {
+		return createUsername;
+	}
+
+	public void setCreateUsername(String createUsername) {
+		this.createUsername = createUsername;
+	}
+
+	public List<UserInfo> getFollowUsers() {
+		return followUsers;
+	}
+
+	public void setFollowUsers(List<UserInfo> followUsers) {
+		this.followUsers = followUsers;
+	}
 }

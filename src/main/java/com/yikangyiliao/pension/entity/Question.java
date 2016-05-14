@@ -1,5 +1,8 @@
 package com.yikangyiliao.pension.entity;
 
+import java.util.Date;
+import java.util.List;
+
 public class Question {
     private Long questionId;
 
@@ -9,12 +12,30 @@ public class Question {
 
     private Long createUserId;
 
-    private String createTime;
+    private Date createTime;
 
     private Byte isDelete;
 
     private Integer star;
 
+    private Date updateTime;
+    
+    //用户名称
+    private String userName;
+    
+    //头像地址
+    private String photoUrl;
+    
+    //回复数量
+    private Integer answerNum;
+    
+    //标签列表
+    private List<Taglib> taglibs;
+    
+    //问题列表
+    private List<QuestionAnswer> questionAnswers;
+
+    
     public Long getQuestionId() {
         return questionId;
     }
@@ -47,12 +68,12 @@ public class Question {
         this.createUserId = createUserId;
     }
 
-    public String getCreateTime() {
+    public Date getCreateTime() {
         return createTime;
     }
 
-    public void setCreateTime(String createTime) {
-        this.createTime = createTime == null ? null : createTime.trim();
+    public void setCreateTime(Date createTime) {
+        this.createTime = createTime;
     }
 
     public Byte getIsDelete() {
@@ -70,4 +91,52 @@ public class Question {
     public void setStar(Integer star) {
         this.star = star;
     }
+
+    public Date getUpdateTime() {
+        return updateTime;
+    }
+
+    public void setUpdateTime(Date updateTime) {
+        this.updateTime = updateTime;
+    }
+
+	public String getUserName() {
+		return userName;
+	}
+
+	public void setUserName(String userName) {
+		this.userName = userName;
+	}
+
+	public String getPhotoUrl() {
+		return photoUrl;
+	}
+
+	public void setPhotoUrl(String photoUrl) {
+		this.photoUrl = photoUrl;
+	}
+
+	public Integer getAnswerNum() {
+		return answerNum;
+	}
+
+	public void setAnswerNum(Integer answerNum) {
+		this.answerNum = answerNum;
+	}
+
+	public List<Taglib> getTaglibs() {
+		return taglibs;
+	}
+
+	public void setTaglibs(List<Taglib> taglibs) {
+		this.taglibs = taglibs;
+	}
+
+	public List<QuestionAnswer> getQuestionAnswers() {
+		return questionAnswers;
+	}
+
+	public void setQuestionAnswers(List<QuestionAnswer> questionAnswers) {
+		this.questionAnswers = questionAnswers;
+	}
 }

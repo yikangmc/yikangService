@@ -1,4 +1,3 @@
-
 package com.yikangyiliao.base.utils;
 
 import java.io.InputStream;
@@ -427,6 +426,7 @@ public class InterfaceUtil {
 		
 		
 		// 获取文章详情
+		serviceClassName.put("00-28","forumPostService");
 		YiKangServiceConfige getFourmPostDetail=new YiKangServiceConfige();
 		getFourmPostDetail.setServiceName("forumPostService");
 		getFourmPostDetail.setMethodName("getFourmPostDetail");
@@ -448,6 +448,95 @@ public class InterfaceUtil {
 		publishForumPosts.setMethodName("insertPublishForumPosts");
 		publishForumPosts.setIsFileter(true);
 		mathodServiceConfig.put("00-28-04",publishForumPosts);
+		
+		
+		//问题处理
+		serviceClassName.put("00-29","questionService");
+		YiKangServiceConfige insertQuestion=new YiKangServiceConfige();
+		insertQuestion.setServiceName("questionService");
+		insertQuestion.setMethodName("insertQuestion");
+		insertQuestion.setIsFileter(true);
+		mathodServiceConfig.put("00-29-01",insertQuestion);
+		
+		//更新问题支持状态
+		YiKangServiceConfige updateQuestionStar=new YiKangServiceConfige();
+		updateQuestionStar.setServiceName("questionService");
+		updateQuestionStar.setMethodName("updateQuestionStar");
+		updateQuestionStar.setIsFileter(true);
+		mathodServiceConfig.put("00-29-02",updateQuestionStar);
+		
+		//问题回复
+		YiKangServiceConfige addQuestionAnswer=new YiKangServiceConfige();
+		addQuestionAnswer.setServiceName("questionService");
+		addQuestionAnswer.setMethodName("addQuestionAnswer");
+		addQuestionAnswer.setIsFileter(true);
+		mathodServiceConfig.put("00-29-03",addQuestionAnswer);
+		
+		
+		//查询问题详情
+		YiKangServiceConfige getQuestionDetailByQuestionId=new YiKangServiceConfige();
+		getQuestionDetailByQuestionId.setServiceName("questionService");
+		getQuestionDetailByQuestionId.setMethodName("getQuestionDetailByQuestionId");
+		getQuestionDetailByQuestionId.setIsFileter(true);
+		mathodServiceConfig.put("00-29-04",getQuestionDetailByQuestionId);
+		
+		
+		
+		/**
+		 * @author liushuaic
+		 * @date 2016-05-12 15:03
+		 * @desc 标签管理
+		 * ***/
+		serviceClassName.put("00-30","taglibService");
+		YiKangServiceConfige getRecommendTaglib=new YiKangServiceConfige();
+		getRecommendTaglib.setServiceName("taglibService");
+		getRecommendTaglib.setMethodName("getRecommendTaglib");
+		getRecommendTaglib.setIsFileter(true);
+		mathodServiceConfig.put("00-30-01",getRecommendTaglib);
+		
+		YiKangServiceConfige getFristTaglib=new YiKangServiceConfige();
+		getFristTaglib.setServiceName("taglibService");
+		getFristTaglib.setMethodName("getFristTaglib");
+		getFristTaglib.setIsFileter(true);
+		mathodServiceConfig.put("00-30-02",getFristTaglib);
+		
+		YiKangServiceConfige getSecondTaglibByParentId=new YiKangServiceConfige();
+		getSecondTaglibByParentId.setServiceName("taglibService");
+		getSecondTaglibByParentId.setMethodName("getSecondTaglibByParentId");
+		getSecondTaglibByParentId.setIsFileter(true);
+		mathodServiceConfig.put("00-30-03",getSecondTaglibByParentId);
+		
+		
+		
+		/**
+		 * @author liushuaic
+		 * @date 2016-05-12 15:03
+		 * @desc 活动管理
+		 **/
+		serviceClassName.put("00-31","activetyService");
+		YiKangServiceConfige getActivetys=new YiKangServiceConfige();
+		getActivetys.setServiceName("activetyService");
+		getActivetys.setMethodName("getActivetys");
+		getActivetys.setIsFileter(true);
+		mathodServiceConfig.put("00-31-01",getActivetys);
+		
+		
+		/**
+		 * @author liushuaic
+		 * @date 2016-05-13 16:27
+		 * @desc 查询某一个活动详情
+		 * */
+		YiKangServiceConfige getActivetyByActivetyId=new YiKangServiceConfige();
+		getActivetyByActivetyId.setServiceName("activetyService");
+		getActivetyByActivetyId.setMethodName("getActivetyByActivetyId");
+		getActivetyByActivetyId.setIsFileter(true);
+		mathodServiceConfig.put("00-31-02",getActivetyByActivetyId);
+		
+		
+		
+		
+		
+		
 		
 		
 	}

@@ -25,4 +25,32 @@ public interface TaglibDao {
      * @desc 获取标签列表
      * **/
     List<Taglib> getTaglibs(String tagName);
+    
+    
+    /**
+     * @author liushuaic
+     * @date 2016-05-11 16:16
+     * @desc 获取推荐的2级标签列表
+     * */
+    List<Taglib> getRecommendTaglib();
+    
+    
+    
+    /**
+     * @author liushuaic
+     * @date 2016-05-12 10:19
+     * @desc 查询一级列表标签
+     * **/
+    List<Taglib> getFristTaglib();
+    
+    
+    /**
+     * @author liushuaic
+     * @date 2016-05-12 10:24
+     * @desc 获取考级标签列表by parentId
+     * 
+     * **/
+    List<Taglib> getSecondTaglibByParentId(Long parentId);
+    
+    
 }

@@ -14,4 +14,12 @@ public interface QuestionDao {
     int updateByPrimaryKeySelective(Question record);
 
     int updateByPrimaryKey(Question record);
+    
+    
+    /**
+     * @author liushuaic
+     * @date 2016-05-11 11:49
+     * @desc 查询某一个问题的详情
+     * **/
+    Question getQuestionDetailByQuestionId(Long questionId);
 }

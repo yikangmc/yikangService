@@ -223,4 +223,30 @@
   	UPDATE forum_posts set stars=stars-1 where forum_post_id=#{forumPostId}
   </update>
   
+   <resultMap id="getFormPoustsDetailByForumPostIdResultMap" type="com.yikangyiliao.pension.entity.FormPosts"  extends="BaseResultMap">
+  	<result column="user_name" property="userName"/>
+  	<result column="photo_url" property="photoUrl"/>
+  	<collection property="taglibs" 		      	column="forum_post_id"	fetchType="eager" select="com.yikangyiliao.pension.dao.TaglibDao.getFormpostsByFormPostId"></collection>
+  </resultMap>
+  
+  <!-- 查询某一个标签下的所有文章 文章需要有，缩略内容 -->
+  <select id="getForumPostsByTaglibsId" resultMap="getFormPoustsDetailByForumPostIdResultMap" parameterType="long" >
+  	select 
+  		fp.forum_post_id, 
+  		fp.title,
+  		fp.content, fp.report_complaints_status, 
+  		fp.is_essence, 
+  		fp.create_time, 
+        fp.update_time, 
+  		fp.stars, 
+  		fp.share_num, 
+  		fp.create_user_id, 
+  		fp.share_url, 
+  		fp.recommend_pic_url
+  	from forum_posts fp
+	inner join forum_posts_taglibs_maps fptm
+	on fp.forum_post_id=fptm.form_post_id
+	where fptm.tag_libs_id=#{taglisId}
+ </select>
+  
 </mapper>

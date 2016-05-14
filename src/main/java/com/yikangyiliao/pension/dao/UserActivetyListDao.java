@@ -1,6 +1,9 @@
 package com.yikangyiliao.pension.dao;
 
+import java.util.List;
+
 import com.yikangyiliao.pension.entity.UserActivetyList;
+import com.yikangyiliao.pension.entity.UserInfo;
 
 public interface UserActivetyListDao {
     int deleteByPrimaryKey(Long userActivetyListId);
@@ -14,4 +17,16 @@ public interface UserActivetyListDao {
     int updateByPrimaryKeySelective(UserActivetyList record);
 
     int updateByPrimaryKey(UserActivetyList record);
+    
+
+    
+    
+    /**
+     * @author liushuaic
+     * @date 2016-05-13 11:31
+     * @desc 获取某一个活动的所有参与人员
+     * **/
+    List<UserInfo> getUserInfoListByActivetyId(Long activityId);
+    
+
 }

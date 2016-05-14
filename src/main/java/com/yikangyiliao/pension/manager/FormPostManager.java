@@ -192,4 +192,14 @@ public class FormPostManager {
     	}
     }
     
+    
+    /**
+     * @author liushuaic
+     * @date  2016-05-12 18:07
+     * 查询某一个标签一的文章
+     * */
+    public List<FormPosts> getForumPostsByTaglibsId(Long taglibId){
+    	return formPostsDao.getForumPostsByTaglibsId(taglibId);
+    }
+    
 }
