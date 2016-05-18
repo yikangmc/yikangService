@@ -533,6 +533,16 @@ public class InterfaceUtil {
 		mathodServiceConfig.put("00-31-02",getActivetyByActivetyId);
 		
 		
+		/**
+		 * @author liushuaic
+		 * @date 2016-05-17 14:55
+		 * @desc 添加活动
+		 * */
+		YiKangServiceConfige insertActivety=new YiKangServiceConfige();
+		insertActivety.setServiceName("activetyService");
+		insertActivety.setMethodName("insertActivety");
+		insertActivety.setIsFileter(true);
+		mathodServiceConfig.put("00-31-03",insertActivety);
 		
 		
 		

@@ -32,6 +32,7 @@ import com.yikangyiliao.pension.entity.Office;
 import com.yikangyiliao.pension.entity.TherapistsModel;
 import com.yikangyiliao.pension.entity.User;
 import com.yikangyiliao.pension.entity.UserFrom;
+import com.yikangyiliao.pension.entity.UserInfo;
 import com.yikangyiliao.pension.entity.UserModel;
 import com.yikangyiliao.pension.entity.UserServiceInfo;
 import com.yikangyiliao.pension.manager.AdeptManager;
@@ -1072,5 +1073,17 @@ public class UserService {
 		}
 
 		return responseMessage;
+	}
+	
+	/**
+	 * @author liushuaic
+	 * @date 2016-05-14 15:27
+	 * @desc 获取用户的个人信息
+	 * */
+	public ResponseMessage<UserInfo> getUserInfo(Map<String,Object> paramData){
+		ResponseMessage<UserInfo> resData=new ResponseMessage<UserInfo>();
+		
+		return resData;
+		
 	}
 }

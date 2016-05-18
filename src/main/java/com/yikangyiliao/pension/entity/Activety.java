@@ -1,7 +1,6 @@
 package com.yikangyiliao.pension.entity;
 
 import java.util.Date;
-import java.util.List;
 
 public class Activety {
     private Long activetyId;
@@ -16,14 +15,12 @@ public class Activety {
 
     private Date updateTime;
 
-    private String personNumber;
+    private Integer personNumber;
 
     private Byte checkStatus;
 
     private Long createUserId;
 
-    private String createUsername;
-    
     private String mapPsitionAddress;
 
     private String detailAddress;
@@ -32,8 +29,14 @@ public class Activety {
 
     private Date endTime;
 
-    private List<UserInfo> followUsers;
-    
+    private Date entryStartTime;
+
+    private Date entryEndTime;
+
+    private Byte activetyMode;
+
+    private String recommendPicUrl;
+
     public Long getActivetyId() {
         return activetyId;
     }
@@ -82,12 +85,12 @@ public class Activety {
         this.updateTime = updateTime;
     }
 
-    public String getPersonNumber() {
+    public Integer getPersonNumber() {
         return personNumber;
     }
 
-    public void setPersonNumber(String personNumber) {
-        this.personNumber = personNumber == null ? null : personNumber.trim();
+    public void setPersonNumber(Integer personNumber) {
+        this.personNumber = personNumber;
     }
 
     public Byte getCheckStatus() {
@@ -138,19 +141,35 @@ public class Activety {
         this.endTime = endTime;
     }
 
-	public String getCreateUsername() {
-		return createUsername;
-	}
+    public Date getEntryStartTime() {
+        return entryStartTime;
+    }
 
-	public void setCreateUsername(String createUsername) {
-		this.createUsername = createUsername;
-	}
+    public void setEntryStartTime(Date entryStartTime) {
+        this.entryStartTime = entryStartTime;
+    }
 
-	public List<UserInfo> getFollowUsers() {
-		return followUsers;
-	}
+    public Date getEntryEndTime() {
+        return entryEndTime;
+    }
 
-	public void setFollowUsers(List<UserInfo> followUsers) {
-		this.followUsers = followUsers;
-	}
+    public void setEntryEndTime(Date entryEndTime) {
+        this.entryEndTime = entryEndTime;
+    }
+
+    public Byte getActivetyMode() {
+        return activetyMode;
+    }
+
+    public void setActivetyMode(Byte activetyMode) {
+        this.activetyMode = activetyMode;
+    }
+
+    public String getRecommendPicUrl() {
+        return recommendPicUrl;
+    }
+
+    public void setRecommendPicUrl(String recommendPicUrl) {
+        this.recommendPicUrl = recommendPicUrl == null ? null : recommendPicUrl.trim();
+    }
 }

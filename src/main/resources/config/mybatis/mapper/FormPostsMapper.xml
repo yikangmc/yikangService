@@ -223,14 +223,14 @@
   	UPDATE forum_posts set stars=stars-1 where forum_post_id=#{forumPostId}
   </update>
   
-   <resultMap id="getFormPoustsDetailByForumPostIdResultMap" type="com.yikangyiliao.pension.entity.FormPosts"  extends="BaseResultMap">
+   <resultMap id="getFormPoustsDetailByForumPostIdResultMap2" type="com.yikangyiliao.pension.entity.FormPosts"  extends="BaseResultMap">
   	<result column="user_name" property="userName"/>
   	<result column="photo_url" property="photoUrl"/>
   	<collection property="taglibs" 		      	column="forum_post_id"	fetchType="eager" select="com.yikangyiliao.pension.dao.TaglibDao.getFormpostsByFormPostId"></collection>
   </resultMap>
   
   <!-- 查询某一个标签下的所有文章 文章需要有，缩略内容 -->
-  <select id="getForumPostsByTaglibsId" resultMap="getFormPoustsDetailByForumPostIdResultMap" parameterType="long" >
+  <select id="getForumPostsByTaglibsId" resultMap="getFormPoustsDetailByForumPostIdResultMap2" parameterType="long" >
   	select 
   		fp.forum_post_id, 
   		fp.title,

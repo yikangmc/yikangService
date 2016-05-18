@@ -46,6 +46,20 @@ public class DateUtils {
 		return sdf.parse(dateStr);
 	}
 	
+	
+	/**
+	 * @param dataStr 2015-06-25
+	 * @return  毫秒
+	 * @author liushuaic
+	 * @throws ParseException 
+	 * @date 2016/05/16 18:18
+	 * 列2015-10-10 获取的毫秒数为 2015-10-10 00:00:00
+	 * ***/
+	public static Date formateDateTime(String dateStr) throws ParseException{
+		SimpleDateFormat sdf=new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+		return sdf.parse(dateStr);
+	}
+	
 	/**
 	 * @author liushuaic
 	 * @date 2015/10/15 11:37
