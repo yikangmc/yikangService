@@ -72,5 +72,17 @@ public class TaglibService {
 		return resData;
 	}
 	
+	 /**
+     * @author liushuaic
+     * @date 2016-05-19 16:03
+     * @desc 获取所有的标签
+     * */
+	public ResponseMessage<List<Taglib>> getAllTag(){
+		ResponseMessage<List<Taglib>> resData=new ResponseMessage<List<Taglib>>();
+		List<Taglib> data=taglibManager.getAllTag();
+		resData.setData(data);
+		return resData;
+	}
+	
 	
 }

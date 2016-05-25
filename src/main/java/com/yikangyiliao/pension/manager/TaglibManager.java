@@ -54,4 +54,13 @@ public class TaglibManager {
 	}
 	
 	
+	 /**
+     * @author liushuaic
+     * @date 2016-05-19 16:03
+     * @desc 获取所有的标签
+     * */
+	public List<Taglib> getAllTag(){
+    	return taglibDao.getAllTag();
+    }
+	
 }

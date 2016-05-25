@@ -79,4 +79,34 @@
       dynamic_alert = #{dynamicAlert,jdbcType=TINYINT}
     where user_configrations_id = #{userConfigrationsId,jdbcType=BIGINT}
   </update>
+ 
+ <!-- 获取某一个用户的配置 -->
+  <select id="getUserConfigrationByUserId" parameterType="long">
+  	selec user_configrations_id, user_id, system_alert, dynamic_alert from user_configrations where user_id=#{userId}
+  </select> 
+  
+  <!-- 修改用户配置  -->
+   <update id="updateByUseridSelective" parameterType="com.yikangyiliao.pension.entity.UserConfigration">
+    update user_configrations
+    <set>
+      <if test="systemAlert != null">
+        system_alert = #{systemAlert,jdbcType=TINYINT},
+      </if>
+      <if test="dynamicAlert != null">
+        dynamic_alert = #{dynamicAlert,jdbcType=TINYINT},
+      </if>
+    </set>
+    where user_id = #{userId,jdbcType=BIGINT}
+  </update>
+  
+  
+  <!-- 获取用户配置 -->
+  <select id="selectUserConfigrationByUserId" resultMap="BaseResultMap" parameterType="long">
+  	select 
+  		user_configrations_id, user_id, system_alert, dynamic_alert
+  	from user_configrations
+  	where user_id=#{userId}
+  </select>
+  
+  
 </mapper>

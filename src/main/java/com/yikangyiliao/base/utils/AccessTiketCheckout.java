@@ -146,6 +146,9 @@ public class AccessTiketCheckout {
 	 * @author liushuaic
 	 * @date 2015/08/17 16:57
 	 * @desc 获取accessTiket
+	 * 
+	 * TODO 加常量
+	 * 
 	 * */
 	public static String generateAccessTicket(String loginId, Long loginDateTime,
 			String machineCode) throws Exception {

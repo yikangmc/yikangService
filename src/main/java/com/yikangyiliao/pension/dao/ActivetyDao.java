@@ -30,4 +30,13 @@ public interface ActivetyDao {
      * @date 2016-05-13 16:06
      * */
     Activety getActivetysDetailById(Long activetyId);
+    
+    
+    /**
+     * @author liushuaic
+     * @date 2016-05-23 10:51
+     * @desc 获取某一个用户所有发布的活动
+     * 
+     * **/
+    List<Activety> selectActivetyByUserId(Long userId);
 }

@@ -161,4 +161,14 @@
       content_group = #{contentGroup,jdbcType=TINYINT}
     where messages_id = #{messagesId,jdbcType=BIGINT}
   </update>
+  
+  
+  <!-- 查询消息列表 -->
+  <select id="getMessageByToUserId" parameterType="long" resultMap="BaseResultMap">
+  	select 
+		<include refid="Base_Column_List"></include>
+	from messages where to_user_id =#{toUserId}
+  </select>
+  
+  
 </mapper>

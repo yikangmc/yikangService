@@ -1,5 +1,7 @@
 package com.yikangyiliao.pension.dao;
 
+import java.util.List;
+
 import com.yikangyiliao.pension.entity.Message;
 
 public interface MessageDao {
@@ -14,4 +16,10 @@ public interface MessageDao {
     int updateByPrimaryKeySelective(Message record);
 
     int updateByPrimaryKey(Message record);
+    
+    /**
+     * @author liushuaic
+     * @date 2016-05-25 14:04
+     * **/
+    List<Message> getMessageByToUserId(Long toUserId);
 }

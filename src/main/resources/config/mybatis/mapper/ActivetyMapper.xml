@@ -264,17 +264,24 @@
   <resultMap type="com.yikangyiliao.pension.entity.Activety" extends="BaseResultMap" id="getActivetysDetailByIdResultMap">
 	<collection property="followUsers" column="activety_id" select="com.yikangyiliao.pension.dao.UserActivetyListDao.getUserInfoListByActivetyId"> </collection>
   </resultMap>
-  <select id="getActivetysDetailById" parameterType="long">
+  <select id="getActivetysDetailById" parameterType="long" resultMap="BaseResultMap">
   	select
-  		 * 
+  		 <include refid="Base_Column_List"></include>
   	 from activetys
   	 where activety_id=#{activetyId}
   </select>
   
   
   <!--查询我参加的活动  -->
-<!--   <select id="selectActivetyByUserId"  parameterType="long"> -->
-<!--   	select  -->
-<!--   </select> -->
+  <select id="selectActivetyByUserId"  parameterType="long" resultMap="BaseResultMap">
+  	 select 
+  		 <include refid="Base_Column_List"></include>
+  	 from activetys
+  	 where create_user_id where=#{userId}
+  </select>
+  
+  
+  
+  
   
 </mapper>

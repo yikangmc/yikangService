@@ -7,9 +7,12 @@
     <result column="activety_id" property="activetyId" jdbcType="BIGINT" />
     <result column="pay_status" property="payStatus" jdbcType="TINYINT" />
     <result column="audit_status" property="auditStatus" jdbcType="TINYINT" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
   </resultMap>
   <sql id="Base_Column_List" >
-    user_activety_list_id, user_id, activety_id, pay_status, audit_status
+    user_activety_list_id, user_id, activety_id, pay_status, audit_status, create_time, 
+    update_time
   </sql>
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
     select 
@@ -23,9 +26,11 @@
   </delete>
   <insert id="insert" parameterType="com.yikangyiliao.pension.entity.UserActivetyList" >
     insert into user_activety_lists (user_activety_list_id, user_id, activety_id, 
-      pay_status, audit_status)
+      pay_status, audit_status, create_time, 
+      update_time)
     values (#{userActivetyListId,jdbcType=BIGINT}, #{userId,jdbcType=BIGINT}, #{activetyId,jdbcType=BIGINT}, 
-      #{payStatus,jdbcType=TINYINT}, #{auditStatus,jdbcType=TINYINT})
+      #{payStatus,jdbcType=TINYINT}, #{auditStatus,jdbcType=TINYINT}, #{createTime,jdbcType=TIMESTAMP}, 
+      #{updateTime,jdbcType=TIMESTAMP})
   </insert>
   <insert id="insertSelective" parameterType="com.yikangyiliao.pension.entity.UserActivetyList" >
     insert into user_activety_lists
@@ -45,6 +50,12 @@
       <if test="auditStatus != null" >
         audit_status,
       </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+      <if test="updateTime != null" >
+        update_time,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
       <if test="userActivetyListId != null" >
@@ -61,6 +72,12 @@
       </if>
       <if test="auditStatus != null" >
         #{auditStatus,jdbcType=TINYINT},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null" >
+        #{updateTime,jdbcType=TIMESTAMP},
       </if>
     </trim>
   </insert>
@@ -79,6 +96,12 @@
       <if test="auditStatus != null" >
         audit_status = #{auditStatus,jdbcType=TINYINT},
       </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null" >
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
     </set>
     where user_activety_list_id = #{userActivetyListId,jdbcType=BIGINT}
   </update>
@@ -87,7 +110,9 @@
     set user_id = #{userId,jdbcType=BIGINT},
       activety_id = #{activetyId,jdbcType=BIGINT},
       pay_status = #{payStatus,jdbcType=TINYINT},
-      audit_status = #{auditStatus,jdbcType=TINYINT}
+      audit_status = #{auditStatus,jdbcType=TINYINT},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      update_time = #{updateTime,jdbcType=TIMESTAMP}
     where user_activety_list_id = #{userActivetyListId,jdbcType=BIGINT}
   </update>
  
@@ -106,6 +131,32 @@
 	from user_activety_lists ual inner join user_infos ui
 	on ual.user_id=ui.user_id
 	where activety_id=#{activetyId}
+  </select>
+  
+  <resultMap type="com.yikangyiliao.pension.entity.Activety" id="getMyActivetyByUserIdResultMap">
+  	<id column="activety_id" 	jdbcType="BIGINT" property="activetyId" />
+    <result column="title" 		jdbcType="VARCHAR" property="title" />
+    <result column="content" 	jdbcType="VARCHAR" property="content" />
+    <result column="cost" 		jdbcType="DOUBLE" property="cost" />
+    <result column="create_time" 	jdbcType="TIMESTAMP" property="createTime" />
+    <result column="update_time" 	jdbcType="TIMESTAMP" property="updateTime" />
+    <result column="person_number" 	jdbcType="INTEGER" property="personNumber" />
+    <result column="check_status" 	jdbcType="TINYINT" property="checkStatus" />
+    <result column="create_user_id" jdbcType="BIGINT" property="createUserId" />
+    <result column="map_psition_address" jdbcType="VARCHAR" property="mapPsitionAddress" />
+    <result column="detail_address" jdbcType="VARCHAR" property="detailAddress" />
+    <result column="start_time" 	jdbcType="TIMESTAMP" property="startTime" />
+    <result column="end_time" 		jdbcType="TIMESTAMP" property="endTime" />
+    <result column="entry_start_time" jdbcType="TIMESTAMP" property="entryStartTime" />
+    <result column="entry_end_time" jdbcType="TIMESTAMP" property="entryEndTime" />
+    <result column="activety_mode" 	jdbcType="TINYINT" property="activetyMode" />
+    <result column="recommend_pic_url" jdbcType="VARCHAR" property="recommendPicUrl" />
+  </resultMap>
+  
+  <!-- 获取我参见的活动 -->
+  <select id="getMyActivetyByUserId" resultMap="getMyActivetyByUserIdResultMap">
+  	select act.* from user_activety_lists ual 
+  	inner join activetys act on ual.activety_id=act.activety_id where user_id=#{userId}
   </select>
   
   

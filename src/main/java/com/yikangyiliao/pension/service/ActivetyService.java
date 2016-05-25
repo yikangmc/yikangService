@@ -13,13 +13,24 @@ import com.yikangyiliao.base.utils.ParamMapUtils;
 import com.yikangyiliao.pension.common.error.ExceptionConstants;
 import com.yikangyiliao.pension.common.response.ResponseMessage;
 import com.yikangyiliao.pension.entity.Activety;
+import com.yikangyiliao.pension.entity.ActivetyComment;
+import com.yikangyiliao.pension.manager.ActivetyCommentManager;
 import com.yikangyiliao.pension.manager.ActivetyManager;
+import com.yikangyiliao.pension.manager.UserActivetyListManager;
 
 @Service(value="activetyService")
 public class ActivetyService {
 
 	@Autowired
 	private ActivetyManager activetyManager;
+	
+	
+	@Autowired
+	private UserActivetyListManager activetyListManager;
+	
+	
+	@Autowired
+	private ActivetyCommentManager activetyCommentManager;
 	
 	
 	/**
@@ -142,19 +153,102 @@ public class ActivetyService {
 	
 	
 	/**
+	 * 
 	 * @author liushuaic
 	 * @date 2016-05-17 18:33
 	 * @desc 添加我参与的活动
+	 * 
 	 * **/
 	public ResponseMessage<String> insertMyAcitivety(Map<String,Object> paramMap){
 		ResponseMessage<String> resData=new ResponseMessage<String>();
 		
 		if(paramMap.containsKey("activetyId")){
 			
+			Long userId=Long.valueOf(paramMap.get("userId").toString());
+			Long activetyId=Long.valueOf(paramMap.get("activetyId").toString());
+			activetyListManager.insertUserActivetyList(activetyId, userId);
+			resData.setMessage("活动报名成功！");
+			
+		}else{
+			resData.setStatus(ExceptionConstants.parameterException.parameterException.errorCode);
+			resData.setMessage(ExceptionConstants.parameterException.parameterException.errorMessage);
 		}
 		
 		return resData;
 		
 	}
+	
+	/**
+	 * @author liushuaic
+	 * @date 2016-05-18 16:34
+	 * @desc 文章评论
+	 * **/
+	public ResponseMessage<String> insertActivetyComment(Map<String,Object> paramMap){
+		ResponseMessage<String> resData=new ResponseMessage<String>();
+		
+		if(
+				paramMap.containsKey("activetyId")
+			&& paramMap.containsKey("content")
+			){
+			
+			Long userId=Long.valueOf(paramMap.get("userId").toString());
+			Long activetyId=Long.valueOf(paramMap.get("activetyId").toString());
+			String content=paramMap.get("content").toString();
+			
+			activetyCommentManager.insertActivetyComment(activetyId, content, userId);
+		}else{
+			resData.setStatus(ExceptionConstants.parameterException.parameterException.errorCode);
+			resData.setMessage(ExceptionConstants.parameterException.parameterException.errorMessage);
+		}
+		
+		return resData;
+	}
+	
+	/**
+	 * @author liushuaic
+	 * @date 2016-05-19 16:39
+	 * @desc 获取活动的评论列表
+	 * ***/
+	public ResponseMessage<List<ActivetyComment>> getActivetyCommentByActivetyId(Map<String,Object> paramMap){
+		ResponseMessage<List<ActivetyComment>> resData=new ResponseMessage<List<ActivetyComment>>();
+		if(
+				paramMap.containsKey("activetyId")
+		 ){
+			Long activetyId=Long.valueOf(paramMap.get("activetyId").toString());
+			List<ActivetyComment> data=activetyCommentManager.getActivetyCommentList(activetyId);
+			resData.setMessage("获取成功！");
+			resData.setData(data);
+		}else{
+			resData.setStatus(ExceptionConstants.parameterException.parameterException.errorCode);
+			resData.setMessage(ExceptionConstants.parameterException.parameterException.errorMessage);
+		}
+		return resData;
+	}
+	
+	
+	/**
+	 * @author liushuaic
+	 * @date 2016-05-23 10:57
+	 * @desc 获取我参加的活动列表
+	 * **/
+	public ResponseMessage<List<Activety>> getActiveyByJoinUserId(Map<String,Object> paramMap){
+		
+		ResponseMessage<List<Activety>> resData=new ResponseMessage<List<Activety>>();
+		
+		if(paramMap.containsKey("userId")){
+			Long userId=Long.valueOf(paramMap.get("userId").toString());
+			List<Activety> activetys= activetyListManager.getMyActivetyByUserId(userId);
+			resData.setData(activetys);
+		}
+		
+		
+		return resData;
+	}
+	
+	
+	
+	
+	
+	
 	
 }

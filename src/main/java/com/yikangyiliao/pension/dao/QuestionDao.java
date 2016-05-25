@@ -1,5 +1,7 @@
 package com.yikangyiliao.pension.dao;
 
+import java.util.List;
+
 import com.yikangyiliao.pension.entity.Question;
 
 public interface QuestionDao {
@@ -22,4 +24,12 @@ public interface QuestionDao {
      * @desc 查询某一个问题的详情
      * **/
     Question getQuestionDetailByQuestionId(Long questionId);
+    
+    
+    /**
+     * @author liushuaic
+     * @date 2016-05-24 15:19
+     * @desc 查询某一个标签下的所有问题
+     * **/
+    List<Question> getQuestionByTaglibid(Long taglibId);
 }

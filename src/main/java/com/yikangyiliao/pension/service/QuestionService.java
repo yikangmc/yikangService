@@ -86,7 +86,6 @@ public class QuestionService {
 		if(
 			paramMap.containsKey("questionId")
 			&& paramMap.containsKey("content")
-			&& paramMap.containsKey("createUserId")
 		){
 			Long questionId=Long.valueOf(paramMap.get("questionId").toString());
 			Long createUserId=Long.valueOf(paramMap.get("userId").toString());
@@ -123,6 +122,19 @@ public class QuestionService {
 	}
 	
 	
-	
+	/**
+	 * @author liushuaic
+	 * @date 2016-05-19 16:20
+	 * @desc 获取某一个标签下的所有问题
+	 * **/
+	public ResponseMessage<List<Question>> getQuestionsByTaglibId(Map<String,Object> paramMap){
+		ResponseMessage<List<Question>> resData=new ResponseMessage<List<Question>>();
+		
+		Long taglibId=Long.valueOf(paramMap.get("taglibId").toString());
+		List<Question> questions=questionManager.getQuestionByTaglibid(taglibId);
+		resData.setData(questions);
+		
+		return resData;
+	}
 
 }

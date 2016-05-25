@@ -233,9 +233,35 @@
 	where parent_id=#{parentId}
  </select>
  
+ <resultMap type="com.yikangyiliao.pension.entity.Taglib" extends="BaseResultMap" id="getAllTagResultMap">
+	 <collection property="taglibs" ofType="com.yikangyiliao.pension.entity.Taglib" >
+		<id column="taglib_id" property="taglibId" jdbcType="BIGINT" />
+	    <result column="tag_name" property="tagName" jdbcType="VARCHAR" />
+	    <result column="tag_pic" property="tagPic" jdbcType="VARCHAR" />
+	    <result column="parent_id" property="parentId" jdbcType="BIGINT" />
+	    <result column="orders" property="orders" jdbcType="TINYINT" />
+	    <result column="create_time" property="createTime" jdbcType="VARCHAR" />
+	    <result column="update_time" property="updateTime" jdbcType="VARCHAR" />
+	    <result column="follow_number" property="followNumber" jdbcType="INTEGER" />
+	    <result column="fornum_posts_number" property="fornumPostsNumber" jdbcType="INTEGER" />
+	    <result column="answer_number" property="answerNumber" jdbcType="INTEGER" />
+	 </collection>
+ </resultMap>
  
- 
- 
+ <select id="getAllTag" resultMap="getAllTagResultMap">
+ 	select 
+		tag.taglib_id,
+		tag.tag_name,
+		tag.tag_pic,
+		tag2.taglib_id as taglibId2,
+		tag2.tag_name as taglibName2,
+		tag2.tag_pic as tagPic2,
+		tag2.follow_number as followNumber2,
+		tag2.fornum_posts_number as forumPostsNumber,
+		tag2.answer_number as answerNumber
+	from taglibs tag inner join taglibs tag2
+	where tag2.parent_id=tag.taglib_id
+ </select>
  
  
 </mapper>

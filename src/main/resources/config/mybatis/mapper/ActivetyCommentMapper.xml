@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.yikangyiliao.pension.dao.ActivetyCommentDao" >
+  <resultMap id="BaseResultMap" type="com.yikangyiliao.pension.entity.ActivetyComment" >
+    <id column="activety_comment_id" property="activetyCommentId" jdbcType="BIGINT" />
+    <result column="create_user_id" property="createUserId" jdbcType="BIGINT" />
+    <result column="activety_id" property="activetyId" jdbcType="BIGINT" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+    <result column="content" property="content" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    activety_comment_id, create_user_id, activety_id, create_time, update_time, content
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from activety_comments
+    where activety_comment_id = #{activetyCommentId,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from activety_comments
+    where activety_comment_id = #{activetyCommentId,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.yikangyiliao.pension.entity.ActivetyComment" >
+    insert into activety_comments (activety_comment_id, create_user_id, activety_id, 
+      create_time, update_time, content
+      )
+    values (#{activetyCommentId,jdbcType=BIGINT}, #{createUserId,jdbcType=BIGINT}, #{activetyId,jdbcType=BIGINT}, 
+      #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP}, #{content,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.yikangyiliao.pension.entity.ActivetyComment" >
+    insert into activety_comments
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="activetyCommentId != null" >
+        activety_comment_id,
+      </if>
+      <if test="createUserId != null" >
+        create_user_id,
+      </if>
+      <if test="activetyId != null" >
+        activety_id,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+      <if test="updateTime != null" >
+        update_time,
+      </if>
+      <if test="content != null" >
+        content,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="activetyCommentId != null" >
+        #{activetyCommentId,jdbcType=BIGINT},
+      </if>
+      <if test="createUserId != null" >
+        #{createUserId,jdbcType=BIGINT},
+      </if>
+      <if test="activetyId != null" >
+        #{activetyId,jdbcType=BIGINT},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null" >
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="content != null" >
+        #{content,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.yikangyiliao.pension.entity.ActivetyComment" >
+    update activety_comments
+    <set >
+      <if test="createUserId != null" >
+        create_user_id = #{createUserId,jdbcType=BIGINT},
+      </if>
+      <if test="activetyId != null" >
+        activety_id = #{activetyId,jdbcType=BIGINT},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null" >
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="content != null" >
+        content = #{content,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where activety_comment_id = #{activetyCommentId,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.yikangyiliao.pension.entity.ActivetyComment" >
+    update activety_comments
+    set create_user_id = #{createUserId,jdbcType=BIGINT},
+      activety_id = #{activetyId,jdbcType=BIGINT},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      update_time = #{updateTime,jdbcType=TIMESTAMP},
+      content = #{content,jdbcType=VARCHAR}
+    where activety_comment_id = #{activetyCommentId,jdbcType=BIGINT}
+  </update>
+  
+  
+	<resultMap type="com.yikangyiliao.pension.entity.ActivetyComment" id="getActivetyCommentByUserIdResultMap" extends="BaseResultMap">
+		<result column="userPhotoUrl" property="userPhotoUrl"/>
+	</resultMap>
+  <!-- 获取活动评论列表 -->
+  <select id="getActivetyCommentByUserId" parameterType="long" resultMap="getActivetyCommentByUserIdResultMap">
+  	select 
+  		activety_comment_id, create_user_id, activety_id, create_time, update_time, content,
+  		(select photo_url from user_infos where user_id= create_user_id) as userPhotoUrl
+  	from activety_comments
+  	where activety_id=#{activetyId}
+  </select>
+  
+</mapper>

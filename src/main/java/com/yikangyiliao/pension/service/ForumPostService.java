@@ -135,9 +135,7 @@ public class ForumPostService {
     	try{
     		if(
     				 paramData.containsKey("content")
-    				&& paramData.containsKey("createUserId")
     				&& paramData.containsKey("formPostId")
-    				&& paramData.containsKey("toUserId")
     		){
     			
     			String content=paramData.get("content").toString();
@@ -208,19 +206,28 @@ public class ForumPostService {
     		if(paramData.containsKey("taglibId")){
     			
     			Long taglibId=Long.valueOf(paramData.get("taglibId").toString());
-    			
     			List<FormPosts> data=formPostManager.getForumPostsByTaglibsId(taglibId);
     			res.setData(data);
-    		}
+    		}else{
+       		 res.setStatus(ExceptionConstants.systemException.systemException.errorCode);
+     		 res.setMessage(ExceptionConstants.systemException.systemException.errorMessage);
+    	}
     	}catch(Exception e){
     		e.printStackTrace();
+    		 log.error(e.getMessage());
     	}
     	
     	return res;
     	
     }
     
+    /**
+     * 删除
+     * **/
     
+    /**
+     * 修改
+     * */
     
     
 }

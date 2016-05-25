@@ -45,6 +45,63 @@ public class ActivetyServiceTest {
 	}
 	
 	
+	/**
+	 * @author liushuaic
+	 * @date 2016-05-23 16:32
+	 * @desc 报名参与活动
+	 * **/
+	@Test
+	public void testInsertMyAcitivety(){
+		try {
+			Map<String, Object> paramData = new HashMap<String, Object>();
+			paramData.put("activetyId", 1);
+
+			SendRequest.sendPost("00-31-04?appId=234&accessTicket=99b5ee453affe2efad86f03909495dd1b9ce342e78fd9ac33497fe204e9991195e4c7afd323d91954ba85f0a1bf9bb45&machineCode=123123", paramData);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	
+	
+	/**
+	 * @author liushuaic
+	 * @date 2016-05-23  16:50
+	 * @desc 添加活动评论
+	 * */
+	@Test
+	public void testInsertActivetyComment(){
+		try {
+			Map<String, Object> paramData = new HashMap<String, Object>();
+			paramData.put("activetyId", 1);
+			paramData.put("content", "我添加的活动评论");
+			
+			SendRequest.sendPost("00-31-05?appId=234&accessTicket=99b5ee453affe2efad86f03909495dd1b9ce342e78fd9ac33497fe204e9991195e4c7afd323d91954ba85f0a1bf9bb45&machineCode=123123", paramData);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	
+	
+	/**
+	 * @author liushuaic
+	 * @date 2016-05-23 17:16
+	 * @获取活动评论列表
+	 * **/
+	@Test
+	public void testGetActivetyCommentByActivetyId(){
+		try {
+			Map<String, Object> paramData = new HashMap<String, Object>();
+			paramData.put("activetyId", 1);
+			
+			SendRequest.sendPost("00-31-06?appId=234&accessTicket=99b5ee453affe2efad86f03909495dd1b9ce342e78fd9ac33497fe204e9991195e4c7afd323d91954ba85f0a1bf9bb45&machineCode=123123", paramData);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	
 	
 	
 }

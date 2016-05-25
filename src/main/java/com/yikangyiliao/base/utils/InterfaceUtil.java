@@ -416,6 +416,7 @@ public class InterfaceUtil {
 		getTaglibsList.setIsFileter(true);
 		mathodServiceConfig.put("00-27-01",getTaglibsList);
 		
+		
 		serviceClassName.put("00-28","forumPostService");
 		YiKangServiceConfige getIsEssence=new YiKangServiceConfige();
 		getIsEssence.setServiceName("forumPostService");
@@ -449,6 +450,15 @@ public class InterfaceUtil {
 		publishForumPosts.setIsFileter(true);
 		mathodServiceConfig.put("00-28-04",publishForumPosts);
 		
+		//文章回复
+		YiKangServiceConfige fourmPostAnswers=new YiKangServiceConfige();
+		fourmPostAnswers.setServiceName("forumPostService");
+		fourmPostAnswers.setMethodName("fourmPostAnswers");
+		fourmPostAnswers.setIsFileter(true);
+		mathodServiceConfig.put("00-28-05",fourmPostAnswers);
+		
+		
+		
 		
 		//问题处理
 		serviceClassName.put("00-29","questionService");
@@ -479,6 +489,18 @@ public class InterfaceUtil {
 		getQuestionDetailByQuestionId.setMethodName("getQuestionDetailByQuestionId");
 		getQuestionDetailByQuestionId.setIsFileter(true);
 		mathodServiceConfig.put("00-29-04",getQuestionDetailByQuestionId);
+		
+		
+		/**
+		 * @author liushuaic
+		 * @date 2016-05-24 15:49
+		 * @desc 查询某一个标签下的所有问题
+		 * **/
+		YiKangServiceConfige getQuestionsByTaglibId=new YiKangServiceConfige();
+		getQuestionsByTaglibId.setServiceName("questionService");
+		getQuestionsByTaglibId.setMethodName("getQuestionsByTaglibId");
+		getQuestionsByTaglibId.setIsFileter(true);
+		mathodServiceConfig.put("00-29-05",getQuestionsByTaglibId);
 		
 		
 		
@@ -535,9 +557,9 @@ public class InterfaceUtil {
 		
 		/**
 		 * @author liushuaic
-		 * @date 2016-05-17 14:55
+		 * @date 2016-05-23 15:52
 		 * @desc 添加活动
-		 * */
+		 * **/
 		YiKangServiceConfige insertActivety=new YiKangServiceConfige();
 		insertActivety.setServiceName("activetyService");
 		insertActivety.setMethodName("insertActivety");
@@ -545,6 +567,94 @@ public class InterfaceUtil {
 		mathodServiceConfig.put("00-31-03",insertActivety);
 		
 		
+		/**
+		 * @author liushuaic
+		 * @date 2016-05-23 15:56
+		 * @desc 参与活动
+		 * **/
+		YiKangServiceConfige insertMyAcitivety=new YiKangServiceConfige();
+		insertMyAcitivety.setServiceName("activetyService");
+		insertMyAcitivety.setMethodName("insertMyAcitivety");
+		insertMyAcitivety.setIsFileter(true);
+		mathodServiceConfig.put("00-31-04",insertMyAcitivety);
+		
+		
+		/**
+		 * @author liushuaic
+		 * @date 2016-05-23 15:57
+		 * @desc 活动评论
+		 * 
+		 * **/
+		YiKangServiceConfige insertActivetyComment=new YiKangServiceConfige();
+		insertActivetyComment.setServiceName("activetyService");
+		insertActivetyComment.setMethodName("insertActivetyComment");
+		insertActivetyComment.setIsFileter(true);
+		mathodServiceConfig.put("00-31-05",insertActivetyComment);
+		
+		/**
+		 * @author liushuaic
+		 * @date 2016-05-23 16:09
+		 * @desc 获取某一个活动的评论列表
+		 * **/
+		YiKangServiceConfige getActivetyCommentByActivetyId=new YiKangServiceConfige();
+		getActivetyCommentByActivetyId.setServiceName("activetyService");
+		getActivetyCommentByActivetyId.setMethodName("getActivetyCommentByActivetyId");
+		getActivetyCommentByActivetyId.setIsFileter(true);
+		mathodServiceConfig.put("00-31-06",getActivetyCommentByActivetyId);
+		
+		
+		
+		/**
+		 * @author liushuaic
+		 * @date 2016-05-23 16:20
+		 * @desc 获取我参加的活动列表
+		 * **/
+		YiKangServiceConfige getActiveyByJoinUserId=new YiKangServiceConfige();
+		getActiveyByJoinUserId.setServiceName("activetyService");
+		getActiveyByJoinUserId.setMethodName("getActivetyCommentByActivetyId");
+		getActiveyByJoinUserId.setIsFileter(true);
+		mathodServiceConfig.put("00-31-07",getActiveyByJoinUserId);
+		
+		
+		
+		
+		/**
+		 * @author liushuaic
+		 * @date 2016-05-17 14:55
+		 * @desc 获取用户的配置信息
+		 * */
+		YiKangServiceConfige getUserConfigrationByUserId=new YiKangServiceConfige();
+		getUserConfigrationByUserId.setServiceName("userConfigrationService");
+		getUserConfigrationByUserId.setMethodName("getUserConfigrationByUserId");
+		getUserConfigrationByUserId.setIsFileter(true);
+		mathodServiceConfig.put("00-32-01",getUserConfigrationByUserId);
+		
+		
+		/**
+		 * @author liushuaic
+		 * @date 2016-05-20 16:51
+		 * @desc 修改用户配置信息
+		 * */
+		YiKangServiceConfige updateUserConfigration=new YiKangServiceConfige();
+		updateUserConfigration.setServiceName("userConfigrationService");
+		updateUserConfigration.setMethodName("updateUserConfigration");
+		updateUserConfigration.setIsFileter(true);
+		mathodServiceConfig.put("00-32-02",updateUserConfigration);
+		
+		
+		
+		/**
+		 * 
+		 * @author liushuaic
+		 * @date 2016-05-26 14:22
+		 * @desc 获取消息列表
+		 * 
+		 * */
+		YiKangServiceConfige getMessageAlert=new YiKangServiceConfige();
+		getMessageAlert.setServiceName("userConfigrationService");
+		getMessageAlert.setMethodName("getMessageAlert");
+		getMessageAlert.setIsFileter(true);
+		mathodServiceConfig.put("00-34-01",getMessageAlert);
 		
 		
 		

@@ -2,6 +2,7 @@ package com.yikangyiliao.pension.manager;
 
 import java.util.Calendar;
 import java.util.Date;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -66,4 +67,15 @@ public class QuestionManager {
     	return questionDao.getQuestionDetailByQuestionId(questionId);
     }
 	
+    
+    /**
+     * @author liushuaic
+     * @date 2016-05-24 15:25
+     * @desc 获取某一个标签下的所有问题
+     * */
+    public List<Question> getQuestionByTaglibid(Long taglibId){
+    	return questionDao.getQuestionByTaglibid(taglibId);
+    }
+    
+    
 }

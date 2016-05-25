@@ -1,5 +1,7 @@
 package com.yikangyiliao.pension.entity;
 
+import java.util.Date;
+
 public class UserActivetyList {
     private Long userActivetyListId;
 
@@ -10,6 +12,10 @@ public class UserActivetyList {
     private Byte payStatus;
 
     private Byte auditStatus;
+
+    private Date createTime;
+
+    private Date updateTime;
 
     public Long getUserActivetyListId() {
         return userActivetyListId;
@@ -49,5 +55,21 @@ public class UserActivetyList {
 
     public void setAuditStatus(Byte auditStatus) {
         this.auditStatus = auditStatus;
+    }
+
+    public Date getCreateTime() {
+        return createTime;
+    }
+
+    public void setCreateTime(Date createTime) {
+        this.createTime = createTime;
+    }
+
+    public Date getUpdateTime() {
+        return updateTime;
+    }
+
+    public void setUpdateTime(Date updateTime) {
+        this.updateTime = updateTime;
     }
 }

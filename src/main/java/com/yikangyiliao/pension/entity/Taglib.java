@@ -1,5 +1,7 @@
 package com.yikangyiliao.pension.entity;
 
+import java.util.List;
+
 public class Taglib {
     private Long taglibId;
 
@@ -27,6 +29,8 @@ public class Taglib {
 
     private Integer answerNumber;
 
+    private List<Taglib> childs;
+    
     public Long getTaglibId() {
         return taglibId;
     }
@@ -130,4 +134,12 @@ public class Taglib {
     public void setAnswerNumber(Integer answerNumber) {
         this.answerNumber = answerNumber;
     }
+
+	public List<Taglib> getChilds() {
+		return childs;
+	}
+
+	public void setChilds(List<Taglib> childs) {
+		this.childs = childs;
+	}
 }

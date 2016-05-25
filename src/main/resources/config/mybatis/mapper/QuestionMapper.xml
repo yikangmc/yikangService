@@ -151,5 +151,16 @@
   	where question_id=#{questionId}
   </select>
   
+  <!-- 根据标签查询某一个问题 -->
+  <select id="getQuestionByTaglibid" resultMap="BaseResultMap" parameterType="long">
+  	select 
+  		* 
+  	from question_taglib_maps qtm  
+	inner join questions que
+	on qtm.questions_id=que.question_id
+	where taglibs_id=#{taglibsId}
+  </select>
+  
+  
   
 </mapper>
