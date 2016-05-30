@@ -65,16 +65,18 @@ public class ForumPostService {
     			paramData.containsKey("title")
     			&&paramData.containsKey("content")
     			&& paramData.containsKey("taglibIds")
-    			&& paramData.containsKey("images")
     		){
     			String content=paramData.get("content").toString();
     			List<Integer> taglibIds=(List)paramData.get("taglibIds");
-    			List<String> images=(List)paramData.get("images");
-    			String userId=paramData.get("userId").toString();
-    			String[] imgs=new String[images.size()];
     			String title=paramData.get("title").toString();
-    			for(int j=0;j<images.size();j++){
-    				imgs[j]=images.get(j);
+    			String userId=paramData.get("userId").toString();
+    			String[] imgs=new String[0];
+    			if(paramData.containsKey("images")){
+					List<String> images=(List)paramData.get("images");
+					imgs=new String[images.size()];
+					for(int j=0;j<images.size();j++){
+						imgs[j]=images.get(j);
+					}
     			}
     			Long[] tags=new Long[taglibIds.size()];
     			for(int i=0;i<taglibIds.size();i++){
@@ -141,14 +143,17 @@ public class ForumPostService {
     			String content=paramData.get("content").toString();
     			String createUserId=paramData.get("userId").toString();
     			String formPostId=paramData.get("formPostId").toString();
-    			String toUserId=paramData.get("toUserId").toString();
+    			Long toUserId=null;
+    			if(paramData.containsKey("toUserId")){
+    				toUserId=Long.valueOf(paramData.get("toUserId").toString());
+    			}
         		Byte answerTo=null;
         		if(null == toUserId){
         			answerTo=YKConstants.AnswerTo.AnswerToPersion.getValue();
         		}else{
         			answerTo=YKConstants.AnswerTo.AnswerToFormPosts.getValue();
         		}
-        		forumPostsAnswerManager.insertSelective(content,Long.valueOf(createUserId),Long.valueOf(formPostId),Long.valueOf(toUserId),answerTo);
+        		forumPostsAnswerManager.insertSelective(content,Long.valueOf(createUserId),Long.valueOf(formPostId),toUserId,answerTo);
     		}
 
     		

@@ -27,5 +27,12 @@ public interface BanerDao {
      * **/
     List<Baner> getBanerList();
     
+    /**
+     * @author liushuaic
+     * @date 2016-05-27 14:01
+     * @desc 获取活动baner
+     * 
+     * **/
+    List<Baner> getActivetyBaner();
     
 }

@@ -479,101 +479,18 @@ public class UserService {
 	public Map<String, Object> getUserServiceInfoByUserIdTwo(Map<String, Object> paramData) {
 
 		Map<String, Object> rtnData = new HashMap<String, Object>();
-
 		String userId = paramData.get("userId").toString();
 
 		UserServiceInfo userServiceInfo = userManager.getUserServiceInfoByUserIdTwo(Long.valueOf(userId));
 		User user = userManager.getUserByUserId(Long.valueOf(userId));
 		// 邀请url
-		String invitationUrl = SystemProperties.getPropertieValue("invitationUrl")
-				+ userServiceInfo.getInvitationCode();
+		String invitationUrl = SystemProperties.getPropertieValue("invitationUrl")+ userServiceInfo.getInvitationCode();
 		userServiceInfo.setInvitationUrl(invitationUrl);
 
-//		if (null != userServiceInfo) {
-//			if (null != userServiceInfo.getUserPosition() && !userServiceInfo.getUserPosition().equals(-2l)) {
-//				Long userPosition = userServiceInfo.getUserPosition();
-//				if (userPosition.equals(0l)) { // 医生
-//
-//					Long userId1 = userServiceInfo.getUserId();
-//					String hospital = userServiceInfo.getHospital();
-//					String photoUrl = userServiceInfo.getPhotoUrl();
-//					String userName = userServiceInfo.getUserServiceName();
-//					String offices = userServiceInfo.getOffices();
-//
-//					DocotorModel doctor = new DocotorModel();
-//
-//					doctor.setUserId(userId1);
-//					doctor.setHospital(hospital);
-//					doctor.setUserPosition(userPosition.intValue());
-//					doctor.setPhotoUrl(photoUrl);
-//					doctor.setUserName(userName);
-//					doctor.setOffices(offices);
-//					officeManager.getOffices();
-//					Office office = officeManager.getOffice(Long.valueOf(offices));
-//					doctor.setOffice(office);
-//					doctor.setInfoWrite(user.getInfoWrite().intValue());
-//					doctor.setPositionAuditStatus(userServiceInfo.getPositionAuditStatus().intValue());
-//					rtnData.put("data", doctor);
-//				} else if (userPosition.equals(1l)) { // 护士
-//
-//					Long userId1 = userServiceInfo.getUserId();
-//					String hospital = userServiceInfo.getHospital();
-//					String photoUrl = userServiceInfo.getPhotoUrl();
-//					String userName = userServiceInfo.getUserServiceName();
-//					String offices = userServiceInfo.getOffices();
-//					Long jobCategroy = userServiceInfo.getJobCategory();
-//					Long cityCode = userServiceInfo.getCityCode();
-//					Long districtCode = userServiceInfo.getDistrictCode();
-//					String addressDetail = userServiceInfo.getAddressDetail();
-//
-//					NurseModel nurseModel = new NurseModel();
-//					nurseModel.setUserId(Long.valueOf(userId1));
-//					nurseModel.setUserName(userName);
-//					nurseModel.setUserPosition(userPosition.intValue());
-//					nurseModel.setJobCategroy(jobCategroy.intValue());
-//					nurseModel.setCityCode(cityCode.intValue());
-//					nurseModel.setPhotoUrl(photoUrl);
-//					nurseModel.setDistrictCode(districtCode.intValue());
-//					nurseModel.setAddressDetail(addressDetail);
-//					nurseModel.setInfoWrite(user.getInfoWrite().intValue());
-//					nurseModel.setPositionAuditStatus(userServiceInfo.getPositionAuditStatus().intValue());
-//
-//					rtnData.put("data", nurseModel);
-//
-//				} else if (userPosition.equals(2l)) { // 康复师
-//
-//					Long userId1 = userServiceInfo.getUserId();
-//					String hospital = userServiceInfo.getHospital();
-//					String photoUrl = userServiceInfo.getPhotoUrl();
-//					String userName = userServiceInfo.getUserServiceName();
-//					String offices = userServiceInfo.getOffices();
-//					Long jobCategroy = userServiceInfo.getJobCategory();
-//					Long cityCode = userServiceInfo.getCityCode();
-//					Long districtCode = userServiceInfo.getDistrictCode();
-//					String addressDetail = userServiceInfo.getAddressDetail();
-//
-//					TherapistsModel therapistsModel = new TherapistsModel();
-//					therapistsModel.setUserId(Long.valueOf(userId1));
-//					therapistsModel.setPhotoUrl(photoUrl);
-//					therapistsModel.setUserName(userName);
-//					therapistsModel.setJobCategroy(jobCategroy.intValue());
-//					therapistsModel.setCityCode(cityCode.intValue());
-//					therapistsModel.setDistrictCode(districtCode.intValue());
-//					therapistsModel.setAddressDetail(addressDetail);
-//					therapistsModel.setInfoWrite(user.getInfoWrite().intValue());
-//					therapistsModel.setPositionAuditStatus(userServiceInfo.getPositionAuditStatus().intValue());
-//					rtnData.put("data", therapistsModel);
-//				}else{
-//					rtnData.put("data", userServiceInfo);
-//				}
-//			} else {
-				rtnData.put("data", userServiceInfo);
-//			}
-
-//		}
-
+		rtnData.put("data", userServiceInfo);
 		rtnData.put("status", ExceptionConstants.responseSuccess.responseSuccess.code);
 		rtnData.put("message", ExceptionConstants.responseSuccess.responseSuccess.message);
+		
 		return rtnData;
 	}
 
@@ -713,9 +630,9 @@ public class UserService {
 	 * @desc 修改用户信息
 	 * 
 	 ***/
-	public Map<String, Object> updateUserServiceAndServiceInfoTwo(Map<String, Object> paramData) {
+	public ResponseMessage<UserInfo> updateUserServiceAndServiceInfoTwo(Map<String, Object> paramData) {
 
-		Map<String, Object> rtnData = new HashMap<String, Object>();
+		ResponseMessage<UserInfo> rtnData = new ResponseMessage<UserInfo>();
 
 		Long currentDateTime = Calendar.getInstance().getTimeInMillis();
 
@@ -846,8 +763,8 @@ public class UserService {
 		if (paramData.containsKey("userPosition")) {
 			userManager.updateUserPositionStatusCheckePass(Long.valueOf(userId));
 		}
-		rtnData.put("status", ExceptionConstants.responseSuccess.responseSuccess.code);
-		rtnData.put("message", ExceptionConstants.responseSuccess.responseSuccess.message);
+		rtnData.setStatus(ExceptionConstants.responseSuccess.responseSuccess.code);
+		rtnData.setMessage(ExceptionConstants.responseSuccess.responseSuccess.message);
 
 		return rtnData;
 	}
@@ -904,8 +821,8 @@ public class UserService {
 	 * @desc 重置密码
 	 * 
 	 ***/
-	public ResponseMessage resetPassword(Map<String, Object> paramData) {
-		ResponseMessage responseMessage = new ResponseMessage();
+	public ResponseMessage<String> resetPassword(Map<String, Object> paramData) {
+		ResponseMessage<String> responseMessage = new ResponseMessage<String>();
 		if (paramData.containsKey("loginName")) {
 			String loginName = paramData.get("loginName").toString();
 
@@ -937,8 +854,8 @@ public class UserService {
 	 * @desc 是否存在系统中
 	 * 
 	 **/
-	public ResponseMessage isMySystemUser(Map<String, Object> paramData) {
-		ResponseMessage responseMessage = new ResponseMessage();
+	public ResponseMessage<String> isMySystemUser(Map<String, Object> paramData) {
+		ResponseMessage<String> responseMessage = new ResponseMessage<String>();
 		if (paramData.containsKey("loginName")) {
 			String loginName = paramData.get("loginName").toString();
 			User user = userManager.getUserByLoginName(loginName);
@@ -963,8 +880,8 @@ public class UserService {
 	 * @date 2016-02-26 16:38
 	 * @desc 获取我邀请的用户
 	 */
-	public ResponseMessage getInvationUserInfoByInvationUserId(Map<String, Object> paramData) {
-		ResponseMessage responseMessage = new ResponseMessage();
+	public ResponseMessage<List<UserModel>> getInvationUserInfoByInvationUserId(Map<String, Object> paramData) {
+		ResponseMessage<List<UserModel>>  responseMessage = new ResponseMessage<List<UserModel>>();
 		try {
 			if (paramData.containsKey("userStatus")) {
 
@@ -1000,8 +917,8 @@ public class UserService {
 	 * @date 2016-03-21 10:27
 	 * @desc 查询我邀请的用户
 	 */
-	public ResponseMessage getInvationUserInfoByInvationUserIdTwo(Map<String, Object> paramData) {
-		ResponseMessage responseMessage = new ResponseMessage();
+	public ResponseMessage<MyInvationUserModel> getInvationUserInfoByInvationUserIdTwo(Map<String, Object> paramData) {
+		ResponseMessage<MyInvationUserModel> responseMessage = new ResponseMessage<MyInvationUserModel>();
 		try {
 			if (paramData.containsKey("userStatus")) {
 
@@ -1051,8 +968,8 @@ public class UserService {
 	 * @date 2016-03-24 19:30
 	 * @desc 提交职位审核
 	 */
-	public ResponseMessage submitUpdateUserPosition(Map<String,Object> paramData) {
-		ResponseMessage responseMessage = new ResponseMessage();
+	public ResponseMessage<String> submitUpdateUserPosition(Map<String,Object> paramData) {
+		ResponseMessage<String> responseMessage = new ResponseMessage<String>();
 
 		try {
 			if(paramData.containsKey("userPosition")){
@@ -1075,15 +992,5 @@ public class UserService {
 		return responseMessage;
 	}
 	
-	/**
-	 * @author liushuaic
-	 * @date 2016-05-14 15:27
-	 * @desc 获取用户的个人信息
-	 * */
-	public ResponseMessage<UserInfo> getUserInfo(Map<String,Object> paramData){
-		ResponseMessage<UserInfo> resData=new ResponseMessage<UserInfo>();
-		
-		return resData;
-		
-	}
+ 
 }

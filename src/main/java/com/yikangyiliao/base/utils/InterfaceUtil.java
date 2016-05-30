@@ -401,19 +401,34 @@ public class InterfaceUtil {
 		mathodServiceConfig.put("00-25-02",validateCaptchar);
 		
 		
+		/**
+		 * 轮播图
+		 * 首页
+		 * **/
 		serviceClassName.put("00-26","banerService");
 		YiKangServiceConfige getBanerList=new YiKangServiceConfige();
 		getBanerList.setServiceName("banerService");
 		getBanerList.setMethodName("getBanerList");
-		getBanerList.setIsFileter(true);
+		getBanerList.setIsFileter(false);
 		mathodServiceConfig.put("00-26-01",getBanerList);
+		
+		/**
+		 * 活动轮播图
+		 * **/
+		YiKangServiceConfige getActivetyBaner=new YiKangServiceConfige();
+		getActivetyBaner.setServiceName("banerService");
+		getActivetyBaner.setMethodName("getActivetyBaner");
+		getActivetyBaner.setIsFileter(false);
+		mathodServiceConfig.put("00-26-02",getActivetyBaner);
+		
+		
 		
 		
 		serviceClassName.put("00-27","searchService");
 		YiKangServiceConfige getTaglibsList=new YiKangServiceConfige();
 		getTaglibsList.setServiceName("searchService");
 		getTaglibsList.setMethodName("getTaglibList");
-		getTaglibsList.setIsFileter(true);
+		getTaglibsList.setIsFileter(false);
 		mathodServiceConfig.put("00-27-01",getTaglibsList);
 		
 		
@@ -421,7 +436,7 @@ public class InterfaceUtil {
 		YiKangServiceConfige getIsEssence=new YiKangServiceConfige();
 		getIsEssence.setServiceName("forumPostService");
 		getIsEssence.setMethodName("getIsEssence");
-		getIsEssence.setIsFileter(true);
+		getIsEssence.setIsFileter(false);
 		mathodServiceConfig.put("00-28-01",getIsEssence);
 		
 		
@@ -431,7 +446,7 @@ public class InterfaceUtil {
 		YiKangServiceConfige getFourmPostDetail=new YiKangServiceConfige();
 		getFourmPostDetail.setServiceName("forumPostService");
 		getFourmPostDetail.setMethodName("getFourmPostDetail");
-		getFourmPostDetail.setIsFileter(true);
+		getFourmPostDetail.setIsFileter(false);
 		mathodServiceConfig.put("00-28-02",getFourmPostDetail);
 		
 		
@@ -457,6 +472,13 @@ public class InterfaceUtil {
 		fourmPostAnswers.setIsFileter(true);
 		mathodServiceConfig.put("00-28-05",fourmPostAnswers);
 		
+		//根据
+		YiKangServiceConfige getForumPostsByTaglibId=new YiKangServiceConfige();
+		getForumPostsByTaglibId.setServiceName("forumPostService");
+		getForumPostsByTaglibId.setMethodName("getForumPostsByTaglibId");
+		getForumPostsByTaglibId.setIsFileter(false);
+		mathodServiceConfig.put("00-28-06",getForumPostsByTaglibId);
+		
 		
 		
 		
@@ -465,21 +487,21 @@ public class InterfaceUtil {
 		YiKangServiceConfige insertQuestion=new YiKangServiceConfige();
 		insertQuestion.setServiceName("questionService");
 		insertQuestion.setMethodName("insertQuestion");
-		insertQuestion.setIsFileter(true);
+		insertQuestion.setIsFileter(false);
 		mathodServiceConfig.put("00-29-01",insertQuestion);
 		
 		//更新问题支持状态
 		YiKangServiceConfige updateQuestionStar=new YiKangServiceConfige();
 		updateQuestionStar.setServiceName("questionService");
 		updateQuestionStar.setMethodName("updateQuestionStar");
-		updateQuestionStar.setIsFileter(true);
+		updateQuestionStar.setIsFileter(false);
 		mathodServiceConfig.put("00-29-02",updateQuestionStar);
 		
 		//问题回复
 		YiKangServiceConfige addQuestionAnswer=new YiKangServiceConfige();
 		addQuestionAnswer.setServiceName("questionService");
 		addQuestionAnswer.setMethodName("addQuestionAnswer");
-		addQuestionAnswer.setIsFileter(true);
+		addQuestionAnswer.setIsFileter(false);
 		mathodServiceConfig.put("00-29-03",addQuestionAnswer);
 		
 		
@@ -487,7 +509,7 @@ public class InterfaceUtil {
 		YiKangServiceConfige getQuestionDetailByQuestionId=new YiKangServiceConfige();
 		getQuestionDetailByQuestionId.setServiceName("questionService");
 		getQuestionDetailByQuestionId.setMethodName("getQuestionDetailByQuestionId");
-		getQuestionDetailByQuestionId.setIsFileter(true);
+		getQuestionDetailByQuestionId.setIsFileter(false);
 		mathodServiceConfig.put("00-29-04",getQuestionDetailByQuestionId);
 		
 		
@@ -499,7 +521,7 @@ public class InterfaceUtil {
 		YiKangServiceConfige getQuestionsByTaglibId=new YiKangServiceConfige();
 		getQuestionsByTaglibId.setServiceName("questionService");
 		getQuestionsByTaglibId.setMethodName("getQuestionsByTaglibId");
-		getQuestionsByTaglibId.setIsFileter(true);
+		getQuestionsByTaglibId.setIsFileter(false);
 		mathodServiceConfig.put("00-29-05",getQuestionsByTaglibId);
 		
 		
@@ -507,26 +529,49 @@ public class InterfaceUtil {
 		/**
 		 * @author liushuaic
 		 * @date 2016-05-12 15:03
-		 * @desc 标签管理
+		 * @desc 标签管理 热门标签
 		 * ***/
 		serviceClassName.put("00-30","taglibService");
 		YiKangServiceConfige getRecommendTaglib=new YiKangServiceConfige();
 		getRecommendTaglib.setServiceName("taglibService");
 		getRecommendTaglib.setMethodName("getRecommendTaglib");
-		getRecommendTaglib.setIsFileter(true);
+		getRecommendTaglib.setIsFileter(false);
 		mathodServiceConfig.put("00-30-01",getRecommendTaglib);
 		
+		
+		/**
+		 * @author liushuaic
+		 * @date 2016-05-27 10:47
+		 * @desc 获取一级标签
+		 * */
 		YiKangServiceConfige getFristTaglib=new YiKangServiceConfige();
 		getFristTaglib.setServiceName("taglibService");
 		getFristTaglib.setMethodName("getFristTaglib");
-		getFristTaglib.setIsFileter(true);
+		getFristTaglib.setIsFileter(false);
 		mathodServiceConfig.put("00-30-02",getFristTaglib);
 		
+		
+		/**
+		 * @author liushuaic
+		 * @date 2016-05-27 10:48
+		 * @desc 获取二级标签
+		 * **/
 		YiKangServiceConfige getSecondTaglibByParentId=new YiKangServiceConfige();
 		getSecondTaglibByParentId.setServiceName("taglibService");
 		getSecondTaglibByParentId.setMethodName("getSecondTaglibByParentId");
-		getSecondTaglibByParentId.setIsFileter(true);
+		getSecondTaglibByParentId.setIsFileter(false);
 		mathodServiceConfig.put("00-30-03",getSecondTaglibByParentId);
+		
+		/**
+		 * @author liushuaic
+		 * @date 2016-05-28 10:52
+		 * @desc 获取一级标签与二级标签
+		 * **/
+		YiKangServiceConfige getAllTag=new YiKangServiceConfige();
+		getAllTag.setServiceName("taglibService");
+		getAllTag.setMethodName("getAllTag");
+		getAllTag.setIsFileter(false);
+		mathodServiceConfig.put("00-30-04",getAllTag);
 		
 		
 		
@@ -539,7 +584,7 @@ public class InterfaceUtil {
 		YiKangServiceConfige getActivetys=new YiKangServiceConfige();
 		getActivetys.setServiceName("activetyService");
 		getActivetys.setMethodName("getActivetys");
-		getActivetys.setIsFileter(true);
+		getActivetys.setIsFileter(false);
 		mathodServiceConfig.put("00-31-01",getActivetys);
 		
 		
@@ -563,7 +608,7 @@ public class InterfaceUtil {
 		YiKangServiceConfige insertActivety=new YiKangServiceConfige();
 		insertActivety.setServiceName("activetyService");
 		insertActivety.setMethodName("insertActivety");
-		insertActivety.setIsFileter(true);
+		insertActivety.setIsFileter(false);
 		mathodServiceConfig.put("00-31-03",insertActivety);
 		
 		
@@ -575,7 +620,7 @@ public class InterfaceUtil {
 		YiKangServiceConfige insertMyAcitivety=new YiKangServiceConfige();
 		insertMyAcitivety.setServiceName("activetyService");
 		insertMyAcitivety.setMethodName("insertMyAcitivety");
-		insertMyAcitivety.setIsFileter(true);
+		insertMyAcitivety.setIsFileter(false);
 		mathodServiceConfig.put("00-31-04",insertMyAcitivety);
 		
 		
@@ -588,7 +633,7 @@ public class InterfaceUtil {
 		YiKangServiceConfige insertActivetyComment=new YiKangServiceConfige();
 		insertActivetyComment.setServiceName("activetyService");
 		insertActivetyComment.setMethodName("insertActivetyComment");
-		insertActivetyComment.setIsFileter(true);
+		insertActivetyComment.setIsFileter(false);
 		mathodServiceConfig.put("00-31-05",insertActivetyComment);
 		
 		/**
@@ -599,7 +644,7 @@ public class InterfaceUtil {
 		YiKangServiceConfige getActivetyCommentByActivetyId=new YiKangServiceConfige();
 		getActivetyCommentByActivetyId.setServiceName("activetyService");
 		getActivetyCommentByActivetyId.setMethodName("getActivetyCommentByActivetyId");
-		getActivetyCommentByActivetyId.setIsFileter(true);
+		getActivetyCommentByActivetyId.setIsFileter(false);
 		mathodServiceConfig.put("00-31-06",getActivetyCommentByActivetyId);
 		
 		
@@ -612,7 +657,7 @@ public class InterfaceUtil {
 		YiKangServiceConfige getActiveyByJoinUserId=new YiKangServiceConfige();
 		getActiveyByJoinUserId.setServiceName("activetyService");
 		getActiveyByJoinUserId.setMethodName("getActivetyCommentByActivetyId");
-		getActiveyByJoinUserId.setIsFileter(true);
+		getActiveyByJoinUserId.setIsFileter(false);
 		mathodServiceConfig.put("00-31-07",getActiveyByJoinUserId);
 		
 		

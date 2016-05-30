@@ -32,6 +32,8 @@ public class QuestionAnswerManager {
 		questionAnswer.setContent(content);
 		questionAnswer.setDataSource(Byte.valueOf("0"));
 		questionAnswer.setQuestionId(questionId);
+		
+		
 		return questionAnswerDao.insert(questionAnswer);
 	}
 	

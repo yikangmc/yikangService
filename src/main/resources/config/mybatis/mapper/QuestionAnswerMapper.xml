@@ -1,16 +1,18 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.yikangyiliao.pension.dao.QuestionAnswerDao" >
-   <resultMap id="BaseResultMap" type="com.yikangyiliao.pension.entity.QuestionAnswer" >
+  <resultMap id="BaseResultMap" type="com.yikangyiliao.pension.entity.QuestionAnswer" >
     <id column="question_answer_id" property="questionAnswerId" jdbcType="BIGINT" />
     <result column="create_user_id" property="createUserId" jdbcType="BIGINT" />
     <result column="data_source" property="dataSource" jdbcType="TINYINT" />
     <result column="content" property="content" jdbcType="VARCHAR" />
     <result column="question_id" property="questionId" jdbcType="BIGINT" />
     <result column="star_num" property="starNum" jdbcType="INTEGER" />
+    <result column="is_recommend" property="isRecommend" jdbcType="TINYINT" />
   </resultMap>
   <sql id="Base_Column_List" >
-    question_answer_id, create_user_id, data_source, content, question_id, star_num
+    question_answer_id, create_user_id, data_source, content, question_id, star_num, 
+    is_recommend
   </sql>
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
     select 
@@ -24,11 +26,11 @@
   </delete>
   <insert id="insert" parameterType="com.yikangyiliao.pension.entity.QuestionAnswer" >
     insert into question_answers (question_answer_id, create_user_id, data_source, 
-      content, question_id, star_num
-      )
+      content, question_id, star_num, 
+      is_recommend)
     values (#{questionAnswerId,jdbcType=BIGINT}, #{createUserId,jdbcType=BIGINT}, #{dataSource,jdbcType=TINYINT}, 
-      #{content,jdbcType=VARCHAR}, #{questionId,jdbcType=BIGINT}, #{starNum,jdbcType=INTEGER}
-      )
+      #{content,jdbcType=VARCHAR}, #{questionId,jdbcType=BIGINT}, #{starNum,jdbcType=INTEGER}, 
+      #{isRecommend,jdbcType=TINYINT})
   </insert>
   <insert id="insertSelective" parameterType="com.yikangyiliao.pension.entity.QuestionAnswer" >
     insert into question_answers
@@ -51,6 +53,9 @@
       <if test="starNum != null" >
         star_num,
       </if>
+      <if test="isRecommend != null" >
+        is_recommend,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
       <if test="questionAnswerId != null" >
@@ -70,6 +75,9 @@
       </if>
       <if test="starNum != null" >
         #{starNum,jdbcType=INTEGER},
+      </if>
+      <if test="isRecommend != null" >
+        #{isRecommend,jdbcType=TINYINT},
       </if>
     </trim>
   </insert>
@@ -91,6 +99,9 @@
       <if test="starNum != null" >
         star_num = #{starNum,jdbcType=INTEGER},
       </if>
+      <if test="isRecommend != null" >
+        is_recommend = #{isRecommend,jdbcType=TINYINT},
+      </if>
     </set>
     where question_answer_id = #{questionAnswerId,jdbcType=BIGINT}
   </update>
@@ -100,7 +111,8 @@
       data_source = #{dataSource,jdbcType=TINYINT},
       content = #{content,jdbcType=VARCHAR},
       question_id = #{questionId,jdbcType=BIGINT},
-      star_num = #{starNum,jdbcType=INTEGER}
+      star_num = #{starNum,jdbcType=INTEGER},
+      is_recommend = #{isRecommend,jdbcType=TINYINT}
     where question_answer_id = #{questionAnswerId,jdbcType=BIGINT}
   </update>
   
@@ -121,6 +133,5 @@
   	from question_answers
   	where question_id=#{questionId}
   </select>
-  
   
 </mapper>

@@ -23,7 +23,7 @@ public class BanerService {
 	/**
 	 * @author liushuaic
 	 * @date 2016-04-25 14:57
-	 * @desc 获取baner列表
+	 * @desc 获取首页baner列表
 	 * **/
 	public ResponseMessage<List<Baner>> getBanerList(Map<String,Object> paramData){
 		
@@ -42,5 +42,17 @@ public class BanerService {
 		
 	}
 	
+	
+	/**
+	 * @author liushuaic
+	 * @date 2016-05-27 14:34
+	 * @desc 获取活动baner
+	 * **/
+	public ResponseMessage<List<Baner>>  getActivetyBaner(Map<String,Object> paramData){
+		ResponseMessage<List<Baner>> responseMessage=new ResponseMessage<List<Baner>>();
+		List<Baner> baners=banerManager.getActivetyBaner();
+		responseMessage.setData(baners);
+		return responseMessage;
+	}
 
 }

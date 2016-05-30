@@ -99,15 +99,15 @@
   
   <!-- 删除支持 -->
   <delete id="deleteForumPostStartList" parameterType="map">
-  	delete from forum_posts_star_lists where create_user_id=#{createUserId} and forum_posts_id=#{forumPostsId}
+  	delete from forum_posts_star_lists where create_user_id=#{userId} and forum_posts_id=#{forumPostId}
   </delete>
   
   <!--查询某一个用户的支持数据 用于判断，是删除支持，还是添加支持  -->
-  <select id="selectForumPostStartListByCreateUserIdAndForumPostsId" parameterType="Map" resultMap="BaseResultMap">
+  <select id="selectForumPostStartListByCreateUserIdAndForumPostsId" parameterType="map" resultMap="BaseResultMap">
   	select
   		<include refid="Base_Column_List"></include>
   	from 	forum_posts_star_lists
-  	where  create_user_id=#{createUserId} and forum_posts_id=#{forumPostsId}
+  	where  create_user_id=#{userId} and forum_posts_id=#{forumPostId}
   </select>
   
 </mapper>

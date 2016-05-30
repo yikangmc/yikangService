@@ -15,14 +15,13 @@ public class Question {
     private Date createTime;
 
     private Byte isDelete;
-
+    
     private Integer star;
 
     private Date updateTime;
     
     //用户名称
     private String userName;
-    
     //头像地址
     private String photoUrl;
     
@@ -34,6 +33,9 @@ public class Question {
     
     //问题列表
     private List<QuestionAnswer> questionAnswers;
+    
+    //问题图片列表
+    private List<QuestionImage> questionImages;
 
     
     public Long getQuestionId() {
@@ -136,7 +138,17 @@ public class Question {
 		return questionAnswers;
 	}
 
+	//TODO 修改设计回复数量方式
 	public void setQuestionAnswers(List<QuestionAnswer> questionAnswers) {
+		this.answerNum=questionAnswers.size();
 		this.questionAnswers = questionAnswers;
+	}
+
+	public List<QuestionImage> getQuestionImages() {
+		return questionImages;
+	}
+
+	public void setQuestionImages(List<QuestionImage> questionImages) {
+		this.questionImages = questionImages;
 	}
 }

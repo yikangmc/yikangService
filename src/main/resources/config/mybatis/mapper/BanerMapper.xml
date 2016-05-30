@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.yikangyiliao.pension.dao.BanerDao" >
-<resultMap id="BaseResultMap" type="com.yikangyiliao.pension.entity.Baner" >
+ <resultMap id="BaseResultMap" type="com.yikangyiliao.pension.entity.Baner" >
     <id column="baner_id" property="banerId" jdbcType="BIGINT" />
     <result column="title" property="title" jdbcType="VARCHAR" />
     <result column="content" property="content" jdbcType="VARCHAR" />
@@ -12,10 +12,11 @@
     <result column="is_delete" property="isDelete" jdbcType="VARCHAR" />
     <result column="create_user_id" property="createUserId" jdbcType="BIGINT" />
     <result column="groups" property="groups" jdbcType="TINYINT" />
+    <result column="baner_pic" property="banerPic" jdbcType="VARCHAR" />
   </resultMap>
   <sql id="Base_Column_List" >
     baner_id, title, content, orders, action_url, create_time, upate_time, is_delete, 
-    create_user_id, groups
+    create_user_id, groups, baner_pic
   </sql>
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
     select 
@@ -31,11 +32,11 @@
     insert into baners (baner_id, title, content, 
       orders, action_url, create_time, 
       upate_time, is_delete, create_user_id, 
-      groups)
+      groups, baner_pic)
     values (#{banerId,jdbcType=BIGINT}, #{title,jdbcType=VARCHAR}, #{content,jdbcType=VARCHAR}, 
       #{orders,jdbcType=TINYINT}, #{actionUrl,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, 
       #{upateTime,jdbcType=TIMESTAMP}, #{isDelete,jdbcType=VARCHAR}, #{createUserId,jdbcType=BIGINT}, 
-      #{groups,jdbcType=TINYINT})
+      #{groups,jdbcType=TINYINT}, #{banerPic,jdbcType=VARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="com.yikangyiliao.pension.entity.Baner" >
     insert into baners
@@ -70,6 +71,9 @@
       <if test="groups != null" >
         groups,
       </if>
+      <if test="banerPic != null" >
+        baner_pic,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
       <if test="banerId != null" >
@@ -101,6 +105,9 @@
       </if>
       <if test="groups != null" >
         #{groups,jdbcType=TINYINT},
+      </if>
+      <if test="banerPic != null" >
+        #{banerPic,jdbcType=VARCHAR},
       </if>
     </trim>
   </insert>
@@ -134,6 +141,9 @@
       <if test="groups != null" >
         groups = #{groups,jdbcType=TINYINT},
       </if>
+      <if test="banerPic != null" >
+        baner_pic = #{banerPic,jdbcType=VARCHAR},
+      </if>
     </set>
     where baner_id = #{banerId,jdbcType=BIGINT}
   </update>
@@ -147,15 +157,25 @@
       upate_time = #{upateTime,jdbcType=TIMESTAMP},
       is_delete = #{isDelete,jdbcType=VARCHAR},
       create_user_id = #{createUserId,jdbcType=BIGINT},
-      groups = #{groups,jdbcType=TINYINT}
+      groups = #{groups,jdbcType=TINYINT},
+      baner_pic = #{banerPic,jdbcType=VARCHAR}
     where baner_id = #{banerId,jdbcType=BIGINT}
   </update>
   
-  <!--查询 baner列表  -->
+  <!-- 查询首页baner列表  -->
   <select id="getBanerList" resultMap="BaseResultMap">
   	select  
   		<include refid="Base_Column_List"></include>
-  	from baners where is_delete=0
+  	from baners where is_delete=0 and groups=1
+  </select>
+  
+  <!-- 查询活动baner -->
+  <select id="getActivetyBaner" resultMap="BaseResultMap">
+  	select 
+  		<include refid="Base_Column_List"></include> 
+  	from baners
+	where 
+		groups=2 and is_delete=0
   </select>
   
   

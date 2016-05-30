@@ -184,15 +184,19 @@
   
     <!-- 获取推荐的文章 -->
   <resultMap type="com.yikangyiliao.pension.entity.FormPosts" id="formPostsResultMap"  extends="BaseResultMap">
-  	<result column="startNums" property="startNums"/>
+  	<result column="stars" property="stars"/>
   	<result column="answersNums" property="answersNums"/>
-  	<collection property="taglibs" fetchType="eager" column="forum_post_id" select="com.yikangyiliao.pension.dao.TaglibDao.getFormpostsByFormPostId"></collection>
+  	<result column="user_name" property="userName"/>
+  	<result column="photo_url" property="photoUrl"/>
+  	<collection property="taglibs" fetchType="eager" column="forum_post_id" select="com.yikangyiliao.pension.dao.TaglibDao.getTaglibsByFormPostId"></collection>
   </resultMap>
   <select id="getIsEssence" resultMap="formPostsResultMap">
   	select 
 		<include refid="Base_Column_List"></include>,
-		(select count(1) from forum_posts_star_lists fpsl where fpsl.create_user_id=forum_post_id) as startNums,
-		(select count(1) from forum_posts_answers fpa 	  where fpa.form_post_id=forum_post_id) as answersNums
+		(select count(1) from forum_posts_star_lists fpsl where fpsl.create_user_id=forum_post_id) as stars,
+		(select count(1) from forum_posts_answers fpa 	  where fpa.form_post_id=forum_post_id) as answersNums,
+		(select user_name from user_infos where user_id=create_user_id) as user_name,
+        (select photo_url from user_infos where user_id=create_user_id) as photo_url
   	from forum_posts where is_essence=1
   </select>
   
@@ -201,15 +205,22 @@
   <resultMap id="getFormPoustsDetailByForumPostIdResultMap" type="com.yikangyiliao.pension.entity.FormPosts"  extends="BaseResultMap">
   	<result column="user_name" property="userName"/>
   	<result column="photo_url" property="photoUrl"/>
-  	<collection property="taglibs" 		      	column="forum_post_id"	fetchType="eager" select="com.yikangyiliao.pension.dao.TaglibDao.getFormpostsByFormPostId"></collection>
+  	<result column="isStar" property="isStar"></result>
+  	<collection property="taglibs" 		      	column="forum_post_id"	fetchType="eager" select="com.yikangyiliao.pension.dao.TaglibDao.getTaglibsByFormPostId"></collection>
   	<collection property="formPostsStarLists" 	column="forum_post_id"  fetchType="eager" select="com.yikangyiliao.pension.dao.FormPostsStarListDao.getForumPostStartListByForumPostsId"></collection>
   	<collection property="forumPostsAnswers"    column="forum_post_id"	fetchType="eager" select="com.yikangyiliao.pension.dao.ForumPostsAnswerDao.getForumPostsAnswersByFormPostId"></collection>
+  	<collection property="forumPostsImage" 		column="forum_post_id"  fetchType="eager" select="com.yikangyiliao.pension.dao.ForumPostsImageDao.getForumPostImagesByForumPostsId"> </collection>
   </resultMap>
   <!-- 获取某一个文章的详情 -->
   <select id="getFormPoustsDetailByForumPostId" resultMap="getFormPoustsDetailByForumPostIdResultMap" >
   	select
-		fp.*,ui.user_name,ui.photo_url
+		fp.*,ui.user_name,ui.photo_url,
+    case 
+        when fpsl.forum_posts_star_list_id is null  then 0
+        when fpsl.forum_posts_star_list_id >0 		then 1
+	end as isStar
 	from forum_posts fp inner join  user_infos ui on fp.create_user_id=ui.user_id
+	left join forum_posts_star_lists fpsl on (fpsl.create_user_id=ui.user_id and fpsl.forum_posts_id=fp.forum_post_id)
 	where forum_post_id=#{forumPostId}
   </select>
   
@@ -226,11 +237,17 @@
    <resultMap id="getFormPoustsDetailByForumPostIdResultMap2" type="com.yikangyiliao.pension.entity.FormPosts"  extends="BaseResultMap">
   	<result column="user_name" property="userName"/>
   	<result column="photo_url" property="photoUrl"/>
-  	<collection property="taglibs" 		      	column="forum_post_id"	fetchType="eager" select="com.yikangyiliao.pension.dao.TaglibDao.getFormpostsByFormPostId"></collection>
+<!--   	<collection property="taglibs" 	column="forum_post_id"	fetchType="eager" select="com.yikangyiliao.pension.dao.TaglibDao.getTaglibsByFormPostId"></collection> -->
   </resultMap>
   
-  <!-- 查询某一个标签下的所有文章 文章需要有，缩略内容 -->
-  <select id="getForumPostsByTaglibsId" resultMap="getFormPoustsDetailByForumPostIdResultMap2" parameterType="long" >
+  
+  
+   <!-- 查询某一个标签下的所有文章 文章需要有，缩略内容 -->
+  <resultMap type="com.yikangyiliao.pension.entity.FormPosts" id="getForumPostsByTaglibsIdResultMap" extends="BaseResultMap">
+  	  	<result column="user_name" property="userName"/>
+  		<result column="photo_url" property="photoUrl"/>
+  </resultMap>
+  <select id="getForumPostsByTaglibsId" resultMap="getForumPostsByTaglibsIdResultMap" parameterType="long" >
   	select 
   		fp.forum_post_id, 
   		fp.title,
@@ -242,10 +259,12 @@
   		fp.share_num, 
   		fp.create_user_id, 
   		fp.share_url, 
-  		fp.recommend_pic_url
+  		fp.recommend_pic_url,
+  		ui.user_name,ui.photo_url
   	from forum_posts fp
-	inner join forum_posts_taglibs_maps fptm
-	on fp.forum_post_id=fptm.form_post_id
+	inner join forum_posts_taglibs_maps fptm on fp.forum_post_id=fptm.form_post_id
+    inner join  user_infos ui 				 on fp.create_user_id=ui.user_id
+	
 	where fptm.tag_libs_id=#{taglisId}
  </select>
   

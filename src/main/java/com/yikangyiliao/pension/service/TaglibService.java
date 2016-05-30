@@ -77,7 +77,7 @@ public class TaglibService {
      * @date 2016-05-19 16:03
      * @desc 获取所有的标签
      * */
-	public ResponseMessage<List<Taglib>> getAllTag(){
+	public ResponseMessage<List<Taglib>> getAllTag(Map<String,Object> paramMap){
 		ResponseMessage<List<Taglib>> resData=new ResponseMessage<List<Taglib>>();
 		List<Taglib> data=taglibManager.getAllTag();
 		resData.setData(data);

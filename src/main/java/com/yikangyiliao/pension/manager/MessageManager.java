@@ -25,5 +25,18 @@ public class MessageManager {
 		return messageDao.getMessageByToUserId(userId);
 	}
 	
+
+	
+	
+	/**
+	 * @author liushuaic
+	 * @date 2016-05-26 15:26
+	 * @desc 获取信息详情
+	 * **/
+	public Message getMessageById(Long messagesId){
+		return messageDao.selectByPrimaryKey(messagesId);
+	}
+	
+	
 	
 }

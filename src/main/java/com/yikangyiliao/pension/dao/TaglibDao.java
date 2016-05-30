@@ -60,4 +60,8 @@ public interface TaglibDao {
      * */
     List<Taglib> getAllTag();
     
+    
+    
+    List<Taglib> getTaglibsByFormPostId(Long formPostId);
+    
 }

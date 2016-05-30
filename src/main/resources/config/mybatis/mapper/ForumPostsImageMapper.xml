@@ -79,4 +79,14 @@
       forum_posts_id = #{forumPostsId,jdbcType=BIGINT}
     where forum_posts_images_id = #{forumPostsImagesId,jdbcType=BIGINT}
   </update>
+  
+  
+  <!-- 获取文章的图片，根据文章id -->
+  <select id="getForumPostImagesByForumPostsId" resultMap="BaseResultMap" parameterType="long">
+  	  select 
+    <include refid="Base_Column_List" />
+    from forum_posts_images
+    where forum_posts_id =#{forumPostsId}
+  </select>
+  
 </mapper>

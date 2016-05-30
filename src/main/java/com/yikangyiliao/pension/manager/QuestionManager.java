@@ -22,6 +22,9 @@ public class QuestionManager {
 	private QuestionTaglibMapDao questionTaglibMapDao;
 	
 	
+	@Autowired
+	private QuestionImageManager questionImageManager;
+	
 	/**
 	 * @author liushuaic
 	 * @date 2015-05-09 10:34
@@ -37,7 +40,7 @@ public class QuestionManager {
 	 * @date 2016-05-09 11:15
 	 * @desc 添加问题
 	 * **/
-	public int insertQuestion(String title,String content,Long[] taglibIds,Long createUserId){
+	public int insertQuestion(String title,String content,Long[] taglibIds,Long createUserId,String[] images){
 		Date date=Calendar.getInstance().getTime();
 		Question question=new Question();
 		question.setTitle(title);
@@ -55,6 +58,10 @@ public class QuestionManager {
 			questionTaglibMap.setQuestionsId(question.getQuestionId());
 			questionTaglibMapDao.insertSelective(questionTaglibMap);
 		}
+		
+		for(String imageId:images){
+			 questionImageManager.insertSelective(imageId, question.getQuestionId());
+		 }
 		return 1;
 	}
 	

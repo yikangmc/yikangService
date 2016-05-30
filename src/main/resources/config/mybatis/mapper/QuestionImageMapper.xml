@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.yikangyiliao.pension.dao.QuestionImageDao" >
+  <resultMap id="BaseResultMap" type="com.yikangyiliao.pension.entity.QuestionImage" >
+    <id column="question_image_id" property="questionImageId" jdbcType="BIGINT" />
+    <result column="image_url" property="imageUrl" jdbcType="VARCHAR" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="question_id" property="questionId" jdbcType="BIGINT" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    question_image_id, image_url, create_time, question_id
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from question_images
+    where question_image_id = #{questionImageId,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from question_images
+    where question_image_id = #{questionImageId,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.yikangyiliao.pension.entity.QuestionImage" >
+    insert into question_images (question_image_id, image_url, create_time, 
+      question_id)
+    values (#{questionImageId,jdbcType=BIGINT}, #{imageUrl,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, 
+      #{questionId,jdbcType=BIGINT})
+  </insert>
+  <insert id="insertSelective" parameterType="com.yikangyiliao.pension.entity.QuestionImage" >
+    insert into question_images
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="questionImageId != null" >
+        question_image_id,
+      </if>
+      <if test="imageUrl != null" >
+        image_url,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+      <if test="questionId != null" >
+        question_id,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="questionImageId != null" >
+        #{questionImageId,jdbcType=BIGINT},
+      </if>
+      <if test="imageUrl != null" >
+        #{imageUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="questionId != null" >
+        #{questionId,jdbcType=BIGINT},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.yikangyiliao.pension.entity.QuestionImage" >
+    update question_images
+    <set >
+      <if test="imageUrl != null" >
+        image_url = #{imageUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="questionId != null" >
+        question_id = #{questionId,jdbcType=BIGINT},
+      </if>
+    </set>
+    where question_image_id = #{questionImageId,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.yikangyiliao.pension.entity.QuestionImage" >
+    update question_images
+    set image_url = #{imageUrl,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      question_id = #{questionId,jdbcType=BIGINT}
+    where question_image_id = #{questionImageId,jdbcType=BIGINT}
+  </update>
+  
+  
+  <!-- 查询某一个问题下的所有图片 -->
+  <select id="getQuestionImageByQuestionId" parameterType="long" resultMap="BaseResultMap">
+  	select 
+  		<include refid="Base_Column_List"></include> 
+  	from  question_images
+	where question_id=#{questionId}
+  </select>
+  
+  
+</mapper>

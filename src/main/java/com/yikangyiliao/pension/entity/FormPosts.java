@@ -23,9 +23,9 @@ public class FormPosts {
 
     private Date updateTime;
 
-    private Integer stars;
+    private int stars;
 
-    private Integer shareNum;
+    private int shareNum;
 
     private Long createUserId;
 
@@ -33,10 +33,9 @@ public class FormPosts {
 
     private String recommendPicUrl;
     
+    private int answersNums;
     
-    private Integer startNums;
-    
-    private Integer answersNums;
+    private int isStar;
 
     //标签列表
     private List<Taglib> taglibs;
@@ -47,6 +46,8 @@ public class FormPosts {
     //回复列表
     private List<ForumPostsAnswer> forumPostsAnswers;
     
+    //文章上传的列表
+    private List<ForumPostsImage> forumPostsImage;
     
     
     
@@ -155,21 +156,7 @@ public class FormPosts {
 		this.taglibs = taglibs;
 	}
 
-	public Integer getStartNums() {
-		return startNums;
-	}
-
-	public void setStartNums(Integer startNums) {
-		this.startNums = startNums;
-	}
-
-	public Integer getAnswersNums() {
-		return answersNums;
-	}
-
-	public void setAnswersNums(Integer answersNums) {
-		this.answersNums = answersNums;
-	}
+	
 
 	public List<FormPostsStarList> getFormPostsStarLists() {
 		return formPostsStarLists;
@@ -201,6 +188,38 @@ public class FormPosts {
 
 	public void setPhotoUrl(String photoUrl) {
 		this.photoUrl = photoUrl;
+	}
+
+	public int getIsStar() {
+		return isStar;
+	}
+
+	public void setIsStar(int isStar) {
+		this.isStar = isStar;
+	}
+
+	public void setStars(int stars) {
+		this.stars = stars;
+	}
+
+	public void setShareNum(int shareNum) {
+		this.shareNum = shareNum;
+	}
+
+	public void setAnswersNums(int answersNums) {
+		this.answersNums = answersNums;
+	}
+
+	public int getAnswersNums() {
+		return answersNums;
+	}
+
+	public List<ForumPostsImage> getForumPostsImage() {
+		return forumPostsImage;
+	}
+
+	public void setForumPostsImage(List<ForumPostsImage> forumPostsImage) {
+		this.forumPostsImage = forumPostsImage;
 	}
 
 }

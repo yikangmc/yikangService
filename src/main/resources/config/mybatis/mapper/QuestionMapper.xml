@@ -134,30 +134,46 @@
   
   
   
-  <resultMap type="com.yikangyiliao.pension.entity.Question" id="" extends="BaseResultMap">
+  <resultMap type="com.yikangyiliao.pension.entity.Question" id="getQuestionDetailByQuestionIdResultMap" extends="BaseResultMap">
 	<result column="user_name" property="userName"/>
 	<result column="photo_url" property="photoUrl"/>
 	
 	<collection property="taglibs" 		   column="question_id" select="com.yikangyiliao.pension.dao.QuestionTaglibMapDao.getQuestionTaglibsByQuestionId"></collection>
 	<collection property="questionAnswers" column="question_id" select="com.yikangyiliao.pension.dao.QuestionAnswerDao.selectQuestionAnswer"></collection>
+	<collection property="questionImages"  column="question_id" select="com.yikangyiliao.pension.dao.QuestionImageDao.getQuestionImageByQuestionId"></collection>
 	
   </resultMap>
   
   <!--查询某一个问题详情  -->
-  <select id="getQuestionDetailByQuestionId" parameterType="long" resultMap="BaseResultMap">
+  <select id="getQuestionDetailByQuestionId" parameterType="long" resultMap="getQuestionDetailByQuestionIdResultMap">
   	select 
-  		<include refid="Base_Column_List"></include>
-  	from questions
+  		questions.question_id, 
+  		questions.title, 
+  		questions.content, questions.create_user_id, questions.create_time, questions.is_delete, questions.star, questions.update_time,
+  		ui.user_name,
+  		ui.photo_url
+  	from questions inner join  user_infos ui on questions.create_user_id=ui.user_id
   	where question_id=#{questionId}
   </select>
   
   <!-- 根据标签查询某一个问题 -->
-  <select id="getQuestionByTaglibid" resultMap="BaseResultMap" parameterType="long">
+  <resultMap type="com.yikangyiliao.pension.entity.Question" id="getQuestionByTaglibidResultMap">
+  	<result column="user_name" property="userName"/>
+	<result column="photo_url" property="photoUrl"/>
+	<result column="answer_num" property="answerNum"/>
+  </resultMap>
+  <select id="getQuestionByTaglibid" resultMap="getQuestionByTaglibidResultMap" parameterType="long">
   	select 
-  		* 
-  	from question_taglib_maps qtm  
-	inner join questions que
-	on qtm.questions_id=que.question_id
+  		que.question_id, 
+  		que.title, 
+  		que.content, que.create_user_id, que.create_time, que.is_delete, que.star, que.update_time, 
+  		ui.user_name,
+  		ui.photo_url,
+  		(select count(1) from question_answers where question_id=question_id ) as answer_num
+  	from 
+  		question_taglib_maps qtm  
+	inner join questions que on qtm.questions_id=que.question_id
+	inner join  user_infos ui on que.create_user_id=ui.user_id
 	where taglibs_id=#{taglibsId}
   </select>
   

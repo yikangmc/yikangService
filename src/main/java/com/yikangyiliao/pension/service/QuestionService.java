@@ -35,14 +35,19 @@ public class QuestionService {
 		if(
 				paramMap.containsKey("title")
 				&&paramMap.containsKey("content")
-				&&paramMap.containsKey("taglibIds")){
+				&&paramMap.containsKey("taglibIds")
+				&&paramMap.containsKey("images")
+			){
 				
 			String title=paramMap.get("title").toString();
 			String content=paramMap.get("content").toString();
 			List taglibIds=(List)paramMap.get("taglibIds");
-			Long userId=Long.valueOf(paramMap.get("userId").toString());
 			Long[] tagIds=ParamMapUtils.converObjectArrayToLong(taglibIds);
-			questionManager.insertQuestion(title, content, tagIds, userId);
+			Long userId=Long.valueOf(paramMap.get("userId").toString());
+			List imagesArray=(List)paramMap.get("images");
+			String[] images=ParamMapUtils.converObjectArrayToString(imagesArray);
+			
+			questionManager.insertQuestion(title, content, tagIds, userId,images);
 			
 		}else{
 			
@@ -129,11 +134,14 @@ public class QuestionService {
 	 * **/
 	public ResponseMessage<List<Question>> getQuestionsByTaglibId(Map<String,Object> paramMap){
 		ResponseMessage<List<Question>> resData=new ResponseMessage<List<Question>>();
-		
-		Long taglibId=Long.valueOf(paramMap.get("taglibId").toString());
-		List<Question> questions=questionManager.getQuestionByTaglibid(taglibId);
-		resData.setData(questions);
-		
+		if(paramMap.containsKey("taglibId")){
+			Long taglibId=Long.valueOf(paramMap.get("taglibId").toString());
+			List<Question> questions=questionManager.getQuestionByTaglibid(taglibId);
+			resData.setData(questions);
+		}else{
+			resData.setStatus(ExceptionConstants.parameterException.parameterException.errorCode);
+			resData.setMessage(ExceptionConstants.parameterException.parameterException.errorMessage);
+		}
 		return resData;
 	}
 

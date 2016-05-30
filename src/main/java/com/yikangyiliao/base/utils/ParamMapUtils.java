@@ -23,5 +23,16 @@ public class ParamMapUtils {
 		return retData;
 	}
 
-	
+	/**
+	 * @author liushuaic
+	 * @date 2016-05-28 18:03
+	 * @desc 转换paramMap中的List<Object>为  String[]  数组
+	 * **/
+	public static String[] converObjectArrayToString(List array){
+		String[] retData=new String[array.size()];
+		for(int i=0;i<array.size();i++){
+			retData[i]=array.get(i).toString();
+		}
+		return retData;
+	}
 }

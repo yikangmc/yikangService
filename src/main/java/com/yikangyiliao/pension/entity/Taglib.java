@@ -1,5 +1,6 @@
 package com.yikangyiliao.pension.entity;
 
+import java.util.Date;
 import java.util.List;
 
 public class Taglib {
@@ -15,9 +16,9 @@ public class Taglib {
 
     private String isDelete;
 
-    private String createTime;
+    private Date createTime;
 
-    private String updateTime;
+    private Date updateTime;
 
     private Long createUserId;
 
@@ -79,21 +80,6 @@ public class Taglib {
         this.isDelete = isDelete == null ? null : isDelete.trim();
     }
 
-    public String getCreateTime() {
-        return createTime;
-    }
-
-    public void setCreateTime(String createTime) {
-        this.createTime = createTime == null ? null : createTime.trim();
-    }
-
-    public String getUpdateTime() {
-        return updateTime;
-    }
-
-    public void setUpdateTime(String updateTime) {
-        this.updateTime = updateTime == null ? null : updateTime.trim();
-    }
 
     public Long getCreateUserId() {
         return createUserId;
@@ -141,5 +127,21 @@ public class Taglib {
 
 	public void setChilds(List<Taglib> childs) {
 		this.childs = childs;
+	}
+
+	public Date getCreateTime() {
+		return createTime;
+	}
+
+	public void setCreateTime(Date createTime) {
+		this.createTime = createTime;
+	}
+
+	public Date getUpdateTime() {
+		return updateTime;
+	}
+
+	public void setUpdateTime(Date updateTime) {
+		this.updateTime = updateTime;
 	}
 }

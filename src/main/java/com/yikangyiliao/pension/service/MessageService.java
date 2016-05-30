@@ -6,6 +6,7 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.yikangyiliao.pension.common.error.ExceptionConstants;
 import com.yikangyiliao.pension.common.response.ResponseMessage;
 import com.yikangyiliao.pension.entity.Message;
 import com.yikangyiliao.pension.manager.MessageManager;
@@ -30,8 +31,34 @@ public class MessageService {
 			Long userId=Long.valueOf(paramMap.get("userId").toString());
 			List<Message> data=messageManager.getMessageListByUserId(userId);
 			resData.setData(data);
+		}else{
+			resData.setStatus(ExceptionConstants.parameterException.parameterException.errorCode);
+    		resData.setMessage(ExceptionConstants.parameterException.parameterException.errorMessage);
 		}
 		return resData;
+	}
+	
+	
+	/**
+	 * @author liushuaic
+	 * @date 2016-05-25 15:30
+	 * @desc 获取信息详情
+	 * */
+	public ResponseMessage<Message> getMessageById(Map<String,Object> paramMap){
+		ResponseMessage<Message> resData=new ResponseMessage<Message>();
+		if(
+				paramMap.containsKey("userId")
+			&&  paramMap.containsKey("messagesId")
+		){
+			Long messagesId=Long.valueOf(paramMap.get("messagesId").toString());
+			Message message=messageManager.getMessageById(messagesId);
+			resData.setData(message);
+		}else{
+			resData.setStatus(ExceptionConstants.parameterException.parameterException.errorCode);
+			resData.setMessage(ExceptionConstants.parameterException.parameterException.errorMessage);
+		}
+		return resData;
+		
 	}
 	
 

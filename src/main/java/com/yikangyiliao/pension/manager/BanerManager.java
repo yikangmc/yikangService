@@ -26,5 +26,13 @@ public class BanerManager {
 		return banerDao.getBanerList();
 	}
 	
+	/**
+	 * @author liushuaic
+	 * @date 2016-05-26 16:53
+	 * @desc 获取活动轮播图
+	 * */
+	public List<Baner> getActivetyBaner(){
+		return banerDao.getBanerList();
+	}
 
 }

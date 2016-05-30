@@ -22,6 +22,8 @@ public class Baner {
     private Long createUserId;
 
     private Byte groups;
+    
+    private String banerPic;
 
     public Long getBanerId() {
         return banerId;
@@ -102,4 +104,12 @@ public class Baner {
     public void setGroups(Byte groups) {
         this.groups = groups;
     }
+
+	public String getBanerPic() {
+		return banerPic;
+	}
+
+	public void setBanerPic(String banerPic) {
+		this.banerPic = banerPic;
+	}
 }

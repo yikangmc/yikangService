@@ -8,8 +8,8 @@
     <result column="parent_id" property="parentId" jdbcType="BIGINT" />
     <result column="orders" property="orders" jdbcType="TINYINT" />
     <result column="is_delete" property="isDelete" jdbcType="VARCHAR" />
-    <result column="create_time" property="createTime" jdbcType="VARCHAR" />
-    <result column="update_time" property="updateTime" jdbcType="VARCHAR" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
     <result column="create_user_id" property="createUserId" jdbcType="BIGINT" />
     <result column="is_recommend" property="isRecommend" jdbcType="TINYINT" />
     <result column="follow_number" property="followNumber" jdbcType="INTEGER" />
@@ -38,7 +38,7 @@
       answer_number)
     values (#{taglibId,jdbcType=BIGINT}, #{tagName,jdbcType=VARCHAR}, #{tagPic,jdbcType=VARCHAR}, 
       #{parentId,jdbcType=BIGINT}, #{orders,jdbcType=TINYINT}, #{isDelete,jdbcType=VARCHAR}, 
-      #{createTime,jdbcType=VARCHAR}, #{updateTime,jdbcType=VARCHAR}, #{createUserId,jdbcType=BIGINT}, 
+      #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP}, #{createUserId,jdbcType=BIGINT}, 
       #{isRecommend,jdbcType=TINYINT}, #{followNumber,jdbcType=INTEGER}, #{fornumPostsNumber,jdbcType=INTEGER}, 
       #{answerNumber,jdbcType=INTEGER})
   </insert>
@@ -105,10 +105,10 @@
         #{isDelete,jdbcType=VARCHAR},
       </if>
       <if test="createTime != null" >
-        #{createTime,jdbcType=VARCHAR},
+        #{createTime,jdbcType=TIMESTAMP},
       </if>
       <if test="updateTime != null" >
-        #{updateTime,jdbcType=VARCHAR},
+        #{updateTime,jdbcType=TIMESTAMP},
       </if>
       <if test="createUserId != null" >
         #{createUserId,jdbcType=BIGINT},
@@ -146,10 +146,10 @@
         is_delete = #{isDelete,jdbcType=VARCHAR},
       </if>
       <if test="createTime != null" >
-        create_time = #{createTime,jdbcType=VARCHAR},
+        create_time = #{createTime,jdbcType=TIMESTAMP},
       </if>
       <if test="updateTime != null" >
-        update_time = #{updateTime,jdbcType=VARCHAR},
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
       </if>
       <if test="createUserId != null" >
         create_user_id = #{createUserId,jdbcType=BIGINT},
@@ -176,8 +176,8 @@
       parent_id = #{parentId,jdbcType=BIGINT},
       orders = #{orders,jdbcType=TINYINT},
       is_delete = #{isDelete,jdbcType=VARCHAR},
-      create_time = #{createTime,jdbcType=VARCHAR},
-      update_time = #{updateTime,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      update_time = #{updateTime,jdbcType=TIMESTAMP},
       create_user_id = #{createUserId,jdbcType=BIGINT},
       is_recommend = #{isRecommend,jdbcType=TINYINT},
       follow_number = #{followNumber,jdbcType=INTEGER},
@@ -190,7 +190,7 @@
   	<result column="taglib_id" property="taglibId"/>
   	<result column="tag_name" property="tagName"/>
   </resultMap>
-  <select id="getFormpostsByFormPostId" parameterType="long" resultMap="taglibMap">
+  <select id="getTaglibsByFormPostId" parameterType="long" resultMap="taglibMap">
   	select 
   		tag.tag_name,tag.taglib_id 
   	from 
@@ -214,6 +214,7 @@
   		<include refid="Base_Column_List"></include>
   	from taglibs
 	where parent_id!=0
+	and is_recommend=1
   </select>
   
     <!-- 查询一级标签列表  -->
@@ -234,17 +235,14 @@
  </select>
  
  <resultMap type="com.yikangyiliao.pension.entity.Taglib" extends="BaseResultMap" id="getAllTagResultMap">
-	 <collection property="taglibs" ofType="com.yikangyiliao.pension.entity.Taglib" >
-		<id column="taglib_id" property="taglibId" jdbcType="BIGINT" />
-	    <result column="tag_name" property="tagName" jdbcType="VARCHAR" />
-	    <result column="tag_pic" property="tagPic" jdbcType="VARCHAR" />
-	    <result column="parent_id" property="parentId" jdbcType="BIGINT" />
-	    <result column="orders" property="orders" jdbcType="TINYINT" />
-	    <result column="create_time" property="createTime" jdbcType="VARCHAR" />
-	    <result column="update_time" property="updateTime" jdbcType="VARCHAR" />
-	    <result column="follow_number" property="followNumber" jdbcType="INTEGER" />
-	    <result column="fornum_posts_number" property="fornumPostsNumber" jdbcType="INTEGER" />
-	    <result column="answer_number" property="answerNumber" jdbcType="INTEGER" />
+	 <collection property="childs" ofType="com.yikangyiliao.pension.entity.Taglib" >
+		<id column="taglibId2" 			property="taglibId" 	jdbcType="BIGINT" />
+	    <result column="taglibName2" 	property="tagName" 		jdbcType="VARCHAR" />
+	    <result column="tagPic2" 		property="tagPic" 		jdbcType="VARCHAR" />
+	    <result column="parentId2" 		property="parentId" 	jdbcType="BIGINT" />
+	    <result column="followNumber2" 	property="followNumber" jdbcType="INTEGER" />
+	    <result column="forumPostsNumber2" property="fornumPostsNumber" jdbcType="INTEGER" />
+	    <result column="answerNumber2" 	property="answerNumber" jdbcType="INTEGER" />
 	 </collection>
  </resultMap>
  
@@ -257,8 +255,9 @@
 		tag2.tag_name as taglibName2,
 		tag2.tag_pic as tagPic2,
 		tag2.follow_number as followNumber2,
-		tag2.fornum_posts_number as forumPostsNumber,
-		tag2.answer_number as answerNumber
+		tag2.fornum_posts_number as forumPostsNumber2,
+		tag2.answer_number as answerNumber2,
+		tag2.parent_id as parentId2
 	from taglibs tag inner join taglibs tag2
 	where tag2.parent_id=tag.taglib_id
  </select>
