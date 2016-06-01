@@ -54,5 +54,20 @@ public class BanerService {
 		responseMessage.setData(baners);
 		return responseMessage;
 	}
+	
+	
+	/**
+	 * @author liushuaic
+	 * @date 2016-05-01 11:28
+	 * @desc 获取发现搜索banner
+	 * 
+	 * **/
+	public ResponseMessage<List<Baner>> getSearchActivetyBanner(){
+		ResponseMessage<List<Baner>> responseMessage=new ResponseMessage<List<Baner>>();
+		
+		
+		
+		return responseMessage;
+	}
 
 }

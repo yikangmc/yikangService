@@ -290,6 +290,13 @@ public class InterfaceUtil {
 		submitUpdateUserPosition.setIsFileter(true);
 		mathodServiceConfig.put("00-17-13",submitUpdateUserPosition);
 		
+		//获取我关注的用户列表
+		YiKangServiceConfige getMyFollowUser=new YiKangServiceConfige();
+		getMyFollowUser.setServiceName("userService");
+		getMyFollowUser.setMethodName("getMyFollowUser");
+		getMyFollowUser.setIsFileter(true);
+		mathodServiceConfig.put("00-17-14",getMyFollowUser);
+		
 		/**
 		 * @author liushuaic
 		 * @date 2015/09/01 14:19
@@ -572,6 +579,26 @@ public class InterfaceUtil {
 		getAllTag.setMethodName("getAllTag");
 		getAllTag.setIsFileter(false);
 		mathodServiceConfig.put("00-30-04",getAllTag);
+		
+		
+		/**
+		 * @author liushuaic
+		 * @date 2016-06-01 10:07
+		 * @desc 获取我关注的标签
+		 * */
+		YiKangServiceConfige getMyWatchTaglibsByUserid=new YiKangServiceConfige();
+		getMyWatchTaglibsByUserid.setServiceName("taglibService");
+		getMyWatchTaglibsByUserid.setMethodName("getMyWatchTaglibsByUserid");
+		getMyWatchTaglibsByUserid.setIsFileter(false);
+		mathodServiceConfig.put("00-30-05",getMyWatchTaglibsByUserid);
+		
+		
+		YiKangServiceConfige getSecondAllTaglib=new YiKangServiceConfige();
+		getSecondAllTaglib.setServiceName("taglibService");
+		getSecondAllTaglib.setMethodName("getSecondAllTaglib");
+		getSecondAllTaglib.setIsFileter(false);
+		mathodServiceConfig.put("00-30-06",getSecondAllTaglib);
+		
 		
 		
 		

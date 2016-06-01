@@ -37,13 +37,13 @@ public class MessageUtils {
 	/**
 	 * appk
 	 * */
-	private static String appKey="9de890837df54fce0b818cc4";
+	private static String appKey="1d7ea5381ea5e395ab5f7ef4";
 	
 	/**
 	 * 安全密钥
 	 * 
 	 * **/
-	private static String masterSecret="16fb21e870c56e506a71f59c";
+	private static String masterSecret="5307749f0466d6744ad3fa17";
 	
 	/**
 	 * 
@@ -53,6 +53,13 @@ public class MessageUtils {
 	private static int retryTimes=3;
 	
 	
+	
+	/**
+	 * ios推送环境
+	 * false 是测试环境
+	 * true 生产环境
+	 * **/
+	private static boolean IOSPUSHENVIRONMENT=true;
 	
 	
 	
@@ -124,7 +131,7 @@ public class MessageUtils {
      * **/
     public static PushPayload buildPushObject_all_alias_alert(String alias,String message) {
        
-    	Options options=Options.newBuilder().setApnsProduction(true).build();
+    	Options options=Options.newBuilder().setApnsProduction(IOSPUSHENVIRONMENT).build();
     	return PushPayload.newBuilder().setPlatform(Platform.all()).setAudience(Audience.alias(alias))
                 .setNotification(Notification.alert(message)).setOptions(options)
                 .build();
@@ -141,10 +148,25 @@ public class MessageUtils {
      * @param message 信息内容
      * */
     public static PushPayload buildPushObject_IOS_alias_alert(String alias,String message) {
-    	Options options=Options.newBuilder().setApnsProduction(true).build();
+    	Options options=Options.newBuilder().setApnsProduction(IOSPUSHENVIRONMENT).build();
         return PushPayload.newBuilder().setPlatform(Platform.ios()).setAudience(Audience.alias(alias)).setNotification(Notification.alert(message)).setOptions(options).build();
     }
     
+    
+    /**
+     * @author liushuaic
+     * @date 2016/05/10 21:50
+     * 所有平台别名为  tag 的设备
+     * @param tag 别名
+     * @param message 信息内容
+     * **/
+    public static PushPayload buildPushObject_tag_alert(String tagName,String message) {
+       
+    	Options options=Options.newBuilder().setApnsProduction(IOSPUSHENVIRONMENT).build();
+    	return PushPayload.newBuilder().setPlatform(Platform.all()).setAudience(Audience.tag(tagName))
+                .setNotification(Notification.alert(message)).setOptions(options)
+                .build();
+    }
     
     /**
      * 
@@ -156,7 +178,7 @@ public class MessageUtils {
      * 
      * */
     public static PushPayload buildPushObject_ANDORID_alias_alert(String alias,String message) {
-    	Options options=Options.newBuilder().setApnsProduction(true).build();
+    	Options options=Options.newBuilder().setApnsProduction(IOSPUSHENVIRONMENT).build();
         return PushPayload.newBuilder().setPlatform(Platform.android()).setAudience(Audience.alias(alias)).setNotification(Notification.alert(message)).setOptions(options).build();
     }
 	

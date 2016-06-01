@@ -3,6 +3,7 @@ package com.yikangyiliao.base.utils.messageUtil.im;
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.LinkedBlockingQueue;
 
+
 /**
  * @author liushuaic
  * @date 2015/12/01 14:47
@@ -14,7 +15,11 @@ public class MessageQueue {
 	private static BlockingQueue<Message> messageQueues=new LinkedBlockingQueue<Message>();
 
 	
-	public static synchronized void put(Message message) throws InterruptedException{
+	public static boolean add(Message message){
+		return messageQueues.add(message);
+	}
+	
+	public static void put(Message message) throws InterruptedException{
 		messageQueues.put(message);
 	}
 	
@@ -22,7 +27,7 @@ public class MessageQueue {
 		return messageQueues.poll();
 	}
 	
-	public static synchronized Integer getMessagesSize(){
+	public static Integer getMessagesSize(){
 		return messageQueues.size();
 	}
 	

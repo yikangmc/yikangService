@@ -32,6 +32,9 @@ public class Taglib {
 
     private List<Taglib> childs;
     
+    //活动列表
+    private List<FormPosts> formPosts;
+    
     public Long getTaglibId() {
         return taglibId;
     }
@@ -143,5 +146,13 @@ public class Taglib {
 
 	public void setUpdateTime(Date updateTime) {
 		this.updateTime = updateTime;
+	}
+
+	public List<FormPosts> getFormPosts() {
+		return formPosts;
+	}
+
+	public void setFormPosts(List<FormPosts> formPosts) {
+		this.formPosts = formPosts;
 	}
 }

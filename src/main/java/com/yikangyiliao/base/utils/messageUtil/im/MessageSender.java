@@ -22,15 +22,23 @@ public class MessageSender implements Runnable {
 					e.printStackTrace();
 				}
 			}else{
-				PushPayload pushPayload=MessageUtils.buildPushObject_all_alias_alert(message.getAlias(), message.getContent());
-				
+				PushPayload pushPayload=null;
+				if(message.getMessageCategroy()==0){
+					pushPayload=MessageUtils.buildPushObject_all_alias_alert(message.getAlias(), message.getContent());
+				}else if(message.getMessageCategroy()==1){
+					pushPayload=MessageUtils.buildPushObject_tag_alert(message.getAlias(), message.getContent());
+				}
 				
 				//如果没有发送成功，重新放入，发送队列，只以是否推送到 极光为准。
 				boolean  isSended=MessageUtils.sendMessageByPushPayLoad(pushPayload);
-				if(isSended){
+				if(!isSended){
 					try {
-						MessageQueue.put(message);
-					} catch (InterruptedException e) {
+						int retryNum=message.getRetrayNum();
+						message.setRetrayNum(retryNum+1);
+						if(retryNum<3){
+							MessageQueue.add(message);
+						}
+					} catch (Exception e) {
 						e.printStackTrace();
 					}
 				}
@@ -42,16 +50,16 @@ public class MessageSender implements Runnable {
 	public static void main(String[] args) throws InterruptedException {
 				Message m=new Message();
 				m.setContent("m");
-				
+				m.setAlias("message_info_46");
 				Message m2=new Message();
 				m2.setContent("m2");
-				
+				m2.setAlias("message_info_46");
 				Message m3=new Message();
 				m3.setContent("m3");
-				
+				m3.setAlias("message_info_46");
 				Message m4=new Message();
 				m4.setContent("m4");
-				
+				m4.setAlias("message_info_46");
 				MessageQueue.put(m);
 				MessageQueue.put(m2);
 				MessageQueue.put(m3);

@@ -32,7 +32,7 @@ public class BanerManager {
 	 * @desc 获取活动轮播图
 	 * */
 	public List<Baner> getActivetyBaner(){
-		return banerDao.getBanerList();
+		return banerDao.getActivetyBaner();
 	}
 
 }

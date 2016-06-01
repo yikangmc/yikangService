@@ -10,7 +10,10 @@ package com.yikangyiliao.base.utils.messageUtil.im;
  * ***/
 public class Message{
 
-	/**推送设备别名**/
+	/**
+	 * 推送设备别名
+	 * or tagName
+	 * **/
 	private String alias;
 	
 	/**
@@ -20,9 +23,10 @@ public class Message{
 	
 	/**
 	 * 信息分类
-	 * 
+	 * 0:别名推送
+	 * 1:tag推送
 	 * **/
-	private String messageCategroy;
+	private int messageCategroy=0;
 	
 	
 	
@@ -33,7 +37,11 @@ public class Message{
 	 * */
 	private String dataType;
 	
-
+	/**
+	 * 尝试次数
+	 * */
+	private int retrayNum=0;
+	 
 	public String getAlias() {
 		return alias;
 	}
@@ -49,8 +57,36 @@ public class Message{
 	public void setContent(String content) {
 		this.content = content;
 	}
-	
-	
+
+	public int getMessageCategroy() {
+		return messageCategroy;
+	}
+
+	/**
+	 * 信息分类
+	 * 0:别名推送
+	 * 1:tag推送
+	 * **/
+	public void setMessageCategroy(int messageCategroy) {
+		this.messageCategroy = messageCategroy;
+	}
+
+	public String getDataType() {
+		return dataType;
+	}
+
+	public void setDataType(String dataType) {
+		this.dataType = dataType;
+	}
+
+	public int getRetrayNum() {
+		return retrayNum;
+	}
+
+	public void setRetrayNum(int retrayNum) {
+		this.retrayNum = retrayNum;
+	}
+
 	
 	
 	

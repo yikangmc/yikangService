@@ -3,9 +3,13 @@ package com.yikangyiliao.pension.service;
 import java.util.List;
 import java.util.Map;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.util.StringUtils;
 
+import com.yikangyiliao.pension.common.error.ExceptionConstants;
 import com.yikangyiliao.pension.common.response.ResponseMessage;
 import com.yikangyiliao.pension.entity.Taglib;
 import com.yikangyiliao.pension.manager.TaglibManager;
@@ -17,6 +21,8 @@ public class TaglibService {
 	@Autowired
 	private TaglibManager taglibManager;
 	
+	
+	private Logger logger=LoggerFactory.getLogger(TaglibService.class);
 	
 	/**
 	 * @author liushuaic
@@ -78,8 +84,53 @@ public class TaglibService {
      * @desc 获取所有的标签
      * */
 	public ResponseMessage<List<Taglib>> getAllTag(Map<String,Object> paramMap){
+		
 		ResponseMessage<List<Taglib>> resData=new ResponseMessage<List<Taglib>>();
-		List<Taglib> data=taglibManager.getAllTag();
+		try{
+			List<Taglib> data=taglibManager.getAllTag();
+			resData.setData(data);
+		}catch(Exception e){
+			e.printStackTrace();
+			logger.error(e.getMessage());
+		}
+	
+		return resData;
+	}
+	
+	
+	/**
+	 * @author liushuaic
+	 * @date 2016-05-31 17:13
+	 * @desc 获取我关注的标签
+	 * */
+	public ResponseMessage<List<Taglib>> getMyWatchTaglibsByUserid(Map<String,Object> paramData){
+		ResponseMessage<List<Taglib>> resData=new ResponseMessage<List<Taglib>>();
+		try{
+			if(paramData.containsKey("userId") && !StringUtils.isEmpty(paramData.get("userId"))){
+				Long userId=Long.valueOf(paramData.get("userId").toString());
+				taglibManager.getMyWatchTaglibsByUserid(userId);
+			}else{
+				resData.setStatus(ExceptionConstants.parameterException.parameterException.errorCode);
+				resData.setMessage(ExceptionConstants.parameterException.parameterException.errorMessage);
+			}
+
+		}catch(Exception e){
+			e.printStackTrace();
+			logger.error(e.getMessage());
+		}
+		
+		return resData;
+	}
+	
+	
+	/**
+	 * @author liushuaic
+	 * @date 2016-06-01 14:11
+	 * @desc 获取所有的二级标签
+	 * **/
+	public ResponseMessage<List<Taglib>> getSecondAllTaglib(Map<String,Object> paramData){
+		ResponseMessage<List<Taglib>> resData=new ResponseMessage<List<Taglib>>();
+		List<Taglib> data=taglibManager.getSecondAllTaglib();
 		resData.setData(data);
 		return resData;
 	}

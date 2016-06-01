@@ -263,4 +263,23 @@
  </select>
  
  
+ <!--查询我关注的标签  -->
+ <resultMap type="com.yikangyiliao.pension.entity.Taglib" id="getMyWatchTaglibsByUseridResultMap" extends="BaseResultMap">
+<!-- 	<collection property="formPosts" fetchType="eager" select=""></collection> -->
+ </resultMap>
+ <select id="getMyWatchTaglibsByUserid" resultMap="getMyWatchTaglibsByUseridResultMap" parameterType="long">
+ 	select 
+ 		tag.* 
+ 	from user_taglib_maps utm inner join taglibs tag on utm.taglib_id=tag.taglib_id
+	where utm.create_user_id=#{createUserId}
+ </select>
+ 
+ <!-- 获取所有的二级标签列表 -->
+ <select id="getSecondAllTaglib" resultMap="BaseResultMap">
+  	select 
+  		<include refid="Base_Column_List"></include>
+  	from taglibs
+	where parent_id!=0
+  </select>
+ 
 </mapper>

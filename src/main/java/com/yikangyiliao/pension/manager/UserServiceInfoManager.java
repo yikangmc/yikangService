@@ -1,12 +1,14 @@
 package com.yikangyiliao.pension.manager;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import com.yikangyiliao.pension.dao.UserServiceInfoDao;
+import com.yikangyiliao.pension.entity.UserServiceInfo;
 
 @Component
 public class UserServiceInfoManager {
@@ -28,5 +30,14 @@ public class UserServiceInfoManager {
 		return userServiceInfoDao.submitUpdateUserPosition(paramData);
 	}
 	
+	/**
+	 * @author liushuaic
+	 * @date 2016-05-31 14:55
+	 * @desc 获取我支持的用户
+	 * 
+	 * */
+	public List<UserServiceInfo> getMyFollowUser(Long createUserId){
+		return userServiceInfoDao.getMyFollowUser(createUserId);
+	}
 	
 }

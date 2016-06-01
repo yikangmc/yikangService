@@ -55,5 +55,12 @@ public interface FormPostsDao {
      * */
     List<FormPosts> getForumPostsByTaglibsId(Long taglibId);
     
+    /**
+     * 
+     * @author liushuaic
+     * @date 2016-05-31 14:10
+     * @desc 获取某一个用户的最新发的文章
+     * */
+    List<FormPosts> getUserNewForumPostByCreateUserId(Long createUserId);
     
 }

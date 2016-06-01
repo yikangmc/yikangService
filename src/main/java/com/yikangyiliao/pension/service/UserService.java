@@ -11,6 +11,8 @@ import java.util.Map;
 import org.codehaus.jackson.JsonParseException;
 import org.codehaus.jackson.map.JsonMappingException;
 import org.codehaus.jackson.map.ObjectMapper;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.converter.json.Jackson2ObjectMapperFactoryBean;
 import org.springframework.stereotype.Service;
@@ -41,6 +43,7 @@ import com.yikangyiliao.pension.manager.OfficeManager;
 import com.yikangyiliao.pension.manager.UserAdeptMapManager;
 import com.yikangyiliao.pension.manager.UserFromManager;
 import com.yikangyiliao.pension.manager.UserManager;
+import com.yikangyiliao.pension.manager.UserServiceInfoManager;
 import com.yikangyiliao.pension.responseDataModel.MyInvationUserModel;
 
 @Service(value = "userService")
@@ -63,6 +66,12 @@ public class UserService {
 	
 	@Autowired
 	private UserAdeptMapManager adeptMapManager;
+	
+	@Autowired
+	private UserServiceInfoManager userServiceInfoManager;
+	
+	
+	private Logger logger=LoggerFactory.getLogger(UserService.class);
 
 	/**
 	 * @author liushuaic
@@ -750,6 +759,29 @@ public class UserService {
 			userManager.updateUser(user);
 		}
 
+		//用户个人简介
+		if(paramData.containsKey("userIntroduce")){
+			String userIntroduce=paramData.get("userIntroduce").toString();
+			userServiceInfo.setUserIntroduce(userIntroduce);
+		}
+		
+		//机构名称
+		if(paramData.containsKey("oraganizationName")){
+			String oraganizationName=paramData.get("oraganizationName").toString();
+			userServiceInfo.setOraganizationName(oraganizationName);
+		}
+		
+//		工作领域
+		if(paramData.containsKey("workRealm")){
+			Byte workRealm=Byte.valueOf(paramData.get("workRealm").toString());
+			userServiceInfo.setWorkRealm(workRealm);
+		}
+		//用户证书
+		if(paramData.containsKey("userCertificate")){
+			String userCertificate=paramData.get("userCertificate").toString();
+			userServiceInfo.setUserCertificate(userCertificate);
+		}
+		
 		userManager.updateUserServiceInfo(userServiceInfo);
 		
 		if(null != adepts){
@@ -992,5 +1024,42 @@ public class UserService {
 		return responseMessage;
 	}
 	
+	
+	public ResponseMessage<String> saveUserInfos(){
+		ResponseMessage<String> responseMessage = new ResponseMessage<String>();
+		
+		try{
+			
+			
+		}catch(Exception e){
+			e.printStackTrace();
+		}
+		
+		return responseMessage;
+	}
+	
+	
+	/**
+	 * @author liushuaic
+	 * @date 2016-05-31 15:45
+	 * @desc 获取我关注的用户
+	 * **/
+	public ResponseMessage<List<UserServiceInfo>> getMyFollowUser(Map<String,Object> paramMap){
+		
+		ResponseMessage<List<UserServiceInfo>> resData=new ResponseMessage<List<UserServiceInfo>>();
+		
+		if(paramMap.containsKey("userId")){
+			Long userId=Long.valueOf(paramMap.get("userId").toString());
+			List<UserServiceInfo> data=userServiceInfoManager.getMyFollowUser(userId);
+			resData.setData(data);
+			resData.setStatus(ExceptionConstants.responseSuccess.responseSuccess.code);
+			resData.setMessage(ExceptionConstants.responseSuccess.responseSuccess.message);
+		}else{
+			resData.setStatus(ExceptionConstants.systemException.systemException.errorCode);
+			resData.setMessage(ExceptionConstants.systemException.systemException.errorMessage);
+		}
+		
+		return resData;
+	}
  
 }

@@ -23,9 +23,9 @@ public class FormPosts {
 
     private Date updateTime;
 
-    private int stars;
+    private Integer stars;
 
-    private int shareNum;
+    private Integer shareNum;
 
     private Long createUserId;
 
@@ -33,9 +33,9 @@ public class FormPosts {
 
     private String recommendPicUrl;
     
-    private int answersNums;
+    private Integer answersNums;
     
-    private int isStar;
+    private Integer isStar;
 
     //标签列表
     private List<Taglib> taglibs;
@@ -170,7 +170,9 @@ public class FormPosts {
 		return forumPostsAnswers;
 	}
 
+	//TODO 后面要修改为查询
 	public void setForumPostsAnswers(List<ForumPostsAnswer> forumPostsAnswers) {
+		this.answersNums=forumPostsAnswers.size();
 		this.forumPostsAnswers = forumPostsAnswers;
 	}
 
@@ -190,29 +192,6 @@ public class FormPosts {
 		this.photoUrl = photoUrl;
 	}
 
-	public int getIsStar() {
-		return isStar;
-	}
-
-	public void setIsStar(int isStar) {
-		this.isStar = isStar;
-	}
-
-	public void setStars(int stars) {
-		this.stars = stars;
-	}
-
-	public void setShareNum(int shareNum) {
-		this.shareNum = shareNum;
-	}
-
-	public void setAnswersNums(int answersNums) {
-		this.answersNums = answersNums;
-	}
-
-	public int getAnswersNums() {
-		return answersNums;
-	}
 
 	public List<ForumPostsImage> getForumPostsImage() {
 		return forumPostsImage;
@@ -220,6 +199,22 @@ public class FormPosts {
 
 	public void setForumPostsImage(List<ForumPostsImage> forumPostsImage) {
 		this.forumPostsImage = forumPostsImage;
+	}
+
+	public Integer getIsStar() {
+		return isStar;
+	}
+
+	public void setIsStar(Integer isStar) {
+		this.isStar = isStar;
+	}
+
+	public void setAnswersNums(Integer answersNums) {
+		this.answersNums = answersNums;
+	}
+
+	public Integer getAnswersNums() {
+		return answersNums;
 	}
 
 }

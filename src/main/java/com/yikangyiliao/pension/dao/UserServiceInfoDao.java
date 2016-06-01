@@ -3,6 +3,7 @@ package com.yikangyiliao.pension.dao;
 import java.util.List;
 import java.util.Map;
 
+import com.yikangyiliao.pension.entity.FormPosts;
 import com.yikangyiliao.pension.entity.UserServiceInfo;
 
 public interface UserServiceInfoDao {
@@ -94,6 +95,15 @@ public interface UserServiceInfoDao {
      * 
      * */
     int updateUserPositionStatusCheckePass(Map<String,Object> paramData);
+    
+    
+    /**
+     * @author liushuaic
+     * @date 2016-05-31 14:24
+     * @desc 查询我关注的用户
+     * **/
+    List<UserServiceInfo> getMyFollowUser(Long createUserId);
+    
     
     
 }

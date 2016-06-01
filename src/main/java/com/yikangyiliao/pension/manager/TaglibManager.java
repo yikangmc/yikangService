@@ -63,4 +63,23 @@ public class TaglibManager {
     	return taglibDao.getAllTag();
     }
 	
+	
+	 /**
+     * @author liushuaic
+     * @date 2016-06-01 09:27
+     * @desc  获取我关注的标签
+     * */
+    public List<Taglib> getMyWatchTaglibsByUserid(Long userId){
+    	return taglibDao.getMyWatchTaglibsByUserid(userId);
+    }
+    
+    /**
+     * @author liushuaic
+     * @date 2016-06-01 14:07
+     * @desc 获取所有的二级标签
+     * **/
+    public  List<Taglib> getSecondAllTaglib(){
+    	return taglibDao.getSecondAllTaglib();
+    }
+	
 }

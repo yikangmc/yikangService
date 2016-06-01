@@ -64,4 +64,21 @@ public interface TaglibDao {
     
     List<Taglib> getTaglibsByFormPostId(Long formPostId);
     
+    
+    
+    /**
+     * @author liushuaic
+     * @date 2016-06-01 09:27
+     * @desc  获取我关注的标签
+     * */
+    List<Taglib> getMyWatchTaglibsByUserid(Long createUserId);
+    
+    
+    /**
+     * @author liushuaic
+     * @date 2016-06-01 14:05
+     * @desc 获取所有的二级taglib
+     * */
+    List<Taglib> getSecondAllTaglib();
+    
 }

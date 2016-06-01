@@ -74,14 +74,17 @@ public class SendRequest {
 			};
 			String responseBody = httpclient.execute(httpget, responseHandler);
 //			System.out.println("----------------------------------------");
-//			System.out.println(responseBody);
+			System.out.println(responseBody);
 			Map<String,Object> data=new HashMap<String, Object>();
 			System.out.println("接收到请求时间"+sdf.format(new Date()));
 			data=objectMapper.readValue(responseBody, Map.class);
 			if(data.containsKey("data")){
-				String dataStr=data.get("data").toString();
-				System.out.println("解析出请求时间"+sdf.format(new Date()));
-				System.out.println(AES.Decrypt(dataStr, "1234567890abcDEF"));
+				if(null != data.get("data")){
+					String dataStr=data.get("data").toString();
+					System.out.println("解析出请求时间"+sdf.format(new Date()));
+					System.out.println(AES.Decrypt(dataStr, "1234567890abcDEF"));
+				}
+				
 			}
 			
 		} catch(Exception e){

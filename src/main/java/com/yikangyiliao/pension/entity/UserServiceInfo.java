@@ -68,7 +68,22 @@ public class UserServiceInfo {
     
     //新修改的职位
     private Integer newUserPosition;
+    
+    //组织机构名称
+    private String oraganizationName;
 
+    //用户介绍
+    private String userIntroduce;
+
+    //工作领域
+    private Byte workRealm;
+
+    //用户证书
+    private String userCertificate;
+
+//    用户文章列表
+    private List<FormPosts> formPosts;
+    
     public Long getUserServiceInfoId() {
         return userServiceInfoId;
     }
@@ -300,5 +315,45 @@ public class UserServiceInfo {
 
 	public void setOfficeObj(Office officeObj) {
 		this.officeObj = officeObj;
+	}
+
+	public String getOraganizationName() {
+		return oraganizationName;
+	}
+
+	public void setOraganizationName(String oraganizationName) {
+		this.oraganizationName = oraganizationName;
+	}
+
+	public String getUserIntroduce() {
+		return userIntroduce;
+	}
+
+	public void setUserIntroduce(String userIntroduce) {
+		this.userIntroduce = userIntroduce;
+	}
+
+	public Byte getWorkRealm() {
+		return workRealm;
+	}
+
+	public void setWorkRealm(Byte workRealm) {
+		this.workRealm = workRealm;
+	}
+
+	public String getUserCertificate() {
+		return userCertificate;
+	}
+
+	public void setUserCertificate(String userCertificate) {
+		this.userCertificate = userCertificate;
+	}
+
+	public List<FormPosts> getFormPosts() {
+		return formPosts;
+	}
+
+	public void setFormPosts(List<FormPosts> formPosts) {
+		this.formPosts = formPosts;
 	}
 }

@@ -18,6 +18,7 @@ public class SystemProperties {
 	 try {
 			InputStream  inputStream=SystemProperties.class.getResource("/system.properties").openStream();
 			systemProperties.load(inputStream);
+			
 		 } catch (IOException e) {
 				e.printStackTrace();
 		}
