@@ -1,5 +1,6 @@
 package com.yikangyiliao.pension.entity;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -38,16 +39,16 @@ public class FormPosts {
     private Integer isStar;
 
     //标签列表
-    private List<Taglib> taglibs;
+    private List<Taglib> taglibs=new ArrayList<Taglib>();
     
     //文章支持列表
-    private List<FormPostsStarList> formPostsStarLists;
+    private List<FormPostsStarList> formPostsStarLists=new ArrayList<FormPostsStarList>();
     
     //回复列表
-    private List<ForumPostsAnswer> forumPostsAnswers;
+    private List<ForumPostsAnswer> forumPostsAnswers=new ArrayList<ForumPostsAnswer>();
     
     //文章上传的列表
-    private List<ForumPostsImage> forumPostsImage;
+    private List<ForumPostsImage> forumPostsImage=new ArrayList<ForumPostsImage>();
     
     
     

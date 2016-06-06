@@ -127,11 +127,27 @@
   </update>
   
   <!-- 查询某一个问题的所有回复 -->
-  <select id="selectQuestionAnswer" parameterType="long" resultMap="BaseResultMap">
-  	select
-  		<include refid="Base_Column_List"></include>
-  	from question_answers
-  	where question_id=#{questionId}
+  <resultMap type="com.yikangyiliao.pension.entity.QuestionAnswer" extends="BaseResultMap" id="selectQuestionAnswerResultMap">
+  	<result column="isStar" property="isStar"/>
+  </resultMap>
+  <select id="selectQuestionAnswer" parameterType="map" resultMap="selectQuestionAnswerResultMap">
+	<if test="userId eq null">
+	  	  select
+	  		<include refid="Base_Column_List"></include>
+	  	from question_answers
+	  	where question_id=#{questionId}
+	</if>
+	<if test="null neq userId">
+		select qa.*,
+			case
+				when qasl2.question_answer_start_list_id>=0 then 1
+				else 0
+		    end  as 'isStar' 
+		from question_answers qa left join (  select * from question_answer_start_lists where create_user_id=#{userId}) qasl2
+		on qa.question_answer_id=qasl2.question_answer_id
+		where  qa.question_id=#{questionId}
+	</if>
+	
   </select>
   
 </mapper>

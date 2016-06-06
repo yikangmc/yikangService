@@ -140,4 +140,29 @@ public class ExceptionConstants {
 		}
 	}
 	
+	
+	/**
+	 * @author liushuaic
+	 * @date 2016-06-04 17:32
+	 * @desc 活动异常
+	 * 06
+	 * */
+	public enum activetyException{
+		
+		/**活动已经结束*/
+		activetyIsEnd("060001","活动已经结束"),
+		/**
+		 * 活动已经参与
+		 * */
+		isPartake("060002","已经参与过活动");
+		
+		public String errorCode;
+		public String errorMessage;
+		private activetyException(String errorCode,String errorMessage){
+			this.errorCode=errorCode;
+			this.errorMessage=errorMessage;
+		}
+		
+	}
+	
 }

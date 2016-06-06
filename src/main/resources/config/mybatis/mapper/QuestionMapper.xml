@@ -139,7 +139,6 @@
 	<result column="photo_url" property="photoUrl"/>
 	
 	<collection property="taglibs" 		   column="question_id" select="com.yikangyiliao.pension.dao.QuestionTaglibMapDao.getQuestionTaglibsByQuestionId"></collection>
-	<collection property="questionAnswers" column="question_id" select="com.yikangyiliao.pension.dao.QuestionAnswerDao.selectQuestionAnswer"></collection>
 	<collection property="questionImages"  column="question_id" select="com.yikangyiliao.pension.dao.QuestionImageDao.getQuestionImageByQuestionId"></collection>
 	
   </resultMap>
@@ -152,7 +151,7 @@
   		questions.content, questions.create_user_id, questions.create_time, questions.is_delete, questions.star, questions.update_time,
   		ui.user_name,
   		ui.photo_url
-  	from questions inner join  user_infos ui on questions.create_user_id=ui.user_id
+  	from questions left join  user_infos ui on questions.create_user_id=ui.user_id
   	where question_id=#{questionId}
   </select>
   

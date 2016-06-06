@@ -106,13 +106,15 @@
   
   
 	<resultMap type="com.yikangyiliao.pension.entity.ActivetyComment" id="getActivetyCommentByUserIdResultMap" extends="BaseResultMap">
-		<result column="userPhotoUrl" property="userPhotoUrl"/>
+		<result column="photo_url" property="photoUrl"/>
+		<result column="user_name" property="userName"/>
 	</resultMap>
   <!-- 获取活动评论列表 -->
   <select id="getActivetyCommentByUserId" parameterType="long" resultMap="getActivetyCommentByUserIdResultMap">
   	select 
   		activety_comment_id, create_user_id, activety_id, create_time, update_time, content,
-  		(select photo_url from user_infos where user_id= create_user_id) as userPhotoUrl
+  		(select photo_url from user_infos where user_id= create_user_id) as photo_url,
+  		(select user_name from user_infos where user_id= create_user_id) as user_name
   	from activety_comments
   	where activety_id=#{activetyId}
   </select>

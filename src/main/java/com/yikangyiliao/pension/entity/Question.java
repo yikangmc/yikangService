@@ -1,5 +1,6 @@
 package com.yikangyiliao.pension.entity;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -32,10 +33,10 @@ public class Question {
     private List<Taglib> taglibs;
     
     //问题列表
-    private List<QuestionAnswer> questionAnswers;
+    private List<QuestionAnswer> questionAnswers= new ArrayList<QuestionAnswer>();
     
     //问题图片列表
-    private List<QuestionImage> questionImages;
+    private List<QuestionImage> questionImages= new ArrayList<QuestionImage>();
 
     
     public Long getQuestionId() {

@@ -5,6 +5,7 @@ import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.util.StringUtils;
 
 import com.yikangyiliao.base.utils.ParamMapUtils;
 import com.yikangyiliao.pension.common.error.ExceptionConstants;
@@ -116,7 +117,11 @@ public class QuestionService {
 		if(paramMap.containsKey("questionId")){
 			
 			Long questionId=Long.valueOf(paramMap.get("questionId").toString());
-			Question question=questionManager.getQuestionDetailByQuestionId(questionId);
+			Long userId=null;
+			if(paramMap.containsKey("userId") && (!StringUtils.isEmpty(paramMap.get("userId")))){
+				userId=Long.valueOf(paramMap.get("userId").toString());
+			}
+			Question question=questionManager.getQuestionDetailByQuestionId(questionId,userId);
 			resData.setData(question);
 		}else{
 			resData.setStatus(ExceptionConstants.parameterException.parameterException.errorCode);

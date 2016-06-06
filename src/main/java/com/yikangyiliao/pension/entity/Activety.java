@@ -1,6 +1,7 @@
 package com.yikangyiliao.pension.entity;
 
 import java.util.Date;
+import java.util.List;
 
 public class Activety {
     private Long activetyId;
@@ -36,7 +37,22 @@ public class Activety {
     private Byte activetyMode;
 
     private String recommendPicUrl;
+    
+    private List<UserInfo> followUsers;
 
+    private String createUsername;
+    
+    private String photoUrl;
+    
+    //活动已经参与人员数量
+    private Integer partakeNums=0;
+    
+    //活动状态 1 开始报名 2 报名结束 3 活动开始 4 活动结束
+    private Integer activetyStatus;
+    
+    //是否已经参加活动 0 参加 ，1 已经参加
+    private Integer isPartake;
+    
     public Long getActivetyId() {
         return activetyId;
     }
@@ -172,4 +188,52 @@ public class Activety {
     public void setRecommendPicUrl(String recommendPicUrl) {
         this.recommendPicUrl = recommendPicUrl == null ? null : recommendPicUrl.trim();
     }
+
+	public List<UserInfo> getFollowUsers() {
+		return followUsers;
+	}
+
+	public void setFollowUsers(List<UserInfo> followUsers) {
+		this.followUsers = followUsers;
+	}
+
+	public String getCreateUsername() {
+		return createUsername;
+	}
+
+	public void setCreateUsername(String createUsername) {
+		this.createUsername = createUsername;
+	}
+
+	public String getPhotoUrl() {
+		return photoUrl;
+	}
+
+	public void setPhotoUrl(String photoUrl) {
+		this.photoUrl = photoUrl;
+	}
+
+	public Integer getPartakeNums() {
+		return partakeNums;
+	}
+
+	public void setPartakeNums(Integer partakeNums) {
+		this.partakeNums = partakeNums;
+	}
+
+	public Integer getActivetyStatus() {
+		return activetyStatus;
+	}
+
+	public void setActivetyStatus(Integer activetyStatus) {
+		this.activetyStatus = activetyStatus;
+	}
+
+	public Integer getIsPartake() {
+		return isPartake;
+	}
+
+	public void setIsPartake(Integer isPartake) {
+		this.isPartake = isPartake;
+	}
 }

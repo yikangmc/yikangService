@@ -4,11 +4,11 @@ import com.yikangyiliao.pension.common.error.ExceptionConstants;
 
 public class ResponseMessage<T extends Object> {
 
-	public String status=ExceptionConstants.responseSuccess.responseSuccess.code;
+	private String status=ExceptionConstants.responseSuccess.responseSuccess.code;
 	
-	public String message=ExceptionConstants.responseSuccess.responseSuccess.message;
+	private String message=ExceptionConstants.responseSuccess.responseSuccess.message;
 	
-	public T data;
+	private T data;
 
 
 	public String getMessage() {

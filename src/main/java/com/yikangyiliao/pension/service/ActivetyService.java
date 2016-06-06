@@ -1,12 +1,14 @@
 package com.yikangyiliao.pension.service;
 
 import java.text.ParseException;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.util.StringUtils;
 
 import com.yikangyiliao.base.utils.DateUtils;
 import com.yikangyiliao.base.utils.ParamMapUtils;
@@ -40,8 +42,14 @@ public class ActivetyService {
      * **/
 	public ResponseMessage<List<Activety>> getActivetys(Map<String,Object> paramMap){
 		ResponseMessage<List<Activety>> resData=new ResponseMessage<List<Activety>>(); 
-		List<Activety> data=activetyManager.getActivetys();
-		resData.setData(data);
+			
+			Long userId=null;
+			if(paramMap.containsKey("userId") && (!StringUtils.isEmpty(paramMap.get("userId")))){
+				Long.valueOf(paramMap.get("userId").toString());
+			}
+			List<Activety> data=activetyManager.getActivetys(userId);
+			resData.setData(data);
+		
 		return resData;
 		 
 	}
@@ -55,10 +63,17 @@ public class ActivetyService {
 	 * **/
 	public ResponseMessage<Activety> getActivetyByActivetyId(Map<String,Object> paramMap){
 		ResponseMessage<Activety> resData=new ResponseMessage<Activety>(); 
-		if(paramMap.containsKey("activetyId")){
-			Long activetyId=Long.valueOf(paramMap.get("paramMap").toString());
-			Activety activety=activetyManager.getActivetysDetailById(activetyId);
+		if(
+			paramMap.containsKey("activetyId")  && (!StringUtils.isEmpty(paramMap.get("activetyId")))
+			&& paramMap.containsKey("userId")  && (!StringUtils.isEmpty(paramMap.get("userId")))
+		){
+			Long activetyId=Long.valueOf(paramMap.get("activetyId").toString());
+			Long userId=Long.valueOf(paramMap.get("userId").toString());
+			Activety activety=activetyManager.getActivetysDetailById(userId,activetyId);
 			resData.setData(activety);
+		}else{
+			resData.setStatus(ExceptionConstants.parameterException.parameterException.errorCode);
+			resData.setMessage(ExceptionConstants.parameterException.parameterException.errorMessage);
 		}
 		return resData;
 	}
@@ -166,8 +181,23 @@ public class ActivetyService {
 			
 			Long userId=Long.valueOf(paramMap.get("userId").toString());
 			Long activetyId=Long.valueOf(paramMap.get("activetyId").toString());
-			activetyListManager.insertUserActivetyList(activetyId, userId);
-			resData.setMessage("活动报名成功！");
+			//判断是否已经参见了活动
+			//判断活动是否，可以接收报名
+			Activety myActivety=activetyManager.getActivetyByUserIdAndActivetyId(userId, activetyId);
+			if(null == myActivety){
+				Activety activety=activetyManager.selectByPrimaryKey(activetyId);
+				if(activety.getEntryEndTime().getTime()<Calendar.getInstance().getTime().getTime()){
+					activetyListManager.insertUserActivetyList(activetyId, userId);
+					resData.setMessage("活动报名成功！");
+				}else{
+					resData.setStatus(ExceptionConstants.activetyException.activetyIsEnd.errorCode);
+					resData.setMessage(ExceptionConstants.activetyException.activetyIsEnd.errorMessage);
+				}
+			}else{
+				resData.setStatus(ExceptionConstants.activetyException.isPartake.errorCode);
+				resData.setMessage(ExceptionConstants.activetyException.isPartake.errorMessage);
+			}
+			
 			
 		}else{
 			resData.setStatus(ExceptionConstants.parameterException.parameterException.errorCode);
@@ -239,6 +269,9 @@ public class ActivetyService {
 			Long userId=Long.valueOf(paramMap.get("userId").toString());
 			List<Activety> activetys= activetyListManager.getMyActivetyByUserId(userId);
 			resData.setData(activetys);
+		}else{
+			resData.setStatus(ExceptionConstants.parameterException.parameterException.errorCode);
+			resData.setMessage(ExceptionConstants.parameterException.parameterException.errorMessage);
 		}
 		
 		

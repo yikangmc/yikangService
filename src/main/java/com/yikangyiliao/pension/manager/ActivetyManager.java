@@ -2,7 +2,9 @@ package com.yikangyiliao.pension.manager;
 
 import java.util.Calendar;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -27,8 +29,8 @@ public class ActivetyManager {
      * @date 2016-05-13 10:19
      * @desc 获取所有活动
      * **/
-	public List<Activety> getActivetys(){
-		return activetyDao.getActivetys();
+	public List<Activety> getActivetys(Long userId){
+		return activetyDao.getActivetys(userId);
 	}
 	
 	/**
@@ -36,8 +38,11 @@ public class ActivetyManager {
 	 * @date 2016-05-13 16:08
 	 * @desc 获取活动详情
 	 * **/
-	public Activety getActivetysDetailById(Long activetyId){
-		return activetyDao.getActivetysDetailById(activetyId);
+	public Activety getActivetysDetailById(Long userId,Long activetyId){
+		Map<String,Object> paramMap=new HashMap<String,Object>();
+		paramMap.put("userId", userId);
+		paramMap.put("activetyId", activetyId);
+		return activetyDao.getActivetysDetailById(paramMap);
 	}
 	
 	
@@ -91,6 +96,27 @@ public class ActivetyManager {
 		return 1;
 	}
 
+	
+	/**
+	 * @author liushuaic
+	 * @date 2016-06-04 17:20
+	 * @desc 获取某一个活动
+	 * */
+	public Activety selectByPrimaryKey(Long activetyId){
+		return activetyDao.selectByPrimaryKey(activetyId);
+	}
    
-
+    /**
+     * @author liushuaic
+     * @date 2016-06-04 17:17
+     * @desc 获取某一个用户的参与的某一个活动的信息
+     * **/
+	public  Activety getActivetyByUserIdAndActivetyId(Long userId,Long activetyId){
+		Map<String,Object> paramMap=new HashMap<String,Object>();
+		paramMap.put("userId", userId);
+		paramMap.put("activetyId", activetyId);
+		return activetyDao.getActivetyByUserIdAndActivetyId(paramMap);
+	}
+	
+	
 }

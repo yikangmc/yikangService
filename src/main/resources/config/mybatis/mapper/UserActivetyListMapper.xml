@@ -151,14 +151,20 @@
     <result column="entry_end_time" jdbcType="TIMESTAMP" property="entryEndTime" />
     <result column="activety_mode" 	jdbcType="TINYINT" property="activetyMode" />
     <result column="recommend_pic_url" jdbcType="VARCHAR" property="recommendPicUrl" />
+	<result column="createUsername" property="createUsername"/>
+	<result column="photo_url"      property="photoUrl"/>
   </resultMap>
   
   <!-- 获取我参见的活动 -->
   <select id="getMyActivetyByUserId" resultMap="getMyActivetyByUserIdResultMap">
-  	select act.* from user_activety_lists ual 
-  	inner join activetys act on ual.activety_id=act.activety_id where user_id=#{userId}
+  	select act.*,
+		ui.user_name as createUsername,
+		ui.user_sex,
+		ui.photo_url
+	 from user_activety_lists ual 
+	inner join activetys act on ual.activety_id=act.activety_id
+	left  join user_infos ui on act.create_user_id=ui.user_id  where ual.user_id=#{userId}
   </select>
-  
   
   
   

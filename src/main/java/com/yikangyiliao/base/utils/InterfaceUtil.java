@@ -494,21 +494,21 @@ public class InterfaceUtil {
 		YiKangServiceConfige insertQuestion=new YiKangServiceConfige();
 		insertQuestion.setServiceName("questionService");
 		insertQuestion.setMethodName("insertQuestion");
-		insertQuestion.setIsFileter(false);
+		insertQuestion.setIsFileter(true);
 		mathodServiceConfig.put("00-29-01",insertQuestion);
 		
 		//更新问题支持状态
 		YiKangServiceConfige updateQuestionStar=new YiKangServiceConfige();
 		updateQuestionStar.setServiceName("questionService");
 		updateQuestionStar.setMethodName("updateQuestionStar");
-		updateQuestionStar.setIsFileter(false);
+		updateQuestionStar.setIsFileter(true);
 		mathodServiceConfig.put("00-29-02",updateQuestionStar);
 		
 		//问题回复
 		YiKangServiceConfige addQuestionAnswer=new YiKangServiceConfige();
 		addQuestionAnswer.setServiceName("questionService");
 		addQuestionAnswer.setMethodName("addQuestionAnswer");
-		addQuestionAnswer.setIsFileter(false);
+		addQuestionAnswer.setIsFileter(true);
 		mathodServiceConfig.put("00-29-03",addQuestionAnswer);
 		
 		
@@ -589,7 +589,7 @@ public class InterfaceUtil {
 		YiKangServiceConfige getMyWatchTaglibsByUserid=new YiKangServiceConfige();
 		getMyWatchTaglibsByUserid.setServiceName("taglibService");
 		getMyWatchTaglibsByUserid.setMethodName("getMyWatchTaglibsByUserid");
-		getMyWatchTaglibsByUserid.setIsFileter(false);
+		getMyWatchTaglibsByUserid.setIsFileter(true);
 		mathodServiceConfig.put("00-30-05",getMyWatchTaglibsByUserid);
 		
 		
@@ -683,7 +683,7 @@ public class InterfaceUtil {
 		 * **/
 		YiKangServiceConfige getActiveyByJoinUserId=new YiKangServiceConfige();
 		getActiveyByJoinUserId.setServiceName("activetyService");
-		getActiveyByJoinUserId.setMethodName("getActivetyCommentByActivetyId");
+		getActiveyByJoinUserId.setMethodName("getActiveyByJoinUserId");
 		getActiveyByJoinUserId.setIsFileter(false);
 		mathodServiceConfig.put("00-31-07",getActiveyByJoinUserId);
 		

@@ -13,7 +13,6 @@
     <result column="update_at" property="updateAt" jdbcType="BIGINT" />
     <result column="user_id" property="userId" jdbcType="BIGINT" />
     <result column="is_delete" property="isDelete" jdbcType="BIGINT" />
-    <result column="user_infos_col" property="userInfosCol" jdbcType="VARCHAR" />
   </resultMap>
   <sql id="Base_Column_List" >
     user_info_id, user_name, user_sex, provence_code, city_code, district_code, address, 

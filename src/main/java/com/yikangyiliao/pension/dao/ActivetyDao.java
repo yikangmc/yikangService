@@ -1,6 +1,7 @@
 package com.yikangyiliao.pension.dao;
 
 import java.util.List;
+import java.util.Map;
 
 import com.yikangyiliao.pension.entity.Activety;
 
@@ -23,13 +24,17 @@ public interface ActivetyDao {
      * @date 2016-05-13 10:19
      * @desc 获取所有活动
      * **/
-    List<Activety> getActivetys();
+    List<Activety> getActivetys(Long userId);
     
     /**
      * @author liushuaic
      * @date 2016-05-13 16:06
+     * @desc 查询某一个活动的详情
+     * 
+     * @param activetyId
+     * @param userId
      * */
-    Activety getActivetysDetailById(Long activetyId);
+    Activety getActivetysDetailById(Map<String,Object> paramMap);
     
     
     /**
@@ -39,4 +44,12 @@ public interface ActivetyDao {
      * 
      * **/
     List<Activety> selectActivetyByUserId(Long userId);
+    
+    
+    /**
+     * @author liushuaic
+     * @date 2016-06-04 17:17
+     * @desc 获取某一个用户的参与的某一个活动的信息
+     * **/
+    Activety getActivetyByUserIdAndActivetyId(Map<String,Object> paramMap);
 }

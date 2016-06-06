@@ -219,7 +219,7 @@
         when fpsl.forum_posts_star_list_id is null  then 0
         when fpsl.forum_posts_star_list_id >0 		then 1
 	end as isStar
-	from forum_posts fp inner join  user_infos ui on fp.create_user_id=ui.user_id
+	from forum_posts fp left join  user_infos ui on fp.create_user_id=ui.user_id
 	left join forum_posts_star_lists fpsl on (fpsl.create_user_id=ui.user_id and fpsl.forum_posts_id=fp.forum_post_id)
 	where forum_post_id=#{forumPostId}
   </select>
@@ -246,6 +246,7 @@
   <resultMap type="com.yikangyiliao.pension.entity.FormPosts" id="getForumPostsByTaglibsIdResultMap" extends="BaseResultMap">
   	  	<result column="user_name" property="userName"/>
   		<result column="photo_url" property="photoUrl"/>
+  		<collection property="forumPostsImage" 	column="forum_post_id"  fetchType="eager" select="com.yikangyiliao.pension.dao.ForumPostsImageDao.getForumPostImagesByForumPostsId"> </collection>
   </resultMap>
   <select id="getForumPostsByTaglibsId" resultMap="getForumPostsByTaglibsIdResultMap" parameterType="long" >
   	select 
@@ -260,10 +261,11 @@
   		fp.create_user_id, 
   		fp.share_url, 
   		fp.recommend_pic_url,
-  		ui.user_name,ui.photo_url
+  		ui.user_name,ui.photo_url,
+  		(select count(1) from forum_posts_answers fpa where fpa.form_post_id=forum_post_id) as answersNums
   	from forum_posts fp
 	inner join forum_posts_taglibs_maps fptm on fp.forum_post_id=fptm.form_post_id
-    inner join  user_infos ui 				 on fp.create_user_id=ui.user_id
+    left join  user_infos ui 				 on fp.create_user_id=ui.user_id
 	
 	where fptm.tag_libs_id=#{taglisId}
  </select>

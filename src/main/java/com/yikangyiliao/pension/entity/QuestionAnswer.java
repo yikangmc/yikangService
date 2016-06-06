@@ -14,6 +14,8 @@ public class QuestionAnswer {
     private Integer starNum;
 
     private Byte isRecommend;
+    
+    private Integer isStar=0;
 
     public Long getQuestionAnswerId() {
         return questionAnswerId;
@@ -70,4 +72,12 @@ public class QuestionAnswer {
     public void setIsRecommend(Byte isRecommend) {
         this.isRecommend = isRecommend;
     }
+
+	public Integer getIsStar() {
+		return isStar;
+	}
+
+	public void setIsStar(Integer isStar) {
+		this.isStar = isStar;
+	}
 }

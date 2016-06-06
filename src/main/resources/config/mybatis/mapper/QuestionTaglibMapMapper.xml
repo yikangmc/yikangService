@@ -93,10 +93,16 @@
   
   
   <!--  查询某一个问题的所有标签  -->
-  <select id="getQuestionTaglibsByQuestionId" resultMap="BaseResultMap">
+  <resultMap type="com.yikangyiliao.pension.entity.Taglib" id="getQuestionTaglibsByQuestionIdResultMap">
+  	<result property="taglibId" column="taglib_id" />
+	<result property="tagName" 	column="tag_name" />
+	<result property="tagPic" 	column="tag_pic" />
+  </resultMap>
+  <select id="getQuestionTaglibsByQuestionId" resultMap="getQuestionTaglibsByQuestionIdResultMap">
   	select 
   		taglibs.taglib_id,
-		taglibs.tag_name 
+		taglibs.tag_name,
+		taglibs.tag_pic
 	from question_taglib_maps qtm
 	inner join taglibs on qtm.taglibs_id=taglibs.taglib_id
 	where qtm.questions_id=#{questionId}

@@ -73,6 +73,9 @@ public class TaglibService {
 			List<Taglib> tags= taglibManager.getSecondTaglibByParentId(parentId);
 			
 			resData.setData(tags);
+		}else{
+			resData.setStatus(ExceptionConstants.parameterException.parameterException.errorCode);
+			resData.setMessage(ExceptionConstants.parameterException.parameterException.errorMessage);
 		}
 		
 		return resData;

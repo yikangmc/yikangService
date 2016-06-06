@@ -185,6 +185,8 @@ public class FormPostManager {
 	/**
 	 * @author liushuaic
 	 * @date 2016-05-12 18:07 查询某一个标签一的文章
+	 * TODO 添加缓存，把经常用到的数据添加入redis
+	 *      在次调用时，进行判断缓存是否已经保存
 	 */
 	public List<FormPosts> getForumPostsByTaglibsId(Long taglibId) {
 		return formPostsDao.getForumPostsByTaglibsId(taglibId);

@@ -2,14 +2,19 @@ package com.yikangyiliao.pension.manager;
 
 import java.util.Calendar;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import com.yikangyiliao.pension.dao.QuestionAnswerDao;
+import com.yikangyiliao.pension.dao.QuestionAnswerStartListDao;
 import com.yikangyiliao.pension.dao.QuestionDao;
 import com.yikangyiliao.pension.dao.QuestionTaglibMapDao;
 import com.yikangyiliao.pension.entity.Question;
+import com.yikangyiliao.pension.entity.QuestionAnswer;
 import com.yikangyiliao.pension.entity.QuestionTaglibMap;
 
 @Component
@@ -24,6 +29,9 @@ public class QuestionManager {
 	
 	@Autowired
 	private QuestionImageManager questionImageManager;
+	
+	@Autowired
+	private QuestionAnswerDao questionAnswerDao;
 	
 	/**
 	 * @author liushuaic
@@ -70,8 +78,15 @@ public class QuestionManager {
      * @date 2016-05-11 11:49
      * @desc 查询某一个问题的详情
      * **/
-    public Question getQuestionDetailByQuestionId(Long questionId){
-    	return questionDao.getQuestionDetailByQuestionId(questionId);
+    public Question getQuestionDetailByQuestionId(Long questionId,Long userId){
+    	Question question= questionDao.getQuestionDetailByQuestionId(questionId);
+    	
+    	Map<String,Object> paramMap=new HashMap<String,Object>();
+    	paramMap.put("questionId", questionId);
+    	paramMap.put("userId", userId);
+    	List<QuestionAnswer> questionAnswers=questionAnswerDao.selectQuestionAnswer(paramMap);
+    	question.setQuestionAnswers(questionAnswers);
+    	return question;
     }
 	
     
