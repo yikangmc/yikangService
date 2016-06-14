@@ -1,24 +1,19 @@
 package com.yikangyiliao.pension.service;
 
 import java.io.IOException;
-import java.util.ArrayList;
+import java.text.ParseException;
 import java.util.Calendar;
 import java.util.HashMap;
-import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
-import org.codehaus.jackson.JsonParseException;
-import org.codehaus.jackson.map.JsonMappingException;
-import org.codehaus.jackson.map.ObjectMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.converter.json.Jackson2ObjectMapperFactoryBean;
 import org.springframework.stereotype.Service;
 
-import com.google.gson.JsonObject;
 import com.yikangyiliao.base.utils.AliasFactory;
+import com.yikangyiliao.base.utils.DateUtils;
 import com.yikangyiliao.base.utils.InvitationCodeGnerateUtil;
 import com.yikangyiliao.base.utils.SystemProperties;
 import com.yikangyiliao.base.utils.messageUtil.SMSUtil;
@@ -26,21 +21,15 @@ import com.yikangyiliao.pension.common.error.ExceptionConstants;
 import com.yikangyiliao.pension.common.response.ResponseMessage;
 import com.yikangyiliao.pension.common.utils.map.MapUtils;
 import com.yikangyiliao.pension.common.utils.map.model.GeoCodeModel;
-import com.yikangyiliao.pension.entity.Adept;
-import com.yikangyiliao.pension.entity.DocotorModel;
 import com.yikangyiliao.pension.entity.Location;
-import com.yikangyiliao.pension.entity.NurseModel;
-import com.yikangyiliao.pension.entity.Office;
-import com.yikangyiliao.pension.entity.TherapistsModel;
 import com.yikangyiliao.pension.entity.User;
 import com.yikangyiliao.pension.entity.UserFrom;
 import com.yikangyiliao.pension.entity.UserInfo;
 import com.yikangyiliao.pension.entity.UserModel;
 import com.yikangyiliao.pension.entity.UserServiceInfo;
-import com.yikangyiliao.pension.manager.AdeptManager;
 import com.yikangyiliao.pension.manager.LocationManager;
-import com.yikangyiliao.pension.manager.OfficeManager;
 import com.yikangyiliao.pension.manager.UserAdeptMapManager;
+import com.yikangyiliao.pension.manager.UserConfigrationManager;
 import com.yikangyiliao.pension.manager.UserFromManager;
 import com.yikangyiliao.pension.manager.UserManager;
 import com.yikangyiliao.pension.manager.UserServiceInfoManager;
@@ -58,17 +47,20 @@ public class UserService {
 	@Autowired
 	private UserFromManager userFromManager;
 
-	@Autowired
-	private OfficeManager officeManager;
-
-	@Autowired
-	private AdeptManager adeptManager;
+//	@Autowired
+//	private OfficeManager officeManager;
+//
+//	@Autowired
+//	private AdeptManager adeptManager;
 	
 	@Autowired
 	private UserAdeptMapManager adeptMapManager;
 	
 	@Autowired
 	private UserServiceInfoManager userServiceInfoManager;
+	
+	@Autowired
+	private UserConfigrationManager userConfigrationManager;
 	
 	
 	private Logger logger=LoggerFactory.getLogger(UserService.class);
@@ -79,8 +71,10 @@ public class UserService {
 	 **/
 	public Map<String, Object> saveRegisterUserAndSaveServiceInfo(Map<String, Object> paramData) {
 		Map<String, Object> rtnData = new HashMap<String, Object>();
-		if (paramData.containsKey("loginName") && paramData.containsKey("passWord") && paramData.containsKey("userName")
-				&& paramData.containsKey("userPosition")// 职位
+		if (
+				paramData.containsKey("loginName")
+				&& paramData.containsKey("passWord") 
+				&& paramData.containsKey("userName")
 		) {
 			String loginName = paramData.get("loginName").toString();
 			User u = userManager.getUserByLoginName(loginName);
@@ -90,33 +84,46 @@ public class UserService {
 
 				String passWord = paramData.get("passWord").toString();
 				String userName = paramData.get("userName").toString();
-				String userPosition = paramData.get("userPosition").toString();
 
+				//默认-2 未填写
 				String jobCategory = "-2";
 				if (paramData.containsKey("jobCategory")) {
 					jobCategory = paramData.get("jobCategory").toString();
 				}
+				
+				//默认-2 未填写
 				String mapPositionAddress = "";
 				if (paramData.containsKey("mapPositionAddress")) {
 					mapPositionAddress = paramData.get("mapPositionAddress").toString();
 				}
+				//默认-2 未填写
 				String districtCode = "-2";
 				if (paramData.containsKey("districtCode")) {
 					districtCode = paramData.get("districtCode").toString();
 				}
+				//默认空串
 				String addressDetail = "";
 				if (paramData.containsKey("addressDetail")) {
 					addressDetail = paramData.get("addressDetail").toString();
 				}
 
+				//默认空串
 				String photoUrl = "";
 				if (paramData.containsKey("photoUrl")) {
 					photoUrl = paramData.get("photoUrl").toString();
 				}
-				String offices = "";
+				//默认空串
+				String offices = ""; 
 				if (paramData.containsKey("offices")) {
 					photoUrl = paramData.get("offices").toString();
 				}
+				
+				// 职位
+				Byte userPosition=0;  //默认是未认证
+				if( paramData.containsKey("userPosition")){
+					userPosition=Byte.valueOf(paramData.get("userPosition").toString());
+				}
+				
 
 				User user = new User();
 				user.setUserName(userName);
@@ -140,7 +147,26 @@ public class UserService {
 				// 修改用户邀请码
 				userManager.updateInvitationCodeByUserId(InvitationCodeGnerateUtil.generateInvitationCodeTwo(user),
 						user.getUserId());
-
+				
+				// 初始化用户信息
+				UserInfo userInfo=new UserInfo();
+				userInfo.setBirthday(null);
+				userInfo.setCityCode("");
+				userInfo.setCreateAt(currentDateTime.longValue());
+				userInfo.setDistrictCode("");
+				userInfo.setProvenceCode("");
+				userInfo.setCityCode("");
+				userInfo.setPhotoUrl("");
+				userInfo.setUserIntroduce("");
+				userInfo.setUserSex(Byte.valueOf("0"));
+				userInfo.setUserName(userName);
+				userInfo.setIsDelete(0l);
+				userInfo.setUpdateAt(currentDateTime);
+				userInfo.setUserId(user.getUserId());
+				userManager.insertSelective(userInfo);
+				
+				
+				//初始化服务人员信息
 				UserServiceInfo userServiceInfo = new UserServiceInfo();
 				userServiceInfo.setUserId(user.getUserId());
 				userServiceInfo.setPhotoUrl(photoUrl);
@@ -148,7 +174,7 @@ public class UserService {
 				userServiceInfo.setAddressDetail(addressDetail);
 				userServiceInfo.setOffices(offices);
 				userServiceInfo.setJobCategory(Long.valueOf(jobCategory));
-				userServiceInfo.setUserPostion(Long.valueOf(userPosition));
+				userServiceInfo.setUserPosition(userPosition);
 
 				userServiceInfo.setDistrictCode(Long.valueOf(districtCode));
 
@@ -231,6 +257,8 @@ public class UserService {
 					userFrom.setActiveTime(0l);
 					userFromManager.insertSelective(userFrom);
 				}
+				
+				userConfigrationManager.insertSelective(1, 1, user.getUserId());
 
 				rtnData.put("status", ExceptionConstants.responseSuccess.responseSuccess.code);
 				rtnData.put("message", ExceptionConstants.responseSuccess.responseSuccess.message);
@@ -276,7 +304,7 @@ public class UserService {
 				user.setUserName(null);
 				user.setLoginName(null);
 				user.setLoginPassword(null);
-				user.setCreateTime(null);
+				user.setCreateTime(currentDateTime);
 				user.setSalt(null);
 				user.setLoginTime(null);
 				user.setPushAlias(AliasFactory.generateAliasByUser(user.getUserId().toString()));
@@ -290,9 +318,9 @@ public class UserService {
 				userServiceInfo.setPhotoUrl("");
 				userServiceInfo.setProvenceCode(Long.valueOf("0"));
 				userServiceInfo.setAddressDetail("");
-				userServiceInfo.setOffices("-2");
+				userServiceInfo.setOffices("");
 				userServiceInfo.setJobCategory(Long.valueOf(-2));
-				userServiceInfo.setUserPostion(Long.valueOf(-2));
+				userServiceInfo.setUserPosition(Byte.valueOf("0"));
 
 				userServiceInfo.setDistrictCode(Long.valueOf(-2));
 
@@ -315,6 +343,7 @@ public class UserService {
 				if (paramData.containsKey("adept")) {
 					userServiceInfo.setAdept(paramData.get("adept").toString());
 				}
+				
 
 				userServiceInfo.setLongitude(0d);
 				userServiceInfo.setLatitude(0d);
@@ -370,7 +399,7 @@ public class UserService {
 			Long currentDateTime = Calendar.getInstance().getTimeInMillis();
 
 			String userId = paramData.get("userId").toString();
-			String userPostion = paramData.get("userPostion").toString();
+			Byte userPostion = Byte.valueOf(paramData.get("userPostion").toString());
 			String jobCategory = paramData.get("jobCategory").toString();
 			String cityCode = paramData.get("cityCode").toString();
 			String districtCode = paramData.get("districtCode").toString();
@@ -385,7 +414,7 @@ public class UserService {
 			userServiceInfo.setCityCode(Long.valueOf(cityCode));
 			userServiceInfo.setAddressDetail(addressDetail);
 			userServiceInfo.setDistrictCode(Long.valueOf(districtCode));
-			userServiceInfo.setUserPostion(Long.valueOf(userPostion));
+			userServiceInfo.setUserPosition(userPostion);
 			userServiceInfo.setJobCategory(Long.valueOf(jobCategory));
 			userServiceInfo.setCreateTime(currentDateTime);
 			userServiceInfo.setUpdateTime(currentDateTime);
@@ -491,7 +520,6 @@ public class UserService {
 		String userId = paramData.get("userId").toString();
 
 		UserServiceInfo userServiceInfo = userManager.getUserServiceInfoByUserIdTwo(Long.valueOf(userId));
-		User user = userManager.getUserByUserId(Long.valueOf(userId));
 		// 邀请url
 		String invitationUrl = SystemProperties.getPropertieValue("invitationUrl")+ userServiceInfo.getInvitationCode();
 		userServiceInfo.setInvitationUrl(invitationUrl);
@@ -547,8 +575,8 @@ public class UserService {
 		}
 
 		if (paramData.containsKey("userPosition")) {
-			String userPosition = paramData.get("userPosition").toString();
-			userServiceInfo.setUserPostion(Long.valueOf(userPosition));
+			Byte userPosition = Byte.valueOf(paramData.get("userPosition").toString());
+			userServiceInfo.setUserPosition(userPosition);
 		}
 
 		if (paramData.containsKey("userName")) {
@@ -646,10 +674,12 @@ public class UserService {
 		Long currentDateTime = Calendar.getInstance().getTimeInMillis();
 
 		UserServiceInfo userServiceInfo = new UserServiceInfo();
+		UserInfo userInfo=new UserInfo();
 
 		String userId = paramData.get("userId").toString();
 
 		userServiceInfo.setUserId(Long.valueOf(userId));
+		userInfo.setUserId(Long.valueOf(userId));
 
 		if (paramData.containsKey("jobCategory")) {
 			String jobCategory = paramData.get("jobCategory").toString();
@@ -674,8 +704,8 @@ public class UserService {
 		}
 
 		if (paramData.containsKey("userPosition")) {
-			String userPosition = paramData.get("userPosition").toString();
-			userServiceInfo.setUserPostion(Long.valueOf(userPosition));
+			Byte userPosition = Byte.valueOf(paramData.get("userPosition").toString());
+			userServiceInfo.setUserPosition(userPosition);
 			userServiceInfo.setNewUserPosition(Integer.valueOf(userPosition));
 		}
 
@@ -758,11 +788,13 @@ public class UserService {
 			user.setInfoWrite(Byte.valueOf(infoWrite));
 			userManager.updateUser(user);
 		}
-
+		
+		userInfo.setUserId(Long.valueOf(userId));
 		//用户个人简介
 		if(paramData.containsKey("userIntroduce")){
 			String userIntroduce=paramData.get("userIntroduce").toString();
-			userServiceInfo.setUserIntroduce(userIntroduce);
+			//userServiceInfo.setUserIntroduce(userIntroduce);
+			userInfo.setUserIntroduce(userIntroduce);
 		}
 		
 		//机构名称
@@ -783,6 +815,21 @@ public class UserService {
 		}
 		
 		userManager.updateUserServiceInfo(userServiceInfo);
+		
+		if(paramData.containsKey("birthday")){
+			String birthday=paramData.get("birthday").toString();
+			try {
+				userInfo.setBirthday(DateUtils.formateDateTime(birthday+" 00:00:00"));
+			} catch (ParseException e) {
+				e.printStackTrace();
+			}
+		}
+		if(paramData.containsKey("userSex")){
+			String sex=paramData.get("userSex").toString();
+			userInfo.setUserSex(Byte.valueOf(sex));
+		}
+		userInfo.setUserId(Long.valueOf(userId));
+		userManager.updateByUserIdSelective(userInfo);
 		
 		if(null != adepts){
 			adeptMapManager.deleteUserAdeptAll(Long.valueOf(userId));

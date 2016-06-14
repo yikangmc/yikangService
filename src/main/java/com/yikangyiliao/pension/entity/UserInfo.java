@@ -1,5 +1,7 @@
 package com.yikangyiliao.pension.entity;
 
+import java.util.Date;
+
 public class UserInfo {
     private Long userInfoId;
 
@@ -24,6 +26,12 @@ public class UserInfo {
     private Long isDelete;
 
     private String photoUrl;
+
+    private String userIntroduce;
+
+    private Date birthday;
+    
+    private String pushAlias;
 
     public Long getUserInfoId() {
         return userInfoId;
@@ -113,12 +121,35 @@ public class UserInfo {
         this.isDelete = isDelete;
     }
 
-	public String getPhotoUrl() {
-		return photoUrl;
+    public String getPhotoUrl() {
+        return photoUrl;
+    }
+
+    public void setPhotoUrl(String photoUrl) {
+        this.photoUrl = photoUrl == null ? null : photoUrl.trim();
+    }
+
+    public String getUserIntroduce() {
+        return userIntroduce;
+    }
+
+    public void setUserIntroduce(String userIntroduce) {
+        this.userIntroduce = userIntroduce == null ? null : userIntroduce.trim();
+    }
+
+    public Date getBirthday() {
+        return birthday;
+    }
+
+    public void setBirthday(Date birthday) {
+        this.birthday = birthday;
+    }
+
+	public String getPushAlias() {
+		return pushAlias;
 	}
 
-	public void setPhotoUrl(String photoUrl) {
-		this.photoUrl = photoUrl;
+	public void setPushAlias(String pushAlias) {
+		this.pushAlias = pushAlias;
 	}
-
 }

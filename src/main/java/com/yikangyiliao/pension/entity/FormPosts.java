@@ -37,6 +37,8 @@ public class FormPosts {
     private Integer answersNums;
     
     private Integer isStar;
+    
+    private Integer isStore;
 
     //标签列表
     private List<Taglib> taglibs=new ArrayList<Taglib>();
@@ -216,6 +218,14 @@ public class FormPosts {
 
 	public Integer getAnswersNums() {
 		return answersNums;
+	}
+
+	public Integer getIsStore() {
+		return isStore;
+	}
+
+	public void setIsStore(Integer isStore) {
+		this.isStore = isStore;
 	}
 
 }

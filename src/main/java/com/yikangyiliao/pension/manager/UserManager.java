@@ -298,4 +298,43 @@ public class UserManager {
     	paramData.put("positionAuditStatus", 2);
     	return userServiceInfoDao.updateUserPositionStatusCheckePass(paramData);
     }
+    
+    /**
+     * @author liushuaic
+     * @date 2016-06-08 15:23
+     * @desc 添加用户信息
+     * */
+    public int insertSelective(UserInfo record){
+    	return userInfoDao.insertSelective(record);
+    }
+    
+    /**
+     * @author liushuaic
+     * @date 2016-06-08 15:40
+     * @desc 修改用户信息
+     * */
+    public int updateUserInfo(UserInfo userInfo){
+    	return userInfoDao.updateByPrimaryKeySelective(userInfo);
+    }
+ 
+    
+    /**
+     * @author liushuaic
+     * @date 2016-06-08 16:15
+     * @desc 修改用户信息
+     * */
+    public int updateByUserIdSelective(UserInfo record){
+    	return userInfoDao.updateByUserIdSelective(record);
+    }
+    
+    
+    /**
+     * @author liushuaic
+     * @date 2016-06-12 13:31
+     * @desc 查询某一个标签的所有的关注人员
+     * */
+    public List<UserInfo> getUserInfoListByTaglibId(Long taglibId){
+    	return userInfoDao.getUserInfoListByTaglibId(taglibId);
+    }
+    
 }

@@ -1,6 +1,7 @@
 package com.yikangyiliao.pension.entity;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 public class UserServiceInfo {
@@ -10,9 +11,7 @@ public class UserServiceInfo {
 
     private Long jobCategory;
 
-    private Long userPostion;
-    
-    private Long userPosition;
+    private Byte userPosition;
 
     private Long provenceCode;
 
@@ -34,6 +33,10 @@ public class UserServiceInfo {
     
     private String userName;
 
+    private String userSex;
+    
+    private Date birthday;
+    
     private Double longitude;
 
     private Double latitude;
@@ -106,14 +109,6 @@ public class UserServiceInfo {
 
     public void setJobCategory(Long jobCategory) {
         this.jobCategory = jobCategory;
-    }
-
-    public Long getUserPostion() {
-        return userPostion;
-    }
-
-    public void setUserPostion(Long userPostion) {
-        this.userPostion = userPostion;
     }
 
     public Long getProvenceCode() {
@@ -284,13 +279,6 @@ public class UserServiceInfo {
 		this.adepts = adepts;
 	}
 
-	public Long getUserPosition() {
-		return userPosition;
-	}
-
-	public void setUserPosition(Long userPosition) {
-		this.userPosition = userPosition;
-	}
 
 
 	public String getUserName() {
@@ -356,4 +344,31 @@ public class UserServiceInfo {
 	public void setFormPosts(List<FormPosts> formPosts) {
 		this.formPosts = formPosts;
 	}
+
+	public Byte getUserPosition() {
+		return userPosition;
+	}
+
+	public void setUserPosition(Byte userPosition) {
+		this.userPosition = userPosition;
+	}
+
+	public String getUserSex() {
+		return userSex;
+	}
+
+	public void setUserSex(String userSex) {
+		this.userSex = userSex;
+	}
+
+	public Date getBirthday() {
+		return birthday;
+	}
+
+	public void setBirthday(Date birthday) {
+		this.birthday = birthday;
+	}
+
+	
+
 }

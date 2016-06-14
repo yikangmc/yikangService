@@ -46,7 +46,7 @@ public class BanerService {
 	/**
 	 * @author liushuaic
 	 * @date 2016-05-27 14:34
-	 * @desc 获取活动baner
+	 * @desc 获取发现搜索banner
 	 * **/
 	public ResponseMessage<List<Baner>>  getActivetyBaner(Map<String,Object> paramData){
 		ResponseMessage<List<Baner>> responseMessage=new ResponseMessage<List<Baner>>();
@@ -59,7 +59,7 @@ public class BanerService {
 	/**
 	 * @author liushuaic
 	 * @date 2016-05-01 11:28
-	 * @desc 获取发现搜索banner
+	 * @desc 
 	 * 
 	 * **/
 	public ResponseMessage<List<Baner>> getSearchActivetyBanner(){

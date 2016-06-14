@@ -38,7 +38,11 @@ public class ForumPostService {
     	ResponseMessage<List<FormPosts>> res=new ResponseMessage<List<FormPosts>>();
     	
     	try{
-    		List<FormPosts> data=formPostManager.getIsEssence();
+    		Long userId=null;
+    		if(paramData.containsKey("userId")){
+    			userId=Long.valueOf(paramData.get("userId").toString());
+    		}
+    		List<FormPosts> data=formPostManager.getIsEssence(userId);
     		res.setData(data);
     	}catch(Exception e){
     		res.setStatus(ExceptionConstants.systemException.systemException.errorCode);
@@ -99,14 +103,14 @@ public class ForumPostService {
      * @param formPostId
      * @param userId
      * */
-    public ResponseMessage<String> udpateForumPostStar(Map<String,Object> paramData){
+    public ResponseMessage<String> updateForumPostStar(Map<String,Object> paramData){
     	
     	ResponseMessage<String> res=new ResponseMessage<String>();
     	try{
     		if(paramData.containsKey("forumPostId")){
     			Long userId=Long.valueOf(paramData.get("userId").toString());
     			Long forumPostsId=Long.valueOf(paramData.get("forumPostId").toString());
-    			formPostManager.updateForumPostStar(userId,forumPostsId);
+    			formPostManager.updateForumPostStar(forumPostsId,userId);
     		}else{
     			res.setStatus(ExceptionConstants.parameterException.parameterException.errorCode);
         		res.setMessage(ExceptionConstants.parameterException.parameterException.errorMessage);
@@ -137,15 +141,15 @@ public class ForumPostService {
     		if(
     				 paramData.containsKey("content")
     				&& paramData.containsKey("formPostId")
+    				&& paramData.containsKey("toUserId")
     		){
     			
     			String content=paramData.get("content").toString();
     			String createUserId=paramData.get("userId").toString();
     			String formPostId=paramData.get("formPostId").toString();
-    			Long toUserId=null;
-    			if(paramData.containsKey("toUserId")){
-    				toUserId=Long.valueOf(paramData.get("toUserId").toString());
-    			}
+    			// 如果没有选择就是给，文章的 创建人的回复
+    			Long toUserId=Long.valueOf(paramData.get("toUserId").toString());
+    			
         		Byte answerTo=null;
         		if(null == toUserId){
         			answerTo=YKConstants.AnswerTo.AnswerToPersion.getValue();
@@ -180,7 +184,11 @@ public class ForumPostService {
     		 
     		 if( paramData.containsKey("forumPostId")){
     			 Long forumPostId=Long.valueOf(paramData.get("forumPostId").toString());
-    			 FormPosts fp=formPostManager.getForumPostsDetail(forumPostId);
+    			 Long userId=null;
+    			 if(paramData.containsKey("userId")){
+    				 userId=Long.valueOf(paramData.get("userId").toString());
+    			 }
+    			 FormPosts fp=formPostManager.getForumPostsDetail(forumPostId,userId);
     			 res.setData(fp);
     		 }else{
     			 res.setStatus(ExceptionConstants.parameterException.parameterException.errorCode);
@@ -210,7 +218,11 @@ public class ForumPostService {
     		if(paramData.containsKey("taglibId")){
     			
     			Long taglibId=Long.valueOf(paramData.get("taglibId").toString());
-    			List<FormPosts> data=formPostManager.getForumPostsByTaglibsId(taglibId);
+    			 Long userId=null;
+    			 if(paramData.containsKey("userId")){
+    				 userId=Long.valueOf(paramData.get("userId").toString());
+    			 }
+    			List<FormPosts> data=formPostManager.getForumPostsByTaglibsId(taglibId,userId);
     			res.setData(data);
     		}else{
        		 res.setStatus(ExceptionConstants.systemException.systemException.errorCode);
@@ -224,6 +236,37 @@ public class ForumPostService {
     	return res;
     	
     }
+    
+    /**
+     * @author liushuaic
+     * @desc 最热文章or 帖子
+     * */
+    public  ResponseMessage<List<FormPosts>> getHotForumPosts(Map<String,Object> paramData){
+    	ResponseMessage<List<FormPosts>> res=new ResponseMessage<List<FormPosts>>();
+    	List<FormPosts> data=formPostManager.getHotForumPosts();
+    	res.setData(data);
+    	return res;
+    } 
+    
+    /**
+     * @author liushuaic
+     * @date 2016-06-07 10:31
+     * @desc 获取某一个人创建的文章
+     * */
+   public  ResponseMessage<List<FormPosts>> geForumPostsByCreateUserId(Map<String,Object> paramData){
+	   ResponseMessage<List<FormPosts>> res=new ResponseMessage<List<FormPosts>>();
+	   
+	   if(paramData.containsKey("userId")){
+		   Long userId=Long.valueOf(paramData.get("userId").toString());
+		   List<FormPosts> formPosts=formPostManager.geForumPostsByCreateUserId(userId);
+		   res.setData(formPosts);
+	   }else{
+		   res.setStatus(ExceptionConstants.systemException.systemException.errorCode);
+   		   res.setMessage(ExceptionConstants.systemException.systemException.errorMessage);
+	   }
+	   
+   	   return res;
+   }
     
     /**
      * 删除

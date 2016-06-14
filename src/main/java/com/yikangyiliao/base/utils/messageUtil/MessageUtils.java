@@ -59,7 +59,7 @@ public class MessageUtils {
 	 * false 是测试环境
 	 * true 生产环境
 	 * **/
-	private static boolean IOSPUSHENVIRONMENT=true;
+	private static boolean IOSPUSHENVIRONMENT=false;
 	
 	
 	

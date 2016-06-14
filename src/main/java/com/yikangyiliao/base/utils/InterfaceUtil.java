@@ -458,11 +458,11 @@ public class InterfaceUtil {
 		
 		
 		//定单支持
-		YiKangServiceConfige udpateForumPostStar=new YiKangServiceConfige();
-		udpateForumPostStar.setServiceName("forumPostService");
-		udpateForumPostStar.setMethodName("udpateForumPostStar");
-		udpateForumPostStar.setIsFileter(true);
-		mathodServiceConfig.put("00-28-03",udpateForumPostStar);
+		YiKangServiceConfige updateForumPostStar=new YiKangServiceConfige();
+		updateForumPostStar.setServiceName("forumPostService");
+		updateForumPostStar.setMethodName("updateForumPostStar");
+		updateForumPostStar.setIsFileter(true);
+		mathodServiceConfig.put("00-28-03",updateForumPostStar);
 		
 		
 		//发布文章
@@ -485,6 +485,21 @@ public class InterfaceUtil {
 		getForumPostsByTaglibId.setMethodName("getForumPostsByTaglibId");
 		getForumPostsByTaglibId.setIsFileter(false);
 		mathodServiceConfig.put("00-28-06",getForumPostsByTaglibId);
+		
+		
+		//获取某一个用户创建的所有文章
+		YiKangServiceConfige geForumPostsByCreateUserId=new YiKangServiceConfige();
+		geForumPostsByCreateUserId.setServiceName("forumPostService");
+		geForumPostsByCreateUserId.setMethodName("geForumPostsByCreateUserId");
+		geForumPostsByCreateUserId.setIsFileter(false);
+		mathodServiceConfig.put("00-28-07",geForumPostsByCreateUserId);
+		
+		//获取最热帖子
+		YiKangServiceConfige getHotForumPosts=new YiKangServiceConfige();
+		getHotForumPosts.setServiceName("forumPostService");
+		getHotForumPosts.setMethodName("getHotForumPosts");
+		getHotForumPosts.setIsFileter(false);
+		mathodServiceConfig.put("00-28-08",getHotForumPosts);
 		
 		
 		
@@ -531,6 +546,30 @@ public class InterfaceUtil {
 		getQuestionsByTaglibId.setIsFileter(false);
 		mathodServiceConfig.put("00-29-05",getQuestionsByTaglibId);
 		
+		
+		
+		/**
+		 * @author liushuaic
+		 * @date 2016-06-06 19:37
+		 * @desc 获取精彩回答
+		 * **/
+		YiKangServiceConfige getHotQuestionAnswer=new YiKangServiceConfige();
+		getHotQuestionAnswer.setServiceName("questionService");
+		getHotQuestionAnswer.setMethodName("getHotQuestionAnswer");
+		getHotQuestionAnswer.setIsFileter(false);
+		mathodServiceConfig.put("00-29-06",getHotQuestionAnswer);
+		
+		
+		/**
+		 * @author liushuaic
+		 * @date 2016-06-06 19:37
+		 * @desc 获取某一个人创建的所有问题
+		 * **/
+		YiKangServiceConfige getQuestionByCreateUserId=new YiKangServiceConfige();
+		getQuestionByCreateUserId.setServiceName("questionService");
+		getQuestionByCreateUserId.setMethodName("getQuestionByCreateUserId");
+		getQuestionByCreateUserId.setIsFileter(false);
+		mathodServiceConfig.put("00-29-07",getQuestionByCreateUserId);
 		
 		
 		/**
@@ -695,6 +734,7 @@ public class InterfaceUtil {
 		 * @date 2016-05-17 14:55
 		 * @desc 获取用户的配置信息
 		 * */
+		serviceClassName.put("00-32","userConfigrationService");
 		YiKangServiceConfige getUserConfigrationByUserId=new YiKangServiceConfige();
 		getUserConfigrationByUserId.setServiceName("userConfigrationService");
 		getUserConfigrationByUserId.setMethodName("getUserConfigrationByUserId");
@@ -719,7 +759,7 @@ public class InterfaceUtil {
 		 * 
 		 * @author liushuaic
 		 * @date 2016-05-26 14:22
-		 * @desc 获取消息列表
+		 * @desc 获取配置信息
 		 * 
 		 * */
 		YiKangServiceConfige getMessageAlert=new YiKangServiceConfige();
@@ -727,6 +767,102 @@ public class InterfaceUtil {
 		getMessageAlert.setMethodName("getMessageAlert");
 		getMessageAlert.setIsFileter(true);
 		mathodServiceConfig.put("00-34-01",getMessageAlert);
+		
+		
+		
+		/**
+		 * @author liushuaic
+		 * @date 2016-06-07 10:25
+		 * @desc 获取系统消息列表
+		 * */
+		serviceClassName.put("00-35", "messageService");
+		
+		//系统消息列表
+		YiKangServiceConfige getSystemMessageByUserId=new YiKangServiceConfige();
+		getSystemMessageByUserId.setServiceName("messageService");
+		getSystemMessageByUserId.setMethodName("getSystemMessageByUserId");
+		getSystemMessageByUserId.setIsFileter(true);
+		mathodServiceConfig.put("00-35-01",getSystemMessageByUserId);
+		
+		//动态消息列表
+		YiKangServiceConfige getDynamicMessageByUserId=new YiKangServiceConfige();
+		getDynamicMessageByUserId.setServiceName("messageService");
+		getDynamicMessageByUserId.setMethodName("getDynamicMessageByUserId");
+		getDynamicMessageByUserId.setIsFileter(true);
+		mathodServiceConfig.put("00-35-02",getDynamicMessageByUserId);
+		
+		//用户标签管理
+		serviceClassName.put("00-36", "userTaglibMapService");
+		
+		//添加关注的标签
+		YiKangServiceConfige addUserTaglibMap=new YiKangServiceConfige();
+		addUserTaglibMap.setServiceName("userTaglibMapService");
+		addUserTaglibMap.setMethodName("addUserTaglibMap");
+		addUserTaglibMap.setIsFileter(true);
+		mathodServiceConfig.put("00-36-01",addUserTaglibMap);
+		
+		//删除关注的标签
+		YiKangServiceConfige deleteUserTaglibMap=new YiKangServiceConfige();
+		deleteUserTaglibMap.setServiceName("userTaglibMapService");
+		deleteUserTaglibMap.setMethodName("deleteUserTaglibMap");
+		deleteUserTaglibMap.setIsFileter(true);
+		mathodServiceConfig.put("00-36-02",deleteUserTaglibMap);
+		
+		//查询我所有关注的标签
+		YiKangServiceConfige getUserMyFollowTaglibByUserId=new YiKangServiceConfige();
+		getUserMyFollowTaglibByUserId.setServiceName("userTaglibMapService");
+		getUserMyFollowTaglibByUserId.setMethodName("getUserMyFollowTaglibByUserId");
+		getUserMyFollowTaglibByUserId.setIsFileter(true);
+		mathodServiceConfig.put("00-36-03",getUserMyFollowTaglibByUserId);
+		
+		//用户收藏
+		serviceClassName.put("00-37", "storeupService");
+		
+		//获取收藏的文章列表
+		YiKangServiceConfige getStoreupsByUserId=new YiKangServiceConfige();
+		getStoreupsByUserId.setServiceName("storeupService");
+		getStoreupsByUserId.setMethodName("getStoreupsByUserId");
+		getStoreupsByUserId.setIsFileter(true);
+		mathodServiceConfig.put("00-37-01",getStoreupsByUserId);
+		
+		YiKangServiceConfige deleteStoreups=new YiKangServiceConfige();
+		deleteStoreups.setServiceName("storeupService");
+		deleteStoreups.setMethodName("deleteStoreups");
+		deleteStoreups.setIsFileter(true);
+		mathodServiceConfig.put("00-37-02",deleteStoreups);
+		
+		YiKangServiceConfige addFourmpostStoreup=new YiKangServiceConfige();
+		addFourmpostStoreup.setServiceName("storeupService");
+		addFourmpostStoreup.setMethodName("addFourmpostStoreup");
+		addFourmpostStoreup.setIsFileter(true);
+		mathodServiceConfig.put("00-37-03",addFourmpostStoreup);
+		
+		
+		//人员收藏
+		serviceClassName.put("00-38", "followUserMapService");
+		
+		
+		//添加关注人员
+		YiKangServiceConfige addFolloUser=new YiKangServiceConfige();
+		addFolloUser.setServiceName("followUserMapService");
+		addFolloUser.setMethodName("addFolloUser");
+		addFolloUser.setIsFileter(true);
+		mathodServiceConfig.put("00-38-01",addFolloUser);
+		
+		//获取关注用户
+		YiKangServiceConfige getMyFollowUseByUserId=new YiKangServiceConfige();
+		getMyFollowUseByUserId.setServiceName("followUserMapService");
+		getMyFollowUseByUserId.setMethodName("getMyFollowUseByUserId");
+		getMyFollowUseByUserId.setIsFileter(true);
+		mathodServiceConfig.put("00-38-02",getMyFollowUseByUserId);
+		
+		//删除关注用户
+		YiKangServiceConfige deleteMyFollowUser=new YiKangServiceConfige();
+		deleteMyFollowUser.setServiceName("followUserMapService");
+		deleteMyFollowUser.setMethodName("deleteMyFollowUser");
+		deleteMyFollowUser.setIsFileter(true);
+		mathodServiceConfig.put("00-38-03",deleteMyFollowUser);
+		
 		
 		
 		

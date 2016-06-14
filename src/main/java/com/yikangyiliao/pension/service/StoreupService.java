@@ -1,5 +1,6 @@
 package com.yikangyiliao.pension.service;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -73,10 +74,17 @@ public class StoreupService {
 		 ){
 			Long forumPostId=Long.valueOf(paramMap.get("forumPostId").toString());
 			Long userId=Long.valueOf(paramMap.get("userId").toString());
-			storeupManager.addStoreupForumpost(forumPostId, userId);
+			
+			StoreUp storeup=storeupManager.getStoreupByUserIdAndForumPostId(forumPostId,userId);
+			if(null == storeup){
+				storeupManager.addStoreupForumpost(forumPostId, userId);
+			}else{
+				resData.setStatus(ExceptionConstants.followException.isFollowed.errorCode);
+				resData.setMessage(ExceptionConstants.followException.isFollowed.errorMessage);
+			}
 		}else{
-			resData.setStatus(ExceptionConstants.parameterException.parameterException.errorCode);
-			resData.setMessage(ExceptionConstants.parameterException.parameterException.errorMessage);
+			resData.setStatus(ExceptionConstants.followException.followSuccess.errorCode);
+			resData.setMessage(ExceptionConstants.followException.followSuccess.errorMessage);
 		}
 		return resData;
 	}

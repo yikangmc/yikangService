@@ -88,6 +88,19 @@ public class QuestionManager {
     	question.setQuestionAnswers(questionAnswers);
     	return question;
     }
+  
+
+    /**
+     * @author liushuaic
+     * @date 2016-06-6 19:28
+     * @desc 获取精彩回答
+     * */
+    public List<QuestionAnswer> getHotQuestionAnswer(Long userId){
+    	Map<String,Object> paramMap=new HashMap<String,Object>();
+    	paramMap.put("userId", userId);
+    	List<QuestionAnswer> questionAnswers=questionAnswerDao.getHotQuestionAnswer(paramMap);
+    	return questionAnswers;
+    }
 	
     
     /**
@@ -97,6 +110,24 @@ public class QuestionManager {
      * */
     public List<Question> getQuestionByTaglibid(Long taglibId){
     	return questionDao.getQuestionByTaglibid(taglibId);
+    }
+    
+    /**
+     * @author liushuaic
+     * @date 2016-06-06 11:23
+     * @desc 获取某一个用户创建的所有问题
+     * */
+    public List<Question> getQuestionByCreateUserId(Long taglibId){
+    	return questionDao.getQuestionByCreateUserId(taglibId);
+    }
+    
+    
+    /**
+     * @author liushuaic
+     * @date 2016-06-13 获取文章详情 by questionId
+     * **/
+    public Question getQuestionByQuestionId(Long questionId){
+    	return questionDao.selectByPrimaryKey(questionId);
     }
     
     

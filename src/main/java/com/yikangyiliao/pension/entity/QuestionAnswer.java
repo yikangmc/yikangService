@@ -17,6 +17,10 @@ public class QuestionAnswer {
     
     private Integer isStar=0;
 
+    private String userName;
+    
+    private String photoUrl;
+    
     public Long getQuestionAnswerId() {
         return questionAnswerId;
     }
@@ -79,5 +83,21 @@ public class QuestionAnswer {
 
 	public void setIsStar(Integer isStar) {
 		this.isStar = isStar;
+	}
+
+	public String getUserName() {
+		return userName;
+	}
+
+	public void setUserName(String userName) {
+		this.userName = userName;
+	}
+
+	public String getPhotoUrl() {
+		return photoUrl;
+	}
+
+	public void setPhotoUrl(String photoUrl) {
+		this.photoUrl = photoUrl;
 	}
 }

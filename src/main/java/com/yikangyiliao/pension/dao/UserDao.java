@@ -62,6 +62,13 @@ public interface UserDao {
      * ***/
    Long getInvationUserInfoNumsByInvationUserIdAndUserStatus(Map<String,Object> paramData);
  
+   
+   /**
+    * @author liushuaic
+    * @date 2016-06-12 13:22
+    * @desc 获取关注某一个标签的所有用户的推送标识
+    * */
+   List<String> getAliasListByTaglibId(Long taglibId);
     
     
     

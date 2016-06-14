@@ -19,8 +19,8 @@ public class CaptchaService {
 	 * @date 2016-03-22 15:11
 	 * @desc 获取验证码
 	 * **/
-	public ResponseMessage getCaptchar(Map<String,Object> paramData){
-		ResponseMessage responseMessage=new ResponseMessage();
+	public ResponseMessage<String> getCaptchar(Map<String,Object> paramData){
+		ResponseMessage<String> responseMessage=new ResponseMessage<String>();
 		if(paramData.containsKey("mobileNumber")){
 			String mobileNumber=paramData.get("mobileNumber").toString();
 			  responseMessage=MobileCaptchaUtil.getCaptchaForService( mobileNumber);
@@ -35,9 +35,9 @@ public class CaptchaService {
 	 * @param  mobileNumber 手机号
 	 * @param  ·captchar  验证码
 	 * **/
-	public ResponseMessage validateCaptchar(Map<String,Object> paramData){
+	public ResponseMessage<String> validateCaptchar(Map<String,Object> paramData){
 		
-		ResponseMessage responseMessage=new ResponseMessage();
+		ResponseMessage<String> responseMessage=new ResponseMessage<String>();
 		if(paramData.containsKey("mobileNumber") && paramData.containsKey("captchar")){
 			String mobileNumber=paramData.get("mobileNumber").toString();
 			String captcha=paramData.get("captchar").toString(); 

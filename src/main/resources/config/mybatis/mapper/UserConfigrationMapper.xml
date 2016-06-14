@@ -81,8 +81,8 @@
   </update>
  
  <!-- 获取某一个用户的配置 -->
-  <select id="getUserConfigrationByUserId" parameterType="long">
-  	selec user_configrations_id, user_id, system_alert, dynamic_alert from user_configrations where user_id=#{userId}
+  <select id="getUserConfigrationByUserId" parameterType="long" resultMap="BaseResultMap">
+  	select user_configrations_id, user_id, system_alert, dynamic_alert from user_configrations where user_id=#{userId}
   </select> 
   
   <!-- 修改用户配置  -->

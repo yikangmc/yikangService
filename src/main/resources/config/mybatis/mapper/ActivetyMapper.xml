@@ -41,6 +41,9 @@
     where activety_id = #{activetyId,jdbcType=BIGINT}
   </delete>
   <insert id="insert" parameterType="com.yikangyiliao.pension.entity.Activety" >
+     <selectKey resultType="Long" keyProperty="activetyId" order="AFTER">
+		SELECT LAST_INSERT_ID()
+	</selectKey>
     insert into activetys (activety_id, title, content, 
       cost, create_time, update_time, 
       person_number, check_status, create_user_id, 
@@ -57,6 +60,9 @@
       )
   </insert>
   <insert id="insertSelective" parameterType="com.yikangyiliao.pension.entity.Activety" >
+    <selectKey resultType="Long" keyProperty="activetyId" order="AFTER">
+		SELECT LAST_INSERT_ID()
+	</selectKey>
     insert into activetys
     <trim prefix="(" suffix=")" suffixOverrides="," >
       <if test="activetyId != null" >

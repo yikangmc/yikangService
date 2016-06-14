@@ -8,14 +8,14 @@
     <result column="from_user_id" property="fromUserId" jdbcType="BIGINT" />
     <result column="to_user_id" property="toUserId" jdbcType="BIGINT" />
     <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
-    <result column="create_time_ millisecond" property="createTimeMillisecond" jdbcType="BIGINT" />
+    <result column="create_time_millisecond" property="createTimeMillisecond" jdbcType="BIGINT" />
     <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
     <result column="is_read" property="isRead" jdbcType="TINYINT" />
     <result column="message_group" property="messageGroup" jdbcType="TINYINT" />
     <result column="content_group" property="contentGroup" jdbcType="TINYINT" />
   </resultMap>
   <sql id="Base_Column_List" >
-    messages_id, title, content, from_user_id, to_user_id, create_time, "create_time_ millisecond", 
+    messages_id, title, content, from_user_id, to_user_id, create_time, create_time_millisecond, 
     update_time, is_read, message_group, content_group
   </sql>
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
@@ -31,7 +31,7 @@
   <insert id="insert" parameterType="com.yikangyiliao.pension.entity.Message" >
     insert into messages (messages_id, title, content, 
       from_user_id, to_user_id, create_time, 
-      "create_time_ millisecond", update_time, is_read, 
+      create_time_millisecond, update_time, is_read, 
       message_group, content_group)
     values (#{messagesId,jdbcType=BIGINT}, #{title,jdbcType=VARCHAR}, #{content,jdbcType=VARCHAR}, 
       #{fromUserId,jdbcType=BIGINT}, #{toUserId,jdbcType=BIGINT}, #{createTime,jdbcType=TIMESTAMP}, 
@@ -60,7 +60,7 @@
         create_time,
       </if>
       <if test="createTimeMillisecond != null" >
-        "create_time_ millisecond",
+        create_time_millisecond,
       </if>
       <if test="updateTime != null" >
         update_time,
@@ -130,7 +130,7 @@
         create_time = #{createTime,jdbcType=TIMESTAMP},
       </if>
       <if test="createTimeMillisecond != null" >
-        "create_time_ millisecond" = #{createTimeMillisecond,jdbcType=BIGINT},
+        create_time_millisecond = #{createTimeMillisecond,jdbcType=BIGINT},
       </if>
       <if test="updateTime != null" >
         update_time = #{updateTime,jdbcType=TIMESTAMP},
@@ -154,7 +154,7 @@
       from_user_id = #{fromUserId,jdbcType=BIGINT},
       to_user_id = #{toUserId,jdbcType=BIGINT},
       create_time = #{createTime,jdbcType=TIMESTAMP},
-      "create_time_ millisecond" = #{createTimeMillisecond,jdbcType=BIGINT},
+      create_time_millisecond = #{createTimeMillisecond,jdbcType=BIGINT},
       update_time = #{updateTime,jdbcType=TIMESTAMP},
       is_read = #{isRead,jdbcType=TINYINT},
       message_group = #{messageGroup,jdbcType=TINYINT},
@@ -168,6 +168,15 @@
   	select 
 		<include refid="Base_Column_List"></include>
 	from messages where to_user_id =#{toUserId}
+  </select>
+  
+  <!-- 查询某一个用户收到的某一个类型的信息 -->
+  <select id="getMessageByMessageGroupAndUserId" parameterType="map" resultMap="BaseResultMap">
+  	select 
+		<include refid="Base_Column_List"></include> 
+	from messages
+	where message_group=#{messageGroup}
+	and to_user_id=#{userId}
   </select>
   
   

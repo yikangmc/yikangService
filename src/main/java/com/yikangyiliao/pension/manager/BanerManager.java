@@ -34,5 +34,13 @@ public class BanerManager {
 	public List<Baner> getActivetyBaner(){
 		return banerDao.getActivetyBaner();
 	}
-
+	
+	
+	public List<Baner>  getSearchActivetyBanner(){
+		
+		
+		
+		return null;
+	}
+	
 }

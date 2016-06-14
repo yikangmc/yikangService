@@ -70,8 +70,12 @@ public class TaglibService {
 			
 			Long parentId=Long.valueOf(paramMap.get("parentId").toString());
 			
-			List<Taglib> tags= taglibManager.getSecondTaglibByParentId(parentId);
+			Long userId=null;
+			if(paramMap.containsKey("userId")){
+				userId=Long.valueOf(paramMap.get("userId").toString());
+			}
 			
+			List<Taglib> tags= taglibManager.getSecondTaglibByParentId(parentId,userId);
 			resData.setData(tags);
 		}else{
 			resData.setStatus(ExceptionConstants.parameterException.parameterException.errorCode);
@@ -90,7 +94,11 @@ public class TaglibService {
 		
 		ResponseMessage<List<Taglib>> resData=new ResponseMessage<List<Taglib>>();
 		try{
-			List<Taglib> data=taglibManager.getAllTag();
+			Long userId=null;
+			if(paramMap.containsKey("userId")){
+				userId=Long.valueOf(paramMap.get("userId").toString());
+			}
+			List<Taglib> data=taglibManager.getAllTag(userId);
 			resData.setData(data);
 		}catch(Exception e){
 			e.printStackTrace();

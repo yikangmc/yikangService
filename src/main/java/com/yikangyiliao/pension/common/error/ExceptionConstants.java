@@ -165,4 +165,22 @@ public class ExceptionConstants {
 		
 	}
 	
+	/**
+	 * @author liushuaic
+	 * @date 2016-06-08 10:26
+	 * @desc 获取我关注的用户
+	 * */
+	public enum followException{
+		
+		isFollowed("070001","已经关注"),
+		
+		followSuccess("000000","关注成功！");
+		public String errorCode;
+		public String errorMessage;
+		private followException(String errorCode,String errorMessage){
+			this.errorCode=errorCode;
+			this.errorMessage=errorMessage;
+		}
+	}
+	
 }

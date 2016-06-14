@@ -23,6 +23,7 @@ public class UserConfigrationManager {
 		UserConfigration uc=new UserConfigration();
 		uc.setDynamicAlert(dynamicAlert.byteValue());
 		uc.setSystemAlert(systemAlert.byteValue());
+		uc.setUserId(userId);
 		return userConfigrationDao.updateByUseridSelective(uc);
 	}
 	
@@ -37,5 +38,17 @@ public class UserConfigrationManager {
 		return userConfigrationDao.getUserConfigrationByUserId(userId);
 	}
 	
+	/**
+	 * @author liushuaic
+	 * @date 2016-06-07 20:25
+	 * @desc 添加用户配置
+	 * */
+	public int insertSelective(Integer systemAlert,Integer dynamicAlert,Long userId){
+		UserConfigration uc=new UserConfigration();
+		uc.setDynamicAlert(dynamicAlert.byteValue());
+		uc.setSystemAlert(systemAlert.byteValue());
+		uc.setUserId(userId);
+		return userConfigrationDao.insertSelective(uc);
+	} 
 
 }

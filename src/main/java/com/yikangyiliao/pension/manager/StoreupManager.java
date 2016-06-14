@@ -29,7 +29,9 @@ public class StoreupManager {
 		StoreUp storeup=new StoreUp();
 		storeup.setCreateUserId(userId);
 		storeup.setForumPostId(forumPostId);
-		storeup.setGroup(Byte.valueOf("0"));
+		storeup.setGroups(Byte.valueOf("0"));
+		storeup.setCreateTime(currretDate);
+		storeup.setUpdateTime(currretDate);
 		return storeUpDao.insertSelective(storeup);
 	}
 	
@@ -42,7 +44,7 @@ public class StoreupManager {
 		Map<String,Object> paramMap=new HashMap<String,Object>();
 		paramMap.put("forumPostId", forumPostId);
 		paramMap.put("userId", userId);
-		return storeUpDao.deleteForumpostStoreupByUserIdAndForumPostId(paramMap);
+		return storeUpDao.deleteForumPostByUserIdAndForumPostId(paramMap);
 	}
 	
 	/**
@@ -54,6 +56,18 @@ public class StoreupManager {
 		Map<String,Object> paramMap=new HashMap<String, Object>();
 		paramMap.put("userId", userId);
 		return storeUpDao.getStoreupByUserId(paramMap);
+	}
+	
+	/**
+	 * @author liushuaic
+	 * @date 2016-06-13 16:26
+	 * @desc 获取收藏
+	 * */
+	public StoreUp getStoreupByUserIdAndForumPostId(Long forumPostId,Long userId){	
+		Map<String,Object> paramMap=new HashMap<String,Object>();
+		paramMap.put("forumPostId", forumPostId);
+		paramMap.put("userId", userId);
+		return storeUpDao.getStoreupByUserIdAndForumPostId(paramMap);
 	}
 	
 }

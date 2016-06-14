@@ -61,5 +61,50 @@ public class MessageService {
 		
 	}
 	
+	
+	/**
+	 * @author liushuaic
+	 * @date 2016-06-07 10:12
+	 * @desc 获取系统消息
+	 * */
+	public ResponseMessage<List<Message>> getSystemMessageByUserId(Map<String,Object> paramMap){
+		ResponseMessage<List<Message>> resData=new ResponseMessage<List<Message>>();
+		if(
+				paramMap.containsKey("userId")
+		){
+			Long userId=Long.valueOf(paramMap.get("userId").toString());
+			List<Message> data=messageManager.getSystemMessageByUserId(userId);
+			resData.setData(data);
+		}else{
+			resData.setStatus(ExceptionConstants.parameterException.parameterException.errorCode);
+			resData.setMessage(ExceptionConstants.parameterException.parameterException.errorMessage);
+		}
+		return resData;
+		
+	}
+	
+	
+	
+	/**
+	 * @author liushuaic
+	 * @date 2016-06-07 10:13
+	 * @desc 获取动态信息
+	 * */
+	public ResponseMessage<List<Message>> getDynamicMessageByUserId(Map<String,Object> paramMap){
+		ResponseMessage<List<Message>> resData=new ResponseMessage<List<Message>>();
+		if(
+				paramMap.containsKey("userId")
+		){
+			Long userId=Long.valueOf(paramMap.get("userId").toString());
+			List<Message> data=messageManager.getDynamicMessageByUserId(userId);
+			resData.setData(data);
+		}else{
+			resData.setStatus(ExceptionConstants.parameterException.parameterException.errorCode);
+			resData.setMessage(ExceptionConstants.parameterException.parameterException.errorMessage);
+		}
+		return resData;
+		
+	}
+	
 
 }

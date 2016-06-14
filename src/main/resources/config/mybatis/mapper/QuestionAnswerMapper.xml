@@ -129,12 +129,16 @@
   <!-- 查询某一个问题的所有回复 -->
   <resultMap type="com.yikangyiliao.pension.entity.QuestionAnswer" extends="BaseResultMap" id="selectQuestionAnswerResultMap">
   	<result column="isStar" property="isStar"/>
+  	<result column="user_name" property="userName"/>
+  	<result column="photo_url" property="photoUrl"/>
   </resultMap>
   <select id="selectQuestionAnswer" parameterType="map" resultMap="selectQuestionAnswerResultMap">
 	<if test="userId eq null">
 	  	  select
-	  		<include refid="Base_Column_List"></include>
-	  	from question_answers
+	  		<include refid="Base_Column_List"></include>,
+	  		    ui.user_name,
+    			ui.photo_url
+	  	from question_answers left join user_infos ui on ui.user_id=question_answers.create_user_id
 	  	where question_id=#{questionId}
 	</if>
 	<if test="null neq userId">
@@ -142,12 +146,62 @@
 			case
 				when qasl2.question_answer_start_list_id>=0 then 1
 				else 0
-		    end  as 'isStar' 
+		    end  as 'isStar' ,
+  		    ui.user_name,
+   			ui.photo_url
 		from question_answers qa left join (  select * from question_answer_start_lists where create_user_id=#{userId}) qasl2
 		on qa.question_answer_id=qasl2.question_answer_id
+		left join user_infos ui on ui.user_id=qa.create_user_id
 		where  qa.question_id=#{questionId}
 	</if>
 	
   </select>
+  
+  <!--精彩回答  -->
+  <select id="getHotQuestionAnswer" resultMap="selectQuestionAnswerResultMap" parameterType="map">
+  	<if test="userId eq null">
+		select 
+			qa.*,
+		    questions.*,
+  		    ui.user_name,
+   			ui.photo_url
+		from question_answers qa 
+		inner join questions on qa.question_id=questions.question_id
+		inner join  (
+		select question_id,max(star_num),question_answer_id from question_answers group by question_id order by star_num desc limit 3
+		)  qatemp on qa.question_answer_id=qatemp.question_answer_id
+		left join user_infos ui on ui.user_id=qa.create_user_id
+	</if>
+	<if test="null neq userId">
+<!-- 		select qa.*, -->
+<!-- 			case -->
+<!-- 				when qasl2.question_answer_start_list_id>=0 then 1 -->
+<!-- 				else 0 -->
+<!-- 		    end  as 'isStar'  -->
+<!-- 		from question_answers qa left join (  select * from question_answer_start_lists where create_user_id=#{userId}) qasl2 -->
+<!-- 		on qa.question_answer_id=qasl2.question_answer_id -->
+<!-- 	    order by star_num desc limit 3 -->
+	select qa.*,
+		case
+			when qasl2.question_answer_start_list_id>=0 then 1
+			else 0
+		end  as 'isStar',
+	    questions.*,
+  		    ui.user_name,
+   			ui.photo_url
+	from question_answers qa left join (  select * from question_answer_start_lists where create_user_id=#{userId}) qasl2
+	on qa.question_answer_id=qasl2.question_answer_id
+	inner join questions on qa.question_id=questions.question_id
+	inner join  (
+	select question_id,max(star_num),question_answer_id from question_answers group by question_id order by star_num desc limit 3
+	)  qatemp on qa.question_answer_id=qatemp.question_answer_id
+	left join user_infos ui on ui.user_id=qa.create_user_id
+	</if>
+  </select>
+  
+  <update id="updateQuestionAnswerStarUpByQuestionAnswerId" parameterType="long">
+  	update question_answers set star_num=star_num+1 where question_answer_id=#{questionAnswerId}
+  </update>
+  
   
 </mapper>

@@ -29,11 +29,16 @@ public class Taglib {
     private Integer fornumPostsNumber;
 
     private Integer answerNumber;
+    
+    private Integer isStore;
 
     private List<Taglib> childs;
     
     //活动列表
     private List<FormPosts> formPosts;
+    
+    //是否已经关注 0未关注，1已经关注
+    private Integer isFollow=0;
     
     public Long getTaglibId() {
         return taglibId;
@@ -154,5 +159,21 @@ public class Taglib {
 
 	public void setFormPosts(List<FormPosts> formPosts) {
 		this.formPosts = formPosts;
+	}
+
+	public Integer getIsFollow() {
+		return isFollow;
+	}
+
+	public void setIsFollow(Integer isFollow) {
+		this.isFollow = isFollow;
+	}
+
+	public Integer getIsStore() {
+		return isStore;
+	}
+
+	public void setIsStore(Integer isStore) {
+		this.isStore = isStore;
 	}
 }

@@ -32,4 +32,16 @@ public interface QuestionDao {
      * @desc 查询某一个标签下的所有问题
      * **/
     List<Question> getQuestionByTaglibid(Long taglibId);
+    
+    
+    
+    /**
+     * @author liushuaic
+     * @date 2016-06-07 11:22
+     * @desc 获取某一个用户创建的所有问题
+     * **/
+    List<Question> getQuestionByCreateUserId(Long userId);
+    
+    
+    
 }

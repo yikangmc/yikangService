@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.yikangyiliao.pension.dao.UserTaglibMapDao" >
+  <resultMap id="BaseResultMap" type="com.yikangyiliao.pension.entity.UserTaglibMap" >
+    <id column="user_taglib_maps_id" property="userTaglibMapsId" jdbcType="BIGINT" />
+    <result column="create_user_id" property="createUserId" jdbcType="BIGINT" />
+    <result column="taglib_id" property="taglibId" jdbcType="BIGINT" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    user_taglib_maps_id, create_user_id, taglib_id, create_time, update_time
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from user_taglib_maps
+    where user_taglib_maps_id = #{userTaglibMapsId,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from user_taglib_maps
+    where user_taglib_maps_id = #{userTaglibMapsId,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.yikangyiliao.pension.entity.UserTaglibMap" >
+    insert into user_taglib_maps (user_taglib_maps_id, create_user_id, taglib_id, 
+      create_time, update_time)
+    values (#{userTaglibMapsId,jdbcType=BIGINT}, #{createUserId,jdbcType=BIGINT}, #{taglibId,jdbcType=BIGINT}, 
+      #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.yikangyiliao.pension.entity.UserTaglibMap" >
+    insert into user_taglib_maps
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="userTaglibMapsId != null" >
+        user_taglib_maps_id,
+      </if>
+      <if test="createUserId != null" >
+        create_user_id,
+      </if>
+      <if test="taglibId != null" >
+        taglib_id,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+      <if test="updateTime != null" >
+        update_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="userTaglibMapsId != null" >
+        #{userTaglibMapsId,jdbcType=BIGINT},
+      </if>
+      <if test="createUserId != null" >
+        #{createUserId,jdbcType=BIGINT},
+      </if>
+      <if test="taglibId != null" >
+        #{taglibId,jdbcType=BIGINT},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null" >
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.yikangyiliao.pension.entity.UserTaglibMap" >
+    update user_taglib_maps
+    <set >
+      <if test="createUserId != null" >
+        create_user_id = #{createUserId,jdbcType=BIGINT},
+      </if>
+      <if test="taglibId != null" >
+        taglib_id = #{taglibId,jdbcType=BIGINT},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null" >
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where user_taglib_maps_id = #{userTaglibMapsId,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.yikangyiliao.pension.entity.UserTaglibMap" >
+    update user_taglib_maps
+    set create_user_id = #{createUserId,jdbcType=BIGINT},
+      taglib_id = #{taglibId,jdbcType=BIGINT},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      update_time = #{updateTime,jdbcType=TIMESTAMP}
+    where user_taglib_maps_id = #{userTaglibMapsId,jdbcType=BIGINT}
+  </update>
+
+  <!-- 删除我关注的标签 -->
+  <delete id="deleteUserTaglibMapByUserIdTaglibId" parameterType="map">
+	delete from user_taglib_maps where  create_user_id=#{userId} and taglib_id=#{taglibId}
+  </delete>
+  
+  <!-- 查询我关注的某一个标签 -->
+  <select id="selectUserTaglibMapByUserIdTaglibId" resultMap="BaseResultMap" parameterType="map">
+  	select 
+  		<include refid="Base_Column_List"></include>
+  	from user_taglib_maps where create_user_id=#{userId} and taglib_id=#{taglibId}
+  </select>
+  
+  
+</mapper>

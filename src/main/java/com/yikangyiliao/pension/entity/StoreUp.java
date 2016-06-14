@@ -1,43 +1,65 @@
 package com.yikangyiliao.pension.entity;
 
+import java.util.Date;
+
 public class StoreUp {
-    private Long storeUpsId;
+	private Long storeUpsId;
 
-    private Long forumPostId;
+	private Long forumPostId;
 
-    private Long createUserId;
+	private Long createUserId;
 
-    private Byte group;
+	private Byte groups;
 
-    public Long getStoreUpsId() {
-        return storeUpsId;
-    }
+	private Date createTime;
 
-    public void setStoreUpsId(Long storeUpsId) {
-        this.storeUpsId = storeUpsId;
-    }
+	private Date updateTime;
 
-    public Long getForumPostId() {
-        return forumPostId;
-    }
+	public Long getStoreUpsId() {
+		return storeUpsId;
+	}
 
-    public void setForumPostId(Long forumPostId) {
-        this.forumPostId = forumPostId;
-    }
+	public void setStoreUpsId(Long storeUpsId) {
+		this.storeUpsId = storeUpsId;
+	}
 
-    public Long getCreateUserId() {
-        return createUserId;
-    }
+	public Long getForumPostId() {
+		return forumPostId;
+	}
 
-    public void setCreateUserId(Long createUserId) {
-        this.createUserId = createUserId;
-    }
+	public void setForumPostId(Long forumPostId) {
+		this.forumPostId = forumPostId;
+	}
 
-    public Byte getGroup() {
-        return group;
-    }
+	public Long getCreateUserId() {
+		return createUserId;
+	}
 
-    public void setGroup(Byte group) {
-        this.group = group;
-    }
+	public void setCreateUserId(Long createUserId) {
+		this.createUserId = createUserId;
+	}
+
+	public Byte getGroups() {
+		return groups;
+	}
+
+	public void setGroups(Byte groups) {
+		this.groups = groups;
+	}
+
+	public Date getCreateTime() {
+		return createTime;
+	}
+
+	public void setCreateTime(Date createTime) {
+		this.createTime = createTime;
+	}
+
+	public Date getUpdateTime() {
+		return updateTime;
+	}
+
+	public void setUpdateTime(Date updateTime) {
+		this.updateTime = updateTime;
+	}
 }

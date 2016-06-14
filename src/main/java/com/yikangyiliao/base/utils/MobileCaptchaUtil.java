@@ -27,12 +27,12 @@ public class MobileCaptchaUtil {
 	
 	
 	static{
-		CaptchaMessageSMS cms=new CaptchaMessageSMS();
-		cms.setMobileNumber("13716907523");
-		cms.setCaptcha("123");
-		cms.setSendDate(Calendar.getInstance().getTime());
-		cms.setDestoryTime(1);
-		CAPTCHACACHE.put("13716907523", cms);
+//		CaptchaMessageSMS cms=new CaptchaMessageSMS();
+//		cms.setMobileNumber("13716907523");
+//		cms.setCaptcha("123");
+//		cms.setSendDate(Calendar.getInstance().getTime());
+//		cms.setDestoryTime(1);
+//		CAPTCHACACHE.put("13716907523", cms);
 	}
 	/**
 	 * @author liushuaic
@@ -94,8 +94,8 @@ public class MobileCaptchaUtil {
 
 	
 	
-	public static ResponseMessage getCaptchaForService(String mobileNumber){
-		ResponseMessage responseMessage=new ResponseMessage();
+	public static ResponseMessage<String> getCaptchaForService(String mobileNumber){
+		ResponseMessage<String> responseMessage=new ResponseMessage<String>();
 		if(null != mobileNumber && mobileNumber.length()==11){
 			
 			

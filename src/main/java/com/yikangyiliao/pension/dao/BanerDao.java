@@ -35,4 +35,12 @@ public interface BanerDao {
      * **/
     List<Baner> getActivetyBaner();
     
+    
+    /**
+     * @author liushuaic
+     * @date 2016-06-06 19:06
+     * @desc 发现baner
+     * */
+    List<Baner> getSearchActivetyBanner();
+    
 }

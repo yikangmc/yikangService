@@ -1,6 +1,7 @@
 package com.yikangyiliao.pension.dao;
 
 import java.util.List;
+import java.util.Map;
 
 import com.yikangyiliao.pension.entity.Taglib;
 
@@ -47,18 +48,21 @@ public interface TaglibDao {
     /**
      * @author liushuaic
      * @date 2016-05-12 10:24
-     * @desc 获取考级标签列表by parentId
+     * @desc 获取考级标签列表by 
+     * @param parentId
+     * @param userId
      * 
      * **/
-    List<Taglib> getSecondTaglibByParentId(Long parentId);
+    List<Taglib> getSecondTaglibByParentId(Map<String,Object> paramMap );
     
     
     /**
      * @author liushuaic
      * @date 2016-05-19 16:03
      * @desc 获取所有的标签
+     * @param userId
      * */
-    List<Taglib> getAllTag();
+    List<Taglib> getAllTag(Map<String,Object> paramMap);
     
     
     

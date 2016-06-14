@@ -1,14 +1,16 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.yikangyiliao.pension.dao.StoreUpDao" >
-  <resultMap id="BaseResultMap" type="com.yikangyiliao.pension.entity.StoreUp" >
+ <resultMap id="BaseResultMap" type="com.yikangyiliao.pension.entity.StoreUp" >
     <id column="store_ups_id" property="storeUpsId" jdbcType="BIGINT" />
     <result column="forum_post_id" property="forumPostId" jdbcType="BIGINT" />
     <result column="create_user_id" property="createUserId" jdbcType="BIGINT" />
-    <result column="group" property="group" jdbcType="TINYINT" />
+    <result column="groups" property="groups" jdbcType="TINYINT" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
   </resultMap>
   <sql id="Base_Column_List" >
-    store_ups_id, forum_post_id, create_user_id, group
+    store_ups_id, forum_post_id, create_user_id, groups, create_time, update_time
   </sql>
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
     select 
@@ -22,9 +24,11 @@
   </delete>
   <insert id="insert" parameterType="com.yikangyiliao.pension.entity.StoreUp" >
     insert into store_ups (store_ups_id, forum_post_id, create_user_id, 
-      group)
+      groups, create_time, update_time
+      )
     values (#{storeUpsId,jdbcType=BIGINT}, #{forumPostId,jdbcType=BIGINT}, #{createUserId,jdbcType=BIGINT}, 
-      #{group,jdbcType=TINYINT})
+      #{groups,jdbcType=TINYINT}, #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP}
+      )
   </insert>
   <insert id="insertSelective" parameterType="com.yikangyiliao.pension.entity.StoreUp" >
     insert into store_ups
@@ -38,8 +42,14 @@
       <if test="createUserId != null" >
         create_user_id,
       </if>
-      <if test="group != null" >
-        group,
+      <if test="groups != null" >
+        groups,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+      <if test="updateTime != null" >
+        update_time,
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
@@ -52,8 +62,14 @@
       <if test="createUserId != null" >
         #{createUserId,jdbcType=BIGINT},
       </if>
-      <if test="group != null" >
-        #{group,jdbcType=TINYINT},
+      <if test="groups != null" >
+        #{groups,jdbcType=TINYINT},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null" >
+        #{updateTime,jdbcType=TIMESTAMP},
       </if>
     </trim>
   </insert>
@@ -66,8 +82,14 @@
       <if test="createUserId != null" >
         create_user_id = #{createUserId,jdbcType=BIGINT},
       </if>
-      <if test="group != null" >
-        group = #{group,jdbcType=TINYINT},
+      <if test="groups != null" >
+        groups = #{groups,jdbcType=TINYINT},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null" >
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
       </if>
     </set>
     where store_ups_id = #{storeUpsId,jdbcType=BIGINT}
@@ -76,7 +98,9 @@
     update store_ups
     set forum_post_id = #{forumPostId,jdbcType=BIGINT},
       create_user_id = #{createUserId,jdbcType=BIGINT},
-      group = #{group,jdbcType=TINYINT}
+      groups = #{groups,jdbcType=TINYINT},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      update_time = #{updateTime,jdbcType=TIMESTAMP}
     where store_ups_id = #{storeUpsId,jdbcType=BIGINT}
   </update>
   
@@ -89,8 +113,8 @@
 		<if test="null != userId">
 		 	create_user_id=#{userId} 
 		</if>
-		<if test="null != group">
-			and group=#{group}
+		<if test="null != groups">
+			and groups=#{groups}
 		</if>
 	</where>
   </select>
@@ -100,5 +124,11 @@
   	delete from store_ups where create_user_id=#{userId} and forum_post_id=#{forumPostId}
   </delete>
   
+  <!-- 根据用户的id与文章id 查询某一个收藏 -->
+  <select id="getStoreupByUserIdAndForumPostId" parameterType="map" resultMap="BaseResultMap">
+  	select 
+  		<include refid="Base_Column_List"></include>
+  	from store_ups where create_user_id=#{userId}  and forum_post_id=#{forumPostId}
+  </select>
   
 </mapper>

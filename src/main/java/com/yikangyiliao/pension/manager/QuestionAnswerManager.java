@@ -56,11 +56,22 @@ public class QuestionAnswerManager {
 			questionAnswerStartList2.setCreateUserId(userId);
 			questionAnswerStartList2.setCreateTime(createTime);
 			questionAnswerStartListDao.insertSelective(questionAnswerStartList2);
+			questionAnswerDao.updateQuestionAnswerStarUpByQuestionAnswerId(questionAnswerStartList2.getQuestionAnswerId());
 		}
 		
 		
 		return 0;
 	}
 	
+
+	/**
+	 * @author liushuaic
+	 * @date 2016-06-13 14:06
+	 * @desc 获取问题的回答
+	 * */
+	public QuestionAnswer getQuestionAnswerByQuestionAnswerId(Long questionAnswerId){
+		QuestionAnswer questionAnswer=questionAnswerDao.selectByPrimaryKey(questionAnswerId);
+		return questionAnswer;
+	}
 
 }

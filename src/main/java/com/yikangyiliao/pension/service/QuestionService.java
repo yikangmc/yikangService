@@ -11,6 +11,7 @@ import com.yikangyiliao.base.utils.ParamMapUtils;
 import com.yikangyiliao.pension.common.error.ExceptionConstants;
 import com.yikangyiliao.pension.common.response.ResponseMessage;
 import com.yikangyiliao.pension.entity.Question;
+import com.yikangyiliao.pension.entity.QuestionAnswer;
 import com.yikangyiliao.pension.manager.QuestionAnswerManager;
 import com.yikangyiliao.pension.manager.QuestionManager;
 
@@ -130,6 +131,21 @@ public class QuestionService {
 		
 		return resData;
 	}
+	/**
+	 * @author liushuaic
+	 * @date 2016-06-07 14:29
+	 * @desc 获取热门回复
+	 * **/
+	public ResponseMessage<List<QuestionAnswer>> getHotQuestionAnswer(Map<String,Object> paramMap){
+		ResponseMessage<List<QuestionAnswer>> resData=new ResponseMessage<List<QuestionAnswer>>();
+		Long userId=null;
+		if(paramMap.containsKey("userId")){
+			 userId=Long.valueOf(paramMap.get("userId").toString());
+		}
+		List<QuestionAnswer> questionAnswers=questionManager.getHotQuestionAnswer(userId);
+		resData.setData(questionAnswers);
+		return resData;
+	}
 	
 	
 	/**
@@ -149,5 +165,25 @@ public class QuestionService {
 		}
 		return resData;
 	}
+	
+	
+	/**
+	 * @author liushuaic
+	 * @date 2016-06-07 11:26
+	 * @desc 获取某一个用户创建的问题列表
+	 * **/
+	public ResponseMessage<List<Question>> getQuestionByCreateUserId(Map<String,Object> paramMap){
+		ResponseMessage<List<Question>> resData=new ResponseMessage<List<Question>>();
+		if(paramMap.containsKey("userId")){
+			Long userId=Long.valueOf(paramMap.get("userId").toString());
+			List<Question> questions=questionManager.getQuestionByCreateUserId(userId);
+			resData.setData(questions);
+		}else{
+			resData.setStatus(ExceptionConstants.parameterException.parameterException.errorCode);
+			resData.setMessage(ExceptionConstants.parameterException.parameterException.errorMessage);
+		}
+		return resData;
+	}
 
+	
 }

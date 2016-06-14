@@ -5,6 +5,7 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
 
 import com.yikangyiliao.base.utils.messageUtil.im.MessageThreads;
+import com.yikangyiliao.pension.message.ForumPostsMsgOpration;
 import com.yikangyiliao.pension.schedule.PersonnelDistribution;
 
 
@@ -21,9 +22,9 @@ public class PorpertiesLonder implements ApplicationContextAware {
 	public void setApplicationContext(ApplicationContext applicationContext) throws BeansException {
 		
 		
-		PersonnelDistribution personnelDistribution=applicationContext.getBean(PersonnelDistribution.class);
-		Thread thread=new Thread(personnelDistribution);
-		thread.start();
+//		PersonnelDistribution personnelDistribution=applicationContext.getBean(PersonnelDistribution.class);
+//		Thread thread=new Thread(personnelDistribution);
+//		thread.start();
 		
 		/**
 		 * @author liushuaic
@@ -31,6 +32,12 @@ public class PorpertiesLonder implements ApplicationContextAware {
 		 * **/
 		MessageThreads messageThreads =new MessageThreads();
 		messageThreads.startSendMessage();
+		
+//		起动异步通知功能
+//		ForumPostsMsgOpration forumPostsMsgOpration=new ForumPostsMsgOpration();
+		ForumPostsMsgOpration forumPostsMsgOpration=(ForumPostsMsgOpration) ApplicationContextUtil.applicationContext.getBean("forumPostsMsgOpration");
+		Thread forumThread=new Thread(forumPostsMsgOpration);
+		forumThread.start();
 	}
 
 }

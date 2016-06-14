@@ -13,10 +13,13 @@
     <result column="update_at" property="updateAt" jdbcType="BIGINT" />
     <result column="user_id" property="userId" jdbcType="BIGINT" />
     <result column="is_delete" property="isDelete" jdbcType="BIGINT" />
+    <result column="photo_url" property="photoUrl" jdbcType="VARCHAR" />
+    <result column="user_introduce" property="userIntroduce" jdbcType="VARCHAR" />
+    <result column="birthday" property="birthday" jdbcType="TIMESTAMP" />
   </resultMap>
   <sql id="Base_Column_List" >
     user_info_id, user_name, user_sex, provence_code, city_code, district_code, address, 
-    create_at, update_at, user_id, is_delete, user_infos_col
+    create_at, update_at, user_id, is_delete, photo_url, user_introduce, birthday
   </sql>
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
     select 
@@ -32,13 +35,13 @@
     insert into user_infos (user_info_id, user_name, user_sex, 
       provence_code, city_code, district_code, 
       address, create_at, update_at, 
-      user_id, is_delete, user_infos_col
-      )
+      user_id, is_delete, photo_url, 
+      user_introduce, birthday)
     values (#{userInfoId,jdbcType=BIGINT}, #{userName,jdbcType=VARCHAR}, #{userSex,jdbcType=TINYINT}, 
       #{provenceCode,jdbcType=VARCHAR}, #{cityCode,jdbcType=VARCHAR}, #{districtCode,jdbcType=VARCHAR}, 
       #{address,jdbcType=VARCHAR}, #{createAt,jdbcType=BIGINT}, #{updateAt,jdbcType=BIGINT}, 
-      #{userId,jdbcType=BIGINT}, #{isDelete,jdbcType=BIGINT}, #{userInfosCol,jdbcType=VARCHAR}
-      )
+      #{userId,jdbcType=BIGINT}, #{isDelete,jdbcType=BIGINT}, #{photoUrl,jdbcType=VARCHAR}, 
+      #{userIntroduce,jdbcType=VARCHAR}, #{birthday,jdbcType=TIMESTAMP})
   </insert>
   <insert id="insertSelective" parameterType="com.yikangyiliao.pension.entity.UserInfo" >
     insert into user_infos
@@ -76,8 +79,14 @@
       <if test="isDelete != null" >
         is_delete,
       </if>
-      <if test="userInfosCol != null" >
-        user_infos_col,
+      <if test="photoUrl != null" >
+        photo_url,
+      </if>
+      <if test="userIntroduce != null" >
+        user_introduce,
+      </if>
+      <if test="birthday != null" >
+        birthday,
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
@@ -114,8 +123,14 @@
       <if test="isDelete != null" >
         #{isDelete,jdbcType=BIGINT},
       </if>
-      <if test="userInfosCol != null" >
-        #{userInfosCol,jdbcType=VARCHAR},
+      <if test="photoUrl != null" >
+        #{photoUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="userIntroduce != null" >
+        #{userIntroduce,jdbcType=VARCHAR},
+      </if>
+      <if test="birthday != null" >
+        #{birthday,jdbcType=TIMESTAMP},
       </if>
     </trim>
   </insert>
@@ -152,8 +167,14 @@
       <if test="isDelete != null" >
         is_delete = #{isDelete,jdbcType=BIGINT},
       </if>
-      <if test="userInfosCol != null" >
-        user_infos_col = #{userInfosCol,jdbcType=VARCHAR},
+      <if test="photoUrl != null" >
+        photo_url = #{photoUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="userIntroduce != null" >
+        user_introduce = #{userIntroduce,jdbcType=VARCHAR},
+      </if>
+      <if test="birthday != null" >
+        birthday = #{birthday,jdbcType=TIMESTAMP},
       </if>
     </set>
     where user_info_id = #{userInfoId,jdbcType=BIGINT}
@@ -170,8 +191,57 @@
       update_at = #{updateAt,jdbcType=BIGINT},
       user_id = #{userId,jdbcType=BIGINT},
       is_delete = #{isDelete,jdbcType=BIGINT},
-      user_infos_col = #{userInfosCol,jdbcType=VARCHAR}
+      photo_url = #{photoUrl,jdbcType=VARCHAR},
+      user_introduce = #{userIntroduce,jdbcType=VARCHAR},
+      birthday = #{birthday,jdbcType=TIMESTAMP}
     where user_info_id = #{userInfoId,jdbcType=BIGINT}
+  </update>
+  
+  
+    <update id="updateByUserIdSelective" parameterType="com.yikangyiliao.pension.entity.UserInfo" >
+    update user_infos
+    <set >
+      <if test="userName != null" >
+        user_name = #{userName,jdbcType=VARCHAR},
+      </if>
+      <if test="userSex != null" >
+        user_sex = #{userSex,jdbcType=TINYINT},
+      </if>
+      <if test="provenceCode != null" >
+        provence_code = #{provenceCode,jdbcType=VARCHAR},
+      </if>
+      <if test="cityCode != null" >
+        city_code = #{cityCode,jdbcType=VARCHAR},
+      </if>
+      <if test="districtCode != null" >
+        district_code = #{districtCode,jdbcType=VARCHAR},
+      </if>
+      <if test="address != null" >
+        address = #{address,jdbcType=VARCHAR},
+      </if>
+      <if test="createAt != null" >
+        create_at = #{createAt,jdbcType=BIGINT},
+      </if>
+      <if test="updateAt != null" >
+        update_at = #{updateAt,jdbcType=BIGINT},
+      </if>
+      <if test="userId != null" >
+        user_id = #{userId,jdbcType=BIGINT},
+      </if>
+      <if test="isDelete != null" >
+        is_delete = #{isDelete,jdbcType=BIGINT},
+      </if>
+      <if test="photoUrl != null" >
+        photo_url = #{photoUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="userIntroduce != null" >
+        user_introduce = #{userIntroduce,jdbcType=VARCHAR},
+      </if>
+      <if test="birthday != null" >
+        birthday = #{birthday,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where user_id = #{userId,jdbcType=BIGINT}
   </update>
   
   
@@ -184,10 +254,33 @@
   	
   </select>
   
-  
-  <select id="getMyinvitationUserByUserId" resultMap="BaseResultMap" parameterType="long">
-	  
+   <resultMap type="com.yikangyiliao.pension.entity.UserInfo" id="getUserInfoListByTaglibIdResultMap">
+   		<result column="user_info_id"  	property="userInfoId" />
+	    <result column="user_name" 		property="userName" jdbcType="VARCHAR" />
+	    <result column="user_sex" 		property="userSex" jdbcType="TINYINT" />
+	    <result column="provence_code" 	property="provenceCode" jdbcType="VARCHAR" />
+	    <result column="city_code" 		property="cityCode" jdbcType="VARCHAR" />
+	    <result column="district_code" 	property="districtCode" jdbcType="VARCHAR" />
+	    <result column="address" 		property="address" jdbcType="VARCHAR" />
+	    <result column="create_at" 		property="createAt" jdbcType="BIGINT" />
+	    <result column="update_at" 		property="updateAt" jdbcType="BIGINT" />
+	    <result column="user_id" 		property="userId" jdbcType="BIGINT" />
+	    <result column="is_delete" 		property="isDelete" jdbcType="BIGINT" />
+	    <result column="photo_url" 		property="photoUrl" jdbcType="VARCHAR" />
+	    <result column="user_introduce" property="userIntroduce" jdbcType="VARCHAR" />
+	    <result column="birthday" 		property="birthday" jdbcType="TIMESTAMP" />
+		<result column="push_alias"  	property="pushAlias" />
+   </resultMap>
+  <!-- 查询关注一个标签的所有的用户的推送标签 -->
+  <select id="getUserInfoListByTaglibId" parameterType="long" resultMap="getUserInfoListByTaglibIdResultMap">
+  	select 
+		user.push_alias,ui.*
+	from user_infos ui 
+	inner join user_taglib_maps utm on ui.user_id =utm.create_user_id
+	inner join users user on user.user_id=utm.create_user_id
+	where utm.taglib_id=#{taglibId}
   </select>
   
   
+   
 </mapper>

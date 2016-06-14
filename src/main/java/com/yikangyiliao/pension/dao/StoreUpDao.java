@@ -25,7 +25,7 @@ public interface StoreUpDao {
      * @date 2016-05-25 14:57
      * @desc 删除我收藏的文章
      * ***/
-    int deleteForumpostStoreupByUserIdAndForumPostId(Map<String,Object> paramMap);
+    int deleteForumPostByUserIdAndForumPostId(Map<String,Object> paramMap);
     
     
     
@@ -37,6 +37,12 @@ public interface StoreUpDao {
     List<StoreUp> getStoreupByUserId(Map<String,Object> paramMap);
     
     
+    /**
+     *@author liushuaic
+     *@date 2016-06-13 16:02
+     *@desc 根据用户id 与文章id 获取某一个收藏
+     * */
+    StoreUp getStoreupByUserIdAndForumPostId(Map<String,Object> paramMap);
     
     
 }

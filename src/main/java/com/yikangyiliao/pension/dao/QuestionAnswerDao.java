@@ -37,8 +37,26 @@ public interface QuestionAnswerDao {
     
     /**
      * @author liushuaic
-     * @date 2016-06-30 15:08
+     * @date 2016-05-30 15:08
      * @desc 获取问题的所有答案
      * */
     List<QuestionAnswer> selectQuestionAnswer(Map<String,Object> paramMap);
+    
+    
+    /**
+     * @author liushuaic
+     * @date 2016-06-6 19:28
+     * @desc 获取精彩回答
+     * */
+    List<QuestionAnswer> getHotQuestionAnswer(Map<String,Object> paramMap);
+    
+    /**
+     * @author liushuaic
+     * @date 2016-06-13 15:48
+     * @desc 支持某一个问题回答
+     * */
+    int updateQuestionAnswerStarUpByQuestionAnswerId(Long questionAnswerId);
+    
+    
+    
 }

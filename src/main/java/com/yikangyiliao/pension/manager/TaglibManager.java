@@ -1,6 +1,8 @@
 package com.yikangyiliao.pension.manager;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -49,8 +51,11 @@ public class TaglibManager {
 	 * @date 2016-05-12 10:31
 	 * @desc 查询出所有的二级标签 根据  parentId
 	 * **/
-	public  List<Taglib> getSecondTaglibByParentId(Long parentId){
-		return taglibDao.getSecondTaglibByParentId(parentId);
+	public  List<Taglib> getSecondTaglibByParentId(Long parentId,Long userId){
+		Map<String,Object> paramMap=new HashMap<String,Object>();
+		paramMap.put("parentId", parentId);
+		paramMap.put("userId", userId);
+		return taglibDao.getSecondTaglibByParentId(paramMap);
 	}
 	
 	
@@ -59,8 +64,10 @@ public class TaglibManager {
      * @date 2016-05-19 16:03
      * @desc 获取所有的标签
      * */
-	public List<Taglib> getAllTag(){
-    	return taglibDao.getAllTag();
+	public List<Taglib> getAllTag(Long userId){
+		Map<String,Object> paramMap=new HashMap<String,Object>();
+		paramMap.put("userId", userId);
+    	return taglibDao.getAllTag(paramMap);
     }
 	
 	

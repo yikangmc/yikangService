@@ -9,6 +9,8 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import com.yikangyiliao.pension.common.utils.operationmesage.OperationMessage;
+import com.yikangyiliao.pension.common.utils.operationmesage.OperationMessageQueue;
 import com.yikangyiliao.pension.dao.FormPostsDao;
 import com.yikangyiliao.pension.dao.FormPostsStarListDao;
 import com.yikangyiliao.pension.dao.FormPostsTaglibsMapDao;
@@ -41,8 +43,10 @@ public class FormPostManager {
 	 * @date 2016-04-27 11:11
 	 * @desc 获取推荐文章
 	 **/
-	public List<FormPosts> getIsEssence() {
-		return formPostsDao.getIsEssence();
+	public List<FormPosts> getIsEssence(Long userId) {
+		Map<String,Object> paramMap=new HashMap<String,Object>();
+		paramMap.put("userId", userId);
+		return formPostsDao.getIsEssence(paramMap);
 	}
 
 	/**
@@ -93,6 +97,15 @@ public class FormPostManager {
 			forumPostsImage.setImageUrl(img);
 			forumPostsImageManager.insertSelective(forumPostsImage);
 		}
+		
+		try{
+			OperationMessage operationMessage=new OperationMessage();
+			operationMessage.setContent(formPosts.getForumPostId().toString());
+			operationMessage.setContentType("1");
+			OperationMessageQueue.putMessage(operationMessage);
+		}catch(Exception e){
+			e.printStackTrace();
+		}
 
 	}
 
@@ -120,7 +133,7 @@ public class FormPostManager {
 	public void updateForumPostsDown(Long forumPostsId, Long userId) {
 
 		Map<String, Object> paramMap = new HashMap<String, Object>();
-		paramMap.put("forumPostsId", forumPostsId);
+		paramMap.put("forumPostId", forumPostsId);
 		paramMap.put("userId", userId);
 		formPostsStarListDao.deleteForumPostStartList(paramMap);
 		formPostsDao.formPostsStarsDownByForumPostId(forumPostsId);
@@ -133,8 +146,11 @@ public class FormPostManager {
 	 * @desc 获取某一个文章的详情
 	 * 
 	 */
-	public FormPosts getForumPostsDetail(Long forumPostId) {
-		return formPostsDao.getFormPoustsDetailByForumPostId(forumPostId);
+	public FormPosts getForumPostsDetail(Long forumPostId,Long userId) {
+		Map<String,Object> paramData=new HashMap<String,Object>();
+		paramData.put("forumPostId", forumPostId);
+		paramData.put("userId", userId);
+		return formPostsDao.getFormPoustsDetailByForumPostId(paramData);
 	}
 
 	/**
@@ -176,10 +192,18 @@ public class FormPostManager {
 		FormPostsStarList fps = formPostsStarListDao.selectForumPostStartListByCreateUserIdAndForumPostsId(paramMap);
 		if (null == fps) {
 			this.updateForumPostsStarUp(forumPostId, userId);
+			try{
+				OperationMessage operationMessage=new OperationMessage();
+				operationMessage.setContent(forumPostId.toString());
+				operationMessage.setContentType("1");
+				OperationMessageQueue.putMessage(operationMessage);
+			}catch(Exception e){
+				e.printStackTrace();
+			}
 		} else {
 			this.updateForumPostsDown(forumPostId, userId);
 		}
-		formPostsStarListDao.deleteForumPostStartList(paramMap);
+		
 	}
 
 	/**
@@ -188,8 +212,36 @@ public class FormPostManager {
 	 * TODO 添加缓存，把经常用到的数据添加入redis
 	 *      在次调用时，进行判断缓存是否已经保存
 	 */
-	public List<FormPosts> getForumPostsByTaglibsId(Long taglibId) {
-		return formPostsDao.getForumPostsByTaglibsId(taglibId);
+	public List<FormPosts> getForumPostsByTaglibsId(Long taglibId,Long userId) {
+		Map<String, Object> paramMap = new HashMap<String, Object>();
+		paramMap.put("taglibId", taglibId);
+		paramMap.put("userId", userId);
+		return formPostsDao.getForumPostsByTaglibsId(paramMap);
 	}
 
+	/**
+     * @author liushuaic
+     * @date 2016-06-06 19:18
+     * @desc 获取最热帖子
+     * **/
+	public List<FormPosts> getHotForumPosts(){
+		return formPostsDao.getHotForumPosts();
+	}
+	
+	/**
+	 * @author liushuaic
+	 * @date 2016-06-07 10:52
+	 * @desc 获取某一个用户创建的文章列表
+	 * */
+	public List<FormPosts> geForumPostsByCreateUserId(Long userId){
+		return formPostsDao.geForumPostsByCreateUserId(userId);
+	}
+	
+	/**
+	 * @author liushuaic
+	 * @date 2016-06-13 19:35 获取文章详情
+	 * */
+	public FormPosts selectByPrimaryKey(Long forumPostId){
+		return formPostsDao.selectByPrimaryKey(forumPostId);
+	}
 }

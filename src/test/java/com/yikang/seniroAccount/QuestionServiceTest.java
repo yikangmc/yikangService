@@ -56,5 +56,38 @@ public class QuestionServiceTest {
 	}
 	
 	
+	/**
+	 * @author liushuaic
+	 * @date 2016-06-07 15:01
+	 * @desc 获取精彩回答
+	 * */
+	@Test
+	public void testGetHotQuestionAnswer(){
+		try{
+			Map<String,Object> paramData=new HashMap<String,Object>();
+			SendRequest.sendPost("00-29-06?appId=234&accessTicket=99b5ee453affe2efad86f03909495dd1b9ce342e78fd9ac33497fe204e9991195e4c7afd323d91954ba85f0a1bf9bb45&machineCode=123123", paramData);
+		}catch(Exception e){
+			e.printStackTrace();
+		}
+		
+	}
+	
+	/**
+	 * @author liushuaic
+	 * @date 2016-06-07 15:01
+	 * @desc 我的问题
+	 * */
+	@Test
+	public void getQuestionByCreateUserId(){
+		try{
+			Map<String,Object> paramData=new HashMap<String,Object>();
+			SendRequest.sendPost("00-29-07?appId=234&accessTicket=99b5ee453affe2efad86f03909495dd1b9ce342e78fd9ac33497fe204e9991195e4c7afd323d91954ba85f0a1bf9bb45&machineCode=123123", paramData);
+		}catch(Exception e){
+			e.printStackTrace();
+		}
+		
+	}
+	
+	
 	
 }

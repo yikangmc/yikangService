@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.yikangyiliao.pension.dao.FollowUserMapMapper">
+<mapper namespace="com.yikangyiliao.pension.dao.FollowUserMapDao">
   <resultMap id="BaseResultMap" type="com.yikangyiliao.pension.entity.FollowUserMap">
     <id column="follow_user_maps_id" jdbcType="BIGINT" property="followUserMapsId" />
     <result column="create_user_id" jdbcType="BIGINT" property="createUserId" />
@@ -90,4 +90,20 @@
       update_time = #{updateTime,jdbcType=TIMESTAMP}
     where follow_user_maps_id = #{followUserMapsId,jdbcType=BIGINT}
   </update>
+  
+  
+  <!--删除我关注的用户  -->
+  <delete id="deleteMyFollowUser"  parameterType="map">
+  	delete from follow_user_maps where create_user_id = #{createUserId,jdbcType=BIGINT} and follow_user_id = #{followUserId,jdbcType=BIGINT}
+  </delete>
+  
+  <!-- 查询我关注某一个人的记录  -->
+  <resultMap type="com.yikangyiliao.pension.entity.FollowUserMap" id="getMyFollowUserByUserIdAndFolloUserIdResultMap" extends="BaseResultMap" >
+  </resultMap>
+  <select id="getMyFollowUserByUserIdAndFolloUserId" parameterType="map" resultMap="getMyFollowUserByUserIdAndFolloUserIdResultMap">
+  	select 
+  	<include refid="Base_Column_List"></include>
+  	from follow_user_maps where create_user_id = #{createUserId,jdbcType=BIGINT} and follow_user_id = #{followUserId,jdbcType=BIGINT}
+  </select>
+  
 </mapper>

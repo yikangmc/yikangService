@@ -93,7 +93,7 @@
 		ui.user_name,
 	    ui.photo_url
 	from forum_posts_star_lists fpsl
-	inner join user_infos ui on fpsl.create_user_id=ui.user_id
+	left join user_infos ui on fpsl.create_user_id=ui.user_id
 	where fpsl.forum_posts_id=#{forumPostsId}
   </select>
   

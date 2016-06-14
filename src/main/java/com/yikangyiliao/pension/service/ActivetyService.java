@@ -92,14 +92,8 @@ public class ActivetyService {
 			&& paramMap.containsKey("endTime")
 			&& paramMap.containsKey("entryStartTime")
 			&& paramMap.containsKey("entryEndTime")
-			&& paramMap.containsKey("mapPositionAddress")
-			&& paramMap.containsKey("detailAddress")
-			&& paramMap.containsKey("districtCode")
-			&& paramMap.containsKey("lng")
-			&& paramMap.containsKey("lat")
 			&& paramMap.containsKey("personNumber")
 			&& paramMap.containsKey("cost")
-			&& paramMap.containsKey("taglibs")
 			&& paramMap.containsKey("activetyMode")
 		 ){
 			String title=paramMap.get("title").toString();
@@ -130,25 +124,44 @@ public class ActivetyService {
 			} catch (ParseException e) {
 				e.printStackTrace();
 			}
+			String mapPositionAddress="";
+			if(paramMap.containsKey("mapPositionAddress")){
+				mapPositionAddress=paramMap.get("mapPositionAddress").toString();
+			}
+			String detailAddress="";
+			if(paramMap.containsKey("detailAddress")){
+				detailAddress=paramMap.get("detailAddress").toString();
+			}
+			String districtCode="";
+			if(paramMap.containsKey("districtCode")){
+				 districtCode=paramMap.get("districtCode").toString();
+			}
 			
-			String mapPositionAddress=paramMap.get("mapPositionAddress").toString();
-			String detailAddress=paramMap.get("detailAddress").toString();
-			String districtCode=paramMap.get("districtCode").toString();
 			//获取经度
-			Double lng=Double.valueOf(paramMap.get("lng").toString());
+			Double lng=0d;
+			if(paramMap.containsKey("lng")){
+				lng=Double.valueOf(paramMap.get("lng").toString());
+			}
 			//纬度
-			Double lat=Double.valueOf(paramMap.get("lat").toString());
+			Double lat=0d;
+			if(paramMap.containsKey("lat")){
+				lat=Double.valueOf(paramMap.get("lat").toString());
+			}
 			
 			Integer personNumber=Integer.valueOf(paramMap.get("personNumber").toString());
 			Double cost=Double.valueOf(paramMap.get("cost").toString());
-			List taglibs=(List)paramMap.get("taglibs");
-			Long[] taglibIds=ParamMapUtils.converObjectArrayToLong(taglibs);
+			
+			//标签
+			Long[] taglibIds=null;
+			if(paramMap.containsKey("taglibs")){
+				List taglibs=(List)paramMap.get("taglibs");
+				taglibIds=ParamMapUtils.converObjectArrayToLong(taglibs);
+			}
+			
 			
 			Long userId=Long.valueOf(paramMap.get("userId").toString());
 			
 			Byte activetyMode=Byte.valueOf(paramMap.get("activetyMode").toString());
-			
-			
 			
 			String recommendPicUrl="";
 			if(paramMap.containsKey("recommendPicUrl")){
