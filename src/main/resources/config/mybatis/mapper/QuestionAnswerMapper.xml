@@ -9,10 +9,12 @@
     <result column="question_id" property="questionId" jdbcType="BIGINT" />
     <result column="star_num" property="starNum" jdbcType="INTEGER" />
     <result column="is_recommend" property="isRecommend" jdbcType="TINYINT" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
   </resultMap>
   <sql id="Base_Column_List" >
     question_answer_id, create_user_id, data_source, content, question_id, star_num, 
-    is_recommend
+    is_recommend, create_time, update_time
   </sql>
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
     select 
@@ -27,10 +29,12 @@
   <insert id="insert" parameterType="com.yikangyiliao.pension.entity.QuestionAnswer" >
     insert into question_answers (question_answer_id, create_user_id, data_source, 
       content, question_id, star_num, 
-      is_recommend)
+      is_recommend, create_time, update_time
+      )
     values (#{questionAnswerId,jdbcType=BIGINT}, #{createUserId,jdbcType=BIGINT}, #{dataSource,jdbcType=TINYINT}, 
       #{content,jdbcType=VARCHAR}, #{questionId,jdbcType=BIGINT}, #{starNum,jdbcType=INTEGER}, 
-      #{isRecommend,jdbcType=TINYINT})
+      #{isRecommend,jdbcType=TINYINT}, #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP}
+      )
   </insert>
   <insert id="insertSelective" parameterType="com.yikangyiliao.pension.entity.QuestionAnswer" >
     insert into question_answers
@@ -56,6 +60,12 @@
       <if test="isRecommend != null" >
         is_recommend,
       </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+      <if test="updateTime != null" >
+        update_time,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
       <if test="questionAnswerId != null" >
@@ -78,6 +88,12 @@
       </if>
       <if test="isRecommend != null" >
         #{isRecommend,jdbcType=TINYINT},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null" >
+        #{updateTime,jdbcType=TIMESTAMP},
       </if>
     </trim>
   </insert>
@@ -102,6 +118,12 @@
       <if test="isRecommend != null" >
         is_recommend = #{isRecommend,jdbcType=TINYINT},
       </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null" >
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
     </set>
     where question_answer_id = #{questionAnswerId,jdbcType=BIGINT}
   </update>
@@ -112,7 +134,9 @@
       content = #{content,jdbcType=VARCHAR},
       question_id = #{questionId,jdbcType=BIGINT},
       star_num = #{starNum,jdbcType=INTEGER},
-      is_recommend = #{isRecommend,jdbcType=TINYINT}
+      is_recommend = #{isRecommend,jdbcType=TINYINT},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      update_time = #{updateTime,jdbcType=TIMESTAMP}
     where question_answer_id = #{questionAnswerId,jdbcType=BIGINT}
   </update>
   
@@ -131,6 +155,8 @@
   	<result column="isStar" property="isStar"/>
   	<result column="user_name" property="userName"/>
   	<result column="photo_url" property="photoUrl"/>
+  	<association property="question" javaType="com.yikangyiliao.pension.entity.Question" resultMap="com.yikangyiliao.pension.dao.QuestionDao.BaseResultMap">
+  	</association>
   </resultMap>
   <select id="selectQuestionAnswer" parameterType="map" resultMap="selectQuestionAnswerResultMap">
 	<if test="userId eq null">
@@ -198,6 +224,12 @@
 	left join user_infos ui on ui.user_id=qa.create_user_id
 	</if>
   </select>
+
+<!-- 我的回答 -->  
+  <select id="getMyQuestionAnswerByCreateUserId" parameterType="map" resultMap="selectQuestionAnswerResultMap">
+  	
+  </select>
+  
   
   <update id="updateQuestionAnswerStarUpByQuestionAnswerId" parameterType="long">
   	update question_answers set star_num=star_num+1 where question_answer_id=#{questionAnswerId}

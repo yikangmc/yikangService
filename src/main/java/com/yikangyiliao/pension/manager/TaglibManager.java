@@ -32,8 +32,10 @@ public class TaglibManager {
 	 * @date 2016-05-11 16:49
 	 * @desc 获取推荐的二级标签
 	 * */
-	public List<Taglib>  getRecommendTaglib(){
-		return taglibDao.getRecommendTaglib();
+	public List<Taglib>  getRecommendTaglib(Long userId){
+		Map<String,Object> paramMap=new HashMap<String,Object>();
+		paramMap.put("userId", userId);
+		return taglibDao.getRecommendTaglib(paramMap);
 	}
 	
 	/**
@@ -89,4 +91,13 @@ public class TaglibManager {
     	return taglibDao.getSecondAllTaglib();
     }
 	
+    /**
+     * @author liushuaic
+     * @date 2016-06-16 19:35
+     * @desc 查询某个文章的所有标签
+     * **/
+    public List<Taglib> getTaglibsByForumPostId(Long fourmPostId){
+    	return taglibDao.getTaglibsByFormPostId(fourmPostId);
+    }
+    
 }

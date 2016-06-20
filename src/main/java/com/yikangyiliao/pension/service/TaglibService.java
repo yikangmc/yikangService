@@ -33,7 +33,11 @@ public class TaglibService {
 		
 		ResponseMessage<List<Taglib>> resData=new ResponseMessage<List<Taglib>>();
 		
-		List<Taglib> taglibs=taglibManager.getRecommendTaglib();
+		Long userId=null;
+		if(paramMap.containsKey("userId")){
+			userId=Long.valueOf(paramMap.get("userId").toString());
+		}
+		List<Taglib> taglibs=taglibManager.getRecommendTaglib(userId);
 		
 		resData.setData(taglibs); 
 		

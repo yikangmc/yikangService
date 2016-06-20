@@ -13,7 +13,6 @@ import com.yikangyiliao.pension.entity.User;
 import com.yikangyiliao.pension.manager.QuestionAnswerManager;
 import com.yikangyiliao.pension.manager.QuestionManager;
 import com.yikangyiliao.pension.manager.UserManager;
-import com.yikangyiliao.pension.service.QuestionService;
 
 @Component(value="questionAnswerMsgOperation")
 public class QuestionAnswerMsgOperation implements Runnable{
@@ -44,7 +43,7 @@ public class QuestionAnswerMsgOperation implements Runnable{
 				Long userId=question.getCreateUserId();
 				
 				User user=userManager.getUserByUserId(userId);
-				Message message=new Message();
+				Message<String> message=new Message<String>();
 				message.setAlias(user.getPushAlias());
 				message.setContent("你的文章有新的回答了 "+questionAnswer.getContent());
 				MessageQueue.put(message);

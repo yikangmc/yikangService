@@ -1,5 +1,6 @@
 package com.yikangyiliao.pension.service;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -103,14 +104,16 @@ public class ForumPostService {
      * @param formPostId
      * @param userId
      * */
-    public ResponseMessage<String> updateForumPostStar(Map<String,Object> paramData){
+    public ResponseMessage<FormPosts> updateForumPostStar(Map<String,Object> paramData){
     	
-    	ResponseMessage<String> res=new ResponseMessage<String>();
+    	ResponseMessage<FormPosts> res=new ResponseMessage<FormPosts>();
     	try{
     		if(paramData.containsKey("forumPostId")){
     			Long userId=Long.valueOf(paramData.get("userId").toString());
     			Long forumPostsId=Long.valueOf(paramData.get("forumPostId").toString());
     			formPostManager.updateForumPostStar(forumPostsId,userId);
+    			FormPosts formPosts=formPostManager.getForumPostsDetail(forumPostsId, userId);
+    			res.setData(formPosts);
     		}else{
     			res.setStatus(ExceptionConstants.parameterException.parameterException.errorCode);
         		res.setMessage(ExceptionConstants.parameterException.parameterException.errorMessage);
@@ -271,10 +274,20 @@ public class ForumPostService {
     /**
      * 删除
      * **/
+   
+   public ResponseMessage<String> deleteForumPosts(Map<String,Object> paramMap){
+	   ResponseMessage<String> resData=new ResponseMessage<String>();
+	   return resData;
+   }
     
     /**
      * 修改
      * */
-    
+    public ResponseMessage<String> updateForumPosts(Map<String,Object> paramMap){
+    	ResponseMessage<String> resData=new ResponseMessage<String>();
+    	return resData;
+    }
+   
+   
     
 }

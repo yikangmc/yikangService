@@ -48,11 +48,10 @@ public class ForumPostStarOperation implements Runnable{
 					String pushAlias=user.getPushAlias();
 					
 					try{
-						Message message=new Message();
+						Message<String> message=new Message<String>();
 						message.setAlias(pushAlias);
 						message.setContent("文章有新的支持了! "+formPosts.getTitle());
-						MessageQueue messageQueue=new MessageQueue();
-						messageQueue.put(message);
+						MessageQueue.put(message);
 					}catch(Exception e){
 						e.printStackTrace();
 						log.error(e.getMessage());

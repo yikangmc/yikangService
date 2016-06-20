@@ -210,10 +210,12 @@
   </select>
   
   <!-- 目前只技术2级列表  -->
-  <select id="getRecommendTaglib" resultMap="BaseResultMap">
+  <select id="getRecommendTaglib" resultMap="BaseResultMap" parameterType="map">
   	select 
-  		<include refid="Base_Column_List"></include>
-  	from taglibs
+  			taglibs.*
+			,if(ifnull(user_taglib_maps.taglib_id,-1)>0,1,0) as isStore
+	from taglibs
+	left join user_taglib_maps on (taglibs.taglib_id=user_taglib_maps.taglib_id and user_taglib_maps.create_user_id=#{userId})
 	where parent_id!=0
 	and is_recommend=1
   </select>

@@ -1,5 +1,7 @@
 package com.yikangyiliao.pension.entity;
 
+import java.util.Date;
+
 public class QuestionAnswer {
     private Long questionAnswerId;
 
@@ -15,11 +17,19 @@ public class QuestionAnswer {
 
     private Byte isRecommend;
     
+    private Date createTime;
+
+    private Date updateTime;
+    
+    // under 是展示用
+    
     private Integer isStar=0;
 
     private String userName;
     
     private String photoUrl;
+    
+    private Question question;
     
     public Long getQuestionAnswerId() {
         return questionAnswerId;
@@ -99,5 +109,21 @@ public class QuestionAnswer {
 
 	public void setPhotoUrl(String photoUrl) {
 		this.photoUrl = photoUrl;
+	}
+
+	public Date getCreateTime() {
+		return createTime;
+	}
+
+	public void setCreateTime(Date createTime) {
+		this.createTime = createTime;
+	}
+
+	public Date getUpdateTime() {
+		return updateTime;
+	}
+
+	public void setUpdateTime(Date updateTime) {
+		this.updateTime = updateTime;
 	}
 }

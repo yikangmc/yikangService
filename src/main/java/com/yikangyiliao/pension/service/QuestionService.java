@@ -96,7 +96,7 @@ public class QuestionService {
 		){
 			Long questionId=Long.valueOf(paramMap.get("questionId").toString());
 			Long createUserId=Long.valueOf(paramMap.get("userId").toString());
-			String content=paramMap.get("paramMap").toString();
+			String content=paramMap.get("content").toString();
 			
 			questionAnswerManager.insertSelective(questionId, content, createUserId);
 		}else{

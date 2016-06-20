@@ -32,8 +32,9 @@ public interface TaglibDao {
      * @author liushuaic
      * @date 2016-05-11 16:16
      * @desc 获取推荐的2级标签列表
+     * @param userId
      * */
-    List<Taglib> getRecommendTaglib();
+    List<Taglib> getRecommendTaglib(Map<String,Object> paramMap);
     
     
     

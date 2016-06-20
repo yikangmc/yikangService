@@ -34,6 +34,11 @@ public class FormPosts {
 
     private String recommendPicUrl;
     
+    private Byte forumPostGroup;
+    
+    private String forumPostsUuid;
+    
+    // 下面为展示使用
     private Integer answersNums;
     
     private Integer isStar;
@@ -226,6 +231,22 @@ public class FormPosts {
 
 	public void setIsStore(Integer isStore) {
 		this.isStore = isStore;
+	}
+
+	public Byte getForumPostGroup() {
+		return forumPostGroup;
+	}
+
+	public void setForumPostGroup(Byte forumPostGroup) {
+		this.forumPostGroup = forumPostGroup;
+	}
+
+	public String getForumPostsUuid() {
+		return forumPostsUuid;
+	}
+
+	public void setForumPostsUuid(String forumPostsUuid) {
+		this.forumPostsUuid = forumPostsUuid;
 	}
 
 }

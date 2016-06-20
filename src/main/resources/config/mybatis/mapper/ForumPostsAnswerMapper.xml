@@ -140,6 +140,7 @@
 	left join user_infos ui on fpa.create_user_id=ui.user_id
 	left join user_infos toui on fpa.to_user_id =ui.user_id
 	where fpa.form_post_id=#{formPostId}
+	order by  fpa.create_time desc
   </select>
   
   

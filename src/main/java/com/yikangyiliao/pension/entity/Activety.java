@@ -53,6 +53,8 @@ public class Activety {
     //是否已经参加活动 0 参加 ，1 已经参加
     private Integer isPartake;
     
+    private List<ActivetyComment> activtyComments;
+    
     public Long getActivetyId() {
         return activetyId;
     }

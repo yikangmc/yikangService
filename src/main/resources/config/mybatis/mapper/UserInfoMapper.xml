@@ -274,6 +274,7 @@
   <!-- 查询关注一个标签的所有的用户的推送标签 -->
   <select id="getUserInfoListByTaglibId" parameterType="long" resultMap="getUserInfoListByTaglibIdResultMap">
   	select 
+  		distinct
 		user.push_alias,ui.*
 	from user_infos ui 
 	inner join user_taglib_maps utm on ui.user_id =utm.create_user_id

@@ -10,6 +10,7 @@ import com.yikangyiliao.pension.dao.QuestionAnswerDao;
 import com.yikangyiliao.pension.dao.QuestionAnswerStartListDao;
 import com.yikangyiliao.pension.entity.QuestionAnswer;
 import com.yikangyiliao.pension.entity.QuestionAnswerStartList;
+import com.yikangyiliao.pension.message.QuestionAnswerMsgOperation;
 
 @Component
 public class QuestionAnswerManager {
@@ -27,13 +28,16 @@ public class QuestionAnswerManager {
 	 * @desc 添加问题回复
 	 * **/
 	public int insertSelective(Long questionId,String content,Long createUserId){
+		Date currentDate=Calendar.getInstance().getTime();
 		QuestionAnswer questionAnswer=new QuestionAnswer();
 		questionAnswer.setCreateUserId(createUserId);
 		questionAnswer.setContent(content);
 		questionAnswer.setDataSource(Byte.valueOf("0"));
 		questionAnswer.setQuestionId(questionId);
-		
-		
+		questionAnswer.setStarNum(0);
+		questionAnswer.setIsRecommend(Byte.valueOf("0"));
+		questionAnswer.setCreateTime(currentDate);
+		questionAnswer.setUpdateTime(currentDate);
 		return questionAnswerDao.insert(questionAnswer);
 	}
 	

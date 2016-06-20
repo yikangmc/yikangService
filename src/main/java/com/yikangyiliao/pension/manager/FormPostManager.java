@@ -5,10 +5,12 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import com.yikangyiliao.base.utils.UrlGenerateUtil;
 import com.yikangyiliao.pension.common.utils.operationmesage.OperationMessage;
 import com.yikangyiliao.pension.common.utils.operationmesage.OperationMessageQueue;
 import com.yikangyiliao.pension.dao.FormPostsDao;
@@ -19,6 +21,7 @@ import com.yikangyiliao.pension.entity.FormPosts;
 import com.yikangyiliao.pension.entity.FormPostsStarList;
 import com.yikangyiliao.pension.entity.FormPostsTaglibsMap;
 import com.yikangyiliao.pension.entity.ForumPostsImage;
+import com.yikangyiliao.pension.entity.UserServiceInfo;
 
 @Component
 public class FormPostManager {
@@ -37,6 +40,9 @@ public class FormPostManager {
 
 	@Autowired
 	private ForumPostsImageManager forumPostsImageManager;
+	
+	@Autowired
+	private  UserManager userManager;
 
 	/**
 	 * @author liushuaic
@@ -56,6 +62,9 @@ public class FormPostManager {
 	 **/
 	public void insertPublishFormPosts(String title, String content, Long[] taglibIds, Long userId, String[] images) {
 
+		UserServiceInfo userServiceInfo=userManager.getUserServiceInfoByUserIdTwo(userId);
+		
+		Byte userPosition=userServiceInfo.getUserPosition();
 		Date currentDate = Calendar.getInstance().getTime();
 
 		FormPosts formPosts = new FormPosts();
@@ -72,11 +81,15 @@ public class FormPostManager {
 		formPosts.setAnswersNums(0);
 		formPosts.setCreateTime(currentDate);
 		formPosts.setUpdateTime(currentDate);
-		formPosts.setShareUrl("");
+		formPosts.setShareUrl(UrlGenerateUtil.generateShareForumPostUrl());
 		formPosts.setShareNum(0);
 		formPosts.setStars(0);
 		formPosts.setReportComplaintsStatus(Byte.valueOf("0"));
-
+		if(null !=userPosition && userPosition>0){
+			formPosts.setForumPostGroup(Byte.valueOf("1"));
+		}else{
+			formPosts.setForumPostGroup(Byte.valueOf("0"));
+		}
 		formPostsDao.insertSelective(formPosts);
 
 		// 添加标签

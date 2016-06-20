@@ -13,9 +13,12 @@ public class FormPostsStarList {
     
     private String createUserName;
     
+    /**
+     * 下面添加展示数据， 不能对，映射实体做初始化
+     * **/
     private String userName;
     
-    private String photoUrl;
+    private String photoUrl="";
     
     
     public Long getForumPostsStarListId() {

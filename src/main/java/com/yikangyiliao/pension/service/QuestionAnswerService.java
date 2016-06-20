@@ -25,5 +25,18 @@ public class QuestionAnswerService {
 		
 	}
 	
+	/**
+	 * @author liushuaic
+	 * @date 2016-06-15 17:18
+	 * @desc 我的回答
+	 * */
+	public ResponseMessage<List<QuestionAnswer>> getQuestionAnswerByCreateUserId(Map<String,Object> paramMap){
+		ResponseMessage<List<QuestionAnswer>> questionAnswers=new ResponseMessage<List<QuestionAnswer>>();
+		
+		
+		
+		return questionAnswers;
+	}
+	
 
 }

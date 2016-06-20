@@ -8,13 +8,13 @@ package com.yikangyiliao.base.utils.messageUtil.im;
  * @desc 推送信息
  * 
  * ***/
-public class Message{
+public class Message<AT extends Object>{
 
 	/**
 	 * 推送设备别名
 	 * or tagName
 	 * **/
-	private String alias;
+	private AT alias;
 	
 	/**
 	 * 推送内容
@@ -42,13 +42,7 @@ public class Message{
 	 * */
 	private int retrayNum=0;
 	 
-	public String getAlias() {
-		return alias;
-	}
 
-	public void setAlias(String alias) {
-		this.alias = alias;
-	}
 
 	public String getContent() {
 		return content;
@@ -85,6 +79,14 @@ public class Message{
 
 	public void setRetrayNum(int retrayNum) {
 		this.retrayNum = retrayNum;
+	}
+
+	public void setAlias(AT alias) {
+		this.alias = alias;
+	}
+
+	public AT getAlias() {
+		return alias;
 	}
 
 	

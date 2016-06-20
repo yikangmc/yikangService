@@ -701,6 +701,7 @@ public class UserService {
 		if (paramData.containsKey("photoUrl")) {
 			String photoUrl = paramData.get("photoUrl").toString();
 			userServiceInfo.setPhotoUrl(photoUrl);
+			userInfo.setPhotoUrl(photoUrl);
 		}
 
 		if (paramData.containsKey("userPosition")) {
@@ -712,6 +713,7 @@ public class UserService {
 		if (paramData.containsKey("userName")) {
 			String userName = paramData.get("userName").toString();
 			userServiceInfo.setUserServiceName(userName);
+			userInfo.setUserName(userName);
 		}
 
 		userServiceInfo.setUpdateTime(currentDateTime);
@@ -816,7 +818,7 @@ public class UserService {
 		
 		userManager.updateUserServiceInfo(userServiceInfo);
 		
-		if(paramData.containsKey("birthday")){
+		if(paramData.containsKey("birthday") && paramData.get("birthday").toString().length()>0){
 			String birthday=paramData.get("birthday").toString();
 			try {
 				userInfo.setBirthday(DateUtils.formateDateTime(birthday+" 00:00:00"));

@@ -185,6 +185,7 @@
   	<result column="user_name" property="userName"/>
 	<result column="photo_url" property="photoUrl"/>
 	<result column="answer_num" property="answerNum"/>
+	<collection property="taglibs" 		   column="question_id" select="com.yikangyiliao.pension.dao.QuestionTaglibMapDao.getQuestionTaglibsByQuestionId"></collection>
   </resultMap>
   <select id="getQuestionByCreateUserId" parameterType="long" resultMap="getQuestionByCreateUserIdResultMap">
   		select 

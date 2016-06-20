@@ -22,5 +22,5 @@ public interface ActivetyCommentDao {
      * @date 2016-05-18 18:31
      * @desc 获取评论列表
      * */
-    List<ActivetyComment> getActivetyCommentByUserId(Long activetyId);
+    List<ActivetyComment> getActivetyCommentByActivetyId(Long activetyId);
 }

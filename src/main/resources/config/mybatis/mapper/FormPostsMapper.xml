@@ -14,10 +14,13 @@
     <result column="create_user_id" property="createUserId" jdbcType="BIGINT" />
     <result column="share_url" property="shareUrl" jdbcType="VARCHAR" />
     <result column="recommend_pic_url" property="recommendPicUrl" jdbcType="VARCHAR" />
+    <result column="forum_post_group" property="forumPostGroup" jdbcType="TINYINT" />
+    <result column="forum_posts_uuid" property="forumPostsUuid" jdbcType="VARCHAR" />
   </resultMap>
   <sql id="Base_Column_List" >
     forum_post_id, title, content, report_complaints_status, is_essence, create_time, 
-    update_time, stars, share_num, create_user_id, share_url, recommend_pic_url
+    update_time, stars, share_num, create_user_id, share_url, recommend_pic_url, forum_post_group, 
+    forum_posts_uuid
   </sql>
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
     select 
@@ -36,16 +39,16 @@
     insert into forum_posts (forum_post_id, title, content, 
       report_complaints_status, is_essence, create_time, 
       update_time, stars, share_num, 
-      create_user_id, share_url, recommend_pic_url
-      )
+      create_user_id, share_url, recommend_pic_url, 
+      forum_post_group, forum_posts_uuid)
     values (#{forumPostId,jdbcType=BIGINT}, #{title,jdbcType=VARCHAR}, #{content,jdbcType=VARCHAR}, 
       #{reportComplaintsStatus,jdbcType=TINYINT}, #{isEssence,jdbcType=TINYINT}, #{createTime,jdbcType=TIMESTAMP}, 
       #{updateTime,jdbcType=TIMESTAMP}, #{stars,jdbcType=INTEGER}, #{shareNum,jdbcType=INTEGER}, 
-      #{createUserId,jdbcType=BIGINT}, #{shareUrl,jdbcType=VARCHAR}, #{recommendPicUrl,jdbcType=VARCHAR}
-      )
+      #{createUserId,jdbcType=BIGINT}, #{shareUrl,jdbcType=VARCHAR}, #{recommendPicUrl,jdbcType=VARCHAR}, 
+      #{forumPostGroup,jdbcType=TINYINT}, #{forumPostsUuid,jdbcType=VARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="com.yikangyiliao.pension.entity.FormPosts" >
-      <selectKey resultType="Long" keyProperty="forumPostId" order="AFTER">
+    <selectKey resultType="Long" keyProperty="forumPostId" order="AFTER">
 		SELECT LAST_INSERT_ID()
 	</selectKey>
     insert into forum_posts
@@ -86,6 +89,12 @@
       <if test="recommendPicUrl != null" >
         recommend_pic_url,
       </if>
+      <if test="forumPostGroup != null" >
+        forum_post_group,
+      </if>
+      <if test="forumPostsUuid != null" >
+        forum_posts_uuid,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
       <if test="forumPostId != null" >
@@ -123,6 +132,12 @@
       </if>
       <if test="recommendPicUrl != null" >
         #{recommendPicUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="forumPostGroup != null" >
+        #{forumPostGroup,jdbcType=TINYINT},
+      </if>
+      <if test="forumPostsUuid != null" >
+        #{forumPostsUuid,jdbcType=VARCHAR},
       </if>
     </trim>
   </insert>
@@ -162,6 +177,12 @@
       <if test="recommendPicUrl != null" >
         recommend_pic_url = #{recommendPicUrl,jdbcType=VARCHAR},
       </if>
+      <if test="forumPostGroup != null" >
+        forum_post_group = #{forumPostGroup,jdbcType=TINYINT},
+      </if>
+      <if test="forumPostsUuid != null" >
+        forum_posts_uuid = #{forumPostsUuid,jdbcType=VARCHAR},
+      </if>
     </set>
     where forum_post_id = #{forumPostId,jdbcType=BIGINT}
   </update>
@@ -177,7 +198,9 @@
       share_num = #{shareNum,jdbcType=INTEGER},
       create_user_id = #{createUserId,jdbcType=BIGINT},
       share_url = #{shareUrl,jdbcType=VARCHAR},
-      recommend_pic_url = #{recommendPicUrl,jdbcType=VARCHAR}
+      recommend_pic_url = #{recommendPicUrl,jdbcType=VARCHAR},
+      forum_post_group = #{forumPostGroup,jdbcType=TINYINT},
+      forum_posts_uuid = #{forumPostsUuid,jdbcType=VARCHAR}
     where forum_post_id = #{forumPostId,jdbcType=BIGINT}
   </update>
   
@@ -330,7 +353,13 @@
   </select>
   
   <!-- 获取某一个人创建的所有帖子 -->
-  <select id="geForumPostsByCreateUserId" parameterType="long" resultMap="BaseResultMap">
+    <resultMap type="com.yikangyiliao.pension.entity.FormPosts" id="geForumPostsByCreateUserIdResultMap" extends="BaseResultMap">
+  	  	<result column="user_name" property="userName"/>
+  		<result column="photo_url" property="photoUrl"/>
+  		<collection property="taglibs" 		      	column="forum_post_id"	fetchType="eager" select="com.yikangyiliao.pension.dao.TaglibDao.getTaglibsByFormPostId"></collection>
+  		<collection property="forumPostsImage" 	column="forum_post_id"  fetchType="eager" select="com.yikangyiliao.pension.dao.ForumPostsImageDao.getForumPostImagesByForumPostsId"> </collection>
+  </resultMap>
+  <select id="geForumPostsByCreateUserId" parameterType="long" resultMap="geForumPostsByCreateUserIdResultMap">
   	select 
 		<include refid="Base_Column_List"></include>
  	from forum_posts WHERE create_user_id=#{createUserId} order by update_time desc
@@ -342,6 +371,5 @@
 		<include refid="Base_Column_List"></include>
  	from forum_posts  order by stars desc  limit 5
   </select>
-  
   
 </mapper>

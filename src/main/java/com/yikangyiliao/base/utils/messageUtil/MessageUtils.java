@@ -1,14 +1,21 @@
 package com.yikangyiliao.base.utils.messageUtil;
 
+import java.util.List;
+
+import com.yikangyiliao.base.utils.messageUtil.im.IosSound;
+
 import cn.jpush.api.JPushClient;
 import cn.jpush.api.common.APIConnectionException;
 import cn.jpush.api.common.APIRequestException;
 import cn.jpush.api.push.PushResult;
+import cn.jpush.api.push.model.Message;
 import cn.jpush.api.push.model.Options;
 import cn.jpush.api.push.model.Platform;
 import cn.jpush.api.push.model.PushPayload;
 import cn.jpush.api.push.model.PushPayload.Builder;
 import cn.jpush.api.push.model.audience.Audience;
+import cn.jpush.api.push.model.notification.AndroidNotification;
+import cn.jpush.api.push.model.notification.IosNotification;
 import cn.jpush.api.push.model.notification.Notification;
 
 
@@ -130,13 +137,35 @@ public class MessageUtils {
      * @param message 信息内容
      * **/
     public static PushPayload buildPushObject_all_alias_alert(String alias,String message) {
-       
     	Options options=Options.newBuilder().setApnsProduction(IOSPUSHENVIRONMENT).build();
-    	return PushPayload.newBuilder().setPlatform(Platform.all()).setAudience(Audience.alias(alias))
-                .setNotification(Notification.alert(message)).setOptions(options)
-                .build();
+    	IosNotification iosNotification=IosNotification.newBuilder().setAlert(message).setSound(IosSound.DEFUALT).build();
+    	AndroidNotification androidNotification=AndroidNotification.alert(message);
+		return PushPayload.newBuilder()
+				.setPlatform(Platform.all())
+				.setAudience(Audience.alias(alias))
+				.setNotification(Notification.newBuilder().addPlatformNotification(iosNotification).addPlatformNotification(androidNotification).build())
+				.setMessage(Message.content(message))
+				.setOptions(options).build();
     }
     
+    /**
+     * @author liushuaic
+     * @date 2015/09/06 17:11
+     * 所有平台别名为  alias 的设备
+     * @param alias 别名
+     * @param message 信息内容
+     * **/
+    public static PushPayload buildPushObject_all_alias_alert(List<String> alias,String message) {
+    	Options options=Options.newBuilder().setApnsProduction(IOSPUSHENVIRONMENT).build();
+    	IosNotification iosNotification=IosNotification.newBuilder().setAlert(message).setSound(IosSound.DEFUALT).build();
+    	AndroidNotification androidNotification=AndroidNotification.alert(message);
+		return PushPayload.newBuilder()
+				.setPlatform(Platform.all())
+				.setAudience(Audience.alias(alias))
+				.setNotification(Notification.newBuilder().addPlatformNotification(iosNotification).addPlatformNotification(androidNotification).build())
+				.setMessage(Message.content(message))
+				.setOptions(options).build();
+    }
     
     
     /**
@@ -161,11 +190,36 @@ public class MessageUtils {
      * @param message 信息内容
      * **/
     public static PushPayload buildPushObject_tag_alert(String tagName,String message) {
-       
+    	
     	Options options=Options.newBuilder().setApnsProduction(IOSPUSHENVIRONMENT).build();
-    	return PushPayload.newBuilder().setPlatform(Platform.all()).setAudience(Audience.tag(tagName))
-                .setNotification(Notification.alert(message)).setOptions(options)
-                .build();
+    	IosNotification iosNotification=IosNotification.newBuilder().setAlert(message).setSound(IosSound.DEFUALT).build();
+    	AndroidNotification androidNotification=AndroidNotification.alert(message);
+		return PushPayload.newBuilder()
+				.setPlatform(Platform.all())
+				.setAudience(Audience.tag(tagName))
+				.setNotification(Notification.newBuilder().addPlatformNotification(iosNotification).addPlatformNotification(androidNotification).build())
+				.setMessage(Message.content(message))
+				.setOptions(options).build();
+    }
+    
+    /**
+     * @author liushuaic
+     * @date 2016/05/10 21:50
+     * 所有平台别名为  tag 的设备
+     * @param List tag 别名
+     * @param message 信息内容
+     * **/
+    public static PushPayload buildPushObject_tag_alert(List<String> tagName,String message) {
+    	
+    	Options options=Options.newBuilder().setApnsProduction(IOSPUSHENVIRONMENT).build();
+    	IosNotification iosNotification=IosNotification.newBuilder().setAlert(message).setSound(IosSound.DEFUALT).build();
+    	AndroidNotification androidNotification=AndroidNotification.alert(message);
+		return PushPayload.newBuilder()
+				.setPlatform(Platform.all())
+				.setAudience(Audience.tag(tagName))
+				.setNotification(Notification.newBuilder().addPlatformNotification(iosNotification).addPlatformNotification(androidNotification).build())
+				.setMessage(Message.content(message))
+				.setOptions(options).build();
     }
     
     /**
