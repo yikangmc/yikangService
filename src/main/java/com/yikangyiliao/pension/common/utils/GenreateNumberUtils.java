@@ -1,6 +1,7 @@
 package com.yikangyiliao.pension.common.utils;
 
 import java.util.Calendar;
+import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -68,6 +69,16 @@ public class GenreateNumberUtils {
 		
 		return  "-"+DateUtils.getFormateCurrenteDateStr()+"-"+maxNumber;
 		
+	}
+	
+	
+	/**
+	 * @author liushuaic
+	 * @date 2016-06-20 19:32
+	 * @desc 生成唯一的认证标识
+	 * */
+	public static String getForumPostEditorUniqueCode(){
+		return UUID.randomUUID().toString().replace("-", "");
 	}
 	
 	

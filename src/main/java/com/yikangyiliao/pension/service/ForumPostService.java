@@ -1,6 +1,5 @@
 package com.yikangyiliao.pension.service;
 
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -9,11 +8,15 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.yikangyiliao.base.utils.SystemProperties;
 import com.yikangyiliao.pension.common.constants.YKConstants;
 import com.yikangyiliao.pension.common.error.ExceptionConstants;
 import com.yikangyiliao.pension.common.response.ResponseMessage;
+import com.yikangyiliao.pension.common.utils.GenreateNumberUtils;
+import com.yikangyiliao.pension.dao.ForumPostDetailDao;
 import com.yikangyiliao.pension.entity.FormPosts;
 import com.yikangyiliao.pension.manager.FormPostManager;
+import com.yikangyiliao.pension.manager.ForumPostTxtEditorManager;
 import com.yikangyiliao.pension.manager.ForumPostsAnswerManager;
 
 @Service(value="forumPostService")
@@ -27,6 +30,11 @@ public class ForumPostService {
 	@Autowired
 	private ForumPostsAnswerManager forumPostsAnswerManager;
 	
+	@Autowired
+	private ForumPostTxtEditorManager forumPostTxtEditorManager;
+	
+	@Autowired
+	private ForumPostDetailDao forumPostDetailDao;
 	
 	
     /**
@@ -95,7 +103,55 @@ public class ForumPostService {
     	
     	return res;
     }
-    
+
+
+	/**
+	 * @author liushuaic
+	 * @date 2016-04-27 16:33
+	 * @desc 发布文章
+	 *
+	 * */
+	public  ResponseMessage<List<FormPosts>> insertPerformencePublishForumPosts(Map<String,Object> paramData){
+		ResponseMessage<List<FormPosts>> res=new ResponseMessage<List<FormPosts>>();
+
+		if(
+				paramData.containsKey("title")
+				&& (paramData.get("title").toString().length()<150)
+				&& paramData.containsKey("forumPostDetailContent")
+				&& paramData.containsKey("forumPostHtmlDetailContent")
+				&& paramData.containsKey("taglibIds")
+				&& paramData.containsKey("recommendPicUrl")
+		){
+			String forumPostDetailContent=paramData.get("forumPostDetailContent").toString();
+			String forumPostHtmlDetailContent=paramData.get("forumPostHtmlDetailContent").toString();
+			List<Integer> taglibIds=(List)paramData.get("taglibIds");
+			String title=paramData.get("title").toString();
+			String userId=paramData.get("userId").toString();
+			String recommendPicUrl=paramData.get("recommendPicUrl").toString();
+
+			String[] imgs=new String[0];
+			if(paramData.containsKey("images")){
+				List<String> images=(List)paramData.get("images");
+				imgs=new String[images.size()];
+				for(int j=0;j<images.size();j++){
+					imgs[j]=images.get(j);
+				}
+			}
+			Long[] tags=new Long[taglibIds.size()];
+			for(int i=0;i<taglibIds.size();i++){
+				tags[i]=Long.valueOf(taglibIds.get(i).toString());
+			}
+			 formPostManager.insertPerformencePublishForumPosts(title,forumPostDetailContent,forumPostHtmlDetailContent,tags,Long.valueOf(userId),imgs,recommendPicUrl);
+		}else{
+			res.setStatus(ExceptionConstants.parameterException.parameterException.errorCode);
+			res.setMessage(ExceptionConstants.parameterException.parameterException.errorMessage);
+		}
+
+
+		return res;
+	}
+
+
     
     /**
      * @author liushuaic
@@ -210,16 +266,16 @@ public class ForumPostService {
     
     /**
      * @author liushuaic
-     * @date 2016-05-12 18:16 
+     * @date 2016-05-12 18:16
      * @desc 获取文章内容根据标签id
      * */
     public  ResponseMessage<List<FormPosts>> getForumPostsByTaglibId(Map<String,Object> paramData){
-    	
+
     	ResponseMessage<List<FormPosts>> res=new ResponseMessage<List<FormPosts>>();
-    	
+
     	try{
     		if(paramData.containsKey("taglibId")){
-    			
+
     			Long taglibId=Long.valueOf(paramData.get("taglibId").toString());
     			 Long userId=null;
     			 if(paramData.containsKey("userId")){
@@ -235,9 +291,9 @@ public class ForumPostService {
     		e.printStackTrace();
     		 log.error(e.getMessage());
     	}
-    	
+
     	return res;
-    	
+
     }
     
     /**
@@ -289,5 +345,58 @@ public class ForumPostService {
     }
    
    
-    
+   /**
+    * @author liushuaic
+    * @date 2016-06-20 19:54
+    * @desc 获取编辑的url
+    * */
+   public ResponseMessage<String> getForumPostsEditorUrl(Map<String,Object> paramMap){
+	   ResponseMessage<String> resData=new ResponseMessage<String>();
+	   
+	  if(paramMap.containsKey("userId")){
+		  Long userId=Long.valueOf(paramMap.get("userId").toString());
+		  String uniqueCode= GenreateNumberUtils.getForumPostEditorUniqueCode();
+		  forumPostTxtEditorManager.insertSelective(uniqueCode, userId);
+		  String editUrl=SystemProperties.getPropertieValue("forumPostEditUrl")+uniqueCode;
+		  resData.setData(editUrl);
+	  }
+	
+	   return resData;
+   }
+
+
+
+	/**
+	 * @author liushuaic
+	 * @date 2016-05-12 18:16
+	 * @desc 获取专业内容
+	 * */
+	public  ResponseMessage<List<FormPosts>> getPerformenceForumPostsByTaglibId(Map<String,Object> paramData){
+
+		ResponseMessage<List<FormPosts>> res=new ResponseMessage<List<FormPosts>>();
+
+		try{
+			if(paramData.containsKey("taglibId")){
+
+				Long taglibId=Long.valueOf(paramData.get("taglibId").toString());
+				Long userId=null;
+				if(paramData.containsKey("userId")){
+					userId=Long.valueOf(paramData.get("userId").toString());
+				}
+				List<FormPosts> data=formPostManager.getPerformenceForumPostsByTaglibsId(taglibId,userId);
+				res.setData(data);
+			}else{
+				res.setStatus(ExceptionConstants.systemException.systemException.errorCode);
+				res.setMessage(ExceptionConstants.systemException.systemException.errorMessage);
+			}
+		}catch(Exception e){
+			e.printStackTrace();
+			log.error(e.getMessage());
+		}
+
+		return res;
+
+	}
+
+
 }

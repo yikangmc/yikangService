@@ -501,7 +501,21 @@ public class InterfaceUtil {
 		getHotForumPosts.setIsFileter(false);
 		mathodServiceConfig.put("00-28-08",getHotForumPosts);
 		
-		
+		//获取专业内容 createdate: 2016-06-22
+		YiKangServiceConfige getPerformenceForumPostsByTaglibId=new YiKangServiceConfige();
+		getPerformenceForumPostsByTaglibId.setServiceName("forumPostService");
+		getPerformenceForumPostsByTaglibId.setMethodName("getPerformenceForumPostsByTaglibId");
+		getPerformenceForumPostsByTaglibId.setIsFileter(false);
+		mathodServiceConfig.put("00-28-09",getPerformenceForumPostsByTaglibId);
+
+		//发布专业内容 createdate: 2016-06-22
+		YiKangServiceConfige insertPerformencePublishForumPosts=new YiKangServiceConfige();
+		insertPerformencePublishForumPosts.setServiceName("forumPostService");
+		insertPerformencePublishForumPosts.setMethodName("insertPerformencePublishForumPosts");
+		insertPerformencePublishForumPosts.setIsFileter(false);
+		mathodServiceConfig.put("00-28-10",insertPerformencePublishForumPosts);
+
+
 		
 		
 		//问题处理

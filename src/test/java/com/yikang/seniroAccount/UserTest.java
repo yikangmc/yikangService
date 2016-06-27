@@ -31,11 +31,19 @@ public class UserTest {
 	@Test
 	public void TestRegisterUser(){
 		try {
-			Map<String,Object> paramData=new HashMap<String, Object>();
-			paramData.put("loginName","17801092536");
-			paramData.put("passWord","123456");
-			
-			SendRequest.sendPost("registerUser?appId=1",paramData);
+			for(int i=1;i<51;i++){
+				Map<String,Object> paramData=new HashMap<String, Object>();
+				paramData.put("loginName","bingren"+i);
+				paramData.put("password","abc123456");
+				SendRequest.sendPost("registerUser?appId=1",paramData);
+			}
+			for(int i=1;i<51;i++){
+				Map<String,Object> paramData=new HashMap<String, Object>();
+				paramData.put("loginName","kangfu"+i);
+				paramData.put("password","abc123456");
+				SendRequest.sendPost("registerUser?appId=1",paramData);
+			}
+
 		} catch (IOException e) {
 			e.printStackTrace();
 		}

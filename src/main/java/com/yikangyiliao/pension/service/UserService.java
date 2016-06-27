@@ -172,7 +172,7 @@ public class UserService {
 				userServiceInfo.setPhotoUrl(photoUrl);
 				userServiceInfo.setProvenceCode(Long.valueOf("0"));
 				userServiceInfo.setAddressDetail(addressDetail);
-				userServiceInfo.setOffices(offices);
+				userServiceInfo.setOffices(Integer.valueOf(offices));
 				userServiceInfo.setJobCategory(Long.valueOf(jobCategory));
 				userServiceInfo.setUserPosition(userPosition);
 
@@ -189,7 +189,7 @@ public class UserService {
 				}
 				userServiceInfo.setHospital(hospital);
 				if (paramData.containsKey("offices")) {
-					userServiceInfo.setOffices(paramData.get("offices").toString());
+					userServiceInfo.setOffices(Integer.valueOf(paramData.get("offices").toString()));
 				}
 				if (paramData.containsKey("adept")) {
 					userServiceInfo.setAdept(paramData.get("adept").toString());
@@ -318,7 +318,7 @@ public class UserService {
 				userServiceInfo.setPhotoUrl("");
 				userServiceInfo.setProvenceCode(Long.valueOf("0"));
 				userServiceInfo.setAddressDetail("");
-				userServiceInfo.setOffices("");
+				userServiceInfo.setOffices(Integer.valueOf(-2));
 				userServiceInfo.setJobCategory(Long.valueOf(-2));
 				userServiceInfo.setUserPosition(Byte.valueOf("0"));
 
@@ -338,7 +338,7 @@ public class UserService {
 				}
 				userServiceInfo.setHospital(hospital);
 				if (paramData.containsKey("offices")) {
-					userServiceInfo.setOffices(paramData.get("offices").toString());
+					userServiceInfo.setOffices(Integer.valueOf(paramData.get("offices").toString()));
 				}
 				if (paramData.containsKey("adept")) {
 					userServiceInfo.setAdept(paramData.get("adept").toString());
@@ -366,6 +366,25 @@ public class UserService {
 				userFrom.setNumbers(0l);
 				userFrom.setActiveTime(0l);
 				userFromManager.insertSelective(userFrom);
+
+
+				// 初始化用户信息
+				UserInfo userInfo=new UserInfo();
+				userInfo.setBirthday(null);
+				userInfo.setCityCode("");
+				userInfo.setCreateAt(currentDateTime.longValue());
+				userInfo.setDistrictCode("");
+				userInfo.setProvenceCode("");
+				userInfo.setCityCode("");
+				userInfo.setPhotoUrl("");
+				userInfo.setUserIntroduce("");
+				userInfo.setUserSex(Byte.valueOf("0"));
+				userInfo.setUserName(loginName);
+				userInfo.setIsDelete(0l);
+				userInfo.setUpdateAt(currentDateTime);
+				userInfo.setUserId(user.getUserId());
+				userInfo.setAddress("");
+				userManager.insertSelective(userInfo);
 
 				rtnData.put("status", ExceptionConstants.responseSuccess.responseSuccess.code);
 				rtnData.put("message", ExceptionConstants.responseSuccess.responseSuccess.message);
@@ -591,7 +610,7 @@ public class UserService {
 			userServiceInfo.setHospital(hospital);
 		}
 		if (paramData.containsKey("offices")) {
-			userServiceInfo.setOffices(paramData.get("offices").toString());
+			userServiceInfo.setOffices(Integer.valueOf(paramData.get("offices").toString()));
 		}
 		if (paramData.containsKey("adept")) {
 			userServiceInfo.setAdept(paramData.get("adept").toString());
@@ -723,7 +742,7 @@ public class UserService {
 			userServiceInfo.setHospital(hospital);
 		}
 		if (paramData.containsKey("offices")) {
-			userServiceInfo.setOffices(paramData.get("offices").toString());
+			userServiceInfo.setOffices(Integer.valueOf(paramData.get("offices").toString()));
 		}
 		List<String> adepts=null;
 		if (paramData.containsKey("adepts")) {

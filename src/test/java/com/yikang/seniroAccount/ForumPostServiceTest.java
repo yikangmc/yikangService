@@ -37,7 +37,7 @@ public class ForumPostServiceTest {
 		
 		try{
 			Map<String,Object> paramData=new HashMap<String,Object>();
-			paramData.put("forumPostId",1);
+			paramData.put("forumPostId",121);
 			
 			SendRequest.sendPost("00-28-02?appId=234&accessTicket=99b5ee453affe2efad86f03909495dd1b9ce342e78fd9ac33497fe204e9991195e4c7afd323d91954ba85f0a1bf9bb45&machineCode=123123", paramData);
 		}catch(Exception e){
@@ -84,7 +84,7 @@ public class ForumPostServiceTest {
 			paramData.put("taglibIds",ids);
 			paramData.put("images",imgs);
 			paramData.put("title","我的测试内容，只是这些了。");
-			paramData.put("content","我的测试内容，只是这些了。");
+			paramData.put("content","我的测试内容，只是这些了。我的测试内容我的测试内容，只是这些了。我的测试内容，只是这些了。我的测试内容，只是这些了。我的测试内容，只是这些了。我的测试内容，只是这些了。，只是这些了。我的测试内容，只是这些了。测试内容，只是这些了。我的测试内容，只是这些了。");
 			
 			SendRequest.sendPost("00-28-04?appId=234&accessTicket=99b5ee453affe2efad86f03909495dd1b9ce342e78fd9ac33497fe204e9991195e4c7afd323d91954ba85f0a1bf9bb45&machineCode=123123", paramData);
 		}catch(Exception e){
@@ -146,8 +146,50 @@ public class ForumPostServiceTest {
 		}
 			
 	}
+	//获取热门文章
+	@Test
+	public void  testPerfermenceForumPosts(){
+
+		try{
+			Map<String,Object> paramData=new HashMap<String,Object>();
+			paramData.put("taglibId",2);
+			SendRequest.sendPost("00-28-09?appId=234&accessTicket=99b5ee453affe2efad86f03909495dd1b9ce342e78fd9ac33497fe204e9991195e4c7afd323d91954ba85f0a1bf9bb45&machineCode=123123", paramData);
+		}catch(Exception e){
+			e.printStackTrace();
+		}
+
+	}
+
 	
 	
+	@Test
+	public void publishPerfaceForumPostTest(){
+		
+		try{
+			
+//			paramData.containsKey("title")
+//			&& paramData.containsKey("forumPostDetailContent")
+//			&& paramData.containsKey("forumPostHtmlDetailContent")
+//			&& paramData.containsKey("taglibIds")
+//			&& paramData.containsKey("recommendPicUrl")
+			
+			Map<String,Object> paramData=new HashMap<String,Object>();
+			paramData.put("forumPostId",1);
+			Long[] ids={1l,2l};
+			String[] imgs={"34343","3434"};
+			paramData.put("taglibIds",ids);
+			paramData.put("images",imgs);
+			paramData.put("title","我的测试内容，只是这些了。");
+			paramData.put("recommendPicUrl","http://static.oschina.net/uploads/user/89/178392_100.jpg?t=1444358263000");
+			paramData.put("forumPostDetailContent","我的测试内容，只是这些了。我的测试内容我的测试内容，只是这些了。我的测试内容，只是这些了。我的测试内容，只是这些了。我的测试内容，只是这些了。我的测试内容，只是这些了。，只是这些了。我的测试内容，只是这些了。测试内容，只是这些了。我的测试内容，只是这些了。");
+			paramData.put("forumPostHtmlDetailContent","我的测试内容，只是这些了。我的测试内容我的测试内容，只是这些了。我的测试内容，只是这些了。我的测试内容，只是这些了。我的测试内容，只是这些了。我的测试内容，只是这些了。，只是这些了。我的测试内容，只是这些了。测试内容，只是这些了。我的测试内容，只是这些了。");
+			
+			SendRequest.sendPost("00-28-10?appId=234&accessTicket=99b5ee453affe2efad86f03909495dd1b9ce342e78fd9ac33497fe204e9991195e4c7afd323d91954ba85f0a1bf9bb45&machineCode=123123", paramData);
+		}catch(Exception e){
+			e.printStackTrace();
+		}
+		
+	}
 	
 	public static void main(String[] args) {
 		ForumPostServiceTest fpst=new ForumPostServiceTest();

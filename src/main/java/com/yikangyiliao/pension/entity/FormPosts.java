@@ -44,6 +44,12 @@ public class FormPosts {
     private Integer isStar;
     
     private Integer isStore;
+    
+    // 文章纯文字详情
+    private String forumPostDetailContent;
+    
+    // 文章html内容详情
+    private String forumPostHtmlDetailContent;
 
     //标签列表
     private List<Taglib> taglibs=new ArrayList<Taglib>();
@@ -247,6 +253,22 @@ public class FormPosts {
 
 	public void setForumPostsUuid(String forumPostsUuid) {
 		this.forumPostsUuid = forumPostsUuid;
+	}
+
+	public String getForumPostDetailContent() {
+		return forumPostDetailContent;
+	}
+
+	public void setForumPostDetailContent(String forumPostDetailContent) {
+		this.forumPostDetailContent = forumPostDetailContent;
+	}
+
+	public String getForumPostHtmlDetailContent() {
+		return forumPostHtmlDetailContent;
+	}
+
+	public void setForumPostHtmlDetailContent(String forumPostHtmlDetailContent) {
+		this.forumPostHtmlDetailContent = forumPostHtmlDetailContent;
 	}
 
 }

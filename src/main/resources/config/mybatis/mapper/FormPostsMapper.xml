@@ -16,6 +16,8 @@
     <result column="recommend_pic_url" property="recommendPicUrl" jdbcType="VARCHAR" />
     <result column="forum_post_group" property="forumPostGroup" jdbcType="TINYINT" />
     <result column="forum_posts_uuid" property="forumPostsUuid" jdbcType="VARCHAR" />
+    <result column="forum_post_detail_content" property="forumPostDetailContent" jdbcType="LONGVARCHAR" />
+    <result column="forum_post_html_detail_content" property="forumPostHtmlDetailContent" jdbcType="LONGVARCHAR" />
   </resultMap>
   <sql id="Base_Column_List" >
     forum_post_id, title, content, report_complaints_status, is_essence, create_time, 
@@ -207,10 +209,10 @@
   
     <!-- 获取推荐的文章 -->
   <resultMap type="com.yikangyiliao.pension.entity.FormPosts" id="formPostsResultMap"  extends="BaseResultMap">
-  	<result column="stars" property="stars"/>
-  	<result column="answersNums" property="answersNums"/>
-  	<result column="user_name" property="userName"/>
-  	<result column="photo_url" property="photoUrl"/>
+  	<result column="stars" 			property="stars"/>
+  	<result column="answersNums" 	property="answersNums"/>
+  	<result column="user_name" 		property="userName"/>
+  	<result column="photo_url" 		property="photoUrl"/>
   	<collection property="taglibs" fetchType="eager" column="forum_post_id" select="com.yikangyiliao.pension.dao.TaglibDao.getTaglibsByFormPostId"></collection>
   </resultMap>
   <select id="getIsEssence" resultMap="formPostsResultMap" parameterType="map">
@@ -264,7 +266,10 @@
 <!-- 	left join forum_posts_star_lists fpsl on (fpsl.forum_posts_id=fp.forum_post_id and fpsl.create_user_id=#{userId}) -->
 <!-- 	where forum_post_id=#{forumPostId} -->
 	select
-		fp.*,ui.user_name,ui.photo_url,
+		fp.*,
+		fpd.forum_post_detail_content,
+		fpd.forum_post_html_detail_content,
+		ui.user_name,ui.photo_url,
 	case 
 		when fpsl.forum_posts_star_list_id is null  then 0
 		when fpsl.forum_posts_star_list_id >0 		then 1
@@ -273,6 +278,7 @@
 	from forum_posts fp left join  user_infos ui on fp.create_user_id=ui.user_id
 	left join forum_posts_star_lists fpsl on (fpsl.forum_posts_id=fp.forum_post_id and fpsl.create_user_id=#{userId}) 
 	left join store_ups on (store_ups.forum_post_id=fp.forum_post_id and store_ups.create_user_id=#{userId})
+	left join forum_post_details fpd on fp.forum_post_id=fpd.forum_post_id
 	where fp.forum_post_id=#{forumPostId}
   </select>
   
@@ -341,7 +347,8 @@
 	inner join forum_posts_taglibs_maps fptm on fp.forum_post_id=fptm.form_post_id
 	left join  user_infos ui 				 on fp.create_user_id=ui.user_id
 	left join store_ups on (store_ups.forum_post_id=fp.forum_post_id and store_ups.create_user_id=#{userId})
-	where fptm.tag_libs_id=#{taglibId} 
+	where fptm.tag_libs_id=#{taglibId}
+    and forum_post_group=#{forumPostGroup}
  </select>
   
   

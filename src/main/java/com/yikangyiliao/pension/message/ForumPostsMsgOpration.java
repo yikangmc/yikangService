@@ -41,36 +41,39 @@ public class ForumPostsMsgOpration implements Runnable {
 				try {
 					Long forumPostId = Long.valueOf(operationMessage.getContent());
 					FormPosts formPosts = formPostManager.selectByPrimaryKey(forumPostId);
-					List<Taglib> taglibs=taglibManager.getTaglibsByForumPostId(forumPostId);
+					List<Taglib> taglibs = taglibManager.getTaglibsByForumPostId(forumPostId);
 
 					// 查询这个关注这个标签的所有人员，发信息
 					// 可以在做异步 ，一个发推送信息，一个保存到数据库，正常情况下是 已经存到数据库了，用户才会收到信息
 					for (Taglib taglib : taglibs) {
-						List<UserInfo> userInfos = userManager.getUserInfoListByTaglibId(taglib.getTaglibId()); //应该按别名进行推送
+						List<UserInfo> userInfos = userManager.getUserInfoListByTaglibId(taglib.getTaglibId()); // 应该按别名进行推送
 						
-						List<String> pushAlias=new ArrayList<String>();
-						for (UserInfo userInfo : userInfos) {
-							messageManager.insertDynamicFollowMessage(-1l, userInfo.getUserId(), "有新的文章了：" + formPosts.getTitle(), formPosts.getTitle());
-							pushAlias.add(userInfo.getPushAlias());
-							if(pushAlias.size()>5){
-								try {
-									Message<List<String>> pushMessage = new Message<List<String>>();
-									pushMessage.setAlias(new ArrayList<String>(pushAlias));
-									pushMessage.setContent("你的关注有了新的内容 ：" + formPosts.getTitle());
-									MessageQueue.put(pushMessage);
-									pushAlias=new ArrayList<String>();
-								} catch (Exception e) {
-									e.printStackTrace();
+						if (null != userInfos && userInfos.size() > 0) {
+							List<String> pushAlias = new ArrayList<String>();
+							for (UserInfo userInfo : userInfos) {
+								messageManager.insertDynamicFollowMessage(-1l, userInfo.getUserId(),
+										"有新的文章了：" + formPosts.getTitle(), formPosts.getTitle());
+								pushAlias.add(userInfo.getPushAlias());
+								if (pushAlias.size() > 5) {
+									try {
+										Message<List<String>> pushMessage = new Message<List<String>>();
+										pushMessage.setAlias(new ArrayList<String>(pushAlias));
+										pushMessage.setContent("你的关注有了新的内容 ：" + formPosts.getTitle());
+										MessageQueue.put(pushMessage);
+										pushAlias = new ArrayList<String>();
+									} catch (Exception e) {
+										e.printStackTrace();
+									}
 								}
 							}
-						}
-						try {
-							Message<List<String>> pushMessage = new Message<List<String>>();
-							pushMessage.setAlias(pushAlias);
-							pushMessage.setContent("你的关注有了新的内容 ：" + formPosts.getTitle());
-							MessageQueue.put(pushMessage);
-						} catch (Exception e) {
-							e.printStackTrace();
+							try {
+								Message<List<String>> pushMessage = new Message<List<String>>();
+								pushMessage.setAlias(pushAlias);
+								pushMessage.setContent("你的关注有了新的内容 ：" + formPosts.getTitle());
+								MessageQueue.put(pushMessage);
+							} catch (Exception e) {
+								e.printStackTrace();
+							}
 						}
 					}
 				} catch (Exception e) {

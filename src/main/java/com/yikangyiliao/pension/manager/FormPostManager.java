@@ -16,12 +16,12 @@ import com.yikangyiliao.pension.common.utils.operationmesage.OperationMessageQue
 import com.yikangyiliao.pension.dao.FormPostsDao;
 import com.yikangyiliao.pension.dao.FormPostsStarListDao;
 import com.yikangyiliao.pension.dao.FormPostsTaglibsMapDao;
-import com.yikangyiliao.pension.dao.ForumPostsAnswerDao;
+import com.yikangyiliao.pension.dao.ForumPostDetailDao;
 import com.yikangyiliao.pension.entity.FormPosts;
 import com.yikangyiliao.pension.entity.FormPostsStarList;
 import com.yikangyiliao.pension.entity.FormPostsTaglibsMap;
+import com.yikangyiliao.pension.entity.ForumPostDetail;
 import com.yikangyiliao.pension.entity.ForumPostsImage;
-import com.yikangyiliao.pension.entity.UserServiceInfo;
 
 @Component
 public class FormPostManager {
@@ -33,17 +33,15 @@ public class FormPostManager {
 	private FormPostsTaglibsMapDao formPostsTaglibsMapDao;
 
 	@Autowired
-	private ForumPostsAnswerDao forumPostsAnswerDao;
-
-	@Autowired
 	private FormPostsStarListDao formPostsStarListDao;
 
 	@Autowired
 	private ForumPostsImageManager forumPostsImageManager;
 	
 	@Autowired
-	private  UserManager userManager;
+	private ForumPostDetailDao forumPostDetailDao;
 
+	
 	/**
 	 * @author liushuaic
 	 * @date 2016-04-27 11:11
@@ -58,22 +56,21 @@ public class FormPostManager {
 	/**
 	 * @author liushuaic
 	 * @date 2016-04-27 16:48
-	 * @desc 发布项目
+	 * @desc 发布帖子
 	 **/
 	public void insertPublishFormPosts(String title, String content, Long[] taglibIds, Long userId, String[] images) {
 
-		UserServiceInfo userServiceInfo=userManager.getUserServiceInfoByUserIdTwo(userId);
+		//UserServiceInfo userServiceInfo=userManager.getUserServiceInfoByUserIdTwo(userId);
 		
-		Byte userPosition=userServiceInfo.getUserPosition();
 		Date currentDate = Calendar.getInstance().getTime();
 
 		FormPosts formPosts = new FormPosts();
 
 		formPosts.setTitle(title);
-		formPosts.setContent(content);
+		formPosts.setContent(content.length()>100?content.substring(0,100):content);
 		formPosts.setCreateUserId(userId);
 		formPosts.setIsEssence(Byte.valueOf("0"));
-		if (images.length > 0) {
+		if (null != images && images.length > 0) {
 			formPosts.setRecommendPicUrl(images[0]);
 		} else {
 			formPosts.setRecommendPicUrl("");
@@ -81,17 +78,23 @@ public class FormPostManager {
 		formPosts.setAnswersNums(0);
 		formPosts.setCreateTime(currentDate);
 		formPosts.setUpdateTime(currentDate);
-		formPosts.setShareUrl(UrlGenerateUtil.generateShareForumPostUrl());
+		String uuid=UUID.randomUUID().toString();
+		formPosts.setForumPostsUuid(uuid.replace("-", ""));
+		formPosts.setShareUrl(UrlGenerateUtil.generateShareForumPostUrl(uuid));
 		formPosts.setShareNum(0);
 		formPosts.setStars(0);
 		formPosts.setReportComplaintsStatus(Byte.valueOf("0"));
-		if(null !=userPosition && userPosition>0){
-			formPosts.setForumPostGroup(Byte.valueOf("1"));
-		}else{
-			formPosts.setForumPostGroup(Byte.valueOf("0"));
-		}
+		formPosts.setForumPostGroup(Byte.valueOf("0"));
+		
 		formPostsDao.insertSelective(formPosts);
-
+		
+		ForumPostDetail forumPostDetail=new ForumPostDetail();
+		forumPostDetail.setForumPostDetailContent(content);
+		forumPostDetail.setForumPostHtmlDetailContent("");
+		forumPostDetail.setForumPostId(formPosts.getForumPostId());
+		forumPostDetail.setCreateTime(currentDate);
+		forumPostDetail.setUpdateTime(currentDate);
+		forumPostDetailDao.insertSelective(forumPostDetail);
 		// 添加标签
 		for (Long tagLibId : taglibIds) {
 
@@ -111,6 +114,75 @@ public class FormPostManager {
 			forumPostsImageManager.insertSelective(forumPostsImage);
 		}
 		
+		try{
+			OperationMessage operationMessage=new OperationMessage();
+			operationMessage.setContent(formPosts.getForumPostId().toString());
+			operationMessage.setContentType("1");
+			OperationMessageQueue.putMessage(operationMessage);
+		}catch(Exception e){
+			e.printStackTrace();
+		}
+
+	}
+
+
+	/**
+	 * @author liushuaic
+	 * @date 2016-06-22 11:38
+	 * @desc 发布专业内容
+	 **/
+	public void insertPerformencePublishForumPosts(String title, String forumPostDetailContent,String forumPostHtmlDetailContent ,Long[] taglibIds, Long userId, String[] images,String recommendPicUrl) {
+
+		//UserServiceInfo userServiceInfo=userManager.getUserServiceInfoByUserIdTwo(userId);
+
+		Date currentDate = Calendar.getInstance().getTime();
+
+		FormPosts formPosts = new FormPosts();
+
+		formPosts.setTitle(title);
+		formPosts.setContent(forumPostDetailContent.length()>100?forumPostDetailContent.substring(0,100):forumPostDetailContent);
+		formPosts.setCreateUserId(userId);
+		formPosts.setIsEssence(Byte.valueOf("0"));
+		formPosts.setRecommendPicUrl(images[0]);
+		formPosts.setAnswersNums(0);
+		formPosts.setCreateTime(currentDate);
+		formPosts.setUpdateTime(currentDate);
+		String uuid=UUID.randomUUID().toString();
+		formPosts.setForumPostsUuid(uuid.replace("-", ""));
+		formPosts.setShareUrl(UrlGenerateUtil.generateShareForumPostUrl(uuid));
+		formPosts.setShareNum(0);
+		formPosts.setStars(0);
+		formPosts.setReportComplaintsStatus(Byte.valueOf("0"));
+		formPosts.setForumPostGroup(Byte.valueOf("1"));
+		formPostsDao.insertSelective(formPosts);
+		
+		ForumPostDetail forumPostDetail=new ForumPostDetail();
+		forumPostDetail.setForumPostDetailContent(forumPostDetailContent);
+		forumPostDetail.setForumPostHtmlDetailContent(forumPostHtmlDetailContent);
+		forumPostDetail.setCreateTime(currentDate);
+		forumPostDetail.setUpdateTime(currentDate);
+		forumPostDetail.setForumPostId(formPosts.getForumPostId());
+		forumPostDetailDao.insertSelective(forumPostDetail);
+
+		// 添加标签
+		for (Long tagLibId : taglibIds) {
+
+			FormPostsTaglibsMap fptm = new FormPostsTaglibsMap();
+			fptm.setCreateTime(currentDate);
+			fptm.setUpdateTime(currentDate);
+			fptm.setTagLibsId(tagLibId);
+			fptm.setFormPostId(formPosts.getForumPostId());
+			formPostsTaglibsMapDao.insertSelective(fptm);
+		}
+		// 添加图片
+		for (String img : images) {
+			ForumPostsImage forumPostsImage = new ForumPostsImage();
+			forumPostsImage.setCreateTime(currentDate);
+			forumPostsImage.setForumPostsId(formPosts.getForumPostId());
+			forumPostsImage.setImageUrl(img);
+			forumPostsImageManager.insertSelective(forumPostsImage);
+		}
+
 		try{
 			OperationMessage operationMessage=new OperationMessage();
 			operationMessage.setContent(formPosts.getForumPostId().toString());
@@ -229,6 +301,21 @@ public class FormPostManager {
 		Map<String, Object> paramMap = new HashMap<String, Object>();
 		paramMap.put("taglibId", taglibId);
 		paramMap.put("userId", userId);
+		paramMap.put("forumPostGroup", 0);
+		return formPostsDao.getForumPostsByTaglibsId(paramMap);
+	}
+
+	/**
+	 * @author liushuaic
+	 * @date 2016-05-12 18:07 查询某一个标签一的文章
+	 * TODO 添加缓存，把经常用到的数据添加入redis
+	 *      在次调用时，进行判断缓存是否已经保存
+	 */
+	public List<FormPosts> getPerformenceForumPostsByTaglibsId(Long taglibId,Long userId) {
+		Map<String, Object> paramMap = new HashMap<String, Object>();
+		paramMap.put("taglibId", taglibId);
+		paramMap.put("userId", userId);
+		paramMap.put("forumPostGroup", 1);
 		return formPostsDao.getForumPostsByTaglibsId(paramMap);
 	}
 

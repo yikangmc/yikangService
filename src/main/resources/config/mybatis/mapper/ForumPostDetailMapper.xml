@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.yikangyiliao.pension.dao.ForumPostDetailDao">
+	<resultMap id="BaseResultMap"
+		type="com.yikangyiliao.pension.entity.ForumPostDetail">
+		<id column="forum_post_detail_id" property="forumPostDetailId"
+			jdbcType="BIGINT" />
+		<result column="forum_post_id" property="forumPostId" jdbcType="BIGINT" />
+		<result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+		<result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+		<result column="forum_post_detail_content" property="forumPostDetailContent"
+			jdbcType="LONGVARCHAR" />
+		<result column="forum_post_html_detail_content" property="forumPostHtmlDetailContent"
+			jdbcType="LONGVARCHAR" />
+	</resultMap>
+	<sql id="Base_Column_List">
+		forum_post_detail_id, forum_post_id, create_time, update_time,
+		forum_post_detail_content, forum_post_html_detail_content
+	</sql>
+	<select id="selectByPrimaryKey" resultMap="BaseResultMap"
+		parameterType="java.lang.Long">
+		select
+		<include refid="Base_Column_List" />
+		from forum_post_details
+		where forum_post_detail_id = #{forumPostDetailId,jdbcType=BIGINT}
+	</select>
+	<delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+		delete from forum_post_details
+		where forum_post_detail_id = #{forumPostDetailId,jdbcType=BIGINT}
+	</delete>
+	<insert id="insert" parameterType="com.yikangyiliao.pension.entity.ForumPostDetail">
+		insert into forum_post_details (forum_post_detail_id, forum_post_id,
+		create_time,
+		update_time, forum_post_detail_content,
+		forum_post_html_detail_content)
+		values (#{forumPostDetailId,jdbcType=BIGINT},
+		#{forumPostId,jdbcType=BIGINT}, #{createTime,jdbcType=TIMESTAMP},
+		#{updateTime,jdbcType=TIMESTAMP},
+		#{forumPostDetailContent,jdbcType=LONGVARCHAR},
+		#{forumPostHtmlDetailContent,jdbcType=LONGVARCHAR})
+	</insert>
+	<insert id="insertSelective" parameterType="com.yikangyiliao.pension.entity.ForumPostDetail">
+		insert into forum_post_details
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="forumPostDetailId != null">
+				forum_post_detail_id,
+			</if>
+			<if test="forumPostId != null">
+				forum_post_id,
+			</if>
+			<if test="createTime != null">
+				create_time,
+			</if>
+			<if test="updateTime != null">
+				update_time,
+			</if>
+			<if test="forumPostDetailContent != null">
+				forum_post_detail_content,
+			</if>
+			<if test="forumPostHtmlDetailContent != null">
+				forum_post_html_detail_content,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="forumPostDetailId != null">
+				#{forumPostDetailId,jdbcType=BIGINT},
+			</if>
+			<if test="forumPostId != null">
+				#{forumPostId,jdbcType=BIGINT},
+			</if>
+			<if test="createTime != null">
+				#{createTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="updateTime != null">
+				#{updateTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="forumPostDetailContent != null">
+				#{forumPostDetailContent,jdbcType=LONGVARCHAR},
+			</if>
+			<if test="forumPostHtmlDetailContent != null">
+				#{forumPostHtmlDetailContent,jdbcType=LONGVARCHAR},
+			</if>
+		</trim>
+	</insert>
+	<update id="updateByPrimaryKeySelective" parameterType="com.yikangyiliao.pension.entity.ForumPostDetail">
+		update forum_post_details
+		<set>
+			<if test="forumPostId != null">
+				forum_post_id = #{forumPostId,jdbcType=BIGINT},
+			</if>
+			<if test="createTime != null">
+				create_time = #{createTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="updateTime != null">
+				update_time = #{updateTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="forumPostDetailContent != null">
+				forum_post_detail_content =
+				#{forumPostDetailContent,jdbcType=LONGVARCHAR},
+			</if>
+			<if test="forumPostHtmlDetailContent != null">
+				forum_post_html_detail_content =
+				#{forumPostHtmlDetailContent,jdbcType=LONGVARCHAR},
+			</if>
+		</set>
+		where forum_post_detail_id = #{forumPostDetailId,jdbcType=BIGINT}
+	</update>
+	<update id="updateByPrimaryKey" parameterType="com.yikangyiliao.pension.entity.ForumPostDetail">
+		update forum_post_details
+		set forum_post_id = #{forumPostId,jdbcType=BIGINT},
+		create_time = #{createTime,jdbcType=TIMESTAMP},
+		update_time = #{updateTime,jdbcType=TIMESTAMP},
+		forum_post_detail_content = #{forumPostDetailContent,jdbcType=LONGVARCHAR},
+		forum_post_html_detail_content =
+		#{forumPostHtmlDetailContent,jdbcType=LONGVARCHAR}
+		where forum_post_detail_id = #{forumPostDetailId,jdbcType=BIGINT}
+	</update>
+</mapper>

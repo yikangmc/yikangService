@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.yikangyiliao.pension.dao.ForumPostTxtEditorDao" >
+  <resultMap id="BaseResultMap" type="com.yikangyiliao.pension.entity.ForumPostTxtEditor" >
+    <id column="forum_post_txt_editor_id" property="forumPostTxtEditorId" jdbcType="BIGINT" />
+    <result column="unique_code" property="uniqueCode" jdbcType="VARCHAR" />
+    <result column="own_user_id" property="ownUserId" jdbcType="BIGINT" />
+    <result column="create_date_time" property="createDateTime" jdbcType="TIMESTAMP" />
+    <result column="update_date_time" property="updateDateTime" jdbcType="TIMESTAMP" />
+    <result column="is_delete" property="isDelete" jdbcType="TINYINT" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    forum_post_txt_editor_id, unique_code, own_user_id, create_date_time, update_date_time, 
+    is_delete
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from forum_post_txt_editors
+    where forum_post_txt_editor_id = #{forumPostTxtEditorId,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from forum_post_txt_editors
+    where forum_post_txt_editor_id = #{forumPostTxtEditorId,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.yikangyiliao.pension.entity.ForumPostTxtEditor" >
+    insert into forum_post_txt_editors (forum_post_txt_editor_id, unique_code, 
+      own_user_id, create_date_time, update_date_time, 
+      is_delete)
+    values (#{forumPostTxtEditorId,jdbcType=BIGINT}, #{uniqueCode,jdbcType=VARCHAR}, 
+      #{ownUserId,jdbcType=BIGINT}, #{createDateTime,jdbcType=TIMESTAMP}, #{updateDateTime,jdbcType=TIMESTAMP}, 
+      #{isDelete,jdbcType=TINYINT})
+  </insert>
+  <insert id="insertSelective" parameterType="com.yikangyiliao.pension.entity.ForumPostTxtEditor" >
+    insert into forum_post_txt_editors
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="forumPostTxtEditorId != null" >
+        forum_post_txt_editor_id,
+      </if>
+      <if test="uniqueCode != null" >
+        unique_code,
+      </if>
+      <if test="ownUserId != null" >
+        own_user_id,
+      </if>
+      <if test="createDateTime != null" >
+        create_date_time,
+      </if>
+      <if test="updateDateTime != null" >
+        update_date_time,
+      </if>
+      <if test="isDelete != null" >
+        is_delete,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="forumPostTxtEditorId != null" >
+        #{forumPostTxtEditorId,jdbcType=BIGINT},
+      </if>
+      <if test="uniqueCode != null" >
+        #{uniqueCode,jdbcType=VARCHAR},
+      </if>
+      <if test="ownUserId != null" >
+        #{ownUserId,jdbcType=BIGINT},
+      </if>
+      <if test="createDateTime != null" >
+        #{createDateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateDateTime != null" >
+        #{updateDateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="isDelete != null" >
+        #{isDelete,jdbcType=TINYINT},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.yikangyiliao.pension.entity.ForumPostTxtEditor" >
+    update forum_post_txt_editors
+    <set >
+      <if test="uniqueCode != null" >
+        unique_code = #{uniqueCode,jdbcType=VARCHAR},
+      </if>
+      <if test="ownUserId != null" >
+        own_user_id = #{ownUserId,jdbcType=BIGINT},
+      </if>
+      <if test="createDateTime != null" >
+        create_date_time = #{createDateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateDateTime != null" >
+        update_date_time = #{updateDateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="isDelete != null" >
+        is_delete = #{isDelete,jdbcType=TINYINT},
+      </if>
+    </set>
+    where forum_post_txt_editor_id = #{forumPostTxtEditorId,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.yikangyiliao.pension.entity.ForumPostTxtEditor" >
+    update forum_post_txt_editors
+    set unique_code = #{uniqueCode,jdbcType=VARCHAR},
+      own_user_id = #{ownUserId,jdbcType=BIGINT},
+      create_date_time = #{createDateTime,jdbcType=TIMESTAMP},
+      update_date_time = #{updateDateTime,jdbcType=TIMESTAMP},
+      is_delete = #{isDelete,jdbcType=TINYINT}
+    where forum_post_txt_editor_id = #{forumPostTxtEditorId,jdbcType=BIGINT}
+  </update>
+  
+  
+  
+  <select id="selectByUniqueCode" parameterType="string" resultMap="BaseResultMap">
+  	select 
+  		<include refid="Base_Column_List"></include>
+  	from forum_post_txt_editors
+  	where unique_code=#{uniqueCode,jdbcType=VARCHAR}
+  </select>
+  
+</mapper>

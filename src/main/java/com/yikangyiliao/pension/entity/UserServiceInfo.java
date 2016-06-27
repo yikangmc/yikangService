@@ -45,7 +45,7 @@ public class UserServiceInfo {
 
     private String hospital;
 
-    private String offices;
+    private Integer offices;
     
     private Office officeObj;
 
@@ -215,12 +215,12 @@ public class UserServiceInfo {
         this.hospital = hospital == null ? null : hospital.trim();
     }
 
-    public String getOffices() {
+    public Integer getOffices() {
         return offices;
     }
 
-    public void setOffices(String offices) {
-        this.offices = offices == null ? null : offices.trim();
+    public void setOffices(Integer offices) {
+        this.offices = offices;
     }
 
     public String getAdept() {

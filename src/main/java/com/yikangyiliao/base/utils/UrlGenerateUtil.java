@@ -10,9 +10,8 @@ public class UrlGenerateUtil {
 	 * @date 2016-06-17 18:05
 	 * @desc 生成文章分享url
 	 * **/
-	public static String generateShareForumPostUrl(){
+	public static String generateShareForumPostUrl(String uuid){
 		String shareUrl=System.getProperty("shareForumPostUrl");
-		String uuid=UUID.randomUUID().toString();
 		return shareUrl+uuid;
 	}
 	

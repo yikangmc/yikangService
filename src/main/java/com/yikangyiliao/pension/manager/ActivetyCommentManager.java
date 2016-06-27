@@ -46,7 +46,7 @@ public class ActivetyCommentManager {
 	 * @desc 获取文章的活动的评论列表
 	 * ***/
 	public List<ActivetyComment> getActivetyCommentList(Long activetyId){
-		return activetyCommentDao.getActivetyCommentByUserId(activetyId);
+		return activetyCommentDao.getActivetyCommentByActivetyId(activetyId);
 	}
 	
 	
