@@ -2,14 +2,23 @@ package com.yikangyiliao.pension.manager;
 
 import java.util.Calendar;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import com.yikangyiliao.pension.common.page.PageParameter;
 import com.yikangyiliao.pension.dao.QuestionAnswerDao;
+import com.yikangyiliao.pension.dao.QuestionAnswerDetailDao;
+import com.yikangyiliao.pension.dao.QuestionAnswerImageDao;
 import com.yikangyiliao.pension.dao.QuestionAnswerStartListDao;
 import com.yikangyiliao.pension.entity.QuestionAnswer;
+import com.yikangyiliao.pension.entity.QuestionAnswerDetail;
+import com.yikangyiliao.pension.entity.QuestionAnswerImage;
 import com.yikangyiliao.pension.entity.QuestionAnswerStartList;
+import com.yikangyiliao.pension.entity.QuestionImage;
 import com.yikangyiliao.pension.message.QuestionAnswerMsgOperation;
 
 @Component
@@ -21,13 +30,19 @@ public class QuestionAnswerManager {
 	@Autowired
 	private QuestionAnswerStartListDao questionAnswerStartListDao; 
 	
+	@Autowired
+	private QuestionAnswerImageDao questionAnswerImageDao;
+	
+	@Autowired
+	private QuestionAnswerDetailDao questionAnswerDetailDao;
+	
 	
 	/**
 	 * @author liushuaic
 	 * @date 2016-05-09 18:17
 	 * @desc 添加问题回复
 	 * **/
-	public int insertSelective(Long questionId,String content,Long createUserId){
+	public int insertSelective(Long questionId,String content,String detailContent,String htmlDetailContent,Long createUserId,String[] images){
 		Date currentDate=Calendar.getInstance().getTime();
 		QuestionAnswer questionAnswer=new QuestionAnswer();
 		questionAnswer.setCreateUserId(createUserId);
@@ -38,7 +53,27 @@ public class QuestionAnswerManager {
 		questionAnswer.setIsRecommend(Byte.valueOf("0"));
 		questionAnswer.setCreateTime(currentDate);
 		questionAnswer.setUpdateTime(currentDate);
-		return questionAnswerDao.insert(questionAnswer);
+		questionAnswerDao.insertSelective(questionAnswer);
+		
+		for(String imageUrl:images){
+			QuestionAnswerImage questionAnswerImage=new QuestionAnswerImage();
+			questionAnswerImage.setQuestionAnswerId(questionAnswer.getQuestionAnswerId());
+			questionAnswerImage.setImageUrl(imageUrl);
+			questionAnswerImage.setCreateTime(currentDate);
+			questionAnswerImage.setUpdateTime(currentDate);
+			questionAnswerImageDao.insertSelective(questionAnswerImage);
+		}
+		
+		
+		QuestionAnswerDetail questionAnswerDetail=new QuestionAnswerDetail();
+		questionAnswerDetail.setCreateTime(currentDate);
+		questionAnswerDetail.setUpdateTime(currentDate);
+		questionAnswerDetail.setQuestionAnswerId(questionAnswer.getQuestionAnswerId());
+		questionAnswerDetail.setQuestionAnswerDetailContent(detailContent);
+		questionAnswerDetail.setQuestionAnswerHtmlContent(htmlDetailContent);
+		questionAnswerDetailDao.insertSelective(questionAnswerDetail);
+		
+		return 1;
 	}
 	
 	/**
@@ -78,4 +113,20 @@ public class QuestionAnswerManager {
 		return questionAnswer;
 	}
 
+	
+	/**
+	 * @author liushuaic
+	 * @date 2016-06-29 09:54
+	 * @desc  获取我的回答列表
+	 * */
+	public List<QuestionAnswer> getQuestionAnswerListByCreateUserId(Long userId,PageParameter page){
+		Map<String,Object> paramMap=new HashMap<String,Object>();
+		paramMap.put("userId", userId);
+		paramMap.put("page", page);
+		return questionAnswerDao.getMyQuestionAnswerByCreateUserId(paramMap);
+	}
+	
+	
+	
+	
 }

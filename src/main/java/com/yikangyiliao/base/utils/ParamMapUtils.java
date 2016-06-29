@@ -12,7 +12,7 @@ public class ParamMapUtils {
 	
 	/**
 	 * @author liushuaic
-	 * @date 2016-05-09 16:43
+	 * @date 2016-05-09 16:43pwd
 	 * @desc 转换paramMap中的List<Object>为  Long[]  数组
 	 * **/
 	public static Long[] converObjectArrayToLong(List array){

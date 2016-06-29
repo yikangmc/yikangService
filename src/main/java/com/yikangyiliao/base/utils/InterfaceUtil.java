@@ -877,7 +877,30 @@ public class InterfaceUtil {
 		deleteMyFollowUser.setIsFileter(true);
 		mathodServiceConfig.put("00-38-03",deleteMyFollowUser);
 		
+		serviceClassName.put("00-39", "questionAnswerService");
 		
+		
+		/**
+		 * @author liushuaic
+		 * @date 2016-06-29 10:35
+		 * @desc 获取某个用户的所有回复
+		 * */
+		YiKangServiceConfige getQuestionAnswerByCreateUserId=new YiKangServiceConfige();
+		getQuestionAnswerByCreateUserId.setServiceName("questionAnswerService");
+		getQuestionAnswerByCreateUserId.setMethodName("getQuestionAnswerByCreateUserId");
+		getQuestionAnswerByCreateUserId.setIsFileter(true);
+		mathodServiceConfig.put("00-39-01",getQuestionAnswerByCreateUserId);
+		
+		/**
+		 * @author liushuaic
+		 * @date 2016-06-29 10:31
+		 * @desc 获取问题回复详情
+		 * **/
+		YiKangServiceConfige getQuestionAnswerDetail=new YiKangServiceConfige();
+		getQuestionAnswerDetail.setServiceName("questionAnswerService");
+		getQuestionAnswerDetail.setMethodName("getQuestionAnswerDetail");
+		getQuestionAnswerDetail.setIsFileter(true);
+		mathodServiceConfig.put("00-39-02",getQuestionAnswerDetail);
 		
 		
 		

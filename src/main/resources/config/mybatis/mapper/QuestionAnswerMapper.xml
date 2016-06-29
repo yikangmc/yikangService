@@ -27,6 +27,9 @@
     where question_answer_id = #{questionAnswerId,jdbcType=BIGINT}
   </delete>
   <insert id="insert" parameterType="com.yikangyiliao.pension.entity.QuestionAnswer" >
+  	<selectKey resultType="Long" keyProperty="questionAnswerId" order="AFTER">
+		SELECT LAST_INSERT_ID()
+	</selectKey>
     insert into question_answers (question_answer_id, create_user_id, data_source, 
       content, question_id, star_num, 
       is_recommend, create_time, update_time
@@ -37,6 +40,11 @@
       )
   </insert>
   <insert id="insertSelective" parameterType="com.yikangyiliao.pension.entity.QuestionAnswer" >
+  	
+  	<selectKey resultType="Long" keyProperty="questionAnswerId" order="AFTER">
+		SELECT LAST_INSERT_ID()
+	</selectKey>
+  	
     insert into question_answers
     <trim prefix="(" suffix=")" suffixOverrides="," >
       <if test="questionAnswerId != null" >
@@ -155,8 +163,8 @@
   	<result column="isStar" property="isStar"/>
   	<result column="user_name" property="userName"/>
   	<result column="photo_url" property="photoUrl"/>
-  	<association property="question" javaType="com.yikangyiliao.pension.entity.Question" resultMap="com.yikangyiliao.pension.dao.QuestionDao.BaseResultMap">
-  	</association>
+<!--   	<association property="question" javaType="com.yikangyiliao.pension.entity.Question" resultMap="com.yikangyiliao.pension.dao.QuestionDao.BaseResultMap"> -->
+<!--   	</association> -->
   </resultMap>
   <select id="selectQuestionAnswer" parameterType="map" resultMap="selectQuestionAnswerResultMap">
 	<if test="userId eq null">
@@ -225,9 +233,15 @@
 	</if>
   </select>
 
-<!-- 我的回答 -->  
+<!-- 我的回答 -->
   <select id="getMyQuestionAnswerByCreateUserId" parameterType="map" resultMap="selectQuestionAnswerResultMap">
-  	
+  	select 
+		qa.*,
+	    qad.question_answer_detail_content,
+	    qad.question_answer_html_content 
+	from question_answers qa left join question_answer_details qad on 
+	qa.question_answer_id=qad.question_answer_id
+	where qa.create_user_id=#{userId}
   </select>
   
   

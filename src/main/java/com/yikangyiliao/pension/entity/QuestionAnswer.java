@@ -31,6 +31,10 @@ public class QuestionAnswer {
     
     private Question question;
     
+    private String detailContent;
+    
+    private String htmlDetailContent;
+    
     public Long getQuestionAnswerId() {
         return questionAnswerId;
     }
@@ -125,5 +129,29 @@ public class QuestionAnswer {
 
 	public void setUpdateTime(Date updateTime) {
 		this.updateTime = updateTime;
+	}
+
+	public Question getQuestion() {
+		return question;
+	}
+
+	public void setQuestion(Question question) {
+		this.question = question;
+	}
+
+	public String getDetailContent() {
+		return detailContent;
+	}
+
+	public void setDetailContent(String detailContent) {
+		this.detailContent = detailContent;
+	}
+
+	public String getHtmlDetailContent() {
+		return htmlDetailContent;
+	}
+
+	public void setHtmlDetailContent(String htmlDetailContent) {
+		this.htmlDetailContent = htmlDetailContent;
 	}
 }

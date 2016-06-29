@@ -31,18 +31,18 @@ public class UserTest {
 	@Test
 	public void TestRegisterUser(){
 		try {
-			for(int i=1;i<51;i++){
+//			for(int i=1;i<51;i++){
 				Map<String,Object> paramData=new HashMap<String, Object>();
-				paramData.put("loginName","bingren"+i);
-				paramData.put("password","abc123456");
+				paramData.put("loginName","13661177209");
+				paramData.put("password","1");
 				SendRequest.sendPost("registerUser?appId=1",paramData);
-			}
-			for(int i=1;i<51;i++){
-				Map<String,Object> paramData=new HashMap<String, Object>();
-				paramData.put("loginName","kangfu"+i);
-				paramData.put("password","abc123456");
-				SendRequest.sendPost("registerUser?appId=1",paramData);
-			}
+//			}
+//			for(int i=1;i<51;i++){
+//				Map<String,Object> paramData=new HashMap<String, Object>();
+//				paramData.put("loginName","kangfu"+i);
+//				paramData.put("password","abc123456");
+//				SendRequest.sendPost("registerUser?appId=1",paramData);
+//			}
 
 		} catch (IOException e) {
 			e.printStackTrace();
@@ -157,8 +157,8 @@ public class UserTest {
 		
 		try{
 			Map<String,Object> paramData=new HashMap<String, Object>();
-			paramData.put("loginName", "13716907523");
-			paramData.put("password", "password");
+			paramData.put("loginName", "13661177209");
+			paramData.put("password", "1");
 			
 			SendRequest.sendPost("00-17-08?appId=234&machineCode=123123",paramData);
 		} catch (IOException e) {

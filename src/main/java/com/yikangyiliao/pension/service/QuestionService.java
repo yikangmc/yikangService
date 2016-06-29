@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
+import com.yikangyiliao.base.utils.MatchHtmlElementAttrValue;
 import com.yikangyiliao.base.utils.ParamMapUtils;
 import com.yikangyiliao.pension.common.error.ExceptionConstants;
 import com.yikangyiliao.pension.common.response.ResponseMessage;
@@ -92,13 +93,20 @@ public class QuestionService {
 		
 		if(
 			paramMap.containsKey("questionId")
-			&& paramMap.containsKey("content")
+			&& paramMap.containsKey("detailContent")
+			&& paramMap.containsKey("htmlDetailContent")
 		){
 			Long questionId=Long.valueOf(paramMap.get("questionId").toString());
 			Long createUserId=Long.valueOf(paramMap.get("userId").toString());
-			String content=paramMap.get("content").toString();
+			String detailContent=paramMap.get("detailContent").toString();
+			String htmlDetailContent=paramMap.get("htmlDetailContent").toString();
+			String[] images=new String[0];
 			
-			questionAnswerManager.insertSelective(questionId, content, createUserId);
+			String content=detailContent.length()>100?detailContent.substring(0,100):detailContent;
+			
+			List<String> imageArray=MatchHtmlElementAttrValue.getImgSrc(htmlDetailContent);
+			images=imageArray.toArray(images);
+			questionAnswerManager.insertSelective(questionId, content,detailContent,htmlDetailContent, createUserId,images);
 		}else{
 			resData.setStatus(ExceptionConstants.parameterException.parameterException.errorCode);
 			resData.setMessage(ExceptionConstants.parameterException.parameterException.errorMessage);
@@ -184,6 +192,8 @@ public class QuestionService {
 		}
 		return resData;
 	}
+	
+	
 
 	
 }
