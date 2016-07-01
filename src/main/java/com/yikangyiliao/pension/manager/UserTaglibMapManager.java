@@ -22,7 +22,7 @@ public class UserTaglibMapManager {
 	
 	@Autowired
 	private TaglibDao taglibDao;
-	
+	 
 	
 	/**
 	 * @author liushuaic
@@ -36,7 +36,9 @@ public class UserTaglibMapManager {
 		userTaglibMap.setCreateTime(currentDate);
 		userTaglibMap.setUpdateTime(currentDate);
 		userTaglibMap.setCreateUserId(userId);
-		return userTaglibMapDao.insertSelective(userTaglibMap);
+		userTaglibMapDao.insertSelective(userTaglibMap);
+		taglibDao.updateFollowNumberAddByTaglibId(taglibId);
+		return 1;
 	}
 	
 	/**
@@ -48,7 +50,9 @@ public class UserTaglibMapManager {
 		Map<String,Object> paramMap=new HashMap<String,Object>();
 		paramMap.put("taglibId", taglibId);
 		paramMap.put("userId", userId);
-		return userTaglibMapDao.deleteUserTaglibMapByUserIdTaglibId(paramMap);
+		userTaglibMapDao.deleteUserTaglibMapByUserIdTaglibId(paramMap);
+		taglibDao.updateFollowNumberSubByTaglibId(taglibId);
+		return 1;
 	}
 	
 	/**

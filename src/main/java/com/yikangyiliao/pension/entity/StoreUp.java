@@ -14,6 +14,8 @@ public class StoreUp {
 	private Date createTime;
 
 	private Date updateTime;
+	
+	private FormPosts formPosts;
 
 	public Long getStoreUpsId() {
 		return storeUpsId;
@@ -61,5 +63,13 @@ public class StoreUp {
 
 	public void setUpdateTime(Date updateTime) {
 		this.updateTime = updateTime;
+	}
+
+	public FormPosts getFormPosts() {
+		return formPosts;
+	}
+
+	public void setFormPosts(FormPosts formPosts) {
+		this.formPosts = formPosts;
 	}
 }

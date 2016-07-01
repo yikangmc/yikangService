@@ -172,12 +172,13 @@
   		que.star,
   		ui.user_name,
   		ui.photo_url,
-  		(select count(1) from question_answers where question_id=question_id ) as answer_num
+  		(select count(1) from question_answers where question_id=que.question_id  ) as answer_num
   	from 
   		question_taglib_maps qtm  
 	inner join questions que on qtm.questions_id=que.question_id
 	left join  user_infos ui on que.create_user_id=ui.user_id
 	where taglibs_id=#{taglibsId}
+	order by que.create_time desc
   </select>
   
   <!-- 获取某一个用户创建的所有问题 -->
@@ -204,6 +205,7 @@
 	inner join questions que on qtm.questions_id=que.question_id
 	left join  user_infos ui on que.create_user_id=ui.user_id
 	where create_user_id=#{userId}
+	order by que.create_time desc
   </select>
   
 </mapper>

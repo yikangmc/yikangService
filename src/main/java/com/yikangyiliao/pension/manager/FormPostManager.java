@@ -143,7 +143,7 @@ public class FormPostManager {
 		formPosts.setContent(forumPostDetailContent.length()>100?forumPostDetailContent.substring(0,100):forumPostDetailContent);
 		formPosts.setCreateUserId(userId);
 		formPosts.setIsEssence(Byte.valueOf("0"));
-		formPosts.setRecommendPicUrl(images[0]);
+		formPosts.setRecommendPicUrl(recommendPicUrl);
 		formPosts.setAnswersNums(0);
 		formPosts.setCreateTime(currentDate);
 		formPosts.setUpdateTime(currentDate);

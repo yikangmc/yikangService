@@ -599,7 +599,7 @@ public class InterfaceUtil {
 		mathodServiceConfig.put("00-30-01",getRecommendTaglib);
 		
 		
-		/**
+		/**·
 		 * @author liushuaic
 		 * @date 2016-05-27 10:47
 		 * @desc 获取一级标签
@@ -903,6 +903,14 @@ public class InterfaceUtil {
 		mathodServiceConfig.put("00-39-02",getQuestionAnswerDetail);
 		
 		
+		
+		serviceClassName.put("00-40", "designationService");
+		
+		YiKangServiceConfige getDesignations=new YiKangServiceConfige();
+		getDesignations.setServiceName("designationService");
+		getDesignations.setMethodName("getDesignations");
+		getDesignations.setIsFileter(true);
+		mathodServiceConfig.put("00-40-01", getDesignations);
 		
 	}
 	

@@ -95,6 +95,7 @@ public class QuestionService {
 			paramMap.containsKey("questionId")
 			&& paramMap.containsKey("detailContent")
 			&& paramMap.containsKey("htmlDetailContent")
+			&& paramMap.containsKey("userId")
 		){
 			Long questionId=Long.valueOf(paramMap.get("questionId").toString());
 			Long createUserId=Long.valueOf(paramMap.get("userId").toString());

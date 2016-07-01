@@ -184,7 +184,7 @@
       follow_number = #{followNumber,jdbcType=INTEGER},
       fornum_posts_number = #{fornumPostsNumber,jdbcType=INTEGER},
       answer_number = #{answerNumber,jdbcType=INTEGER}
-    where taglib_id = #{taglibId,jdbcType=BIGINT}
+    where taglib_id = #{taglibId,jdbcType=BIGINT} and is_delete=0
   </update>
   
   <resultMap type="com.yikangyiliao.pension.entity.Taglib" id="taglibMap">
@@ -206,7 +206,7 @@
 	  select 
 	  	<include refid="Base_Column_List"></include>
 	  from taglibs
-	  where tag_name like concat('%',#{tagName},'%')
+	  where tag_name like concat('%',#{tagName},'%') and is_delete=0
   </select>
   
   <!-- 目前只技术2级列表  -->
@@ -218,6 +218,7 @@
 	left join user_taglib_maps on (taglibs.taglib_id=user_taglib_maps.taglib_id and user_taglib_maps.create_user_id=#{userId})
 	where parent_id!=0
 	and is_recommend=1
+	and is_delete=0
   </select>
   
     <!-- 查询一级标签列表  -->
@@ -283,6 +284,7 @@
 	from taglibs tag inner join taglibs tag2
 	left join user_taglib_maps on (tag2.taglib_id=user_taglib_maps.taglib_id and user_taglib_maps.create_user_id=#{userId})
 	where tag2.parent_id=tag.taglib_id
+	and is_delete=0
  </select>
  
  
@@ -304,6 +306,17 @@
   		<include refid="Base_Column_List"></include>
   	from taglibs
 	where parent_id!=0
+	and is_delete=0
   </select>
+  
+  <!-- 修改标签关注数量 +1 -->
+  <update id="updateFollowNumberAddByTaglibId" parameterType="long">
+  		update taglibs  set follow_number=follow_number+1 where taglib_id=#{taglibId}
+  </update>
+  
+  <!-- 修改标签关注数量 -1 -->
+  <update id="updateFollowNumberSubByTaglibId" parameterType="long">
+  		update taglibs  set follow_number=follow_number-1 where taglib_id=#{taglibId}
+  </update>
  
 </mapper>

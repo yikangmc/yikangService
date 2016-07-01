@@ -86,4 +86,19 @@ public interface TaglibDao {
      * */
     List<Taglib> getSecondAllTaglib();
     
+    /**
+     * @author liushuaic
+     * @date 2016-06-30 18:23
+     * @desc 修改标签的关注数量 +1
+     * **/
+    int updateFollowNumberAddByTaglibId(Long taglibId);
+    
+    /**
+     * @author liushuaic
+     * @date 2016-06-30 18:24
+     * @desc 修改关注数量-1
+     * */
+    int updateFollowNumberSubByTaglibId(Long taglibId);
+    
+    
 }

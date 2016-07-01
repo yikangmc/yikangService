@@ -71,6 +71,7 @@ public class QuestionAnswerManager {
 		questionAnswerDetail.setQuestionAnswerId(questionAnswer.getQuestionAnswerId());
 		questionAnswerDetail.setQuestionAnswerDetailContent(detailContent);
 		questionAnswerDetail.setQuestionAnswerHtmlContent(htmlDetailContent);
+		questionAnswerDetail.setCreateUserId(createUserId);
 		questionAnswerDetailDao.insertSelective(questionAnswerDetail);
 		
 		return 1;

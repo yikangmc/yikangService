@@ -163,8 +163,9 @@
   	<result column="isStar" property="isStar"/>
   	<result column="user_name" property="userName"/>
   	<result column="photo_url" property="photoUrl"/>
-<!--   	<association property="question" javaType="com.yikangyiliao.pension.entity.Question" resultMap="com.yikangyiliao.pension.dao.QuestionDao.BaseResultMap"> -->
-<!--   	</association> -->
+  	<association property="question" javaType="com.yikangyiliao.pension.entity.Question">
+  		<result column="title" property="title"/>
+  	</association>
   </resultMap>
   <select id="selectQuestionAnswer" parameterType="map" resultMap="selectQuestionAnswerResultMap">
 	<if test="userId eq null">
@@ -174,6 +175,7 @@
     			ui.photo_url
 	  	from question_answers left join user_infos ui on ui.user_id=question_answers.create_user_id
 	  	where question_id=#{questionId}
+	  	order by create_time desc
 	</if>
 	<if test="null neq userId">
 		select qa.*,
@@ -187,6 +189,7 @@
 		on qa.question_answer_id=qasl2.question_answer_id
 		left join user_infos ui on ui.user_id=qa.create_user_id
 		where  qa.question_id=#{questionId}
+		order by create_time desc
 	</if>
 	
   </select>

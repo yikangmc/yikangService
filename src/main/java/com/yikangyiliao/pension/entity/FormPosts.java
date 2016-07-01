@@ -10,6 +10,8 @@ public class FormPosts {
 	
 	private String photoUrl;
 	
+	private Integer userPosition;
+	
     private Long forumPostId;
 
     private String title;
@@ -269,6 +271,14 @@ public class FormPosts {
 
 	public void setForumPostHtmlDetailContent(String forumPostHtmlDetailContent) {
 		this.forumPostHtmlDetailContent = forumPostHtmlDetailContent;
+	}
+
+	public Integer getUserPosition() {
+		return userPosition;
+	}
+
+	public void setUserPosition(Integer userPosition) {
+		this.userPosition = userPosition;
 	}
 
 }
