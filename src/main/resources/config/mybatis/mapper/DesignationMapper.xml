@@ -117,7 +117,7 @@
   </update>
   
   <select id="getDesignations" resultMap="BaseResultMap">
-  	seletct 
+  	select 
   		<include refid="Base_Column_List"></include>
   	from designations order by orders desc
   </select>

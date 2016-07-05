@@ -16,10 +16,11 @@
     <result column="photo_url" property="photoUrl" jdbcType="VARCHAR" />
     <result column="user_introduce" property="userIntroduce" jdbcType="VARCHAR" />
     <result column="birthday" property="birthday" jdbcType="TIMESTAMP" />
+    <result column="designation_id" property="designationId" jdbcType="BIGINT" />
   </resultMap>
   <sql id="Base_Column_List" >
     user_info_id, user_name, user_sex, provence_code, city_code, district_code, address, 
-    create_at, update_at, user_id, is_delete, photo_url, user_introduce, birthday
+    create_at, update_at, user_id, is_delete, photo_url, user_introduce, birthday, designation_id
   </sql>
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
     select 
@@ -36,12 +37,14 @@
       provence_code, city_code, district_code, 
       address, create_at, update_at, 
       user_id, is_delete, photo_url, 
-      user_introduce, birthday)
+      user_introduce, birthday, designation_id
+      )
     values (#{userInfoId,jdbcType=BIGINT}, #{userName,jdbcType=VARCHAR}, #{userSex,jdbcType=TINYINT}, 
       #{provenceCode,jdbcType=VARCHAR}, #{cityCode,jdbcType=VARCHAR}, #{districtCode,jdbcType=VARCHAR}, 
       #{address,jdbcType=VARCHAR}, #{createAt,jdbcType=BIGINT}, #{updateAt,jdbcType=BIGINT}, 
       #{userId,jdbcType=BIGINT}, #{isDelete,jdbcType=BIGINT}, #{photoUrl,jdbcType=VARCHAR}, 
-      #{userIntroduce,jdbcType=VARCHAR}, #{birthday,jdbcType=TIMESTAMP})
+      #{userIntroduce,jdbcType=VARCHAR}, #{birthday,jdbcType=TIMESTAMP}, #{designationId,jdbcType=BIGINT}
+      )
   </insert>
   <insert id="insertSelective" parameterType="com.yikangyiliao.pension.entity.UserInfo" >
     insert into user_infos
@@ -88,6 +91,9 @@
       <if test="birthday != null" >
         birthday,
       </if>
+      <if test="designationId != null" >
+        designation_id,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
       <if test="userInfoId != null" >
@@ -131,6 +137,9 @@
       </if>
       <if test="birthday != null" >
         #{birthday,jdbcType=TIMESTAMP},
+      </if>
+      <if test="designationId != null" >
+        #{designationId,jdbcType=BIGINT},
       </if>
     </trim>
   </insert>
@@ -176,6 +185,9 @@
       <if test="birthday != null" >
         birthday = #{birthday,jdbcType=TIMESTAMP},
       </if>
+      <if test="designationId != null" >
+        designation_id = #{designationId,jdbcType=BIGINT},
+      </if>
     </set>
     where user_info_id = #{userInfoId,jdbcType=BIGINT}
   </update>
@@ -193,7 +205,8 @@
       is_delete = #{isDelete,jdbcType=BIGINT},
       photo_url = #{photoUrl,jdbcType=VARCHAR},
       user_introduce = #{userIntroduce,jdbcType=VARCHAR},
-      birthday = #{birthday,jdbcType=TIMESTAMP}
+      birthday = #{birthday,jdbcType=TIMESTAMP},
+      designation_id = #{designationId,jdbcType=BIGINT}
     where user_info_id = #{userInfoId,jdbcType=BIGINT}
   </update>
   
@@ -240,6 +253,9 @@
       <if test="birthday != null" >
         birthday = #{birthday,jdbcType=TIMESTAMP},
       </if>
+      <if test="designationId != null" >
+        designation_id = #{designationId,jdbcType=BIGINT},
+      </if>
     </set>
     where user_id = #{userId,jdbcType=BIGINT}
   </update>
@@ -275,10 +291,13 @@
   <select id="getUserInfoListByTaglibId" parameterType="long" resultMap="getUserInfoListByTaglibIdResultMap">
   	select 
   		distinct
-		user.push_alias,ui.*
+		user.push_alias,
+		ui.*,
+		designations.designation_name
 	from user_infos ui 
 	inner join user_taglib_maps utm on ui.user_id =utm.create_user_id
 	inner join users user on user.user_id=utm.create_user_id
+	left  join designations on ui.designation_id=designations.designation_id
 	where utm.taglib_id=#{taglibId}
   </select>
   

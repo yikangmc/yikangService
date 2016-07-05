@@ -32,6 +32,10 @@ public class UserInfo {
     private Date birthday;
     
     private String pushAlias;
+    
+    private Long designationId;
+    
+    private String designationName;
 
     public Long getUserInfoId() {
         return userInfoId;
@@ -151,5 +155,21 @@ public class UserInfo {
 
 	public void setPushAlias(String pushAlias) {
 		this.pushAlias = pushAlias;
+	}
+
+	public Long getDesignationId() {
+		return designationId;
+	}
+
+	public void setDesignationId(Long designationId) {
+		this.designationId = designationId;
+	}
+
+	public String getDesignationName() {
+		return designationName;
+	}
+
+	public void setDesignationName(String designationName) {
+		this.designationName = designationName;
 	}
 }
