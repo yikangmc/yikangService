@@ -44,6 +44,8 @@ public class Activety {
     
     private String photoUrl;
     
+    private Integer userPosition;
+    
     //活动已经参与人员数量
     private Integer partakeNums=0;
     
@@ -54,6 +56,7 @@ public class Activety {
     private Integer isPartake;
     
     private List<ActivetyComment> activtyComments;
+    
     
     public Long getActivetyId() {
         return activetyId;
@@ -237,5 +240,21 @@ public class Activety {
 
 	public void setIsPartake(Integer isPartake) {
 		this.isPartake = isPartake;
+	}
+
+	public Integer getUserPosition() {
+		return userPosition;
+	}
+
+	public void setUserPosition(Integer userPosition) {
+		this.userPosition = userPosition;
+	}
+
+	public List<ActivetyComment> getActivtyComments() {
+		return activtyComments;
+	}
+
+	public void setActivtyComments(List<ActivetyComment> activtyComments) {
+		this.activtyComments = activtyComments;
 	}
 }

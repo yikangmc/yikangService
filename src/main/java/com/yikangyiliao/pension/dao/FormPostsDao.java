@@ -72,7 +72,7 @@ public interface FormPostsDao {
      * @date 2016-06-07 10:41
      * @desc 获取文章列表根据某一个用户的id
      * */
-    List<FormPosts> geForumPostsByCreateUserId(Long createUserId);
+    List<FormPosts> geForumPostsByCreateUserIdAndForumPostGroup(Map<String,Object> paramMap);
     
     
     /**
@@ -81,14 +81,6 @@ public interface FormPostsDao {
      * @desc 获取最热帖子
      * **/
     List<FormPosts> getHotForumPosts();
-    
-    
-    /**
-     * @author liushuaic
-     * @date 2016-06-07 11:02
-     * @desc 获取某一个用户创建的文章
-     * */
-    List<FormPosts> geForumPostsByCreateUserId();
     
     
     

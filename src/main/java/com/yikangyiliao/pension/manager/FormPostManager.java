@@ -17,11 +17,13 @@ import com.yikangyiliao.pension.dao.FormPostsDao;
 import com.yikangyiliao.pension.dao.FormPostsStarListDao;
 import com.yikangyiliao.pension.dao.FormPostsTaglibsMapDao;
 import com.yikangyiliao.pension.dao.ForumPostDetailDao;
+import com.yikangyiliao.pension.dao.TaglibDao;
 import com.yikangyiliao.pension.entity.FormPosts;
 import com.yikangyiliao.pension.entity.FormPostsStarList;
 import com.yikangyiliao.pension.entity.FormPostsTaglibsMap;
 import com.yikangyiliao.pension.entity.ForumPostDetail;
 import com.yikangyiliao.pension.entity.ForumPostsImage;
+import com.yikangyiliao.pension.entity.Taglib;
 
 @Component
 public class FormPostManager {
@@ -40,6 +42,9 @@ public class FormPostManager {
 	
 	@Autowired
 	private ForumPostDetailDao forumPostDetailDao;
+	
+	@Autowired
+	private TaglibDao taglibDao;
 
 	
 	/**
@@ -104,6 +109,12 @@ public class FormPostManager {
 			fptm.setTagLibsId(tagLibId);
 			fptm.setFormPostId(formPosts.getForumPostId());
 			formPostsTaglibsMapDao.insertSelective(fptm);
+			//标签下的帖子数量加1
+			taglibDao.updateForumPostsTZNumberAddByTaglibId(tagLibId);
+			Taglib taglib=new Taglib();
+			taglib.setTaglibId(tagLibId);
+			taglib.setForumPostsTzUpdateTime(currentDate);//修改帖子更新时间
+			taglibDao.updateByPrimaryKeySelective(taglib);
 		}
 		// 添加图片
 		for (String img : images) {
@@ -113,6 +124,7 @@ public class FormPostManager {
 			forumPostsImage.setImageUrl(img);
 			forumPostsImageManager.insertSelective(forumPostsImage);
 		}
+		
 		
 		try{
 			OperationMessage operationMessage=new OperationMessage();
@@ -173,6 +185,14 @@ public class FormPostManager {
 			fptm.setTagLibsId(tagLibId);
 			fptm.setFormPostId(formPosts.getForumPostId());
 			formPostsTaglibsMapDao.insertSelective(fptm);
+			
+			
+			//标签下的帖子数量加1
+			taglibDao.updateForumPostsNumberAddByTaglibId(tagLibId);
+			Taglib taglib=new Taglib();
+			taglib.setTaglibId(tagLibId);
+			taglib.setForumPostsUpdateTime(currentDate);//修改帖子更新时间
+			taglibDao.updateByPrimaryKeySelective(taglib);
 		}
 		// 添加图片
 		for (String img : images) {
@@ -331,10 +351,25 @@ public class FormPostManager {
 	/**
 	 * @author liushuaic
 	 * @date 2016-06-07 10:52
+	 * @desc 获取某一个用户创建的帖子列表
+	 * */
+	public List<FormPosts> geTZForumPostsByCreateUserId(Long userId){
+		Map<String,Object> paramMap=new HashMap<String,Object>();
+		paramMap.put("createUserId", userId);
+		paramMap.put("forumPostGroup", 0);
+		return formPostsDao.geForumPostsByCreateUserIdAndForumPostGroup(paramMap);
+	}
+	
+	/**
+	 * @author liushuaic
+	 * @date 2016-06-07 10:52
 	 * @desc 获取某一个用户创建的文章列表
 	 * */
-	public List<FormPosts> geForumPostsByCreateUserId(Long userId){
-		return formPostsDao.geForumPostsByCreateUserId(userId);
+	public List<FormPosts> geWZForumPostsByCreateUserId(Long userId){
+		Map<String,Object> paramMap=new HashMap<String,Object>();
+		paramMap.put("createUserId", userId);
+		paramMap.put("forumPostGroup", 1);
+		return formPostsDao.geForumPostsByCreateUserIdAndForumPostGroup(paramMap);
 	}
 	
 	/**

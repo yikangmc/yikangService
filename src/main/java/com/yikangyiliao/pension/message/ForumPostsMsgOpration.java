@@ -58,7 +58,7 @@ public class ForumPostsMsgOpration implements Runnable {
 									try {
 										Message<List<String>> pushMessage = new Message<List<String>>();
 										pushMessage.setAlias(new ArrayList<String>(pushAlias));
-										pushMessage.setContent("你的关注有了新的内容 ：" + formPosts.getTitle());
+										pushMessage.setContent("您的关注有了新的内容 ：" + formPosts.getTitle());
 										MessageQueue.put(pushMessage);
 										pushAlias = new ArrayList<String>();
 									} catch (Exception e) {
@@ -69,7 +69,7 @@ public class ForumPostsMsgOpration implements Runnable {
 							try {
 								Message<List<String>> pushMessage = new Message<List<String>>();
 								pushMessage.setAlias(pushAlias);
-								pushMessage.setContent("你的关注有了新的内容 ：" + formPosts.getTitle());
+								pushMessage.setContent("您的关注有了新的内容 ：" + formPosts.getTitle());
 								MessageQueue.put(pushMessage);
 							} catch (Exception e) {
 								e.printStackTrace();

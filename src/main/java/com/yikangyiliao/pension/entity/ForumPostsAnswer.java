@@ -23,11 +23,16 @@ public class ForumPostsAnswer {
     //回复创建人头像
     private String createUserPhotoUrl;
     
+    private Integer createUserPosition;
+    
     //给谁回复的
     private String toUserName;
     
     //回复人的头像
     private String toUserPhotoUrl;
+    
+    private Integer toUserPosition;
+    
 
     public Long getForumPostsAnswerId() {
         return forumPostsAnswerId;
@@ -115,5 +120,21 @@ public class ForumPostsAnswer {
 
 	public void setToUserPhotoUrl(String toUserPhotoUrl) {
 		this.toUserPhotoUrl = toUserPhotoUrl;
+	}
+
+	public Integer getCreateUserPosition() {
+		return createUserPosition;
+	}
+
+	public void setCreateUserPosition(Integer createUserPosition) {
+		this.createUserPosition = createUserPosition;
+	}
+
+	public Integer getToUserPosition() {
+		return toUserPosition;
+	}
+
+	public void setToUserPosition(Integer toUserPosition) {
+		this.toUserPosition = toUserPosition;
 	}
 }

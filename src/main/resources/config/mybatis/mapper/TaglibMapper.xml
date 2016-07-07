@@ -1,176 +1,208 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.yikangyiliao.pension.dao.TaglibDao" >
-  <resultMap id="BaseResultMap" type="com.yikangyiliao.pension.entity.Taglib" >
-    <id column="taglib_id" property="taglibId" jdbcType="BIGINT" />
-    <result column="tag_name" property="tagName" jdbcType="VARCHAR" />
-    <result column="tag_pic" property="tagPic" jdbcType="VARCHAR" />
-    <result column="parent_id" property="parentId" jdbcType="BIGINT" />
-    <result column="orders" property="orders" jdbcType="TINYINT" />
-    <result column="is_delete" property="isDelete" jdbcType="VARCHAR" />
-    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
-    <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
-    <result column="create_user_id" property="createUserId" jdbcType="BIGINT" />
-    <result column="is_recommend" property="isRecommend" jdbcType="TINYINT" />
-    <result column="follow_number" property="followNumber" jdbcType="INTEGER" />
-    <result column="fornum_posts_number" property="fornumPostsNumber" jdbcType="INTEGER" />
-    <result column="answer_number" property="answerNumber" jdbcType="INTEGER" />
-    <result column="isStore" property="isStore" jdbcType="INTEGER" />
+  <resultMap id="BaseResultMap" type="com.yikangyiliao.pension.entity.Taglib">
+    <id column="taglib_id" jdbcType="BIGINT" property="taglibId" />
+    <result column="tag_name" jdbcType="VARCHAR" property="tagName" />
+    <result column="tag_pic" jdbcType="VARCHAR" property="tagPic" />
+    <result column="parent_id" jdbcType="BIGINT" property="parentId" />
+    <result column="orders" jdbcType="TINYINT" property="orders" />
+    <result column="is_delete" jdbcType="VARCHAR" property="isDelete" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+    <result column="create_user_id" jdbcType="BIGINT" property="createUserId" />
+    <result column="is_recommend" jdbcType="TINYINT" property="isRecommend" />
+    <result column="follow_number" jdbcType="INTEGER" property="followNumber" />
+    <result column="fornum_posts_number" jdbcType="INTEGER" property="fornumPostsNumber" />
+    <result column="answer_number" jdbcType="INTEGER" property="answerNumber" />
+    <result column="forum_posts_tznumber" jdbcType="INTEGER" property="forumPostsTznumber" />
+    <result column="forum_posts_update_time" jdbcType="TIMESTAMP" property="forumPostsUpdateTime" />
+    <result column="forum_posts_tz_update_time" jdbcType="TIMESTAMP" property="forumPostsTzUpdateTime" />
   </resultMap>
-  <sql id="Base_Column_List" >
+  <sql id="Base_Column_List">
     taglib_id, tag_name, tag_pic, parent_id, orders, is_delete, create_time, update_time, 
-    create_user_id, is_recommend, follow_number, fornum_posts_number, answer_number
+    create_user_id, is_recommend, follow_number, fornum_posts_number, answer_number, 
+    forum_posts_tznumber, forum_posts_update_time, forum_posts_tz_update_time
   </sql>
-  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
     select 
     <include refid="Base_Column_List" />
     from taglibs
     where taglib_id = #{taglibId,jdbcType=BIGINT}
   </select>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
     delete from taglibs
     where taglib_id = #{taglibId,jdbcType=BIGINT}
   </delete>
-  <insert id="insert" parameterType="com.yikangyiliao.pension.entity.Taglib" >
+  <insert id="insert" parameterType="com.yikangyiliao.pension.entity.Taglib">
     insert into taglibs (taglib_id, tag_name, tag_pic, 
       parent_id, orders, is_delete, 
       create_time, update_time, create_user_id, 
       is_recommend, follow_number, fornum_posts_number, 
-      answer_number)
+      answer_number, forum_posts_tznumber, forum_posts_update_time, 
+      forum_posts_tz_update_time)
     values (#{taglibId,jdbcType=BIGINT}, #{tagName,jdbcType=VARCHAR}, #{tagPic,jdbcType=VARCHAR}, 
       #{parentId,jdbcType=BIGINT}, #{orders,jdbcType=TINYINT}, #{isDelete,jdbcType=VARCHAR}, 
       #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP}, #{createUserId,jdbcType=BIGINT}, 
       #{isRecommend,jdbcType=TINYINT}, #{followNumber,jdbcType=INTEGER}, #{fornumPostsNumber,jdbcType=INTEGER}, 
-      #{answerNumber,jdbcType=INTEGER})
+      #{answerNumber,jdbcType=INTEGER}, #{forumPostsTznumber,jdbcType=INTEGER}, #{forumPostsUpdateTime,jdbcType=TIMESTAMP}, 
+      #{forumPostsTzUpdateTime,jdbcType=TIMESTAMP})
   </insert>
-  <insert id="insertSelective" parameterType="com.yikangyiliao.pension.entity.Taglib" >
+  <insert id="insertSelective" parameterType="com.yikangyiliao.pension.entity.Taglib">
     insert into taglibs
-    <trim prefix="(" suffix=")" suffixOverrides="," >
-      <if test="taglibId != null" >
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="taglibId != null">
         taglib_id,
       </if>
-      <if test="tagName != null" >
+      <if test="tagName != null">
         tag_name,
       </if>
-      <if test="tagPic != null" >
+      <if test="tagPic != null">
         tag_pic,
       </if>
-      <if test="parentId != null" >
+      <if test="parentId != null">
         parent_id,
       </if>
-      <if test="orders != null" >
+      <if test="orders != null">
         orders,
       </if>
-      <if test="isDelete != null" >
+      <if test="isDelete != null">
         is_delete,
       </if>
-      <if test="createTime != null" >
+      <if test="createTime != null">
         create_time,
       </if>
-      <if test="updateTime != null" >
+      <if test="updateTime != null">
         update_time,
       </if>
-      <if test="createUserId != null" >
+      <if test="createUserId != null">
         create_user_id,
       </if>
-      <if test="isRecommend != null" >
+      <if test="isRecommend != null">
         is_recommend,
       </if>
-      <if test="followNumber != null" >
+      <if test="followNumber != null">
         follow_number,
       </if>
-      <if test="fornumPostsNumber != null" >
+      <if test="fornumPostsNumber != null">
         fornum_posts_number,
       </if>
-      <if test="answerNumber != null" >
+      <if test="answerNumber != null">
         answer_number,
       </if>
+      <if test="forumPostsTznumber != null">
+        forum_posts_tznumber,
+      </if>
+      <if test="forumPostsUpdateTime != null">
+        forum_posts_update_time,
+      </if>
+      <if test="forumPostsTzUpdateTime != null">
+        forum_posts_tz_update_time,
+      </if>
     </trim>
-    <trim prefix="values (" suffix=")" suffixOverrides="," >
-      <if test="taglibId != null" >
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="taglibId != null">
         #{taglibId,jdbcType=BIGINT},
       </if>
-      <if test="tagName != null" >
+      <if test="tagName != null">
         #{tagName,jdbcType=VARCHAR},
       </if>
-      <if test="tagPic != null" >
+      <if test="tagPic != null">
         #{tagPic,jdbcType=VARCHAR},
       </if>
-      <if test="parentId != null" >
+      <if test="parentId != null">
         #{parentId,jdbcType=BIGINT},
       </if>
-      <if test="orders != null" >
+      <if test="orders != null">
         #{orders,jdbcType=TINYINT},
       </if>
-      <if test="isDelete != null" >
+      <if test="isDelete != null">
         #{isDelete,jdbcType=VARCHAR},
       </if>
-      <if test="createTime != null" >
+      <if test="createTime != null">
         #{createTime,jdbcType=TIMESTAMP},
       </if>
-      <if test="updateTime != null" >
+      <if test="updateTime != null">
         #{updateTime,jdbcType=TIMESTAMP},
       </if>
-      <if test="createUserId != null" >
+      <if test="createUserId != null">
         #{createUserId,jdbcType=BIGINT},
       </if>
-      <if test="isRecommend != null" >
+      <if test="isRecommend != null">
         #{isRecommend,jdbcType=TINYINT},
       </if>
-      <if test="followNumber != null" >
+      <if test="followNumber != null">
         #{followNumber,jdbcType=INTEGER},
       </if>
-      <if test="fornumPostsNumber != null" >
+      <if test="fornumPostsNumber != null">
         #{fornumPostsNumber,jdbcType=INTEGER},
       </if>
-      <if test="answerNumber != null" >
+      <if test="answerNumber != null">
         #{answerNumber,jdbcType=INTEGER},
+      </if>
+      <if test="forumPostsTznumber != null">
+        #{forumPostsTznumber,jdbcType=INTEGER},
+      </if>
+      <if test="forumPostsUpdateTime != null">
+        #{forumPostsUpdateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="forumPostsTzUpdateTime != null">
+        #{forumPostsTzUpdateTime,jdbcType=TIMESTAMP},
       </if>
     </trim>
   </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="com.yikangyiliao.pension.entity.Taglib" >
+  <update id="updateByPrimaryKeySelective" parameterType="com.yikangyiliao.pension.entity.Taglib">
     update taglibs
-    <set >
-      <if test="tagName != null" >
+    <set>
+      <if test="tagName != null">
         tag_name = #{tagName,jdbcType=VARCHAR},
       </if>
-      <if test="tagPic != null" >
+      <if test="tagPic != null">
         tag_pic = #{tagPic,jdbcType=VARCHAR},
       </if>
-      <if test="parentId != null" >
+      <if test="parentId != null">
         parent_id = #{parentId,jdbcType=BIGINT},
       </if>
-      <if test="orders != null" >
+      <if test="orders != null">
         orders = #{orders,jdbcType=TINYINT},
       </if>
-      <if test="isDelete != null" >
+      <if test="isDelete != null">
         is_delete = #{isDelete,jdbcType=VARCHAR},
       </if>
-      <if test="createTime != null" >
+      <if test="createTime != null">
         create_time = #{createTime,jdbcType=TIMESTAMP},
       </if>
-      <if test="updateTime != null" >
+      <if test="updateTime != null">
         update_time = #{updateTime,jdbcType=TIMESTAMP},
       </if>
-      <if test="createUserId != null" >
+      <if test="createUserId != null">
         create_user_id = #{createUserId,jdbcType=BIGINT},
       </if>
-      <if test="isRecommend != null" >
+      <if test="isRecommend != null">
         is_recommend = #{isRecommend,jdbcType=TINYINT},
       </if>
-      <if test="followNumber != null" >
+      <if test="followNumber != null">
         follow_number = #{followNumber,jdbcType=INTEGER},
       </if>
-      <if test="fornumPostsNumber != null" >
+      <if test="fornumPostsNumber != null">
         fornum_posts_number = #{fornumPostsNumber,jdbcType=INTEGER},
       </if>
-      <if test="answerNumber != null" >
+      <if test="answerNumber != null">
         answer_number = #{answerNumber,jdbcType=INTEGER},
+      </if>
+      <if test="forumPostsTznumber != null">
+        forum_posts_tznumber = #{forumPostsTznumber,jdbcType=INTEGER},
+      </if>
+      <if test="forumPostsUpdateTime != null">
+        forum_posts_update_time = #{forumPostsUpdateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="forumPostsTzUpdateTime != null">
+        forum_posts_tz_update_time = #{forumPostsTzUpdateTime,jdbcType=TIMESTAMP},
       </if>
     </set>
     where taglib_id = #{taglibId,jdbcType=BIGINT}
   </update>
-  <update id="updateByPrimaryKey" parameterType="com.yikangyiliao.pension.entity.Taglib" >
+  <update id="updateByPrimaryKey" parameterType="com.yikangyiliao.pension.entity.Taglib">
     update taglibs
     set tag_name = #{tagName,jdbcType=VARCHAR},
       tag_pic = #{tagPic,jdbcType=VARCHAR},
@@ -183,8 +215,11 @@
       is_recommend = #{isRecommend,jdbcType=TINYINT},
       follow_number = #{followNumber,jdbcType=INTEGER},
       fornum_posts_number = #{fornumPostsNumber,jdbcType=INTEGER},
-      answer_number = #{answerNumber,jdbcType=INTEGER}
-    where taglib_id = #{taglibId,jdbcType=BIGINT} and is_delete=0
+      answer_number = #{answerNumber,jdbcType=INTEGER},
+      forum_posts_tznumber = #{forumPostsTznumber,jdbcType=INTEGER},
+      forum_posts_update_time = #{forumPostsUpdateTime,jdbcType=TIMESTAMP},
+      forum_posts_tz_update_time = #{forumPostsTzUpdateTime,jdbcType=TIMESTAMP}
+    where taglib_id = #{taglibId,jdbcType=BIGINT}
   </update>
   
   <resultMap type="com.yikangyiliao.pension.entity.Taglib" id="taglibMap">
@@ -251,6 +286,7 @@
 	    <result column="answerNumber2" 	property="answerNumber" jdbcType="INTEGER" />
 	    <result column="isStore" 		property="isStore" jdbcType="INTEGER" />
 	    <result column="followNumber2" 	property="followNumber" jdbcType="INTEGER" />
+	    <result column="forumPostsTZNumber" 	property="forumPostsTznumber" jdbcType="INTEGER" />
 	 </collection>
  </resultMap>
  
@@ -277,6 +313,7 @@
 		tag2.tag_pic as tagPic2,
 		tag2.follow_number as followNumber2,
 		tag2.fornum_posts_number as forumPostsNumber2,
+		tag2.forum_posts_tznumber as forumPostsTZNumber,
 		tag2.answer_number as answerNumber2,
 		tag2.parent_id as parentId2,
 		if(ifnull(user_taglib_maps.taglib_id,-1)>0,1,0) as isStore,
@@ -317,6 +354,26 @@
   <!-- 修改标签关注数量 -1 -->
   <update id="updateFollowNumberSubByTaglibId" parameterType="long">
   		update taglibs  set follow_number=follow_number-1 where taglib_id=#{taglibId}
+  </update>
+  
+  
+  <!-- 修改标签帖子关注数量 +1 -->
+  <update id="updateForumPostsNumberAddByTaglibId" parameterType="long">
+  		update taglibs  set fornum_posts_number=fornum_posts_number+1 where taglib_id=#{taglibId}
+  </update>
+  
+  <!-- 修改标签帖子关注数量 +1 -->
+  <update id="updateForumPostsNumberSubByTaglibId" parameterType="long">
+  		update taglibs  set fornum_posts_number=fornum_posts_number-1 where taglib_id=#{taglibId}
+  </update>
+  
+    <!-- 修改标签帖子关注数量 -1 -->
+  <update id="updateForumPostsTZNumberAddByTaglibId" parameterType="long">
+  		update taglibs  set forum_posts_tznumber=forum_posts_tznumber+1 where taglib_id=#{taglibId}
+  </update>
+    <!-- 修改标签帖子关注数量 -1 -->
+  <update id="updateForumPostsTZNumberSubByTaglibId" parameterType="long">
+  		update taglibs  set forum_posts_tznumber=forum_posts_tznumber-1 where taglib_id=#{taglibId}
   </update>
  
 </mapper>

@@ -27,6 +27,12 @@ public class Taglib {
     private Integer followNumber;
 
     private Integer fornumPostsNumber;
+    
+    private Integer forumPostsTznumber;
+    
+    private Date forumPostsUpdateTime;
+
+    private Date forumPostsTzUpdateTime;
 
     private Integer answerNumber;
     
@@ -175,5 +181,30 @@ public class Taglib {
 
 	public void setIsStore(Integer isStore) {
 		this.isStore = isStore;
+	}
+
+
+	public Date getForumPostsUpdateTime() {
+		return forumPostsUpdateTime;
+	}
+
+	public void setForumPostsUpdateTime(Date forumPostsUpdateTime) {
+		this.forumPostsUpdateTime = forumPostsUpdateTime;
+	}
+
+	public Date getForumPostsTzUpdateTime() {
+		return forumPostsTzUpdateTime;
+	}
+
+	public void setForumPostsTzUpdateTime(Date forumPostsTzUpdateTime) {
+		this.forumPostsTzUpdateTime = forumPostsTzUpdateTime;
+	}
+
+	public Integer getForumPostsTznumber() {
+		return forumPostsTznumber;
+	}
+
+	public void setForumPostsTznumber(Integer forumPostsTznumber) {
+		this.forumPostsTznumber = forumPostsTznumber;
 	}
 }

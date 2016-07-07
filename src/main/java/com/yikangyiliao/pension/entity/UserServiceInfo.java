@@ -87,6 +87,10 @@ public class UserServiceInfo {
 //    用户文章列表
     private List<FormPosts> formPosts;
     
+    
+    private String designationName;
+    
+    
     public Long getUserServiceInfoId() {
         return userServiceInfoId;
     }
@@ -367,6 +371,14 @@ public class UserServiceInfo {
 
 	public void setBirthday(Date birthday) {
 		this.birthday = birthday;
+	}
+
+	public String getDesignationName() {
+		return designationName;
+	}
+
+	public void setDesignationName(String designationName) {
+		this.designationName = designationName;
 	}
 
 	

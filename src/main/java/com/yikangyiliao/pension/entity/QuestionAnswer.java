@@ -29,6 +29,8 @@ public class QuestionAnswer {
     
     private String photoUrl;
     
+    private Integer userPosition;
+    
     private Question question;
     
     private String detailContent;
@@ -154,4 +156,13 @@ public class QuestionAnswer {
 	public void setHtmlDetailContent(String htmlDetailContent) {
 		this.htmlDetailContent = htmlDetailContent;
 	}
+
+	public Integer getUserPosition() {
+		return userPosition;
+	}
+
+	public void setUserPosition(Integer userPosition) {
+		this.userPosition = userPosition;
+	}
+
 }

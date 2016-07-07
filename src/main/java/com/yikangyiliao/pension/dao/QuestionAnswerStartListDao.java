@@ -25,7 +25,7 @@ public interface QuestionAnswerStartListDao {
      * @date 2016-05-10 11:02
      * @desc 获取某一条记录
      ***/
-    QuestionAnswerStartList getRowByQuestionAnswerIdAndCreateUserId(Long questionAnswerId,Long createUserId);
+    QuestionAnswerStartList getRowByQuestionAnswerIdAndCreateUserId(@Param("questionAnswerId") Long questionAnswerId,@Param("createUserId") Long createUserId);
     
     
     /**

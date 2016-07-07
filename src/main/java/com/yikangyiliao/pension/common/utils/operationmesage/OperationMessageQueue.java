@@ -111,4 +111,37 @@ public class OperationMessageQueue {
 	
 	
 	
+
+	/**
+	 * @author liushuaic
+	 * @date 2016-06-13 10:40
+	 * @desc 帖子回答队列
+	 * */
+	private static BlockingQueue<OperationMessage> tzForumPostsAnswerQueues=new LinkedBlockingQueue<OperationMessage>();
+	
+	
+	public static void putTZForumPostsAnswerQueues(OperationMessage operationMessage){
+		try{
+			tzForumPostsAnswerQueues.put(operationMessage);
+		}catch(Exception e){
+			e.printStackTrace();
+		}
+	}
+	
+	/**
+	 * @author liushuaic
+	 * @date 2016-07-05 17:48
+	 * @desc 获取所有的回答
+	 * */
+	public static OperationMessage takeTZForumPostsAnswerQueues(){
+		try{
+			return tzForumPostsAnswerQueues.take();
+		}catch(Exception e){
+			e.printStackTrace();
+		}
+		return null;
+	}
+	
+	
+	
 }

@@ -101,4 +101,37 @@ public interface TaglibDao {
     int updateFollowNumberSubByTaglibId(Long taglibId);
     
     
+    /**
+     * @author liushuaic
+     * @date 2016-07-06 15:01
+     * 修改标签帖子关注数量 +1
+     * **/
+    int updateForumPostsTZNumberAddByTaglibId(Long taglibId);
+
+    
+    /**
+     * 
+     * @author liushuaic
+     * @date 2016-07-06 15:01
+     * 修改标签帖子关注数量 -1 
+     * 
+     * */
+    int updateForumPostsTZNumberSubByTaglibId(Long taglibId);
+    
+    /**
+     * @author liushuaic
+     * @date 2016-07-06 16:50
+     * @desc 文章发部数量加1
+     * */
+    int updateForumPostsNumberAddByTaglibId(Long taglibId);
+    
+    
+    /**
+     * @author liushuaic
+     * @date 2016-07-06 16:54
+     * @desc 标签文章数量减一
+     * **/
+    int updateForumPostsNumberSubByTaglibId(Long taglibId);
+    
+    
 }

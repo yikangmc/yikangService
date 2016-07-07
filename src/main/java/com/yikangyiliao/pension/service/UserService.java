@@ -407,9 +407,9 @@ public class UserService {
 	public Map<String, Object> saveServiceUserInfo(Map<String, Object> paramData) {
 
 		// 用户id 在paramData中存着
-
 		Map<String, Object> rtnData = new HashMap<String, Object>();
-		if (paramData.containsKey("userPostion") // 职位
+		if (
+				paramData.containsKey("userPostion") // 职位
 				&& paramData.containsKey("jobCategory") // 全职，兼职
 				&& paramData.containsKey("provenceCode") && paramData.containsKey("cityCode")
 				&& paramData.containsKey("districtCode") && paramData.containsKey("addressDetail")
@@ -849,6 +849,11 @@ public class UserService {
 			String sex=paramData.get("userSex").toString();
 			userInfo.setUserSex(Byte.valueOf(sex));
 		}
+		if(paramData.containsKey("designationId")){
+			Long designationId=Long.valueOf(paramData.get("designationId").toString());
+			userInfo.setDesignationId(designationId);
+		}
+		
 		userInfo.setUserId(Long.valueOf(userId));
 		userManager.updateByUserIdSelective(userInfo);
 		

@@ -24,6 +24,12 @@ public class Message {
     private Byte messageGroup;
 
     private Byte contentGroup;
+    
+    private String userName;
+    
+    private String photoUrl;
+    
+    private Integer userPosition;
 
     public Long getMessagesId() {
         return messagesId;
@@ -112,4 +118,28 @@ public class Message {
     public void setContentGroup(Byte contentGroup) {
         this.contentGroup = contentGroup;
     }
+
+	public String getUserName() {
+		return userName;
+	}
+
+	public void setUserName(String userName) {
+		this.userName = userName;
+	}
+
+	public String getPhotoUrl() {
+		return photoUrl;
+	}
+
+	public void setPhotoUrl(String photoUrl) {
+		this.photoUrl = photoUrl;
+	}
+
+	public Integer getUserPosition() {
+		return userPosition;
+	}
+
+	public void setUserPosition(Integer userPosition) {
+		this.userPosition = userPosition;
+	}
 }

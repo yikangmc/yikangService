@@ -38,6 +38,8 @@ public class QuestionAnswerMsgOperation implements Runnable{
 				
 				Long questionId=Long.valueOf(operationMessage.getContent());
 				QuestionAnswer questionAnswer=questionAnswerManager.getQuestionAnswerByQuestionAnswerId(questionId);
+				User answerUser=userManager.getUserByUserId(questionAnswer.getCreateUserId());
+				
 				
 				Question question=questionManager.getQuestionByQuestionId(questionAnswer.getQuestionId());
 				Long userId=question.getCreateUserId();
@@ -45,7 +47,8 @@ public class QuestionAnswerMsgOperation implements Runnable{
 				User user=userManager.getUserByUserId(userId);
 				Message<String> message=new Message<String>();
 				message.setAlias(user.getPushAlias());
-				message.setContent("你的文章有新的回答了 "+questionAnswer.getContent());
+//				message.setContent("你的文章有新的回答了 "+questionAnswer.getContent());
+				message.setContent(answerUser.getUserName()+" 回答了你的问题");
 				MessageQueue.put(message);
 			}catch(Exception  e){
 				e.printStackTrace();

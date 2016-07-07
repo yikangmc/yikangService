@@ -386,6 +386,8 @@
 		<result column="user_sex" 		property="userSex" />
 		<result column="user_introduce" property="userIntroduce"/>
 		<result column="user_certificate" property="userCertificate"/>
+		<result column="designation_name" property="designationName"/>
+		
 
 		<association property="officeObj" column="offices" javaType="com.yikangyiliao.pension.entity.Office">
 			<id column="office_id" property="officeId" />
@@ -431,21 +433,18 @@
 		infoWrite,
 		adepts.adept_id as adeptId,
 		adepts.adept_name as adeptName,
-		us.position_audit_status as positionAuditStatus
+		us.position_audit_status as positionAuditStatus,
+		designations.designation_name
 		from
-		user_service_infos
-		us
+		user_service_infos us
 		inner join users on us.user_id=users.user_id
-		left join senior_account
-		sa on
-		us.user_id=sa.create_user_id
-		left join user_adept_maps uam on
-		us.user_id=uam.user_id
-		left join adepts on uam.adept_id=adepts.adept_id
+		left join senior_account sa 	on us.user_id=sa.create_user_id
+		left join user_adept_maps uam 	on us.user_id=uam.user_id
+		left join adepts  on uam.adept_id=adepts.adept_id
 		left join offices on us.offices=offices.office_id
 		left join user_infos ui on users.user_id=ui.user_id
-		where us.user_id =
-		#{userId,jdbcType=BIGINT}
+		left join designations  on ui.designation_id=designations.designation_id
+		where us.user_id = #{userId,jdbcType=BIGINT}
 	</select>
 
 	<!-- 修改用户信息， 根据 userId -->

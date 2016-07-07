@@ -95,6 +95,7 @@ public class QuestionAnswerManager {
 			questionAnswerStartList2.setQuestionAnswerId(questionAnswerId);
 			questionAnswerStartList2.setCreateUserId(userId);
 			questionAnswerStartList2.setCreateTime(createTime);
+			questionAnswerStartList2.setUpdateTime(createTime);
 			questionAnswerStartListDao.insertSelective(questionAnswerStartList2);
 			questionAnswerDao.updateQuestionAnswerStarUpByQuestionAnswerId(questionAnswerStartList2.getQuestionAnswerId());
 		}
@@ -110,7 +111,7 @@ public class QuestionAnswerManager {
 	 * @desc 获取问题的回答
 	 * */
 	public QuestionAnswer getQuestionAnswerByQuestionAnswerId(Long questionAnswerId){
-		QuestionAnswer questionAnswer=questionAnswerDao.selectByPrimaryKey(questionAnswerId);
+		QuestionAnswer questionAnswer=questionAnswerDao.getQuestionAnswerByQuestionAnswerId(questionAnswerId);
 		return questionAnswer;
 	}
 

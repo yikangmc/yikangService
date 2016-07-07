@@ -514,6 +514,14 @@ public class InterfaceUtil {
 		insertPerformencePublishForumPosts.setMethodName("insertPerformencePublishForumPosts");
 		insertPerformencePublishForumPosts.setIsFileter(false);
 		mathodServiceConfig.put("00-28-10",insertPerformencePublishForumPosts);
+		
+		
+		//获取某一个用户创建的专业文章
+		YiKangServiceConfige geWZForumPostsByCreateUserId=new YiKangServiceConfige();
+		geWZForumPostsByCreateUserId.setServiceName("forumPostService");
+		geWZForumPostsByCreateUserId.setMethodName("geWZForumPostsByCreateUserId");
+		geWZForumPostsByCreateUserId.setIsFileter(true);
+		mathodServiceConfig.put("00-28-11",geWZForumPostsByCreateUserId);
 
 
 		

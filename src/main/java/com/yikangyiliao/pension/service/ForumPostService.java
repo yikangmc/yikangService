@@ -310,14 +310,14 @@ public class ForumPostService {
     /**
      * @author liushuaic
      * @date 2016-06-07 10:31
-     * @desc 获取某一个人创建的文章
+     * @desc 获取某一个人创建的帖子
      * */
    public  ResponseMessage<List<FormPosts>> geForumPostsByCreateUserId(Map<String,Object> paramData){
 	   ResponseMessage<List<FormPosts>> res=new ResponseMessage<List<FormPosts>>();
 	   
 	   if(paramData.containsKey("userId")){
 		   Long userId=Long.valueOf(paramData.get("userId").toString());
-		   List<FormPosts> formPosts=formPostManager.geForumPostsByCreateUserId(userId);
+		   List<FormPosts> formPosts=formPostManager.geTZForumPostsByCreateUserId(userId);
 		   res.setData(formPosts);
 	   }else{
 		   res.setStatus(ExceptionConstants.systemException.systemException.errorCode);
@@ -326,6 +326,27 @@ public class ForumPostService {
 	   
    	   return res;
    }
+   
+   /**
+    * @author liushuaic
+    * @date 2016-06-07 10:31
+    * @desc 获取某一个人创建的文章
+    * */
+  public  ResponseMessage<List<FormPosts>> geWZForumPostsByCreateUserId(Map<String,Object> paramData){
+	   ResponseMessage<List<FormPosts>> res=new ResponseMessage<List<FormPosts>>();
+	   
+	   if(paramData.containsKey("userId")){
+		   Long userId=Long.valueOf(paramData.get("userId").toString());
+		   List<FormPosts> formPosts=formPostManager.geWZForumPostsByCreateUserId(userId);
+		   res.setData(formPosts);
+	   }else{
+		   res.setStatus(ExceptionConstants.systemException.systemException.errorCode);
+  		   res.setMessage(ExceptionConstants.systemException.systemException.errorMessage);
+	   }
+	   
+  	   return res;
+  }
+   
     
     /**
      * 删除
