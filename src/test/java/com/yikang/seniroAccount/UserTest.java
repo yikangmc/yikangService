@@ -264,6 +264,17 @@ public class UserTest {
 		}
 	}
 	
+	@Test
+	public void getUserServiceInfoByServerUserId(){
+		try{
+			Map<String,Object> paramData=new HashMap<String, Object>();
+			paramData.put("serverUserId", 75);
+			SendRequest.sendPost("00-17-15?appId=234&accessTicket=4286a50e808d04da0d39e4a83ef19f44aefb5c39877bd22903d981090d1f3b7c5e4c7afd323d91954ba85f0a1bf9bb45&machineCode=123123", paramData);
+		}catch(Exception e){
+			e.printStackTrace();
+		}
+	}
+	
 	
 	
 	

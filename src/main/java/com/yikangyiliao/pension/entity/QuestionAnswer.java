@@ -37,6 +37,11 @@ public class QuestionAnswer {
     
     private String htmlDetailContent;
     
+    /**
+     * TODO 答案分享未设计
+     * **/
+    private String shareUrl="";
+    
     public Long getQuestionAnswerId() {
         return questionAnswerId;
     }
@@ -163,6 +168,14 @@ public class QuestionAnswer {
 
 	public void setUserPosition(Integer userPosition) {
 		this.userPosition = userPosition;
+	}
+
+	public String getShareUrl() {
+		return shareUrl;
+	}
+
+	public void setShareUrl(String shareUrl) {
+		this.shareUrl = shareUrl;
 	}
 
 }

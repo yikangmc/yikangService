@@ -32,6 +32,7 @@ public interface UserServiceInfoDao {
      * @dsec 查询某一个员工的信息，根据 用户id 
      * */
     UserServiceInfo getUserServiceInfoByUserIdTwo(Long userIds);
+
     
     
     
@@ -103,6 +104,15 @@ public interface UserServiceInfoDao {
      * @desc 查询我关注的用户
      * **/
     List<UserServiceInfo> getMyFollowUser(Long createUserId);
+    
+    
+    
+    /**
+     * @author liushuaic
+     * @date 2016/07/09 11:10
+     * @dsec 查询某一个员工的信息，根据 serverUserId 
+     * */
+    UserServiceInfo getUserServiceInfoByServerUserId(Long userId);
     
     
     

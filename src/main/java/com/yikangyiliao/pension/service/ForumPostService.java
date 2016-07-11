@@ -418,6 +418,28 @@ public class ForumPostService {
 		return res;
 
 	}
+	
+	
+	
+    /**
+     * @author liushuaic
+     * @date 2016-06-07 10:31
+     * @desc 获取某一个人创建的帖子
+     * */
+   public  ResponseMessage<List<FormPosts>> geForumPostsByServerUserId(Map<String,Object> paramData){
+	   ResponseMessage<List<FormPosts>> res=new ResponseMessage<List<FormPosts>>();
+	   
+	   if(paramData.containsKey("serverUserId")){
+		   Long userId=Long.valueOf(paramData.get("serverUserId").toString());
+		   List<FormPosts> formPosts=formPostManager.geTZForumPostsByCreateUserId(userId);
+		   res.setData(formPosts);
+	   }else{
+		   res.setStatus(ExceptionConstants.systemException.systemException.errorCode);
+   		   res.setMessage(ExceptionConstants.systemException.systemException.errorMessage);
+	   }
+	   
+   	   return res;
+   }
 
 
 }

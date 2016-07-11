@@ -261,6 +261,7 @@
 	 <resultMap type="com.yikangyiliao.pension.entity.Activety" extends="BaseResultMap" id="getActivetysMapper">
 		<result column="createUsername" property="createUsername"/>
 		<result column="photo_url" property="photoUrl"/>
+		<result column="user_position" property="userPosition"/>
  	</resultMap>
 	<select id="getActivetys" resultMap="getActivetysMapper" parameterType="long">
 	<if test="null != userId">
@@ -269,9 +270,11 @@
 			ui.user_name as createUsername,
 			ui.user_sex,
 			ui.photo_url,
+			usi.user_position,
 			(select count(1) as partaketNums from user_activety_lists where activety_id=activetys.activety_id) as partakeNums,
 		    if(ifnull(ual.activety_id,0)=0,0,1)as 'isPartake'
 		from activetys  left join user_infos ui on activetys.create_user_id=ui.user_id
+		left join user_service_infos usi on ui.user_id=usi.user_id
 		left join (select * from user_activety_lists where user_id=#{userId}) ual on activetys.activety_id=ual.activety_id
 	</if>
 	<if test="null == userId">
@@ -280,8 +283,10 @@
 			ui.user_name as createUsername,
 			ui.user_sex,
 			ui.photo_url,
+			usi.user_position,
 			(select count(1) as partaketNums from user_activety_lists where activety_id=activetys.activety_id) as partakeNums
-		from activetys  left join user_infos ui on activetys.create_user_id=ui.user_id 
+		from activetys  left join user_infos ui on activetys.create_user_id=ui.user_id
+		left join user_service_infos usi on ui.user_id=usi.user_id
 	</if>
 	</select>
 	  
@@ -297,9 +302,12 @@
 	    ui.user_name,
 	    ui.user_sex,
 	    ui.photo_url,
+	    usi.user_position,
+	    (select count(1) from activetys ac where ac.create_user_id=activetys.create_user_id) as createActivetyNumber,
 	    (select count(1) as partaketNums from user_activety_lists where activety_id=activetys.activety_id) as partakeNums,
 		if(ifnull(ual.activety_id,0)=0,0,1)as 'isPartake'
   	 from activetys left join user_infos ui on activetys.create_user_id=ui.user_id
+  	 left join user_service_infos usi on ui.user_id=usi.user_id
   	 left join (select * from user_activety_lists where user_id=#{userId}) ual on activetys.activety_id=ual.activety_id
   	 where activetys.activety_id=#{activetyId}
   </select>

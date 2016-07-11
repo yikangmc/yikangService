@@ -40,4 +40,14 @@ public class UserServiceInfoManager {
 		return userServiceInfoDao.getMyFollowUser(createUserId);
 	}
 	
+	  
+    /**
+     * @author liushuaic
+     * @date 2016/07/09 11:10
+     * @dsec 查询某一个员工的信息，根据 serverUserId 
+     * */
+    public UserServiceInfo getUserServiceInfoByServerUserId(Long userId){
+    	return userServiceInfoDao.getUserServiceInfoByServerUserId(userId);
+    }
+	
 }

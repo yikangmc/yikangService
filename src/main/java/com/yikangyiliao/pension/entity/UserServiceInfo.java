@@ -13,19 +13,19 @@ public class UserServiceInfo {
 
     private Byte userPosition;
 
-    private Long provenceCode;
+    private Long provenceCode=0l;
 
-    private Long cityCode;
+    private Long cityCode=0l;
 
-    private Long districtCode;
+    private Long districtCode=0l;
 
-    private String addressDetail;
+    private String addressDetail="";
 
-    private String photoUrl;
+    private String photoUrl="";
 
-    private Long createTime;
+    private Long createTime=0l;
 
-    private Long updateTime;
+    private Long updateTime=0l;
 
     private Byte isDelete;
 
@@ -90,6 +90,12 @@ public class UserServiceInfo {
     
     private String designationName;
     
+    
+    private int followUserNumber;
+    
+    private int forumPostsTznumber;
+    
+    private int watchTaglibNumber;
     
     public Long getUserServiceInfoId() {
         return userServiceInfoId;
@@ -379,6 +385,30 @@ public class UserServiceInfo {
 
 	public void setDesignationName(String designationName) {
 		this.designationName = designationName;
+	}
+
+	public int getFollowUserNumber() {
+		return followUserNumber;
+	}
+
+	public void setFollowUserNumber(int followUserNumber) {
+		this.followUserNumber = followUserNumber;
+	}
+
+	public int getForumPostsTznumber() {
+		return forumPostsTznumber;
+	}
+
+	public void setForumPostsTznumber(int forumPostsTznumber) {
+		this.forumPostsTznumber = forumPostsTznumber;
+	}
+
+	public int getWatchTaglibNumber() {
+		return watchTaglibNumber;
+	}
+
+	public void setWatchTaglibNumber(int watchTaglibNumber) {
+		this.watchTaglibNumber = watchTaglibNumber;
 	}
 
 	

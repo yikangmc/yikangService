@@ -1135,4 +1135,27 @@ public class UserService {
 		return resData;
 	}
  
+	
+	/**
+	 * @author liushuaic
+	 * @date 2016/07/09 11:15 查询某一个服务人员的信息
+	 **/
+	public Map<String, Object> getUserServiceInfoByServerUserId(Map<String, Object> paramData) {
+
+		Map<String, Object> rtnData = new HashMap<String, Object>();
+		String serverUserId = paramData.get("serverUserId").toString();
+
+		UserServiceInfo userServiceInfo = userServiceInfoManager.getUserServiceInfoByServerUserId(Long.valueOf(serverUserId));
+		// 邀请url
+		String invitationUrl = SystemProperties.getPropertieValue("invitationUrl")+ userServiceInfo.getInvitationCode();
+		userServiceInfo.setInvitationUrl(invitationUrl);
+
+		rtnData.put("data", userServiceInfo);
+		rtnData.put("status", ExceptionConstants.responseSuccess.responseSuccess.code);
+		rtnData.put("message", ExceptionConstants.responseSuccess.responseSuccess.message);
+		
+		return rtnData;
+	}
+	
+	
 }

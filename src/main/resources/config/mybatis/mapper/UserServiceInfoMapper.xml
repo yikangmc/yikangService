@@ -585,5 +585,93 @@
 		where create_user_id=#{createUserId}
 	</select>
 	
+	<!-- 查询某一个服务人员 -->
+	<resultMap type="com.yikangyiliao.pension.entity.UserServiceInfo" id="getUserServiceInfoByUserIdResultMap">
+		<result column="userId" 		property="userId" />
+		<result column="jobCategory" 	property="jobCategory" />
+		<result column="userPosition" 	property="userPosition" />
+		<result column="cityCode" 		property="cityCode" />
+		<result column="districtCode" 	property="districtCode" />
+		<result column="photoUrl" 		property="photoUrl" />
+		<result column="createTime" 	property="createTime" />
+		<result column="updateTime" 	property="updateTime" />
+		<result column="userServiceName" property="userServiceName" />
+		<result column="userServiceName" property="userName" />
+		<result column="mapPositionAddress" property="mapPositionAddress" />
+		<result column="addressDetail" 	property="addressDetail" />
+		<result column="hospital" 		property="hospital" />
+		<result column="offices" 		property="offices" />
+		<result column="invitationUrl" 	property="invitationUrl" />
+		<result column="infoWrite" 		property="infoWrite" />
+		<result column="nums" 			property="nums" />
+		<result column="invitationCode" property="invitationCode" />
+		<result column="birthday" 		property="birthday" />
+		<result column="user_sex" 		property="userSex" />
+		<result column="user_introduce" property="userIntroduce"/>
+		<result column="user_certificate" property="userCertificate"/>
+		<result column="designation_name" property="designationName"/>
+		<result column="followUserNumber" property="followUserNumber"/>
+		<result column="forumPostsTznumber" property="forumPostsTznumber"/>
+		<result column="watchTaglibNumber" property="watchTaglibNumber"/>
+		
+
+		<association property="officeObj" column="offices" javaType="com.yikangyiliao.pension.entity.Office">
+			<id column="office_id" property="officeId" />
+			<result column="office_name" property="officeName" />
+		</association>
+		<collection property="adepts"  fetchType="eager" column="userId" select="com.yikangyiliao.pension.dao.AdeptDao.getAdeptsByUserId">      
+        </collection>
+	</resultMap>
+	
+	<select id="getUserServiceInfoByServerUserId" parameterType="long" resultMap="getUserServiceInfoByUserIdResultMap">
+		select
+		ui.user_sex,
+		ui.birthday,
+		us.user_id as userId,
+		us.job_category as
+		jobCategory,
+		us.user_position as userPosition,
+		us.city_code as cityCode,
+		us.district_code as districtCode,
+		us.address_detail as addressDetail,
+		us.photo_url as photoUrl,
+		us.create_time as createTime,
+		us.update_time
+		as updateTime,
+		us.user_service_name as userServiceName,
+		us.map_position_address as mapPositionAddress,
+		us.hospital,
+		us.offices,
+		offices.office_id,
+		offices.office_name,
+        ui.user_introduce,
+        us.user_certificate,
+		users.invitation_code as
+		invitationCode,
+		'' as 'invitationUrl',
+		count(sa.senior_id) as nums ,
+		us.position_audit_status as
+		positionAuditStatus,
+		users.info_write as
+		infoWrite,
+		adepts.adept_id as adeptId,
+		adepts.adept_name as adeptName,
+		us.position_audit_status as positionAuditStatus,
+		designations.designation_name,
+		(select count(1) from follow_user_maps where follow_user_id=us.user_id) as followUserNumber,
+		(select count(1) from forum_posts where forum_post_group=0 and create_user_id=us.user_id) as forumPostsTznumber,
+		(select count(1) from user_taglib_maps where create_user_id=us.user_id) as watchTaglibNumber
+		from
+		user_service_infos us
+		inner join users on us.user_id=users.user_id
+		left join senior_account sa 	on us.user_id=sa.create_user_id
+		left join user_adept_maps uam 	on us.user_id=uam.user_id
+		left join adepts  on uam.adept_id=adepts.adept_id
+		left join offices on us.offices=offices.office_id
+		left join user_infos ui on users.user_id=ui.user_id
+		left join designations  on ui.designation_id=designations.designation_id
+		where us.user_id = #{userId,jdbcType=BIGINT}
+	</select>
+	
 
 </mapper>

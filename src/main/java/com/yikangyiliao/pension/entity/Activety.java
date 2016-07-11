@@ -46,6 +46,8 @@ public class Activety {
     
     private Integer userPosition;
     
+    private Integer createActivetyNumber;
+    
     //活动已经参与人员数量
     private Integer partakeNums=0;
     
@@ -57,6 +59,7 @@ public class Activety {
     
     private List<ActivetyComment> activtyComments;
     
+    private String shareUrl;
     
     public Long getActivetyId() {
         return activetyId;
@@ -256,5 +259,21 @@ public class Activety {
 
 	public void setActivtyComments(List<ActivetyComment> activtyComments) {
 		this.activtyComments = activtyComments;
+	}
+
+	public Integer getCreateActivetyNumber() {
+		return createActivetyNumber;
+	}
+
+	public void setCreateActivetyNumber(Integer createActivetyNumber) {
+		this.createActivetyNumber = createActivetyNumber;
+	}
+
+	public String getShareUrl() {
+		return shareUrl;
+	}
+
+	public void setShareUrl(String shareUrl) {
+		this.shareUrl = shareUrl;
 	}
 }

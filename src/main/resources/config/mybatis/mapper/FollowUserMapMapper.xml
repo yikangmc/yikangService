@@ -106,4 +106,9 @@
   	from follow_user_maps where create_user_id = #{createUserId,jdbcType=BIGINT} and follow_user_id = #{followUserId,jdbcType=BIGINT}
   </select>
   
+  
+  <select id="getFollowUserByFollowUserId" resultMap="BaseResultMap">
+  	
+  </select>
+  
 </mapper>

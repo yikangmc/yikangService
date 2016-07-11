@@ -297,6 +297,16 @@ public class InterfaceUtil {
 		getMyFollowUser.setIsFileter(true);
 		mathodServiceConfig.put("00-17-14",getMyFollowUser);
 		
+		
+		
+		
+		//查询某一个服务人员的信息
+		YiKangServiceConfige getUserServiceInfoByServerUserId=new YiKangServiceConfige();
+		getUserServiceInfoByServerUserId.setServiceName("userService");
+		getUserServiceInfoByServerUserId.setMethodName("getUserServiceInfoByServerUserId");
+		getUserServiceInfoByServerUserId.setIsFileter(true);
+		mathodServiceConfig.put("00-17-15",getUserServiceInfoByServerUserId);
+		
 		/**
 		 * @author liushuaic
 		 * @date 2015/09/01 14:19
@@ -522,6 +532,13 @@ public class InterfaceUtil {
 		geWZForumPostsByCreateUserId.setMethodName("geWZForumPostsByCreateUserId");
 		geWZForumPostsByCreateUserId.setIsFileter(true);
 		mathodServiceConfig.put("00-28-11",geWZForumPostsByCreateUserId);
+		
+		//获取某一个用户的专业帖子
+		YiKangServiceConfige geForumPostsByServerUserId=new YiKangServiceConfige();
+		geForumPostsByServerUserId.setServiceName("forumPostService");
+		geForumPostsByServerUserId.setMethodName("geForumPostsByServerUserId");
+		geForumPostsByServerUserId.setIsFileter(true);
+		mathodServiceConfig.put("00-28-12",geWZForumPostsByCreateUserId);
 
 
 		
@@ -837,6 +854,13 @@ public class InterfaceUtil {
 		getUserMyFollowTaglibByUserId.setIsFileter(true);
 		mathodServiceConfig.put("00-36-03",getUserMyFollowTaglibByUserId);
 		
+		//查询某个用户关注的标签
+		YiKangServiceConfige getUserMyFollowTaglibByServerUserId=new YiKangServiceConfige();
+		getUserMyFollowTaglibByServerUserId.setServiceName("userTaglibMapService");
+		getUserMyFollowTaglibByServerUserId.setMethodName("getUserMyFollowTaglibByServerUserId");
+		getUserMyFollowTaglibByServerUserId.setIsFileter(true);
+		mathodServiceConfig.put("00-36-04",getUserMyFollowTaglibByServerUserId);
+		
 		//用户收藏
 		serviceClassName.put("00-37", "storeupService");
 		
@@ -884,6 +908,16 @@ public class InterfaceUtil {
 		deleteMyFollowUser.setMethodName("deleteMyFollowUser");
 		deleteMyFollowUser.setIsFileter(true);
 		mathodServiceConfig.put("00-38-03",deleteMyFollowUser);
+		
+		
+		//获取某一个服务人员关注的用户
+		YiKangServiceConfige getFollowUseByServerUserId=new YiKangServiceConfige();
+		getFollowUseByServerUserId.setServiceName("followUserMapService");
+		getFollowUseByServerUserId.setMethodName("getFollowUseByServerUserId");
+		getFollowUseByServerUserId.setIsFileter(true);
+		mathodServiceConfig.put("00-38-04",getFollowUseByServerUserId);
+		
+		
 		
 		serviceClassName.put("00-39", "questionAnswerService");
 		

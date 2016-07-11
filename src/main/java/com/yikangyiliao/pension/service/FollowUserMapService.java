@@ -1,6 +1,5 @@
 package com.yikangyiliao.pension.service;
 
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -62,6 +61,29 @@ public class FollowUserMapService {
 		if(paramMap.containsKey("userId")){
 			Long userId=Long.valueOf(paramMap.get("userId").toString());
 			List<UserServiceInfo> data=followUserMapManager.getMyFollowUser(userId);
+			resData.setData(data);
+		}else{
+			resData.setStatus(ExceptionConstants.systemException.systemException.errorCode);
+			resData.setMessage(ExceptionConstants.systemException.systemException.errorMessage);
+		}
+		
+		return resData;
+	}
+	
+	
+	
+	/**
+	 * @author liushuaic
+	 * @date 2016-05-31 15:45
+	 * @desc 获取我关注的用户
+	 * **/
+	public ResponseMessage<List<UserServiceInfo>> getFollowUseByServerUserId(Map<String,Object> paramMap){
+		
+		ResponseMessage<List<UserServiceInfo>> resData=new ResponseMessage<List<UserServiceInfo>>();
+		
+		if(paramMap.containsKey("serverUserId")){
+			Long serverUserId=Long.valueOf(paramMap.get("serverUserId").toString());
+			List<UserServiceInfo> data=followUserMapManager.getMyFollowUser(serverUserId);
 			resData.setData(data);
 		}else{
 			resData.setStatus(ExceptionConstants.systemException.systemException.errorCode);

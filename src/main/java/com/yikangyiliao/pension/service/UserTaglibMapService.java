@@ -68,4 +68,26 @@ public class UserTaglibMapService{
 	}
 	
 	
+	/**
+	 * @author liushuaic
+	 * @date 2016-07-09 10:53
+	 * @desc 获取某一个服务人员的所有关注者
+	 * */
+	public ResponseMessage<List<Taglib>> getUserMyFollowTaglibByServerUserId(Map<String,Object> paramMap){
+		ResponseMessage<List<Taglib>> resData=new ResponseMessage<List<Taglib>>();
+		if(
+				paramMap.containsKey("serverUserId")
+			){
+			Long serverUserId=Long.valueOf(paramMap.get("serverUserId").toString());
+			List<Taglib> taglibs=userTaglibMapManager.getMyFollowTaglibs(serverUserId);
+			resData.setData(taglibs);
+		}else{
+			resData.setStatus(ExceptionConstants.parameterException.parameterException.errorCode);
+			resData.setMessage(ExceptionConstants.parameterException.parameterException.errorMessage);
+		}
+		
+		return resData;
+	}
+	
+	
 }
