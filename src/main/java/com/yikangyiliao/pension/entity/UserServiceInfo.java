@@ -19,9 +19,9 @@ public class UserServiceInfo {
 
     private Long districtCode=0l;
 
-    private String addressDetail="";
+    private String addressDetail;
 
-    private String photoUrl="";
+    private String photoUrl;
 
     private Long createTime=0l;
 
