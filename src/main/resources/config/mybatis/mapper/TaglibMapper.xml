@@ -262,6 +262,7 @@
   		<include refid="Base_Column_List"></include>
   	from taglibs
 	where parent_id=0
+	and is_delete=0
   </select>
   
   

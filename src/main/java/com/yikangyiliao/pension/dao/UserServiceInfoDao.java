@@ -3,6 +3,8 @@ package com.yikangyiliao.pension.dao;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.ibatis.annotations.Param;
+
 import com.yikangyiliao.pension.entity.FormPosts;
 import com.yikangyiliao.pension.entity.UserServiceInfo;
 
@@ -108,11 +110,13 @@ public interface UserServiceInfoDao {
     
     
     /**
+     * 
      * @author liushuaic
      * @date 2016/07/09 11:10
-     * @dsec 查询某一个员工的信息，根据 serverUserId 
+     * @dsec 查询某一个员工的信息，根据 serverUserId
+     * 
      * */
-    UserServiceInfo getUserServiceInfoByServerUserId(Long userId);
+    UserServiceInfo getUserServiceInfoByServerUserId(@Param("serarchUserId")Long serarchUserId,@Param("userId")Long userId);
     
     
     

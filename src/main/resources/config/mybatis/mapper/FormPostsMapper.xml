@@ -311,10 +311,10 @@
   
    <!-- 查询某一个标签下的所有文章 文章需要有，缩略内容 -->
   <resultMap type="com.yikangyiliao.pension.entity.FormPosts" id="getForumPostsByTaglibsIdResultMap" extends="BaseResultMap">
-  	  	<result column="user_name" property="userName"/>
-  		<result column="photo_url" property="photoUrl"/>
-  		<result column="user_position" property="userPosition"/>
-  		<result column="designation_name" property="designationName"/>
+  	  	<result column="user_name" 			property="userName"/>
+  		<result column="photo_url" 			property="photoUrl"/>
+  		<result column="user_position" 		property="userPosition"/>
+  		<result column="designation_name" 	property="designationName"/>
   		<collection property="taglibs" 		      	column="forum_post_id"	fetchType="eager" select="com.yikangyiliao.pension.dao.TaglibDao.getTaglibsByFormPostId"></collection>
   		<collection property="forumPostsImage" 	column="forum_post_id"  fetchType="eager" select="com.yikangyiliao.pension.dao.ForumPostsImageDao.getForumPostImagesByForumPostsId"> </collection>
   </resultMap>
@@ -351,7 +351,9 @@
 		fp.create_user_id, 
 		fp.share_url, 
 		fp.recommend_pic_url,
-		ui.user_name,ui.photo_url,usi.user_position,designations.designation_name,
+		ui.user_name,ui.photo_url,
+		usi.user_position,
+		designations.designation_name,
 		(select count(1) from forum_posts_answers fpa where fpa.form_post_id=fp.forum_post_id) as answersNums,
 	    if(ifnull(store_ups.store_ups_id,-1)>0,1,0) as isStore
 	from forum_posts fp
@@ -393,9 +395,17 @@
   <!-- 获取最热帖子 -->
   <select id="getHotForumPosts" resultMap="getForumPostsByTaglibsIdResultMap">
   	select 
-		<include refid="Base_Column_List"></include>,
-	(select count(1) from forum_posts_answers fpa where fpa.form_post_id=forum_posts.forum_post_id) as answersNums
- 	from forum_posts  order by stars desc  limit 5
+		forum_posts.*,
+	(select count(1) from forum_posts_answers fpa where fpa.form_post_id=forum_posts.forum_post_id) as answersNums,
+	ui.user_name,
+	ui.photo_url,
+	usi.user_position,
+	designations.designation_name
+ 	from forum_posts
+ 	left join  user_infos ui 				 on forum_posts.create_user_id=ui.user_id
+ 	left join user_service_infos usi 		on ui.user_id=usi.user_id
+	left join designations  				on ui.designation_id=designations.designation_id
+ 	order by stars desc  limit 5
   </select>
   
 </mapper>

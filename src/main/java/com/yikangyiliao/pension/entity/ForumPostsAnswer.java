@@ -25,6 +25,8 @@ public class ForumPostsAnswer {
     
     private Integer createUserPosition;
     
+    private String createUserDesignationName;
+    
     //给谁回复的
     private String toUserName;
     
@@ -33,6 +35,7 @@ public class ForumPostsAnswer {
     
     private Integer toUserPosition;
     
+    private String toUserDesignationName;
 
     public Long getForumPostsAnswerId() {
         return forumPostsAnswerId;
@@ -136,5 +139,22 @@ public class ForumPostsAnswer {
 
 	public void setToUserPosition(Integer toUserPosition) {
 		this.toUserPosition = toUserPosition;
+	}
+
+
+	public String getToUserDesignationName() {
+		return toUserDesignationName;
+	}
+
+	public void setToUserDesignationName(String toUserDesignationName) {
+		this.toUserDesignationName = toUserDesignationName;
+	}
+
+	public String getCreateUserDesignationName() {
+		return createUserDesignationName;
+	}
+
+	public void setCreateUserDesignationName(String createUserDesignationName) {
+		this.createUserDesignationName = createUserDesignationName;
 	}
 }

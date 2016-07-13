@@ -294,6 +294,8 @@
   <resultMap type="com.yikangyiliao.pension.entity.Activety" extends="BaseResultMap" id="getActivetysDetailByIdResultMap">
 	<result column="user_name" property="createUsername"/>
 	<result column="photo_url" property="photoUrl"/>
+	<result column="user_position" property="userPosition"/>
+	<result column="is_follow" property="isFollow"/>
 	<collection property="followUsers" column="activety_id" select="com.yikangyiliao.pension.dao.UserActivetyListDao.getUserInfoListByActivetyId"> </collection>
   </resultMap>
   <select id="getActivetysDetailById" parameterType="map" resultMap="getActivetysDetailByIdResultMap">
@@ -305,7 +307,8 @@
 	    usi.user_position,
 	    (select count(1) from activetys ac where ac.create_user_id=activetys.create_user_id) as createActivetyNumber,
 	    (select count(1) as partaketNums from user_activety_lists where activety_id=activetys.activety_id) as partakeNums,
-		if(ifnull(ual.activety_id,0)=0,0,1)as 'isPartake'
+		if(ifnull(ual.activety_id,0)=0,0,1)as 'isPartake',
+		(select if(ifnull(fum.follow_user_maps_id,0)>0,1,0) from follow_user_maps fum  where fum.create_user_id =#{userId} and fum.follow_user_id=ui.user_id) as is_follow
   	 from activetys left join user_infos ui on activetys.create_user_id=ui.user_id
   	 left join user_service_infos usi on ui.user_id=usi.user_id
   	 left join (select * from user_activety_lists where user_id=#{userId}) ual on activetys.activety_id=ual.activety_id

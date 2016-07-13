@@ -48,6 +48,9 @@ public class Activety {
     
     private Integer createActivetyNumber;
     
+    //是否已经关注
+    private int isFollow;
+    
     //活动已经参与人员数量
     private Integer partakeNums=0;
     
@@ -275,5 +278,13 @@ public class Activety {
 
 	public void setShareUrl(String shareUrl) {
 		this.shareUrl = shareUrl;
+	}
+
+	public int getIsFollow() {
+		return isFollow;
+	}
+
+	public void setIsFollow(int isFollow) {
+		this.isFollow = isFollow;
 	}
 }

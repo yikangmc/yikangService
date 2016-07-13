@@ -37,12 +37,12 @@ public class UserTest {
 //				paramData.put("password","1");
 //				SendRequest.sendPost("registerUser?appId=1",paramData);
 //			}
-//			for(int i=101;i<141;i++){
+			for(int i=141;i<201;i++){
 				Map<String,Object> paramData=new HashMap<String, Object>();
-				paramData.put("loginName","13716907523");
+				paramData.put("loginName","bingren"+i);
 				paramData.put("password","111111");
 				SendRequest.sendPost("registerUser?appId=1",paramData);
-//			}
+			}
 
 		} catch (IOException e) {
 			e.printStackTrace();

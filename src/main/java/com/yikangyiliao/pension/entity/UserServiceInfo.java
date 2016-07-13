@@ -97,6 +97,8 @@ public class UserServiceInfo {
     
     private int watchTaglibNumber;
     
+    private int isFollow;
+    
     public Long getUserServiceInfoId() {
         return userServiceInfoId;
     }
@@ -409,6 +411,14 @@ public class UserServiceInfo {
 
 	public void setWatchTaglibNumber(int watchTaglibNumber) {
 		this.watchTaglibNumber = watchTaglibNumber;
+	}
+
+	public int getIsFollow() {
+		return isFollow;
+	}
+
+	public void setIsFollow(int isFollow) {
+		this.isFollow = isFollow;
 	}
 
 	

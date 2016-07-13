@@ -1144,8 +1144,12 @@ public class UserService {
 
 		Map<String, Object> rtnData = new HashMap<String, Object>();
 		String serverUserId = paramData.get("serverUserId").toString();
+		Long serarchUserid=0l;
+		if(paramData.containsKey("userId")){
+			serarchUserid=Long.valueOf(paramData.get("userId").toString());
+		}
 
-		UserServiceInfo userServiceInfo = userServiceInfoManager.getUserServiceInfoByServerUserId(Long.valueOf(serverUserId));
+		UserServiceInfo userServiceInfo = userServiceInfoManager.getUserServiceInfoByServerUserId(serarchUserid,Long.valueOf(serverUserId));
 		// 邀请url
 		String invitationUrl = SystemProperties.getPropertieValue("invitationUrl")+ userServiceInfo.getInvitationCode();
 		userServiceInfo.setInvitationUrl(invitationUrl);
