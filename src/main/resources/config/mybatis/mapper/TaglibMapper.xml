@@ -288,6 +288,8 @@
 	    <result column="isStore" 		property="isStore" jdbcType="INTEGER" />
 	    <result column="followNumber2" 	property="followNumber" jdbcType="INTEGER" />
 	    <result column="forumPostsTZNumber" 	property="forumPostsTznumber" jdbcType="INTEGER" />
+	    <result column="forum_posts_update_time" 	property="forumPostsUpdateTime" jdbcType="INTEGER" />
+	    <result column="forum_posts_tz_update_time" 	property="forumPostsTzUpdateTime" jdbcType="INTEGER" />
 	 </collection>
  </resultMap>
  
@@ -317,6 +319,8 @@
 		tag2.forum_posts_tznumber as forumPostsTZNumber,
 		tag2.answer_number as answerNumber2,
 		tag2.parent_id as parentId2,
+        tag2.forum_posts_update_time,
+        tag2.forum_posts_tz_update_time,
 		if(ifnull(user_taglib_maps.taglib_id,-1)>0,1,0) as isStore,
 		(select count(1) from user_taglib_maps where taglib_id=tag.taglib_id ) as followNumber2
 	from taglibs tag inner join taglibs tag2
