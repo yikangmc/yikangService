@@ -105,7 +105,17 @@ public class UserServiceInfo {
     
     private int isFollow;
     
-    public Integer getFollowCount() {
+    private int questionAnswerNumber;
+    
+    public int getQuestionAnswerNumber() {
+		return questionAnswerNumber;
+	}
+
+	public void setQuestionAnswerNumber(int questionAnswerNumber) {
+		this.questionAnswerNumber = questionAnswerNumber;
+	}
+
+	public Integer getFollowCount() {
 		return followCount;
 	}
 

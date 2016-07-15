@@ -589,13 +589,13 @@
 				usi.map_position_address, usi.offices,
 				usi.oraganization_name, usi.user_introduce, usi.work_realm,usi.user_certificate,
 				fui.user_name as userName,
-				(select count(follow_user_maps_id) from follow_user_maps where create_user_id =#{createUserId}) as followCount,
+				(select count(follow_user_maps_id) from follow_user_maps where create_user_id =usi.user_id) as followCount,
 				adepts.adept_id,
 				adepts.adept_name
 		from follow_user_maps fum inner join user_service_infos usi on fum.follow_user_id=usi.user_id
 		left join user_infos fui on fui.user_id = fum.follow_user_id
 		left join user_adept_maps uam on usi.user_id=uam.user_id
-		inner join adepts on uam.adept_id=adepts.adept_id  
+		left join adepts on uam.adept_id=adepts.adept_id  
 		where create_user_id=#{createUserId}
 	</select>
 	
@@ -627,6 +627,8 @@
 		<result column="followUserNumber" property="followUserNumber"/>
 		<result column="forumPostsTznumber" property="forumPostsTznumber"/>
 		<result column="watchTaglibNumber" property="watchTaglibNumber"/>
+		<result column="questionAnswerNumber" property="questionAnswerNumber"/>
+		
 		<result column="is_follow" property="isFollow"/>
 		
 
@@ -671,6 +673,7 @@
 		designations.designation_name,
 		(select count(1) from follow_user_maps where follow_user_id=us.user_id) as followUserNumber,
 		(select count(1) from forum_posts where forum_post_group=0 and create_user_id=us.user_id) as forumPostsTznumber,
+		(select count(1) from question_answers where create_user_id=us.user_id) as questionAnswerNumber,
 		(select count(1) from user_taglib_maps where create_user_id=us.user_id) as watchTaglibNumber,
 		(select if(ifnull(fum.follow_user_maps_id,0)>0,1,0) from follow_user_maps fum  where fum.create_user_id =#{userId} and fum.follow_user_id=#{userId}) as is_follow
 		from
