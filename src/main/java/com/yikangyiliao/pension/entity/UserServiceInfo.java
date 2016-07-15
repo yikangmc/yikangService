@@ -5,6 +5,8 @@ import java.util.Date;
 import java.util.List;
 
 public class UserServiceInfo {
+	private Integer followCount;
+	
     private Long userServiceInfoId;
 
     private Long userId;
@@ -50,6 +52,10 @@ public class UserServiceInfo {
     private Office officeObj;
 
     private String adept;
+    
+    private Long adeptId;
+    
+    private String adeptName;
     
     // 职位审核状态
     private Byte positionAuditStatus;
@@ -99,7 +105,15 @@ public class UserServiceInfo {
     
     private int isFollow;
     
-    public Long getUserServiceInfoId() {
+    public Integer getFollowCount() {
+		return followCount;
+	}
+
+	public void setFollowCount(Integer followCount) {
+		this.followCount = followCount;
+	}
+
+	public Long getUserServiceInfoId() {
         return userServiceInfoId;
     }
 
@@ -419,6 +433,22 @@ public class UserServiceInfo {
 
 	public void setIsFollow(int isFollow) {
 		this.isFollow = isFollow;
+	}
+
+	public Long getAdeptId() {
+		return adeptId;
+	}
+
+	public void setAdeptId(Long adeptId) {
+		this.adeptId = adeptId;
+	}
+
+	public String getAdeptName() {
+		return adeptName;
+	}
+
+	public void setAdeptName(String adeptName) {
+		this.adeptName = adeptName;
 	}
 
 	

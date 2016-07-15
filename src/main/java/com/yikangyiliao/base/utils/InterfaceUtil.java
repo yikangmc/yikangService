@@ -954,6 +954,28 @@ public class InterfaceUtil {
 		getDesignations.setIsFileter(true);
 		mathodServiceConfig.put("00-40-01", getDesignations);
 		
+		serviceClassName.put("00-41", "recommendDataService");
+		
+		YiKangServiceConfige queryRecommedUserInfo=new YiKangServiceConfige();
+		queryRecommedUserInfo.setServiceName("recommendDataService");
+		queryRecommedUserInfo.setMethodName("queryRecommedUserInfo");
+		queryRecommedUserInfo.setIsFileter(true);
+		mathodServiceConfig.put("00-41-01", queryRecommedUserInfo);
+		
+		YiKangServiceConfige queryRecommendTaglibsInfo=new YiKangServiceConfige();
+		queryRecommendTaglibsInfo.setServiceName("recommendDataService");
+		queryRecommendTaglibsInfo.setMethodName("queryRecommendTaglibsInfo");
+		queryRecommendTaglibsInfo.setIsFileter(true);
+		mathodServiceConfig.put("00-41-02", queryRecommendTaglibsInfo);
+		
+		serviceClassName.put("00-42", "feedbackInfoService");
+		
+		YiKangServiceConfige insertFeedbackData=new YiKangServiceConfige();
+		insertFeedbackData.setServiceName("feedbackInfoService");
+		insertFeedbackData.setMethodName("insertFeedbackData");
+		insertFeedbackData.setIsFileter(false);
+		mathodServiceConfig.put("00-42-01", insertFeedbackData);
+		
 	}
 	
 	

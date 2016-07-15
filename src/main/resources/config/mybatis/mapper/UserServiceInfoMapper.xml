@@ -352,6 +352,7 @@
 		'' as
 		'invitationUrl',
 		count(sa.senior_id) 	as nums
+		(select count(follow_user_maps_id) from follow_user_maps) as isFollow
 		from
 		user_service_infos us
 		inner join users on us.user_id=users.user_id
@@ -571,17 +572,30 @@
 	
 	<!--查询我关注的用户  -->
 	<resultMap type="com.yikangyiliao.pension.entity.UserServiceInfo" extends="BaseResultMap" id="getMyFollowUserResultMap">
+		<result column="userName" property="userName"/>
+		<result column="followCount" property="followCount"/>
 		<collection  property="formPosts" column="user_id" fetchType="eager" select="com.yikangyiliao.pension.dao.FormPostsDao.getUserNewForumPostByCreateUserId"></collection>		
+		<collection property="adepts" javaType="com.yikangyiliao.pension.entity.Adept">
+			<result column="adept_id" property="adeptId"/>
+			<result column="adept_name" property="adeptName"/>
+		</collection>
 	</resultMap>
 	<select id="getMyFollowUser" parameterType="long" resultMap="getMyFollowUserResultMap">
 		select 
-				usi.user_service_info_id, 
+				usi.user_service_info_id,
 				usi.user_id, 
 				usi.job_category, usi.user_position, usi.provence_code, usi.city_code, 
-	    		usi.district_code, usi.address_detail, usi.photo_url, usi.create_time, usi.update_time, 
-	    		usi.map_position_address, usi.offices,
-	    		usi.oraganization_name, usi.user_introduce, usi.work_realm,usi.user_certificate
+				usi.district_code, usi.address_detail, usi.photo_url, usi.create_time, usi.update_time, 
+				usi.map_position_address, usi.offices,
+				usi.oraganization_name, usi.user_introduce, usi.work_realm,usi.user_certificate,
+				fui.user_name as userName,
+				(select count(follow_user_maps_id) from follow_user_maps where create_user_id =#{createUserId}) as followCount,
+				adepts.adept_id,
+				adepts.adept_name
 		from follow_user_maps fum inner join user_service_infos usi on fum.follow_user_id=usi.user_id
+		left join user_infos fui on fui.user_id = fum.follow_user_id
+		left join user_adept_maps uam on usi.user_id=uam.user_id
+		inner join adepts on uam.adept_id=adepts.adept_id  
 		where create_user_id=#{createUserId}
 	</select>
 	
