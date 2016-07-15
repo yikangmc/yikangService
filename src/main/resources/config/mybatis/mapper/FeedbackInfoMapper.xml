@@ -1,0 +1,153 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.yikangyiliao.pension.dao.FeedbackInfoDao" >
+  <resultMap id="BaseResultMap" type="com.yikangyiliao.pension.entity.FeedbackInfo" >
+    <id column="feedback_info_id" property="feedbackInfoId" jdbcType="BIGINT" />
+    <result column="content" property="content" jdbcType="VARCHAR" />
+    <result column="image" property="image" jdbcType="VARCHAR" />
+    <result column="create_user_id" property="createUserId" jdbcType="BIGINT" />
+    <result column="connect_method" property="connectMethod" jdbcType="VARCHAR" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+    <result column="process_time" property="processTime" jdbcType="TIMESTAMP" />
+    <result column="process_user_id" property="processUserId" jdbcType="TIMESTAMP" />
+    <result column="process_status" property="processStatus" jdbcType="TINYINT" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    feedback_info_id, content, image, create_user_id, connect_method, create_time, update_time, 
+    process_time, process_user_id, process_status
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from feedback_infos
+    where feedback_info_id = #{feedbackInfoId,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from feedback_infos
+    where feedback_info_id = #{feedbackInfoId,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.yikangyiliao.pension.entity.FeedbackInfo" >
+    insert into feedback_infos (feedback_info_id, content, image, 
+      create_user_id, connect_method, create_time, 
+      update_time, process_time, process_user_id, 
+      process_status)
+    values (#{feedbackInfoId,jdbcType=BIGINT}, #{content,jdbcType=VARCHAR}, #{image,jdbcType=VARCHAR}, 
+      #{createUserId,jdbcType=BIGINT}, #{connectMethod,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, 
+      #{updateTime,jdbcType=TIMESTAMP}, #{processTime,jdbcType=TIMESTAMP}, #{processUserId,jdbcType=TIMESTAMP}, 
+      #{processStatus,jdbcType=TINYINT})
+  </insert>
+  <insert id="insertSelective" parameterType="com.yikangyiliao.pension.entity.FeedbackInfo" >
+    insert into feedback_infos
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="feedbackInfoId != null" >
+        feedback_info_id,
+      </if>
+      <if test="content != null" >
+        content,
+      </if>
+      <if test="image != null" >
+        image,
+      </if>
+      <if test="createUserId != null" >
+        create_user_id,
+      </if>
+      <if test="connectMethod != null" >
+        connect_method,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+      <if test="updateTime != null" >
+        update_time,
+      </if>
+      <if test="processTime != null" >
+        process_time,
+      </if>
+      <if test="processUserId != null" >
+        process_user_id,
+      </if>
+      <if test="processStatus != null" >
+        process_status,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="feedbackInfoId != null" >
+        #{feedbackInfoId,jdbcType=BIGINT},
+      </if>
+      <if test="content != null" >
+        #{content,jdbcType=VARCHAR},
+      </if>
+      <if test="image != null" >
+        #{image,jdbcType=VARCHAR},
+      </if>
+      <if test="createUserId != null" >
+        #{createUserId,jdbcType=BIGINT},
+      </if>
+      <if test="connectMethod != null" >
+        #{connectMethod,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null" >
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="processTime != null" >
+        #{processTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="processUserId != null" >
+        #{processUserId,jdbcType=TIMESTAMP},
+      </if>
+      <if test="processStatus != null" >
+        #{processStatus,jdbcType=TINYINT},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.yikangyiliao.pension.entity.FeedbackInfo" >
+    update feedback_infos
+    <set >
+      <if test="content != null" >
+        content = #{content,jdbcType=VARCHAR},
+      </if>
+      <if test="image != null" >
+        image = #{image,jdbcType=VARCHAR},
+      </if>
+      <if test="createUserId != null" >
+        create_user_id = #{createUserId,jdbcType=BIGINT},
+      </if>
+      <if test="connectMethod != null" >
+        connect_method = #{connectMethod,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null" >
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="processTime != null" >
+        process_time = #{processTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="processUserId != null" >
+        process_user_id = #{processUserId,jdbcType=TIMESTAMP},
+      </if>
+      <if test="processStatus != null" >
+        process_status = #{processStatus,jdbcType=TINYINT},
+      </if>
+    </set>
+    where feedback_info_id = #{feedbackInfoId,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.yikangyiliao.pension.entity.FeedbackInfo" >
+    update feedback_infos
+    set content = #{content,jdbcType=VARCHAR},
+      image = #{image,jdbcType=VARCHAR},
+      create_user_id = #{createUserId,jdbcType=BIGINT},
+      connect_method = #{connectMethod,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      update_time = #{updateTime,jdbcType=TIMESTAMP},
+      process_time = #{processTime,jdbcType=TIMESTAMP},
+      process_user_id = #{processUserId,jdbcType=TIMESTAMP},
+      process_status = #{processStatus,jdbcType=TINYINT}
+    where feedback_info_id = #{feedbackInfoId,jdbcType=BIGINT}
+  </update>
+</mapper>
