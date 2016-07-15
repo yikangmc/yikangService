@@ -19,7 +19,7 @@ public class FeedbackInfo {
 
     private Date processTime;
 
-    private Date processUserId;
+    private Long processUserId;
 
     private Byte processStatus;
 
@@ -87,11 +87,11 @@ public class FeedbackInfo {
         this.processTime = processTime;
     }
 
-    public Date getProcessUserId() {
+    public Long getProcessUserId() {
         return processUserId;
     }
 
-    public void setProcessUserId(Date processUserId) {
+    public void setProcessUserId(Long processUserId) {
         this.processUserId = processUserId;
     }
 

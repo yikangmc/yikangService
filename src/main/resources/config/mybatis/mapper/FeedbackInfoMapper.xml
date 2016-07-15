@@ -10,7 +10,7 @@
     <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
     <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
     <result column="process_time" property="processTime" jdbcType="TIMESTAMP" />
-    <result column="process_user_id" property="processUserId" jdbcType="TIMESTAMP" />
+    <result column="process_user_id" property="processUserId" jdbcType="BIGINT" />
     <result column="process_status" property="processStatus" jdbcType="TINYINT" />
   </resultMap>
   <sql id="Base_Column_List" >
@@ -34,7 +34,7 @@
       process_status)
     values (#{feedbackInfoId,jdbcType=BIGINT}, #{content,jdbcType=VARCHAR}, #{image,jdbcType=VARCHAR}, 
       #{createUserId,jdbcType=BIGINT}, #{connectMethod,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, 
-      #{updateTime,jdbcType=TIMESTAMP}, #{processTime,jdbcType=TIMESTAMP}, #{processUserId,jdbcType=TIMESTAMP}, 
+      #{updateTime,jdbcType=TIMESTAMP}, #{processTime,jdbcType=TIMESTAMP}, #{processUserId,jdbcType=BIGINT}, 
       #{processStatus,jdbcType=TINYINT})
   </insert>
   <insert id="insertSelective" parameterType="com.yikangyiliao.pension.entity.FeedbackInfo" >
@@ -97,7 +97,7 @@
         #{processTime,jdbcType=TIMESTAMP},
       </if>
       <if test="processUserId != null" >
-        #{processUserId,jdbcType=TIMESTAMP},
+        #{processUserId,jdbcType=BIGINT},
       </if>
       <if test="processStatus != null" >
         #{processStatus,jdbcType=TINYINT},
@@ -129,7 +129,7 @@
         process_time = #{processTime,jdbcType=TIMESTAMP},
       </if>
       <if test="processUserId != null" >
-        process_user_id = #{processUserId,jdbcType=TIMESTAMP},
+        process_user_id = #{processUserId,jdbcType=BIGINT},
       </if>
       <if test="processStatus != null" >
         process_status = #{processStatus,jdbcType=TINYINT},
@@ -146,7 +146,7 @@
       create_time = #{createTime,jdbcType=TIMESTAMP},
       update_time = #{updateTime,jdbcType=TIMESTAMP},
       process_time = #{processTime,jdbcType=TIMESTAMP},
-      process_user_id = #{processUserId,jdbcType=TIMESTAMP},
+      process_user_id = #{processUserId,jdbcType=BIGINT},
       process_status = #{processStatus,jdbcType=TINYINT}
     where feedback_info_id = #{feedbackInfoId,jdbcType=BIGINT}
   </update>
