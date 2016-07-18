@@ -105,4 +105,7 @@
 		select taglib_id as taglibId,tag_name as tagName,tag_pic as tagPic from taglibs where taglib_id in
 		(select data_id from recommend_datas where recomend_group=1 )
 	</select>
+	
+	
+	
 </mapper>

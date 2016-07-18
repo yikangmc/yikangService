@@ -68,7 +68,7 @@ public class OperationMessageQueue {
 	 * */
 	public static OperationMessage takeForumPostStarMessage(){
 		try {
-			return messageQueues.take();
+			return forumPostStarQueues.take();
 		} catch (InterruptedException e) {
 			e.printStackTrace();
 		}

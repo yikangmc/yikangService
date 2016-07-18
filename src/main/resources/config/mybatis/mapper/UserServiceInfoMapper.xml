@@ -675,7 +675,7 @@
 		(select count(1) from forum_posts where forum_post_group=0 and create_user_id=us.user_id) as forumPostsTznumber,
 		(select count(1) from question_answers where create_user_id=us.user_id) as questionAnswerNumber,
 		(select count(1) from user_taglib_maps where create_user_id=us.user_id) as watchTaglibNumber,
-		(select if(ifnull(fum.follow_user_maps_id,0)>0,1,0) from follow_user_maps fum  where fum.create_user_id =#{userId} and fum.follow_user_id=#{userId}) as is_follow
+		(select if(ifnull(fum.follow_user_maps_id,0)>0,1,0) from follow_user_maps fum  where fum.create_user_id =#{serarchUserId} and fum.follow_user_id=#{userId}) as is_follow
 		from
 		user_service_infos us
 		inner join users on us.user_id=users.user_id

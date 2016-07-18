@@ -301,7 +301,7 @@ public class FormPostManager {
 				OperationMessage operationMessage=new OperationMessage();
 				operationMessage.setContent(forumPostId.toString());
 				operationMessage.setContentType("1");
-				OperationMessageQueue.putMessage(operationMessage);
+				OperationMessageQueue.putForumPostStarMessage(operationMessage);
 			}catch(Exception e){
 				e.printStackTrace();
 			}
