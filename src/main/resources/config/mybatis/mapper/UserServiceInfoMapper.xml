@@ -589,7 +589,7 @@
 				usi.map_position_address, usi.offices,
 				usi.oraganization_name, usi.user_introduce, usi.work_realm,usi.user_certificate,
 				fui.user_name as userName,
-				(select count(follow_user_maps_id) from follow_user_maps where create_user_id =usi.user_id) as followCount,
+				(select count(follow_user_maps_id) from follow_user_maps where follow_user_id=usi.user_id) as followCount,
 				adepts.adept_id,
 				adepts.adept_name
 		from follow_user_maps fum inner join user_service_infos usi on fum.follow_user_id=usi.user_id
