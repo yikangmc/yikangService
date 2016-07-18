@@ -199,7 +199,8 @@ public class ActivetyService {
 			Activety myActivety=activetyManager.getActivetyByUserIdAndActivetyId(userId, activetyId);
 			if(null == myActivety){
 				Activety activety=activetyManager.selectByPrimaryKey(activetyId);
-				if(activety.getEntryEndTime().getTime()>Calendar.getInstance().getTime().getTime()){
+				Long currentDateTime=Calendar.getInstance().getTime().getTime();
+				if(activety.getEntryStartTime().getTime()<currentDateTime && activety.getEntryEndTime().getTime()>currentDateTime){
 					activetyListManager.insertUserActivetyList(activetyId, userId);
 					resData.setMessage("活动报名成功！");
 				}else{

@@ -150,7 +150,7 @@ public class ExceptionConstants {
 	public enum activetyException{
 		
 		/**活动已经结束*/
-		activetyIsEnd("060001","活动已经结束"),
+		activetyIsEnd("060001","活动报名已经结束 或者 活动已经结束"),
 		/**
 		 * 活动已经参与
 		 * */
