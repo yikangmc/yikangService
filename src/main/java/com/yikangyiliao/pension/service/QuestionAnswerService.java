@@ -53,7 +53,11 @@ public class QuestionAnswerService {
 		ResponseMessage<QuestionAnswer> data=new ResponseMessage<QuestionAnswer>();
 		if(paramMap.containsKey("questionAnswerId")){
 			Long questionAnswerId=Long.valueOf(paramMap.get("questionAnswerId").toString());
-			QuestionAnswer questionAnswer=questionAnswerManager.getQuestionAnswerByQuestionAnswerId(questionAnswerId);
+			Long userId=null;
+			if(paramMap.containsKey("userId")){
+				userId=Long.valueOf(paramMap.get("userId").toString());
+			}
+			QuestionAnswer questionAnswer=questionAnswerManager.getQuestionAnswerByQuestionAnswerId(userId,questionAnswerId);
 			data.setData(questionAnswer);
 		}else{
 			data.setStatus(ExceptionConstants.parameterException.parameterException.errorCode);

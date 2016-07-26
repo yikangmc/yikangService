@@ -268,15 +268,17 @@
   	<result column="user_name" 			property="userName"/>
   	<result column="photo_url"	 		property="photoUrl"/>
   	<result column="user_position" 		property="userPosition"/>
+  	<result column="isStar" 		property="isStar"/>
   </resultMap>
-  <select id="getQuestionAnswerByQuestionAnswerId" parameterType="long" resultMap="getQuestionAnswerByQuestionAnswerIdResultMap">
+  <select id="getQuestionAnswerByQuestionAnswerId" parameterType="map" resultMap="getQuestionAnswerByQuestionAnswerIdResultMap">
   	select 
 		qa.*,
 		qad.question_answer_detail_content,
 		qad.question_answer_html_content,
 		ui.user_name,
 	    ui.photo_url,
-	    usi.user_position
+	    usi.user_position,
+	   if(ifnull((select question_answer_id from question_answer_start_lists where create_user_id=#{userId} and question_answer_id=#{questionAnswerId}),-1)>0,1,0) as isStar
 	from question_answers qa left join question_answer_details qad on 
 	qa.question_answer_id=qad.question_answer_id
 	left join user_infos ui on qa.create_user_id=ui.user_id

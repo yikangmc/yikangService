@@ -81,6 +81,7 @@ public class QuestionAnswerManager {
 	 * @author liushuaic
 	 * @date 2016-05-09 18:36 
 	 * @desc 修改问题回复支持状态
+	 * @return 0: 未支持，1：支持
 	 * */
 	public int updateQustionAnswerStar(Long questionAnswerId,Long userId){
 		
@@ -89,6 +90,7 @@ public class QuestionAnswerManager {
 		if(null != questionAnswerStartList){
 			questionAnswerStartListDao.deleteQuestionAnswerStartListByQuestionAnswerIdAndCreateUserId(questionAnswerId, userId);
 			questionAnswerDao.updateQuestionAnswerdown(questionAnswerId);
+			return 0;
 		}else{
 			Date createTime=Calendar.getInstance().getTime();
 			QuestionAnswerStartList questionAnswerStartList2=new QuestionAnswerStartList();
@@ -98,10 +100,9 @@ public class QuestionAnswerManager {
 			questionAnswerStartList2.setUpdateTime(createTime);
 			questionAnswerStartListDao.insertSelective(questionAnswerStartList2);
 			questionAnswerDao.updateQuestionAnswerStarUpByQuestionAnswerId(questionAnswerStartList2.getQuestionAnswerId());
+			return 1;
 		}
 		
-		
-		return 0;
 	}
 	
 
@@ -110,8 +111,11 @@ public class QuestionAnswerManager {
 	 * @date 2016-06-13 14:06
 	 * @desc 获取问题的回答
 	 * */
-	public QuestionAnswer getQuestionAnswerByQuestionAnswerId(Long questionAnswerId){
-		QuestionAnswer questionAnswer=questionAnswerDao.getQuestionAnswerByQuestionAnswerId(questionAnswerId);
+	public QuestionAnswer getQuestionAnswerByQuestionAnswerId(Long userId,Long questionAnswerId){
+		Map<String,Object> paramMap=new HashMap<String,Object>();
+		paramMap.put("userId", userId);
+		paramMap.put("questionAnswerId", questionAnswerId);
+		QuestionAnswer questionAnswer=questionAnswerDao.getQuestionAnswerByQuestionAnswerId(paramMap);
 		return questionAnswer;
 	}
 

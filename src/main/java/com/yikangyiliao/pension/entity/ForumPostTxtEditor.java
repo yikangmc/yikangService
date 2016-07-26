@@ -14,6 +14,8 @@ public class ForumPostTxtEditor {
     private Date updateDateTime;
 
     private Byte isDelete;
+    
+    private Byte editorType;
 
     public Long getForumPostTxtEditorId() {
         return forumPostTxtEditorId;
@@ -62,4 +64,12 @@ public class ForumPostTxtEditor {
     public void setIsDelete(Byte isDelete) {
         this.isDelete = isDelete;
     }
+
+	public Byte getEditorType() {
+		return editorType;
+	}
+
+	public void setEditorType(Byte editorType) {
+		this.editorType = editorType;
+	}
 }

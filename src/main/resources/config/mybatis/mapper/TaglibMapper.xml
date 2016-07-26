@@ -273,7 +273,7 @@
 			,if(ifnull(user_taglib_maps.taglib_id,-1)>0,1,0) as isStore
 	from taglibs
 	left join user_taglib_maps on (taglibs.taglib_id=user_taglib_maps.taglib_id and user_taglib_maps.create_user_id=#{userId})
-	where parent_id=#{parentId}
+	where parent_id=#{parentId} and is_delete=0
  </select>
  
  <resultMap type="com.yikangyiliao.pension.entity.Taglib" extends="BaseResultMap" id="getAllTagResultMap">

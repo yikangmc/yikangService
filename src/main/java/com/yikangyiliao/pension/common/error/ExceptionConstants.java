@@ -1,5 +1,7 @@
 package com.yikangyiliao.pension.common.error;
 
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * 
@@ -183,4 +185,24 @@ public class ExceptionConstants {
 		}
 	}
 	
+	
+	/**
+	 * @author liushuaic
+	 * @date 2016-07-20 14:10
+	 * @desc 网页编辑异常类
+	 * 08
+	 * */
+	public enum forumPostTextEditException{
+		
+		unquieCodeIsOverdue("080001","唯一码已经过期");
+		
+		public String errorCode;
+		public String errorMessage;
+		private forumPostTextEditException(String errorCode,String errorMessage){
+			this.errorCode=errorCode;
+			this.errorMessage=errorMessage;
+		}
+	}
+	
+
 }

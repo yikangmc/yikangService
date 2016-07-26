@@ -976,6 +976,24 @@ public class InterfaceUtil {
 		insertFeedbackData.setIsFileter(false);
 		mathodServiceConfig.put("00-42-01", insertFeedbackData);
 		
+		serviceClassName.put("00-43", "forumPostTextEditorService");
+		YiKangServiceConfige updateForumPostTxtEditorOwnUserIdByUniqueCode=new YiKangServiceConfige();
+		updateForumPostTxtEditorOwnUserIdByUniqueCode.setServiceName("forumPostTextEditorService");
+		updateForumPostTxtEditorOwnUserIdByUniqueCode.setMethodName("updateForumPostTxtEditorOwnUserIdByUniqueCode");
+		updateForumPostTxtEditorOwnUserIdByUniqueCode.setIsFileter(true);
+		mathodServiceConfig.put("00-43-01", updateForumPostTxtEditorOwnUserIdByUniqueCode);
+		
+		/**
+		 * @author liushuaic
+		 * @date 2016-07-22 14:26
+		 * @desc 查询某一个唯一码下的
+		 * **/
+		YiKangServiceConfige getForumPostTextByUniqueCode=new YiKangServiceConfige();
+		getForumPostTextByUniqueCode.setServiceName("forumPostTextEditorService");
+		getForumPostTextByUniqueCode.setMethodName("getForumPostTextByUniqueCode");
+		getForumPostTextByUniqueCode.setIsFileter(true);
+		mathodServiceConfig.put("00-43-02", getForumPostTextByUniqueCode);
+		
 	}
 	
 	

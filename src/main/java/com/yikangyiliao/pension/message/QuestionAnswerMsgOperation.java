@@ -37,7 +37,7 @@ public class QuestionAnswerMsgOperation implements Runnable{
 				
 				
 				Long questionId=Long.valueOf(operationMessage.getContent());
-				QuestionAnswer questionAnswer=questionAnswerManager.getQuestionAnswerByQuestionAnswerId(questionId);
+				QuestionAnswer questionAnswer=questionAnswerManager.getQuestionAnswerByQuestionAnswerId(null,questionId);
 				User answerUser=userManager.getUserByUserId(questionAnswer.getCreateUserId());
 				
 				

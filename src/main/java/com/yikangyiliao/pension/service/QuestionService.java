@@ -69,15 +69,19 @@ public class QuestionService {
 	 * @desc 问题 支持与取消
 	 * 
 	 * */
-	public ResponseMessage<String> updateQuestionStar(Map<String,Object> paramMap){
-		ResponseMessage<String> resData=new ResponseMessage<String>();
+	public ResponseMessage<Integer> updateQuestionStar(Map<String,Object> paramMap){
+		ResponseMessage<Integer> resData=new ResponseMessage<Integer>();
 		if(
 			paramMap.containsKey("questionAnswerId")
 			&& paramMap.containsKey("userId")
 		){
 			Long questionAnswerId=Long.valueOf(paramMap.get("questionAnswerId").toString());
 			Long userId=Long.valueOf(paramMap.get("userId").toString());
-			questionAnswerManager.updateQustionAnswerStar(questionAnswerId, userId);
+			int isStar=questionAnswerManager.updateQustionAnswerStar(questionAnswerId, userId);
+			resData.setData(isStar);
+		}else{
+			resData.setStatus(ExceptionConstants.parameterException.parameterException.errorCode);
+			resData.setMessage(ExceptionConstants.parameterException.parameterException.errorMessage);
 		}
 		return resData;
 	}

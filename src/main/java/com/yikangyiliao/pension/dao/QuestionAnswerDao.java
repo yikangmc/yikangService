@@ -72,6 +72,8 @@ public interface QuestionAnswerDao {
      * @author liushuaic
      * @date 2016-07-06 11:23
      * @desc 获取某一个回答的详情
+     * @param long questionAnswerId
+     * @param long userId
      * **/
-    QuestionAnswer getQuestionAnswerByQuestionAnswerId(Long questionAnswerId);
+    QuestionAnswer getQuestionAnswerByQuestionAnswerId(Map<String,Object> paramMap);
 }
