@@ -106,6 +106,4 @@
 		(select data_id from recommend_datas where recomend_group=1 )
 	</select>
 	
-	
-	
 </mapper>

@@ -9,7 +9,6 @@ import org.springframework.stereotype.Component;
 
 import com.yikangyiliao.pension.dao.SeniorAccountDao;
 import com.yikangyiliao.pension.entity.SeniorAccount;
-import com.yikangyiliao.pension.entity.UserInfo;
 
 
 /**

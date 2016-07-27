@@ -57,7 +57,7 @@ public interface FormPostsDao {
      * @param taglibId
      * @param userId
      * */
-    List<FormPosts> getForumPostsByTaglibsId(Map<String,Object> paramMap);
+    List<FormPosts> getForumPostsByTaglibsIdPage(Map<String,Object> paramMap);
     
     /**
      * 

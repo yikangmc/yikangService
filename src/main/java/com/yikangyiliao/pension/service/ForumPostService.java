@@ -1,5 +1,6 @@
 package com.yikangyiliao.pension.service;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -11,6 +12,7 @@ import org.springframework.stereotype.Service;
 import com.yikangyiliao.base.utils.SystemProperties;
 import com.yikangyiliao.pension.common.constants.YKConstants;
 import com.yikangyiliao.pension.common.error.ExceptionConstants;
+import com.yikangyiliao.pension.common.page.PageParameter;
 import com.yikangyiliao.pension.common.response.ResponseMessage;
 import com.yikangyiliao.pension.common.utils.GenreateNumberUtils;
 import com.yikangyiliao.pension.dao.ForumPostDetailDao;
@@ -274,14 +276,26 @@ public class ForumPostService {
     	ResponseMessage<List<FormPosts>> res=new ResponseMessage<List<FormPosts>>();
 
     	try{
-    		if(paramData.containsKey("taglibId")){
+    		if(
+    				paramData.containsKey("taglibId")
+    				&& paramData.containsKey("page")
+    			){
 
+    			Map<String,Object> resData=new HashMap<String,Object>();
+    			
     			Long taglibId=Long.valueOf(paramData.get("taglibId").toString());
     			 Long userId=null;
     			 if(paramData.containsKey("userId")){
     				 userId=Long.valueOf(paramData.get("userId").toString());
     			 }
-    			List<FormPosts> data=formPostManager.getForumPostsByTaglibsId(taglibId,userId);
+    			 PageParameter page=new PageParameter();
+    			 if(paramData.containsKey("currentPage")){
+    				 int currentPage=Integer.valueOf(paramData.get("currentPage").toString());
+    				 page.setCurrentPage(currentPage);
+    			 }
+    			List<FormPosts> data=formPostManager.getForumPostsByTaglibsId(taglibId,userId,page);
+    			resData.put("data", data);
+    			resData.put("page", page);
     			res.setData(data);
     		}else{
        		 res.setStatus(ExceptionConstants.systemException.systemException.errorCode);
@@ -397,6 +411,7 @@ public class ForumPostService {
 		ResponseMessage<List<FormPosts>> res=new ResponseMessage<List<FormPosts>>();
 
 		try{
+			Map<String,Object> resMap=new HashMap<String,Object>();
 			if(paramData.containsKey("taglibId")){
 
 				Long taglibId=Long.valueOf(paramData.get("taglibId").toString());
@@ -404,7 +419,14 @@ public class ForumPostService {
 				if(paramData.containsKey("userId")){
 					userId=Long.valueOf(paramData.get("userId").toString());
 				}
-				List<FormPosts> data=formPostManager.getPerformenceForumPostsByTaglibsId(taglibId,userId);
+				 PageParameter page=new PageParameter();
+    			 if(paramData.containsKey("currentPage")){
+    				 int currentPage=Integer.valueOf(paramData.get("currentPage").toString());
+    				 page.setCurrentPage(currentPage);
+    			 }
+				List<FormPosts> data=formPostManager.getPerformenceForumPostsByTaglibsId(taglibId,userId,page);
+				resMap.put("result", data);
+				resMap.put("page", page);
 				res.setData(data);
 			}else{
 				res.setStatus(ExceptionConstants.systemException.systemException.errorCode);

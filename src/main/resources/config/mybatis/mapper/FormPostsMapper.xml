@@ -318,7 +318,7 @@
   		<collection property="taglibs" 		      	column="forum_post_id"	fetchType="eager" select="com.yikangyiliao.pension.dao.TaglibDao.getTaglibsByFormPostId"></collection>
   		<collection property="forumPostsImage" 	column="forum_post_id"  fetchType="eager" select="com.yikangyiliao.pension.dao.ForumPostsImageDao.getForumPostImagesByForumPostsId"> </collection>
   </resultMap>
-  <select id="getForumPostsByTaglibsId" resultMap="getForumPostsByTaglibsIdResultMap" parameterType="map" >
+  <select id="getForumPostsByTaglibsIdPage" resultMap="getForumPostsByTaglibsIdResultMap" parameterType="map" >
 <!--   	select  -->
 <!--   		fp.forum_post_id,  -->
 <!--   		fp.title, -->

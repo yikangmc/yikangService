@@ -9,6 +9,7 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import com.yikangyiliao.pension.common.page.PageParameter;
 import com.yikangyiliao.pension.dao.QuestionAnswerDao;
 import com.yikangyiliao.pension.dao.QuestionDao;
 import com.yikangyiliao.pension.dao.QuestionTaglibMapDao;
@@ -107,8 +108,11 @@ public class QuestionManager {
      * @date 2016-05-24 15:25
      * @desc 获取某一个标签下的所有问题
      * */
-    public List<Question> getQuestionByTaglibid(Long taglibId){
-    	return questionDao.getQuestionByTaglibid(taglibId);
+    public List<Question> getQuestionByTaglibid(Long taglibId,PageParameter page){
+    	Map<String,Object> paramMap=new HashMap<String, Object>();
+    	paramMap.put("taglibId", taglibId);
+    	paramMap.put("page",page);
+    	return questionDao.getQuestionByTaglibidPage(paramMap);
     }
     
     /**

@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import com.yikangyiliao.base.utils.UrlGenerateUtil;
+import com.yikangyiliao.pension.common.page.PageParameter;
 import com.yikangyiliao.pension.common.utils.operationmesage.OperationMessage;
 import com.yikangyiliao.pension.common.utils.operationmesage.OperationMessageQueue;
 import com.yikangyiliao.pension.dao.FormPostsDao;
@@ -317,12 +318,13 @@ public class FormPostManager {
 	 * TODO 添加缓存，把经常用到的数据添加入redis
 	 *      在次调用时，进行判断缓存是否已经保存
 	 */
-	public List<FormPosts> getForumPostsByTaglibsId(Long taglibId,Long userId) {
+	public List<FormPosts> getForumPostsByTaglibsId(Long taglibId,Long userId,PageParameter page) {
 		Map<String, Object> paramMap = new HashMap<String, Object>();
 		paramMap.put("taglibId", taglibId);
 		paramMap.put("userId", userId);
 		paramMap.put("forumPostGroup", 0);
-		return formPostsDao.getForumPostsByTaglibsId(paramMap);
+		paramMap.put("page", page);
+		return formPostsDao.getForumPostsByTaglibsIdPage(paramMap);
 	}
 
 	/**
@@ -331,12 +333,13 @@ public class FormPostManager {
 	 * TODO 添加缓存，把经常用到的数据添加入redis
 	 *      在次调用时，进行判断缓存是否已经保存
 	 */
-	public List<FormPosts> getPerformenceForumPostsByTaglibsId(Long taglibId,Long userId) {
+	public List<FormPosts> getPerformenceForumPostsByTaglibsId(Long taglibId,Long userId,PageParameter page) {
 		Map<String, Object> paramMap = new HashMap<String, Object>();
 		paramMap.put("taglibId", taglibId);
 		paramMap.put("userId", userId);
 		paramMap.put("forumPostGroup", 1);
-		return formPostsDao.getForumPostsByTaglibsId(paramMap);
+		paramMap.put("page",page);
+		return formPostsDao.getForumPostsByTaglibsIdPage(paramMap);
 	}
 
 	/**

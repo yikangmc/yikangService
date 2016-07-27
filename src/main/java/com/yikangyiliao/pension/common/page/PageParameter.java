@@ -4,9 +4,9 @@ package com.yikangyiliao.pension.common.page;
  * 分页参数类
  * 
  */
-public class PageParameter {
+public class PageParameter{
 
-    public static final int DEFAULT_PAGE_SIZE = 20;
+    public static final int DEFAULT_PAGE_SIZE = 10;
 
     private int pageSize;
     private int currentPage;
@@ -15,6 +15,7 @@ public class PageParameter {
     @SuppressWarnings("unused")
 	private int totalPage;
     private int totalCount;
+    
 
     public PageParameter() {
         this.currentPage = 1;
@@ -79,6 +80,7 @@ public class PageParameter {
     }
 
     public void setTotalCount(int totalCount) {
+    	this.totalPage=(this.getTotalCount()%this.pageSize == 0?  this.getTotalCount()/this.pageSize +1: this.getTotalCount()/this.pageSize);
         this.totalCount = totalCount;
     }
     
@@ -91,8 +93,5 @@ public class PageParameter {
 		return Math.min(totalCount, getStartPos() + pageSize);
 	}
 
-    
-    
-    
     
 }

@@ -1,5 +1,6 @@
 package com.yikangyiliao.pension.service;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -10,6 +11,7 @@ import org.springframework.util.StringUtils;
 import com.yikangyiliao.base.utils.MatchHtmlElementAttrValue;
 import com.yikangyiliao.base.utils.ParamMapUtils;
 import com.yikangyiliao.pension.common.error.ExceptionConstants;
+import com.yikangyiliao.pension.common.page.PageParameter;
 import com.yikangyiliao.pension.common.response.ResponseMessage;
 import com.yikangyiliao.pension.entity.Question;
 import com.yikangyiliao.pension.entity.QuestionAnswer;
@@ -168,9 +170,21 @@ public class QuestionService {
 	 * **/
 	public ResponseMessage<List<Question>> getQuestionsByTaglibId(Map<String,Object> paramMap){
 		ResponseMessage<List<Question>> resData=new ResponseMessage<List<Question>>();
-		if(paramMap.containsKey("taglibId")){
+		if(
+				paramMap.containsKey("taglibId")
+			&&  paramMap.containsKey("page")
+		){
+			
+			Map<String,Object> resultMap=new HashMap<String,Object>();
+			PageParameter page=new PageParameter();
+			if(paramMap.containsKey("page")){
+				int currentPage=Integer.valueOf(paramMap.get("page").toString());
+				page.setCurrentPage(currentPage);
+			}
 			Long taglibId=Long.valueOf(paramMap.get("taglibId").toString());
-			List<Question> questions=questionManager.getQuestionByTaglibid(taglibId);
+			List<Question> questions=questionManager.getQuestionByTaglibid(taglibId,page);
+			resultMap.put("result", questions);
+			resultMap.put("page", page);
 			resData.setData(questions);
 		}else{
 			resData.setStatus(ExceptionConstants.parameterException.parameterException.errorCode);
