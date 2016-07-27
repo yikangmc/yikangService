@@ -289,8 +289,8 @@ public class ForumPostService {
     				 userId=Long.valueOf(paramData.get("userId").toString());
     			 }
     			 PageParameter page=new PageParameter();
-    			 if(paramData.containsKey("currentPage")){
-    				 int currentPage=Integer.valueOf(paramData.get("currentPage").toString());
+    			 if(paramData.containsKey("page")){
+    				 int currentPage=Integer.valueOf(paramData.get("page").toString());
     				 page.setCurrentPage(currentPage);
     			 }
     			List<FormPosts> data=formPostManager.getForumPostsByTaglibsId(taglibId,userId,page);
@@ -420,8 +420,8 @@ public class ForumPostService {
 					userId=Long.valueOf(paramData.get("userId").toString());
 				}
 				 PageParameter page=new PageParameter();
-    			 if(paramData.containsKey("currentPage")){
-    				 int currentPage=Integer.valueOf(paramData.get("currentPage").toString());
+    			 if(paramData.containsKey("page")){
+    				 int currentPage=Integer.valueOf(paramData.get("page").toString());
     				 page.setCurrentPage(currentPage);
     			 }
 				List<FormPosts> data=formPostManager.getPerformenceForumPostsByTaglibsId(taglibId,userId,page);
