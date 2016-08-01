@@ -7,6 +7,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -48,6 +50,8 @@ public class FormPostManager {
 	private TaglibDao taglibDao;
 
 	
+	private Logger logger=LoggerFactory.getLogger(FormPostManager.class);
+	
 	/**
 	 * @author liushuaic
 	 * @date 2016-04-27 11:11
@@ -67,6 +71,7 @@ public class FormPostManager {
 	public void insertPublishFormPosts(String title, String content, Long[] taglibIds, Long userId, String[] images) {
 
 		//UserServiceInfo userServiceInfo=userManager.getUserServiceInfoByUserIdTwo(userId);
+		logger.info("添加帖子"+"用户id:"+userId+" 标题："+title);
 		
 		Date currentDate = Calendar.getInstance().getTime();
 
@@ -134,6 +139,7 @@ public class FormPostManager {
 			OperationMessageQueue.putMessage(operationMessage);
 		}catch(Exception e){
 			e.printStackTrace();
+			logger.error("推送发生异常!");
 		}
 
 	}

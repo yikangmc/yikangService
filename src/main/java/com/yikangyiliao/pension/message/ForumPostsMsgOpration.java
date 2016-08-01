@@ -52,13 +52,13 @@ public class ForumPostsMsgOpration implements Runnable {
 							List<String> pushAlias = new ArrayList<String>();
 							for (UserInfo userInfo : userInfos) {
 								messageManager.insertDynamicFollowMessage(-1l, userInfo.getUserId(),
-										"有新的文章了：" + formPosts.getTitle(), formPosts.getTitle());
+										"有新的文章了：" + formPosts.getTitle(), formPosts.getTitle(),forumPostId,Byte.valueOf("4"));
 								pushAlias.add(userInfo.getPushAlias());
 								if (pushAlias.size() > 5) {
 									try {
 										Message<List<String>> pushMessage = new Message<List<String>>();
 										pushMessage.setAlias(new ArrayList<String>(pushAlias));
-										pushMessage.setContent("您的关注有了新的内容 ：" + formPosts.getTitle());
+										pushMessage.setContent("您的关注有新的文章了： ：" + formPosts.getTitle());
 										MessageQueue.put(pushMessage);
 										pushAlias = new ArrayList<String>();
 									} catch (Exception e) {

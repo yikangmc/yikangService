@@ -254,6 +254,7 @@
 	where parent_id!=0
 	and is_recommend=1
 	and is_delete=0
+	order by orders asc
   </select>
   
     <!-- 查询一级标签列表  -->
@@ -263,6 +264,7 @@
   	from taglibs
 	where parent_id=0
 	and is_delete=0
+	order by taglibs.orders asc
   </select>
   
   
@@ -274,6 +276,7 @@
 	from taglibs
 	left join user_taglib_maps on (taglibs.taglib_id=user_taglib_maps.taglib_id and user_taglib_maps.create_user_id=#{userId})
 	where parent_id=#{parentId} and is_delete=0
+	order by taglibs.orders asc
  </select>
  
  <resultMap type="com.yikangyiliao.pension.entity.Taglib" extends="BaseResultMap" id="getAllTagResultMap">
@@ -327,6 +330,7 @@
 	left join user_taglib_maps on (tag2.taglib_id=user_taglib_maps.taglib_id and user_taglib_maps.create_user_id=#{userId})
 	where tag2.parent_id=tag.taglib_id
 	and tag2.is_delete=0
+	order by tag2.orders asc
  </select>
  
  
@@ -340,6 +344,7 @@
  		(select count(1) from user_taglib_maps where taglib_id=tag.taglib_id ) as followNumber
  	from user_taglib_maps utm inner join taglibs tag on utm.taglib_id=tag.taglib_id
 	where utm.create_user_id=#{createUserId}
+	order by utm.create_time desc
  </select>
  
  <!-- 获取所有的二级标签列表 -->
@@ -349,6 +354,7 @@
   	from taglibs
 	where parent_id!=0
 	and is_delete=0
+	order by taglibs.create_time desc
   </select>
   
   <!-- 修改标签关注数量 +1 -->

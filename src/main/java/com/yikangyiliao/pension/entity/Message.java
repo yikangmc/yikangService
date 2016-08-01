@@ -25,6 +25,8 @@ public class Message {
 
     private Byte contentGroup;
     
+    private Long dataId;
+    
     private String userName;
     
     private String photoUrl;
@@ -141,5 +143,13 @@ public class Message {
 
 	public void setUserPosition(Integer userPosition) {
 		this.userPosition = userPosition;
+	}
+
+	public Long getDataId() {
+		return dataId;
+	}
+
+	public void setDataId(Long dataId) {
+		this.dataId = dataId;
 	}
 }

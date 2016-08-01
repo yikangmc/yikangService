@@ -289,7 +289,7 @@ public class UserService {
 				String passWord = paramData.get("password").toString();
 
 				User user = new User();
-				user.setUserName(loginName);
+				user.setUserName(loginName.substring(0,3)+"****"+loginName.substring(7,11));
 				user.setLoginName(loginName);
 				user.setLoginPassword(passWord);
 				user.setCreateTime(currentDateTime);
@@ -379,7 +379,7 @@ public class UserService {
 				userInfo.setPhotoUrl("");
 				userInfo.setUserIntroduce("");
 				userInfo.setUserSex(Byte.valueOf("0"));
-				userInfo.setUserName(loginName);
+				userInfo.setUserName(loginName.substring(0,3)+"****"+loginName.substring(7,11));
 				userInfo.setIsDelete(0l);
 				userInfo.setUpdateAt(currentDateTime);
 				userInfo.setUserId(user.getUserId());

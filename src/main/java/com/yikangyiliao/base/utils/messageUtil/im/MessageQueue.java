@@ -23,7 +23,7 @@ public class MessageQueue{
 		return messageQueues.add(message);
 	}
 	
-	public static synchronized Message pop(){
+	public static Message pop(){
 		try {
 			return messageQueues.take();
 		} catch (InterruptedException e) {

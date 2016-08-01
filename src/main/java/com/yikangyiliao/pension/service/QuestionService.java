@@ -17,6 +17,7 @@ import com.yikangyiliao.pension.entity.Question;
 import com.yikangyiliao.pension.entity.QuestionAnswer;
 import com.yikangyiliao.pension.manager.QuestionAnswerManager;
 import com.yikangyiliao.pension.manager.QuestionManager;
+import com.yikangyiliao.pension.manager.UserManager;
 
 @Service(value="questionService")
 public class QuestionService {
@@ -26,6 +27,9 @@ public class QuestionService {
 	
 	@Autowired
 	private QuestionAnswerManager questionAnswerManager;
+	
+	@Autowired
+	private UserManager userManager;
 	
 	
 	
@@ -113,6 +117,8 @@ public class QuestionService {
 			
 			List<String> imageArray=MatchHtmlElementAttrValue.getImgSrc(htmlDetailContent);
 			images=imageArray.toArray(images);
+			
+			
 			questionAnswerManager.insertSelective(questionId, content,detailContent,htmlDetailContent, createUserId,images);
 		}else{
 			resData.setStatus(ExceptionConstants.parameterException.parameterException.errorCode);

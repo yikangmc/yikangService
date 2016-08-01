@@ -10,6 +10,8 @@ import com.yikangyiliao.pension.common.utils.operationmesage.OperationMessageQue
 import com.yikangyiliao.pension.entity.Question;
 import com.yikangyiliao.pension.entity.QuestionAnswer;
 import com.yikangyiliao.pension.entity.User;
+import com.yikangyiliao.pension.entity.UserServiceInfo;
+import com.yikangyiliao.pension.manager.MessageManager;
 import com.yikangyiliao.pension.manager.QuestionAnswerManager;
 import com.yikangyiliao.pension.manager.QuestionManager;
 import com.yikangyiliao.pension.manager.UserManager;
@@ -29,6 +31,11 @@ public class QuestionAnswerMsgOperation implements Runnable{
 	@Autowired
 	private UserManager userManager;
 	
+	
+	@Autowired
+	private MessageManager messageManager;
+	
+	
 	public void run() {
 
 		while(true){
@@ -38,18 +45,25 @@ public class QuestionAnswerMsgOperation implements Runnable{
 				
 				Long questionId=Long.valueOf(operationMessage.getContent());
 				QuestionAnswer questionAnswer=questionAnswerManager.getQuestionAnswerByQuestionAnswerId(null,questionId);
-				User answerUser=userManager.getUserByUserId(questionAnswer.getCreateUserId());
-				
+				UserServiceInfo answerUser=userManager.getUserServiceInfoByUserIdTwo(questionAnswer.getCreateUserId());
+				Long answerUserId=answerUser.getUserId();
 				
 				Question question=questionManager.getQuestionByQuestionId(questionAnswer.getQuestionId());
-				Long userId=question.getCreateUserId();
+				Long questionCreateUserId=question.getCreateUserId();
 				
-				User user=userManager.getUserByUserId(userId);
+				User questionUser=userManager.getUserByUserId(questionCreateUserId);
+				
+				String subTitle=question.getTitle().length()>20?question.getTitle().substring(0,20):question.getTitle();
+				
+				String alertTitle=answerUser.getUserName()+" 回答了你的:"+subTitle+" 问题";
+				String alertContent=answerUser.getUserName()+" 回答了你的:"+subTitle+" 问题";
+				
 				Message<String> message=new Message<String>();
-				message.setAlias(user.getPushAlias());
-//				message.setContent("你的文章有新的回答了 "+questionAnswer.getContent());
-				message.setContent(answerUser.getUserName()+" 回答了你的问题");
+				message.setAlias(questionUser.getPushAlias());
+				message.setContent(alertTitle);
+				message.setMessageCategroy(0);
 				MessageQueue.put(message);
+				messageManager.insertDynamicFollowMessage(answerUserId, questionCreateUserId, alertTitle,alertContent,questionId,Byte.valueOf("1"));
 			}catch(Exception  e){
 				e.printStackTrace();
 			}

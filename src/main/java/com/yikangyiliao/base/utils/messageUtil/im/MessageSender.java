@@ -16,6 +16,7 @@ import cn.jpush.api.push.model.PushPayload;
  * **/
 public class MessageSender implements Runnable {
 
+	@SuppressWarnings("rawtypes")
 	public void run() {
 		while (true){
 			Message message=MessageQueue.pop();
@@ -41,13 +42,13 @@ public class MessageSender implements Runnable {
 					if(null != aliasCollection){
 						pushPayload=MessageUtils.buildPushObject_all_alias_alert(aliasCollection, message.getContent());
 					}else if(null !=  aliasString){
-						pushPayload=MessageUtils.buildPushObject_all_alias_alert(aliasCollection, message.getContent());
+						pushPayload=MessageUtils.buildPushObject_all_alias_alert(aliasString, message.getContent());
 					}
 				}else if(message.getMessageCategroy()==1){
 					if(null != aliasCollection){
 						pushPayload=MessageUtils.buildPushObject_all_alias_alert(aliasCollection, message.getContent());
 					}else if(null !=  aliasString){
-						pushPayload=MessageUtils.buildPushObject_all_alias_alert(aliasCollection, message.getContent());
+						pushPayload=MessageUtils.buildPushObject_all_alias_alert(aliasString, message.getContent());
 					}
 				}
 				

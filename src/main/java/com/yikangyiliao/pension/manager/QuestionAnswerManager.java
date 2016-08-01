@@ -10,6 +10,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import com.yikangyiliao.pension.common.page.PageParameter;
+import com.yikangyiliao.pension.common.utils.operationmesage.OperationMessage;
+import com.yikangyiliao.pension.common.utils.operationmesage.OperationMessageQueue;
 import com.yikangyiliao.pension.dao.QuestionAnswerDao;
 import com.yikangyiliao.pension.dao.QuestionAnswerDetailDao;
 import com.yikangyiliao.pension.dao.QuestionAnswerImageDao;
@@ -73,6 +75,12 @@ public class QuestionAnswerManager {
 		questionAnswerDetail.setQuestionAnswerHtmlContent(htmlDetailContent);
 		questionAnswerDetail.setCreateUserId(createUserId);
 		questionAnswerDetailDao.insertSelective(questionAnswerDetail);
+		
+		//推送信息
+		OperationMessage operationMessage=new OperationMessage();
+		operationMessage.setContent(questionAnswer.getQuestionAnswerId()+"");  //设置问题id
+		operationMessage.setContentType(2+"");    //设置分类id
+		OperationMessageQueue.putQuestionAnswerMessage(operationMessage);
 		
 		return 1;
 	}

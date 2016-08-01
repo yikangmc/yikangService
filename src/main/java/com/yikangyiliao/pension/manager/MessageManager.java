@@ -70,8 +70,22 @@ public class MessageManager {
 	 * @author liushuaic
 	 * @date 2016-06-12 13:51
 	 * @desc 添加的新的关注动态
+	 * @param messageGroup
+	 * 消息内容分类（
+		1：问题被接答
+		2：帖子被认同
+		3：帖子被评论
+		4：新的关注信息
+		）
+		@param contentGroup
+		消息分类（
+				0：系统消息
+				1：动态通知
+				2.：私信消息
+		）
+		
 	 * */
-	public int insertDynamicFollowMessage(Long fromUserId,Long toUserId,String title,String content){
+	public int insertDynamicFollowMessage(Long fromUserId,Long toUserId,String title,String content,Long dataId,Byte messageGroup){
 		Date currentDateTime=Calendar.getInstance().getTime();
 		Message message=new Message();
 		message.setCreateTime(currentDateTime);
@@ -81,9 +95,10 @@ public class MessageManager {
 		message.setContent(content);
 		message.setIsRead(Byte.valueOf("0"));
 		message.setUpdateTime(currentDateTime);
-		message.setContentGroup(Byte.valueOf("4"));
-		message.setMessageGroup(Byte.valueOf("1"));
+		message.setContentGroup(Byte.valueOf("1"));
+		message.setMessageGroup(messageGroup);
 		message.setCreateTimeMillisecond(currentDateTime.getTime());
+		message.setDataId(dataId);
 		return	messageDao.insertSelective(message);
 	}
 	
