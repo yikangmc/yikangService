@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Map;
 
 import com.yikangyiliao.pension.entity.FormPosts;
+import com.yikangyiliao.pension.entity.UserServiceInfo;
 
 public interface FormPostsDao {
     int deleteByPrimaryKey(Long forumPostId);
@@ -83,5 +84,11 @@ public interface FormPostsDao {
     List<FormPosts> getHotForumPosts();
     
     
+    /**
+     * @author liushuaic
+     * @date 2016-08-01 15:21
+     * @desc 获取用户信息根据发部文章id
+     * */
+    UserServiceInfo getUserServiceInfoByForumPostId();
     
 }

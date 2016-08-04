@@ -337,4 +337,13 @@ public class UserManager {
     	return userInfoDao.getUserInfoListByTaglibId(taglibId);
     }
     
+    /**
+     * @author liushuaic
+     * @date 2016-08-01 16:38
+     * @desc 查询 文章的创建用户
+     * */
+    public UserInfo getUserServiceInfoByForumPostId(Long forumPostId){
+    	return userInfoDao.getUserServiceInfoByForumPostId(forumPostId);
+    }
+
 }

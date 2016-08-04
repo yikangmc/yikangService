@@ -7,6 +7,8 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import com.yikangyiliao.pension.common.utils.operationmesage.OperationMessage;
+import com.yikangyiliao.pension.common.utils.operationmesage.OperationMessageQueue;
 import com.yikangyiliao.pension.dao.ForumPostsAnswerDao;
 import com.yikangyiliao.pension.entity.ForumPostsAnswer;
 
@@ -40,7 +42,13 @@ public class ForumPostsAnswerManager {
 		record.setToUserId(toUserId);
 		record.setAnswerTo(answerTo);
 		record.setCreateTime(currentDate);
-		return forumPostsAnswerDao.insert(record);
+		int rowCount= forumPostsAnswerDao.insertSelective(record);
+		//推送信息
+				OperationMessage operationMessage=new OperationMessage();
+				operationMessage.setContent(record.getForumPostsAnswerId()+"");  //设置问题id
+				operationMessage.setContentType(2+"");    //设置分类id
+				OperationMessageQueue.putForumPostsAnswerToQueue(operationMessage);
+		return rowCount;
 	}
 	
 	
@@ -53,6 +61,15 @@ public class ForumPostsAnswerManager {
 	 * */
 	public List<ForumPostsAnswer> getForumPostsAnswersByFormPostId(Long forumPostsId){
 		return forumPostsAnswerDao.getForumPostsAnswersByFormPostId(forumPostsId);
+	}
+	
+	/**
+	 * @author liushuaic
+	 * @date 2016-08-01 14:52
+	 * @desc 获取回复详情
+	 * **/
+	public ForumPostsAnswer getForumpostsAnswerByAnswerId(Long forumPostsAnswerId){
+		return forumPostsAnswerDao.selectByPrimaryKey(forumPostsAnswerId);
 	}
 	
 }

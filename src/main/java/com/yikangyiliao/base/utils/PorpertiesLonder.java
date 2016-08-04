@@ -5,6 +5,7 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
 
 import com.yikangyiliao.base.utils.messageUtil.im.MessageThreads;
+import com.yikangyiliao.pension.message.ForumPostAnswerMsgOperation;
 import com.yikangyiliao.pension.message.ForumPostStarOperation;
 import com.yikangyiliao.pension.message.ForumPostsMsgOpration;
 import com.yikangyiliao.pension.message.QuestionAnswerMsgOperation;
@@ -50,6 +51,11 @@ public class PorpertiesLonder implements ApplicationContextAware {
 		ForumPostStarOperation forumPostStarOperation=(ForumPostStarOperation) ApplicationContextUtil.applicationContext.getBean("forumPostStarOperation");
 		Thread forumPostStarOperationThread=new Thread(forumPostStarOperation);
 		forumPostStarOperationThread.start();
+		
+		//文章，帖子评论支持
+		ForumPostAnswerMsgOperation forumPostAnswerMsgOperation=(ForumPostAnswerMsgOperation) ApplicationContextUtil.applicationContext.getBean("forumPostAnswerMsgOperation");
+		Thread forumPostAnswerMsgOperationThread=new Thread(forumPostAnswerMsgOperation);
+		forumPostAnswerMsgOperationThread.start();
 		
 	}
 

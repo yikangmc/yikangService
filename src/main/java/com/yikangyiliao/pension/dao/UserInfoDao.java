@@ -41,4 +41,13 @@ public interface UserInfoDao {
      * @desc 查询某一个标签的所有的关注人员
      * */
     List<UserInfo> getUserInfoListByTaglibId(Long taglibId);
+    
+    
+    /**
+     * @author liushuaic
+     * @date 2016-08-01 16:31
+     * @desc 获取服务人员信息 ，根据帖子id
+     * */
+    UserInfo getUserServiceInfoByForumPostId(Long forumPostId);
+    
 }

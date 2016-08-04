@@ -355,13 +355,15 @@
 		usi.user_position,
 		designations.designation_name,
 		(select count(1) from forum_posts_answers fpa where fpa.form_post_id=fp.forum_post_id) as answersNums,
-	    if(ifnull(store_ups.store_ups_id,-1)>0,1,0) as isStore
+	    if(ifnull(store_ups.store_ups_id,-1)>0,1,0) as isStore,
+	    if(ifnull(fpsl.forum_posts_id,-1)>0,1,0) as isStar
 	from forum_posts fp
 	inner join forum_posts_taglibs_maps fptm on fp.forum_post_id=fptm.form_post_id
 	left join  user_infos ui 				 on fp.create_user_id=ui.user_id
 	left join store_ups on (store_ups.forum_post_id=fp.forum_post_id and store_ups.create_user_id=#{userId})
 	left join user_service_infos usi on ui.user_id=usi.user_id
 	left join designations  on ui.designation_id=designations.designation_id
+	left join (select * from forum_posts_star_lists where create_user_id=#{userId}) fpsl on fpsl.forum_posts_id=fp.forum_post_id
 	where fptm.tag_libs_id=#{taglibId}
     and forum_post_group=#{forumPostGroup}
     order by fp.create_time desc
@@ -402,9 +404,10 @@
 	usi.user_position,
 	designations.designation_name
  	from forum_posts
- 	left join  user_infos ui 				 on forum_posts.create_user_id=ui.user_id
+ 	left join  user_infos ui 				on forum_posts.create_user_id=ui.user_id
  	left join user_service_infos usi 		on ui.user_id=usi.user_id
 	left join designations  				on ui.designation_id=designations.designation_id
+	where forum_posts.forum_post_group=0
  	order by stars desc  limit 5
   </select>
   
