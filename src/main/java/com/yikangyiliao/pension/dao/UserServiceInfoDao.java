@@ -5,7 +5,7 @@ import java.util.Map;
 
 import org.apache.ibatis.annotations.Param;
 
-import com.yikangyiliao.pension.entity.FormPosts;
+import com.yikangyiliao.pension.entity.User;
 import com.yikangyiliao.pension.entity.UserServiceInfo;
 
 public interface UserServiceInfoDao {
@@ -119,5 +119,11 @@ public interface UserServiceInfoDao {
     UserServiceInfo getUserServiceInfoByServerUserId(@Param("serarchUserId")Long serarchUserId,@Param("userId")Long userId);
     
     
+    /**
+     * @author liushuaic
+     * @date 2016-08-01 15:31
+     * @desc 获取文章的创建用户信息
+     * */
+    User getUserServiceInfoByForumPostId(Long forumPostId);
     
 }

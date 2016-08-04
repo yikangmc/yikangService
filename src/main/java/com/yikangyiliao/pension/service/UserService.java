@@ -686,6 +686,7 @@ public class UserService {
 	 * @desc 修改用户信息
 	 * 
 	 ***/
+	@SuppressWarnings("unchecked")
 	public ResponseMessage<UserInfo> updateUserServiceAndServiceInfoTwo(Map<String, Object> paramData) {
 
 		ResponseMessage<UserInfo> rtnData = new ResponseMessage<UserInfo>();

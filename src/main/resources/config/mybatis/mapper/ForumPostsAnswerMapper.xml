@@ -33,6 +33,9 @@
       #{createTime,jdbcType=TIMESTAMP})
   </insert>
   <insert id="insertSelective" parameterType="com.yikangyiliao.pension.entity.ForumPostsAnswer" >
+    <selectKey resultType="Long" keyProperty="forumPostsAnswerId" order="AFTER">
+		SELECT LAST_INSERT_ID()
+	</selectKey>
     insert into forum_posts_answers
     <trim prefix="(" suffix=")" suffixOverrides="," >
       <if test="forumPostsAnswerId != null" >

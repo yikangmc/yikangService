@@ -18,58 +18,54 @@ import com.yikangyiliao.pension.manager.UserManager;
  * @author liushuaic
  * @date 2016-06-13 11:08
  * @desc 文章支持操作业务
- * ***/
-@Component(value="forumPostStarOperation")
-public class ForumPostStarOperation implements Runnable{
-	
+ ***/
+@Component(value = "forumPostStarOperation")
+public class ForumPostStarOperation implements Runnable {
+
 	@Autowired
 	private FormPostManager formPostManager;
-	
+
 	@Autowired
 	private UserManager userManager;
-	
-	private static Logger log=LoggerFactory.getLogger(ForumPostStarOperation.class);
 
-	
+	private static Logger log = LoggerFactory.getLogger(ForumPostStarOperation.class);
+
 	public void run() {
-		
-		while(true){
-			try{
-				OperationMessage operationMessage=OperationMessageQueue.takeForumPostStarMessage();
-				
-				if(null != operationMessage){
-					
-					String forumPostId=operationMessage.getContent();
-					FormPosts formPosts=formPostManager.selectByPrimaryKey(Long.valueOf(forumPostId));
-					
-					Long userId=formPosts.getCreateUserId();
-					User user=userManager.getUserByUserId(userId);
-					
-					String pushAlias=user.getPushAlias();
-					
-					try{
-						Message<String> message=new Message<String>();
-						message.setAlias(pushAlias);
-						message.setContent("文章有新的支持了! "+formPosts.getTitle());
-						MessageQueue.put(message);
-					}catch(Exception e){
-						e.printStackTrace();
-						log.error(e.getMessage());
+
+		while (true) {
+			try {
+				OperationMessage operationMessage = OperationMessageQueue.takeForumPostStarMessage();
+
+				if (null != operationMessage) {
+
+					String forumPostId = operationMessage.getContent();
+					FormPosts formPosts = formPostManager.selectByPrimaryKey(Long.valueOf(forumPostId));
+					if (null != formPosts) {
+
+						Long userId = formPosts.getCreateUserId();
+						User user = userManager.getUserByUserId(userId);
+
+						String pushAlias = user.getPushAlias();
+
+						try {
+							Message<String> message = new Message<String>();
+							message.setAlias(pushAlias);
+							message.setContent("文章有新的支持了! " + formPosts.getTitle());
+							MessageQueue.put(message);
+						} catch (Exception e) {
+							e.printStackTrace();
+							log.error(e.getMessage());
+						}
+
 					}
-					
 				}
-				
-			}catch(Exception e){
+
+			} catch (Exception e) {
 				e.printStackTrace();
 			}
-			
+
 		}
-		
+
 	}
-	
-	
-	
-	
-	
 
 }

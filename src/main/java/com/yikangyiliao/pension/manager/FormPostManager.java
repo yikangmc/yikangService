@@ -27,6 +27,7 @@ import com.yikangyiliao.pension.entity.FormPostsTaglibsMap;
 import com.yikangyiliao.pension.entity.ForumPostDetail;
 import com.yikangyiliao.pension.entity.ForumPostsImage;
 import com.yikangyiliao.pension.entity.Taglib;
+import com.yikangyiliao.pension.entity.UserServiceInfo;
 
 @Component
 public class FormPostManager {
@@ -89,9 +90,11 @@ public class FormPostManager {
 		formPosts.setAnswersNums(0);
 		formPosts.setCreateTime(currentDate);
 		formPosts.setUpdateTime(currentDate);
-		String uuid=UUID.randomUUID().toString();
-		formPosts.setForumPostsUuid(uuid.replace("-", ""));
-		formPosts.setShareUrl(UrlGenerateUtil.generateShareForumPostUrl(uuid));
+		
+		String uuid=UUID.randomUUID().toString().replaceAll("-", "");
+		formPosts.setForumPostsUuid(uuid); //设置文件唯一标识
+		formPosts.setShareUrl(UrlGenerateUtil.generateShareForumPostUrl(uuid)); //设置文章分享连接
+		
 		formPosts.setShareNum(0);
 		formPosts.setStars(0);
 		formPosts.setReportComplaintsStatus(Byte.valueOf("0"));
@@ -166,9 +169,12 @@ public class FormPostManager {
 		formPosts.setAnswersNums(0);
 		formPosts.setCreateTime(currentDate);
 		formPosts.setUpdateTime(currentDate);
-		String uuid=UUID.randomUUID().toString();
-		formPosts.setForumPostsUuid(uuid.replace("-", ""));
+		
+		
+		String uuid=UUID.randomUUID().toString().replaceAll("-", "");
+		formPosts.setForumPostsUuid(uuid);
 		formPosts.setShareUrl(UrlGenerateUtil.generateShareForumPostUrl(uuid));
+		
 		formPosts.setShareNum(0);
 		formPosts.setStars(0);
 		formPosts.setReportComplaintsStatus(Byte.valueOf("0"));
@@ -202,14 +208,16 @@ public class FormPostManager {
 			taglibDao.updateByPrimaryKeySelective(taglib);
 		}
 		// 添加图片
-		for (String img : images) {
-			ForumPostsImage forumPostsImage = new ForumPostsImage();
-			forumPostsImage.setCreateTime(currentDate);
-			forumPostsImage.setForumPostsId(formPosts.getForumPostId());
-			forumPostsImage.setImageUrl(img);
-			forumPostsImageManager.insertSelective(forumPostsImage);
+		if(null != images && images.length>0){
+			for (String img : images) {
+				ForumPostsImage forumPostsImage = new ForumPostsImage();
+				forumPostsImage.setCreateTime(currentDate);
+				forumPostsImage.setForumPostsId(formPosts.getForumPostId());
+				forumPostsImage.setImageUrl(img);
+				forumPostsImageManager.insertSelective(forumPostsImage);
+			}
 		}
-
+		
 		try{
 			OperationMessage operationMessage=new OperationMessage();
 			operationMessage.setContent(formPosts.getForumPostId().toString());
@@ -387,5 +395,9 @@ public class FormPostManager {
 	 * */
 	public FormPosts selectByPrimaryKey(Long forumPostId){
 		return formPostsDao.selectByPrimaryKey(forumPostId);
+	}
+	
+	public UserServiceInfo getUserServiceInfoByForumPostId(Long forumPostId){
+		return null;
 	}
 }

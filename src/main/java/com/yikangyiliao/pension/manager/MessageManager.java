@@ -85,7 +85,7 @@ public class MessageManager {
 		）
 		
 	 * */
-	public int insertDynamicFollowMessage(Long fromUserId,Long toUserId,String title,String content,Long dataId,Byte messageGroup){
+	public int insertDynamicFollowMessage(Long fromUserId,Long toUserId,String title,String content,Long dataId,Byte contentGroup){
 		Date currentDateTime=Calendar.getInstance().getTime();
 		Message message=new Message();
 		message.setCreateTime(currentDateTime);
@@ -95,8 +95,8 @@ public class MessageManager {
 		message.setContent(content);
 		message.setIsRead(Byte.valueOf("0"));
 		message.setUpdateTime(currentDateTime);
-		message.setContentGroup(Byte.valueOf("1"));
-		message.setMessageGroup(messageGroup);
+		message.setContentGroup(contentGroup);
+		message.setMessageGroup(Byte.valueOf("1")); 
 		message.setCreateTimeMillisecond(currentDateTime.getTime());
 		message.setDataId(dataId);
 		return	messageDao.insertSelective(message);

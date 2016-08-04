@@ -688,5 +688,6 @@
 		where us.user_id = #{userId,jdbcType=BIGINT}
 	</select>
 	
+	
 
 </mapper>
