@@ -16,7 +16,7 @@ public class QuestionAnswer {
     private Integer starNum;
 
     private Byte isRecommend;
-    
+  
     private Date createTime;
 
     private Date updateTime;
@@ -37,7 +37,9 @@ public class QuestionAnswer {
     
     private String htmlDetailContent;
     
-    /**
+    private String title;
+    
+	/**
      * TODO 答案分享未设计
      * **/
     private String shareUrl="";
@@ -176,6 +178,14 @@ public class QuestionAnswer {
 
 	public void setShareUrl(String shareUrl) {
 		this.shareUrl = shareUrl;
+	}
+	
+	public String getTitle() {
+		return title;
+	}
+
+	public void setTitle(String title) {
+		this.title = title;
 	}
 
 }

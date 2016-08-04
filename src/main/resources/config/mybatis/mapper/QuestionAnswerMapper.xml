@@ -211,10 +211,11 @@
 		from question_answers qa 
 		inner join questions on qa.question_id=questions.question_id
 		inner join  (
-		select question_id,max(star_num),question_answer_id from question_answers group by question_id order by star_num desc limit 3
+		select question_id,star_num,question_answer_id from question_answers group by question_id order by star_num desc limit 3
 		)  qatemp on qa.question_answer_id=qatemp.question_answer_id
 		left join user_infos ui on ui.user_id=qa.create_user_id
 		left join user_service_infos usi on ui.user_id=usi.user_id
+		order by qatemp.star_num desc
 	</if>
 	<if test="null neq userId">
 <!-- 		select qa.*, -->
@@ -238,10 +239,11 @@
 	on qa.question_answer_id=qasl2.question_answer_id
 	inner join questions on qa.question_id=questions.question_id
 	inner join  (
-	select question_id,max(star_num),question_answer_id from question_answers group by question_id order by star_num desc limit 3
+	select question_id,star_num,question_answer_id from question_answers group by question_id order by star_num desc limit 3
 	)  qatemp on qa.question_answer_id=qatemp.question_answer_id
 	left join user_infos ui on ui.user_id=qa.create_user_id
 	left join user_service_infos usi on ui.user_id=usi.user_id
+	order by qatemp.star_num desc
 	</if>
   </select>
 
@@ -272,6 +274,7 @@
   </resultMap>
   <select id="getQuestionAnswerByQuestionAnswerId" parameterType="map" resultMap="getQuestionAnswerByQuestionAnswerIdResultMap">
   	select 
+		que.title,
 		qa.*,
 		qad.question_answer_detail_content,
 		qad.question_answer_html_content,
@@ -279,11 +282,11 @@
 	    ui.photo_url,
 	    usi.user_position,
 	   if(ifnull((select question_answer_id from question_answer_start_lists where create_user_id=#{userId} and question_answer_id=#{questionAnswerId}),-1)>0,1,0) as isStar
-	from question_answers qa left join question_answer_details qad on 
+	from questions que,question_answers qa left join question_answer_details qad on 
 	qa.question_answer_id=qad.question_answer_id
 	left join user_infos ui on qa.create_user_id=ui.user_id
 	left join user_service_infos usi on qa.create_user_id=usi.user_id
-	where qa.question_answer_id=#{questionAnswerId}
+	where qa.question_answer_id==#{questionAnswerId} and que.question_id=qa.question_id
   </select>
   
 </mapper>
