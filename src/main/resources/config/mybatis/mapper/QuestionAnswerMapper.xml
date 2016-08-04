@@ -286,7 +286,7 @@
 	qa.question_answer_id=qad.question_answer_id
 	left join user_infos ui on qa.create_user_id=ui.user_id
 	left join user_service_infos usi on qa.create_user_id=usi.user_id
-	where qa.question_answer_id==#{questionAnswerId} and que.question_id=qa.question_id
+	where qa.question_answer_id=#{questionAnswerId} and que.question_id=qa.question_id
   </select>
   
 </mapper>
