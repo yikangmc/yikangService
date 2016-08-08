@@ -1,0 +1,161 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.yikangyiliao.pension.dao.ThreePartAccountMapper" >
+  <resultMap id="BaseResultMap" type="com.yikangyiliao.pension.entity.ThreePartAccount" >
+    <id column="three_part_account_id" property="threePartAccountId" jdbcType="BIGINT" />
+    <result column="user_name" property="userName" jdbcType="VARCHAR" />
+    <result column="gender" property="gender" jdbcType="VARCHAR" />
+    <result column="account_id" property="accountId" jdbcType="VARCHAR" />
+    <result column="user_id" property="userId" jdbcType="BIGINT" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+    <result column="user_source" property="userSource" jdbcType="TINYINT" />
+  </resultMap>
+  <resultMap id="ResultMapWithBLOBs" type="com.yikangyiliao.pension.entity.ThreePartAccount" extends="BaseResultMap" >
+    <result column="three_part_account_info" property="threePartAccountInfo" jdbcType="LONGVARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    three_part_account_id, user_name, gender, account_id, user_id, create_time, update_time, 
+    user_source
+  </sql>
+  <sql id="Blob_Column_List" >
+    three_part_account_info
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from three_part_accounts
+    where three_part_account_id = #{threePartAccountId,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from three_part_accounts
+    where three_part_account_id = #{threePartAccountId,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.yikangyiliao.pension.entity.ThreePartAccount" >
+    insert into three_part_accounts (three_part_account_id, user_name, gender, 
+      account_id, user_id, create_time, 
+      update_time, user_source, three_part_account_info
+      )
+    values (#{threePartAccountId,jdbcType=BIGINT}, #{userName,jdbcType=VARCHAR}, #{gender,jdbcType=VARCHAR}, 
+      #{accountId,jdbcType=VARCHAR}, #{userId,jdbcType=BIGINT}, #{createTime,jdbcType=TIMESTAMP}, 
+      #{updateTime,jdbcType=TIMESTAMP}, #{userSource,jdbcType=TINYINT}, #{threePartAccountInfo,jdbcType=LONGVARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.yikangyiliao.pension.entity.ThreePartAccount" >
+    insert into three_part_accounts
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="threePartAccountId != null" >
+        three_part_account_id,
+      </if>
+      <if test="userName != null" >
+        user_name,
+      </if>
+      <if test="gender != null" >
+        gender,
+      </if>
+      <if test="accountId != null" >
+        account_id,
+      </if>
+      <if test="userId != null" >
+        user_id,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+      <if test="updateTime != null" >
+        update_time,
+      </if>
+      <if test="userSource != null" >
+        user_source,
+      </if>
+      <if test="threePartAccountInfo != null" >
+        three_part_account_info,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="threePartAccountId != null" >
+        #{threePartAccountId,jdbcType=BIGINT},
+      </if>
+      <if test="userName != null" >
+        #{userName,jdbcType=VARCHAR},
+      </if>
+      <if test="gender != null" >
+        #{gender,jdbcType=VARCHAR},
+      </if>
+      <if test="accountId != null" >
+        #{accountId,jdbcType=VARCHAR},
+      </if>
+      <if test="userId != null" >
+        #{userId,jdbcType=BIGINT},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null" >
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="userSource != null" >
+        #{userSource,jdbcType=TINYINT},
+      </if>
+      <if test="threePartAccountInfo != null" >
+        #{threePartAccountInfo,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.yikangyiliao.pension.entity.ThreePartAccount" >
+    update three_part_accounts
+    <set >
+      <if test="userName != null" >
+        user_name = #{userName,jdbcType=VARCHAR},
+      </if>
+      <if test="gender != null" >
+        gender = #{gender,jdbcType=VARCHAR},
+      </if>
+      <if test="accountId != null" >
+        account_id = #{accountId,jdbcType=VARCHAR},
+      </if>
+      <if test="userId != null" >
+        user_id = #{userId,jdbcType=BIGINT},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null" >
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="userSource != null" >
+        user_source = #{userSource,jdbcType=TINYINT},
+      </if>
+      <if test="threePartAccountInfo != null" >
+        three_part_account_info = #{threePartAccountInfo,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where three_part_account_id = #{threePartAccountId,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.yikangyiliao.pension.entity.ThreePartAccount" >
+    update three_part_accounts
+    set user_name = #{userName,jdbcType=VARCHAR},
+      gender = #{gender,jdbcType=VARCHAR},
+      account_id = #{accountId,jdbcType=VARCHAR},
+      user_id = #{userId,jdbcType=BIGINT},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      update_time = #{updateTime,jdbcType=TIMESTAMP},
+      user_source = #{userSource,jdbcType=TINYINT},
+      three_part_account_info = #{threePartAccountInfo,jdbcType=LONGVARCHAR}
+    where three_part_account_id = #{threePartAccountId,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.yikangyiliao.pension.entity.ThreePartAccount" >
+    update three_part_accounts
+    set user_name = #{userName,jdbcType=VARCHAR},
+      gender = #{gender,jdbcType=VARCHAR},
+      account_id = #{accountId,jdbcType=VARCHAR},
+      user_id = #{userId,jdbcType=BIGINT},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      update_time = #{updateTime,jdbcType=TIMESTAMP},
+      user_source = #{userSource,jdbcType=TINYINT}
+    where three_part_account_id = #{threePartAccountId,jdbcType=BIGINT}
+  </update>
+  
+</mapper>

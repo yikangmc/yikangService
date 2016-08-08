@@ -50,15 +50,17 @@ public class ForumPostsMsgOpration implements Runnable {
 						
 						if (null != userInfos && userInfos.size() > 0) {
 							List<String> pushAlias = new ArrayList<String>();
+							
+							String taglibAlert="你关注的标签有新内容了";
+							
 							for (UserInfo userInfo : userInfos) {
-								messageManager.insertDynamicFollowMessage(-1l, userInfo.getUserId(),
-										"有新的文章了：" + formPosts.getTitle(), formPosts.getTitle(),forumPostId,Byte.valueOf("4"));
+								messageManager.insertDynamicFollowMessage(-1l, userInfo.getUserId(),taglibAlert, formPosts.getTitle(),forumPostId,Byte.valueOf("4"));
 								pushAlias.add(userInfo.getPushAlias());
 								if (pushAlias.size() > 5) {
 									try {
 										Message<List<String>> pushMessage = new Message<List<String>>();
 										pushMessage.setAlias(new ArrayList<String>(pushAlias));
-										pushMessage.setContent("您的关注有新的文章了： ：" + formPosts.getTitle());
+										pushMessage.setContent(taglibAlert);
 										MessageQueue.put(pushMessage);
 										pushAlias = new ArrayList<String>();
 									} catch (Exception e) {
@@ -69,7 +71,7 @@ public class ForumPostsMsgOpration implements Runnable {
 							try {
 								Message<List<String>> pushMessage = new Message<List<String>>();
 								pushMessage.setAlias(pushAlias);
-								pushMessage.setContent("您的关注有了新的内容 ：" + formPosts.getTitle());
+								pushMessage.setContent(taglibAlert);
 								MessageQueue.put(pushMessage);
 							} catch (Exception e) {
 								e.printStackTrace();

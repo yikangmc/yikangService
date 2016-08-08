@@ -32,17 +32,17 @@ public class UserTest {
 	public void TestRegisterUser(){
 		try {
 //			for(int i=1;i<51;i++){
+				Map<String,Object> paramData=new HashMap<String, Object>();
+				paramData.put("loginName","13716907545");
+				paramData.put("password","123456");
+				SendRequest.sendPost("registerUser?appId=1",paramData);
+//			}
+//			for(int i=141;i<201;i++){
 //				Map<String,Object> paramData=new HashMap<String, Object>();
-//				paramData.put("loginName","13661177209");
-//				paramData.put("password","1");
+//				paramData.put("loginName","bingren"+i);
+//				paramData.put("password","111111");
 //				SendRequest.sendPost("registerUser?appId=1",paramData);
 //			}
-			for(int i=141;i<201;i++){
-				Map<String,Object> paramData=new HashMap<String, Object>();
-				paramData.put("loginName","bingren"+i);
-				paramData.put("password","111111");
-				SendRequest.sendPost("registerUser?appId=1",paramData);
-			}
 
 		} catch (IOException e) {
 			e.printStackTrace();
