@@ -313,14 +313,13 @@ public class UserService {
 			
 		
 
-			String loginName =userName;
 			UserInfo users = userManager.getUserIdByThreePartAccountId(accountId);
 			if (null == users) {
 				String passWord = "-2";
 
 				User user = new User();
-				user.setUserName(loginName);
-				user.setLoginName(loginName);
+				user.setUserName(userName);
+				user.setLoginName(accountId);
 				user.setLoginPassword(passWord);
 				user.setCreateTime(currentDateTime);
 				user.setSalt("000000");
@@ -361,7 +360,7 @@ public class UserService {
 				userServiceInfo.setCityCode(Long.valueOf(0));
 				userServiceInfo.setDistrictCode(Long.valueOf(0));
 				userServiceInfo.setMapPositionAddress("");
-				
+				userServiceInfo.setUserName(userName);
 				String hospital = "";
 				if (paramData.containsKey("hospital")) {
 					hospital = paramData.get("hospital").toString();
@@ -423,7 +422,7 @@ public class UserService {
 				userInfo.setPhotoUrl("");
 				userInfo.setUserIntroduce("");
 				userInfo.setUserSex(sex);
-				userInfo.setUserName(loginName);
+				userInfo.setUserName(userName);
 				userInfo.setIsDelete(0l);
 				userInfo.setUpdateAt(currentDateTime);
 				userInfo.setUserId(user.getUserId());

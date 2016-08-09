@@ -59,12 +59,12 @@ public class LoginService {
 					
 					if(null != user){
 						String accessTicket=AccessTiketCheckout.generateAccessTicket(user.getUserId().toString(), Calendar.getInstance().getTimeInMillis(), machineCode);
-						resData.setData(accessTicket);
+						resData.setData(accessTicket);						
 						resData.setStatus("000000");
 						resData.setMessage("登陆成功！");
 					}else{
-						resData.setStatus("999999");
-						resData.setMessage("登陆失败！");
+						resData.setStatus("000001");
+						resData.setMessage("用户不存在！");
 					}
 			
 				} catch (Exception e) {
