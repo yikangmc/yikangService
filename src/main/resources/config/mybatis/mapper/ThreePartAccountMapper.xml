@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="com.yikangyiliao.pension.dao.ThreePartAccountMapper" >
+<mapper namespace="com.yikangyiliao.pension.dao.ThreePartAccountDao" >
   <resultMap id="BaseResultMap" type="com.yikangyiliao.pension.entity.ThreePartAccount" >
     <id column="three_part_account_id" property="threePartAccountId" jdbcType="BIGINT" />
     <result column="user_name" property="userName" jdbcType="VARCHAR" />
@@ -157,5 +157,13 @@
       user_source = #{userSource,jdbcType=TINYINT}
     where three_part_account_id = #{threePartAccountId,jdbcType=BIGINT}
   </update>
+  
+  
+  <!-- 查询第三方用户信息,根据 accountId -->
+  <select id="selectThreePartBaseColumnByAccountId" parameterType="string" resultMap="BaseResultMap">
+  	select 
+  		<include refid="Base_Column_List"></include>
+  	from  three_part_accounts where account_id=#{accountId}
+  </select>
   
 </mapper>

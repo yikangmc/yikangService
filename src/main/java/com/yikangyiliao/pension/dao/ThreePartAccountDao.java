@@ -16,4 +16,13 @@ public interface ThreePartAccountDao {
     int updateByPrimaryKeyWithBLOBs(ThreePartAccount record);
 
     int updateByPrimaryKey(ThreePartAccount record);
+    
+    
+    /**
+     * @author liushuaic
+     * @date 2016-08-08 16:06
+     * @desc 获取第三方的用户信息
+     * */
+    ThreePartAccount selectThreePartBaseColumnByAccountId(String accountId);
+    
 }

@@ -345,5 +345,16 @@ public class UserManager {
     public UserInfo getUserServiceInfoByForumPostId(Long forumPostId){
     	return userInfoDao.getUserServiceInfoByForumPostId(forumPostId);
     }
-
+   
+    /**
+     * @author liushuaic
+     * @date 2016-08-08 16:43
+     * @desc 获取用户id
+     * **/ 
+    public UserInfo getUserIdByThreePartAccountId(String accountId){
+    	return userInfoDao.getUserIdByThreePartAccountId(accountId);
+    }
+    
+    
+    
 }

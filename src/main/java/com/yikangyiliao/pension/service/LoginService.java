@@ -10,8 +10,12 @@ import org.springframework.stereotype.Service;
 
 import com.yikangyiliao.base.utils.AccessTiketCheckout;
 import com.yikangyiliao.pension.common.error.ExceptionConstants;
+import com.yikangyiliao.pension.common.response.ResponseMessage;
 import com.yikangyiliao.pension.dao.UserDao;
 import com.yikangyiliao.pension.entity.User;
+import com.yikangyiliao.pension.entity.UserInfo;
+import com.yikangyiliao.pension.manager.ThreePartAccountManager;
+import com.yikangyiliao.pension.manager.UserManager;
 
 
 
@@ -29,6 +33,56 @@ public class LoginService {
 	
 	@Autowired
 	private  UserDao userDao;
+	
+	@Autowired
+	private UserManager userManager;
+	
+	public ResponseMessage<String> loginForThreepartLogin(Map<String,Object> paramData){
+		ResponseMessage<String> resData=new ResponseMessage<String>();
+		
+		if(
+			paramData.containsKey("accountId")
+			&& paramData.containsKey("machineCode")
+		){
+			String accountId=paramData.get("accountId").toString();
+			String machineCode=paramData.get("machineCode").toString();
+			if(accountId.length()>5 && accountId.length()<50){
+				UserInfo user=userManager.getUserIdByThreePartAccountId(accountId);
+
+				/** 
+				 * 随机数+ip+logintime
+				 * 验证方式，与 redis 中的内容对比 
+				 * 对登陆时间 
+				 * 找出用户信息
+				 * **/
+				try {
+					
+					if(null != user){
+						String accessTicket=AccessTiketCheckout.generateAccessTicket(user.getUserId().toString(), Calendar.getInstance().getTimeInMillis(), machineCode);
+						resData.setData(accessTicket);
+						resData.setStatus("000000");
+						resData.setMessage("登陆成功！");
+					}else{
+						resData.setStatus("999999");
+						resData.setMessage("登陆失败！");
+					}
+			
+				} catch (Exception e) {
+					resData.setStatus("999999");
+					resData.setMessage("登陆失败！");
+					e.printStackTrace();
+				}
+			}else{
+				resData.setStatus(ExceptionConstants.parameterException.parameterException.errorCode);
+				resData.setMessage(ExceptionConstants.parameterException.parameterException.errorMessage);
+			}
+		}else{
+			resData.setStatus(ExceptionConstants.parameterException.parameterException.errorCode);
+			resData.setMessage(ExceptionConstants.parameterException.parameterException.errorMessage);
+		}
+		return resData;
+		
+	}
 
 	/**
 	 * @author liushuaic

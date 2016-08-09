@@ -50,4 +50,10 @@ public interface UserInfoDao {
      * */
     UserInfo getUserServiceInfoByForumPostId(Long forumPostId);
     
+    /**
+     * @author liushuaic
+     * @date 2016-08-08 16:49
+     * @desc 根据accountId查询 用户信息
+     * */
+    UserInfo getUserIdByThreePartAccountId(String accountId);
 }

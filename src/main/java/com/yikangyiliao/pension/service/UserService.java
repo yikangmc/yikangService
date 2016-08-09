@@ -3,6 +3,7 @@ package com.yikangyiliao.pension.service;
 import java.io.IOException;
 import java.text.ParseException;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -22,12 +23,14 @@ import com.yikangyiliao.pension.common.response.ResponseMessage;
 import com.yikangyiliao.pension.common.utils.map.MapUtils;
 import com.yikangyiliao.pension.common.utils.map.model.GeoCodeModel;
 import com.yikangyiliao.pension.entity.Location;
+import com.yikangyiliao.pension.entity.ThreePartAccount;
 import com.yikangyiliao.pension.entity.User;
 import com.yikangyiliao.pension.entity.UserFrom;
 import com.yikangyiliao.pension.entity.UserInfo;
 import com.yikangyiliao.pension.entity.UserModel;
 import com.yikangyiliao.pension.entity.UserServiceInfo;
 import com.yikangyiliao.pension.manager.LocationManager;
+import com.yikangyiliao.pension.manager.ThreePartAccountManager;
 import com.yikangyiliao.pension.manager.UserAdeptMapManager;
 import com.yikangyiliao.pension.manager.UserConfigrationManager;
 import com.yikangyiliao.pension.manager.UserFromManager;
@@ -61,6 +64,9 @@ public class UserService {
 	
 	@Autowired
 	private UserConfigrationManager userConfigrationManager;
+	
+	@Autowired
+	private ThreePartAccountManager threePartAccountManager;
 	
 	
 	private Logger logger=LoggerFactory.getLogger(UserService.class);
@@ -273,6 +279,175 @@ public class UserService {
 		return rtnData;
 	}
 
+	
+	
+	public ResponseMessage<String> insertRegisterUserForThreepart(Map<String,Object> paramData){
+		
+		ResponseMessage<String> resData=new ResponseMessage<String>();
+		
+		if(
+			paramData.containsKey("userName")
+		    && paramData.containsKey("gender")
+		    && paramData.containsKey("accountId")
+		    && paramData.containsKey("threePartAccountInfo")
+		    && paramData.containsKey("userSource")
+		){
+			Date currentDate= Calendar.getInstance().getTime();
+			Long currentDateTime = Calendar.getInstance().getTimeInMillis();
+			
+			String userName=paramData.get("userName").toString();
+			String gender=paramData.get("gender").toString();
+			String accountId=paramData.get("accountId").toString();
+			String threePartAccountInfo=paramData.get("threePartAccountInfo").toString();
+			Byte userSource=Byte.valueOf(paramData.get("userSource").toString());
+			
+			
+			Byte sex=Byte.valueOf("0");
+			if(gender.length()==1){
+				if(gender.equals("男") || gender.equals("m")){
+					sex=Byte.valueOf("1");
+				}else if(gender.equals("女") || gender.equals("wm")){
+					sex=Byte.valueOf("2");
+				}
+			}
+			
+		
+
+			String loginName =userName;
+			UserInfo users = userManager.getUserIdByThreePartAccountId(accountId);
+			if (null == users) {
+				String passWord = "-2";
+
+				User user = new User();
+				user.setUserName(loginName);
+				user.setLoginName(loginName);
+				user.setLoginPassword(passWord);
+				user.setCreateTime(currentDateTime);
+				user.setSalt("000000");
+				user.setLoginTime(currentDateTime);
+				user.setPushAlias("");
+				user.setInvitationCode("");
+				user.setInfoWrite((byte)0); //设置为没有填写个人信息
+
+				userManager.insertUserSelective(user);
+				
+				user.setUserName(null);
+				user.setLoginName(null);
+				user.setLoginPassword(null);
+				user.setCreateTime(currentDateTime);
+				user.setSalt(null);
+				user.setLoginTime(null);
+				user.setPushAlias(AliasFactory.generateAliasByUser(user.getUserId().toString()));
+				userManager.updateUser(user); // 修改用户推送
+				// 修改用户邀请码
+				userManager.updateInvitationCodeByUserId(InvitationCodeGnerateUtil.generateInvitationCodeTwo(user),
+						user.getUserId());
+
+				UserServiceInfo userServiceInfo = new UserServiceInfo();
+				userServiceInfo.setUserId(user.getUserId());
+				userServiceInfo.setPhotoUrl("");
+				userServiceInfo.setProvenceCode(Long.valueOf("0"));
+				userServiceInfo.setAddressDetail("");
+				userServiceInfo.setOffices(Integer.valueOf(-2));
+				userServiceInfo.setJobCategory(Long.valueOf(-2));
+				userServiceInfo.setUserPosition(Byte.valueOf("0"));
+
+				userServiceInfo.setDistrictCode(Long.valueOf(-2));
+
+				userServiceInfo.setCreateTime(currentDateTime);
+				userServiceInfo.setUpdateTime(currentDateTime);
+				userServiceInfo.setIsDelete(Byte.valueOf("0"));
+				userServiceInfo.setUserServiceName("");
+				userServiceInfo.setCityCode(Long.valueOf(0));
+				userServiceInfo.setDistrictCode(Long.valueOf(0));
+				userServiceInfo.setMapPositionAddress("");
+				
+				String hospital = "";
+				if (paramData.containsKey("hospital")) {
+					hospital = paramData.get("hospital").toString();
+				}
+				userServiceInfo.setHospital(hospital);
+				if (paramData.containsKey("offices")) {
+					userServiceInfo.setOffices(Integer.valueOf(paramData.get("offices").toString()));
+				}
+				if (paramData.containsKey("adept")) {
+					userServiceInfo.setAdept(paramData.get("adept").toString());
+				}
+				
+
+				userServiceInfo.setLongitude(0d);
+				userServiceInfo.setLatitude(0d);
+
+				userManager.insertUserServiceSelective(userServiceInfo);
+				
+				
+				
+
+//				ThreePartAccount threePartAccount=new ThreePartAccount();
+//				threePartAccount.setAccountId(accountId);
+//				threePartAccount.setCreateTime(currentDate);
+//				threePartAccount.setUpdateTime(currentDate);
+//				threePartAccount.setUserName(userName);
+//				threePartAccount.setUserSource(userSource);
+//				threePartAccount.setUserId(user.getUserId());
+//				threePartAccount.setThreePartAccountInfo(threePartAccountInfo);
+				threePartAccountManager.insertSelective(userName, gender, accountId, userSource, threePartAccountInfo,user.getUserId());
+				
+
+				UserFrom userFrom = new UserFrom();
+				userFrom.setUserId(user.getUserId());
+				userFrom.setFromUrl("");
+				if (paramData.containsKey("invitationCode")) {
+					userFrom.setInvitationCode(paramData.get("invitationCode").toString());
+				} else {
+					userFrom.setInvitationCode("");
+				}
+				userFrom.setCreateTime(currentDateTime);
+				userFrom.setUpdateTime(currentDateTime);
+				// 设置为用户注册
+				userFrom.setUserFrom("5");
+				userFrom.setUserStatus(Byte.valueOf("0"));
+				userFrom.setNumbers(0l);
+				userFrom.setActiveTime(0l);
+				userFromManager.insertSelective(userFrom);
+
+
+				// 初始化用户信息
+				UserInfo userInfo=new UserInfo();
+				userInfo.setBirthday(null);
+				userInfo.setCityCode("");
+				userInfo.setCreateAt(currentDateTime.longValue());
+				userInfo.setDistrictCode("");
+				userInfo.setProvenceCode("");
+				userInfo.setCityCode("");
+				userInfo.setPhotoUrl("");
+				userInfo.setUserIntroduce("");
+				userInfo.setUserSex(sex);
+				userInfo.setUserName(loginName);
+				userInfo.setIsDelete(0l);
+				userInfo.setUpdateAt(currentDateTime);
+				userInfo.setUserId(user.getUserId());
+				userInfo.setAddress("");
+				userManager.insertSelective(userInfo);
+
+				resData.setStatus(ExceptionConstants.responseSuccess.responseSuccess.code);
+				resData.setMessage(ExceptionConstants.responseSuccess.responseSuccess.message);
+			} else {
+				resData.setStatus( ExceptionConstants.systemException.systemException.errorCode);
+				resData.setMessage("用户已注册！");
+			}
+			
+			
+			
+		}
+		
+		
+		return resData;
+		
+	}
+	
+	
+	
 	/**
 	 * @author liushuaic
 	 * @date 2015/08/25 17:44 注册用户
