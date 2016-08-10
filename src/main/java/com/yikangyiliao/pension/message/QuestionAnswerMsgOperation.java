@@ -55,8 +55,8 @@ public class QuestionAnswerMsgOperation implements Runnable{
 				
 				String subTitle=question.getTitle().length()>20?question.getTitle().substring(0,20):question.getTitle();
 				
-				String alertTitle=answerUser.getUserName()+" 回答了你的:"+subTitle+" 问题";
-				String alertContent=answerUser.getUserName()+" 回答了你的:"+subTitle+" 问题";
+				String alertTitle="“"+answerUser.getUserName()+"” 回答了你的问题 “"+subTitle+"”";
+				String alertContent="“"+answerUser.getUserName()+"” 回答了你的问题 “"+subTitle+"”";
 				
 				Message<String> message=new Message<String>();
 				message.setAlias(questionUser.getPushAlias());

@@ -373,7 +373,7 @@
 		<result column="createTime" 	property="createTime" />
 		<result column="updateTime" 	property="updateTime" />
 		<result column="userServiceName" property="userServiceName" />
-		<result column="userServiceName" property="userName" />
+		<result column="user_name"		 property="userName" />
 		<result column="mapPositionAddress" property="mapPositionAddress" />
 		<result column="addressDetail" 	property="addressDetail" />
 		<result column="hospital" 		property="hospital" />
@@ -405,6 +405,7 @@
 		select
 		ui.user_sex,
 		ui.birthday,
+		ui.user_name,
 		us.user_id as userId,
 		us.job_category as
 		jobCategory,

@@ -46,11 +46,17 @@ public class ForumPostStarOperation implements Runnable {
 						User user = userManager.getUserByUserId(userId);
 
 						String pushAlias = user.getPushAlias();
+						String alertTitle="有佳友支持了你的";
+						if(formPosts.getForumPostGroup().equals(Byte.valueOf("1"))){
+							alertTitle=alertTitle+"专家说";
+						}else{
+							alertTitle=alertTitle+"帖子";
+						}
 
 						try {
 							Message<String> message = new Message<String>();
 							message.setAlias(pushAlias);
-							message.setContent("文章有新的支持了! " + formPosts.getTitle());
+							message.setContent(alertTitle);
 							MessageQueue.put(message);
 						} catch (Exception e) {
 							e.printStackTrace();

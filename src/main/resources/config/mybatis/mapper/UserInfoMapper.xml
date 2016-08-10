@@ -324,5 +324,15 @@
 		from users inner join forum_posts fp on users.user_id=fp.create_user_id where fp.forum_post_id=#{forumPostId}
 	</select>
   
+  
+  <!--查询用户id根据第三方accountId  -->
+  <select id="getUserIdByThreePartAccountId" parameterType="String" resultMap="BaseResultMap">
+  	select 
+		users.user_id,users.push_alias 
+	from user_infos ui 
+	inner join three_part_accounts tac on ui.user_id=tac.user_id 
+	inner join users on users.user_id=ui.user_id where tac.account_id=#{accountId}
+  </select>
+  
    
 </mapper>

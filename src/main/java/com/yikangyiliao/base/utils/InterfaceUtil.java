@@ -33,178 +33,21 @@ public class InterfaceUtil {
 		mathodServiceConfig=new HashMap<String,YiKangServiceConfige>();
 		
 		
-		serviceClassName.put("0-0","test");
-		mathodClassPath.put("0-0-1","test");
-		
-		/**
-		 * 老人管理
-		 * */
-		serviceClassName.put("00-01", "seniorAccountService");
-		/**
-		 * 保存老人信息
-		 * */
-		mathodClassPath.put("00-01-01","saveSeniorAccount");
-		/**
-		 * @author liushuaic
-		 * 获取某一个老人的信息
-		 * */
-		mathodClassPath.put("00-01-02","getSeniorAccountById");
-		
-		/**
-		 * 查询某一个用户下的所有人
-		 * */
-		mathodClassPath.put("00-01-03","getSeniorAccountByUserId");
-		
-		/**
-		 * @author liushuaic
-		 * 查询邀请患者
-		 * */
-		mathodClassPath.put("00-01-04","getSeniorAccountInfoByInvitationUserId");
-		
-		
-		
-		/**
-		 * @author liushuaic
-		 * @date 2015/12/29  10:33
-		 * @desc 获取某一个用户创建的患者
-		 * 
-		 * **/
-		YiKangServiceConfige getSeniorAccountByClentUserId=new YiKangServiceConfige();
-		getSeniorAccountByClentUserId.setServiceName("seniorAccountService");
-		getSeniorAccountByClentUserId.setMethodName("getSeniorAccountByClentUserId");
-		getSeniorAccountByClentUserId.setIsFileter(false);
-		mathodServiceConfig.put("00-01-05",getSeniorAccountByClentUserId);
-		
-		
-		/**
-		 * @author liushuaic
-		 * @date 2016-03-18 15:48
-		 * @desc 获取我邀请的用户
-		 * */
-		YiKangServiceConfige getMyInvitationUserByUserId=new YiKangServiceConfige();
-		getMyInvitationUserByUserId.setServiceName("seniorAccountService");
-		getMyInvitationUserByUserId.setMethodName("getMyinvitationUserByUserId");
-		getMyInvitationUserByUserId.setIsFileter(true);
-		mathodServiceConfig.put("00-01-06",getMyInvitationUserByUserId);
-		
-		
-		
-		//量表
-		serviceClassName.put("00-02", "scaleService");
-		//档案袋
-		mathodClassPath.put("00-02-01", "saveAssessment");
-		
-		
-		/**
-		 * 生活护理评估
-		 * */
-		serviceClassName.put("00-03", "lifeNurseAssessmentService");
-		mathodClassPath.put("00-03-01", "getQuestionCrosswiseByTableName");
-		mathodClassPath.put("00-03-02", "getQuestionUnitAnswerMapByQuetionCrosswiseId");
-		
-		
-		/**
-		 * 数据保存
-		 * */
-		serviceClassName.put("00-04", "answerService");
-		mathodClassPath.put("00-04-01", "saveAnswer");
-		mathodClassPath.put("00-04-02", "saveAnswerForQuestion");
-		
-		/**
-		 * 老年人跌倒风险评估
-		 * */
-		serviceClassName.put("00-05", "oldManTumbleService");
-		mathodClassPath.put("00-05-01", "getTable");
-		
-		
-		/**
-		 * 疾病评估
-		 * */
-		serviceClassName.put("00-06", "sicknessAssessmentService");
-		mathodClassPath.put("00-06-01", "getTable");
-		
-		/**
-		 * 抑郁评估
-		 * **/
-		serviceClassName.put("00-07", "depressionAssessmentService");
-		mathodClassPath.put("00-07-01", "getTable");
-		
-		
-		/**
-		 * 抑郁自测
-		 * **/
-		serviceClassName.put("00-08", "depressionSelfTestingService");
-		mathodClassPath.put("00-08-01", "getTable");
-		
-		
-		/**
-		 * 老年人常见问题
-		 * **/
-		serviceClassName.put("00-09", "oldManCommonQuestionService");
-		mathodClassPath.put("00-09-01", "getTable");
-		
-		
-		/**
-		 * 感知与沟通
-		 * */ 
-		serviceClassName.put("00-10", "pserceptionCommunicationsService");
-		mathodClassPath.put("00-10-01", "getTable");
-		
-		/**
-		 * 社会参与
-		 * */
-		serviceClassName.put("00-11", "socialParticipationService");
-		mathodClassPath.put("00-11-01", "getTable");
-		
-		/**
-		 * 日常生活
-		 * */
-		serviceClassName.put("00-12", "dailyIndexesService");
-		mathodClassPath.put("00-12-01", "getTable");
-		
-		/**
-		 * 精神状态
-		 */
-		serviceClassName.put("00-13", "mentalIndexesService");
-		mathodClassPath.put("00-13-01", "getTable");
-		
-		/**
-		 * 长谷川
-		 * **/
-		serviceClassName.put("00-14", "alzheimerDiseaseService");
-		mathodClassPath.put("00-14-01", "getTable");
-		
-		
-		/**
-		 * 档案袋管理
-		 * 
-		 * */
-		
-		serviceClassName.put("00-15", "assessmentService");
-		mathodClassPath.put("00-15-01", "saveAssessment");
-		mathodClassPath.put("00-15-02", "getAssessmentBySeniorId");
-		
-		
 		serviceClassName.put("login", "login");
 		mathodClassPath.put("login", "login");
 		
-		/**
-		 * @author liushuaic
-		 * @date 2015/08/18 18:03
-		 * 评估表管理
-		 * */
-		serviceClassName.put("00-16", "surveyTableService");
-		mathodClassPath.put("00-16-01", "getTableList");
-		mathodClassPath.put("00-16-02", "getQuestionsAndAnswersIsCheck");
-		mathodClassPath.put("00-16-03", "getQuestionAndAnswersIsCheckTwo");
-		mathodClassPath.put("00-16-04", "getQuestionAndAnswersIsCheckThree");
+		serviceClassName.put("loginForThreepartLogin", "login");
+		YiKangServiceConfige loginForThreepartLogin=new YiKangServiceConfige();
+		loginForThreepartLogin.setServiceName("login");
+		loginForThreepartLogin.setMethodName("loginForThreepartLogin");
+		loginForThreepartLogin.setIsFileter(false);
+		mathodServiceConfig.put("loginForThreepartLogin",loginForThreepartLogin);
 		
 		
 		/**
 		 * @author liushuaic
 		 * @date 2015/08/26 10:42
 		 * 用户管理
-		 * 
 		 * **/
 		
 		serviceClassName.put("registerUser", "userService");
@@ -213,6 +56,21 @@ public class InterfaceUtil {
 		registUser.setMethodName("registerUser");
 		registUser.setIsFileter(false);
 		mathodServiceConfig.put("registerUser",registUser);
+		
+		
+		/**
+		 * @author liushuaic
+		 * @date 2016-08-08 17:46
+		 * @desc 注册用户
+		 * */
+		serviceClassName.put("insertRegisterUserForThreepart", "userService");
+		YiKangServiceConfige insertRegisterUserForThreepart=new YiKangServiceConfige();
+		insertRegisterUserForThreepart.setServiceName("userService");
+		insertRegisterUserForThreepart.setMethodName("insertRegisterUserForThreepart");
+		insertRegisterUserForThreepart.setIsFileter(false);
+		mathodServiceConfig.put("insertRegisterUserForThreepart", insertRegisterUserForThreepart);
+		
+		
 		
 		serviceClassName.put("registerUserAndSaveServiceInfo", "userService");
 		mathodClassPath.put("registerUserAndSaveServiceInfo", "saveRegisterUserAndSaveServiceInfo");

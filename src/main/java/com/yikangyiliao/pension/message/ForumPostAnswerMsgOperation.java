@@ -51,16 +51,16 @@ public class ForumPostAnswerMsgOperation implements Runnable{
 				UserInfo userInfo=userManager.getUserServiceInfoByForumPostId(fp.getForumPostId());
 				
 				String subForumPostTitle=fp.getTitle().length()>20?fp.getTitle().substring(0,20):fp.getTitle();
-				String title="佳友 “" +createAnswerUserInfo.getUserName()+"” 评论了,你的帖子 ";
+				String title="";
 				
 				// 帖子评论
 				Byte contentGroup=Byte.valueOf("3");
 				//判断是否为文章
 				if(fp.getForumPostGroup().equals(Byte.valueOf("1"))){
 					contentGroup=Byte.valueOf("6");
-					 title="佳友 “" +createAnswerUserInfo.getUserName()+"” 评论了,你的专家说 "+subForumPostTitle+" ";
+					 title="佳友 “" +createAnswerUserInfo.getUserName()+"” 评论了你的专家说 “"+subForumPostTitle+"” ";
 				}else{
-					title=title+ (fp.getContent().length()>20?fp.getContent().substring(0,20):fp.getContent());
+					 title="佳友 “" +createAnswerUserInfo.getUserName()+"” 评论了你的帖子 “"+ (fp.getContent().length()>20?fp.getContent().substring(0,20):fp.getContent())+"”";
 				}
 				//添加  文章回答的 动态信息 
 				messageManager.insertDynamicFollowMessage(createAnswerUserInfo.getUserId(), fp.getCreateUserId(), title, title, fp.getForumPostId(), contentGroup);

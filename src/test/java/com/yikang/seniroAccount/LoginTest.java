@@ -28,4 +28,20 @@ public class LoginTest {
 		
 	}
 	
+	
+	@Test
+	public void TestLoginForThreepartLogin(){
+		
+		try {
+			Map<String,Object> paramData=new HashMap<String, Object>();
+			paramData.put("accountId","17801092532");
+			paramData.put("machineCode","123456");
+			
+			SendRequest.sendPost("loginForThreepartLogin?machineCode='123123'",paramData);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		
+	}
+	
 }

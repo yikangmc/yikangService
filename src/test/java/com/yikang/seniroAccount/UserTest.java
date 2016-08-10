@@ -32,22 +32,54 @@ public class UserTest {
 	public void TestRegisterUser(){
 		try {
 //			for(int i=1;i<51;i++){
+				Map<String,Object> paramData=new HashMap<String, Object>();
+				paramData.put("loginName","13716907545");
+				paramData.put("password","123456");
+				SendRequest.sendPost("registerUser?appId=1",paramData);
+//			}
+//			for(int i=141;i<201;i++){
 //				Map<String,Object> paramData=new HashMap<String, Object>();
-//				paramData.put("loginName","13661177209");
-//				paramData.put("password","1");
+//				paramData.put("loginName","bingren"+i);
+//				paramData.put("password","111111");
 //				SendRequest.sendPost("registerUser?appId=1",paramData);
 //			}
-			for(int i=141;i<201;i++){
-				Map<String,Object> paramData=new HashMap<String, Object>();
-				paramData.put("loginName","bingren"+i);
-				paramData.put("password","111111");
-				SendRequest.sendPost("registerUser?appId=1",paramData);
-			}
 
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
 	}
+	
+	
+	
+	/**
+	 * @author liushuaic
+	 * @date 2015/07/28 12:15
+	 * @desc 测试00-17-01 登陆用户
+	 * */
+	@Test
+	public void resgisterUserForThreepart(){
+		try {
+//			for(int i=1;i<51;i++){
+				Map<String,Object> paramData=new HashMap<String, Object>();
+				paramData.put("userName","test2");
+				paramData.put("gender","m");
+				paramData.put("accountId","123456333ooo");
+				paramData.put("threePartAccountInfo","{user:'sdfsdf',userId:11}");
+				paramData.put("userSource","0");
+				SendRequest.sendPost("insertRegisterUserForThreepart?appId=1",paramData);
+//			}
+//			for(int i=141;i<201;i++){
+//				Map<String,Object> paramData=new HashMap<String, Object>();
+//				paramData.put("loginName","bingren"+i);
+//				paramData.put("password","111111");
+//				SendRequest.sendPost("registerUser?appId=1",paramData);
+//			}
+
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+	
 	
 	
 	/**
