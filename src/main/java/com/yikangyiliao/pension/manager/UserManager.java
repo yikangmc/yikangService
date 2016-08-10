@@ -295,7 +295,7 @@ public class UserManager {
     public int updateUserPositionStatusCheckePass(Long userId){
     	Map<String,Object> paramData=new HashMap<String,Object>();
     	paramData.put("userId",userId);
-    	paramData.put("positionAuditStatus", 2);
+    	paramData.put("positionAuditStatus", 1);
     	return userServiceInfoDao.updateUserPositionStatusCheckePass(paramData);
     }
     
