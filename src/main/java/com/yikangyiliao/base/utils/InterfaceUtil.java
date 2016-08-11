@@ -852,6 +852,13 @@ public class InterfaceUtil {
 		getForumPostTextByUniqueCode.setIsFileter(true);
 		mathodServiceConfig.put("00-43-02", getForumPostTextByUniqueCode);
 		
+		serviceClassName.put("00-44", "updateVersionService");
+		YiKangServiceConfige getUpdateVersionById = new YiKangServiceConfige();
+		getUpdateVersionById.setServiceName("updateVersionService");
+		getUpdateVersionById.setMethodName("selectUpdateVersionById");
+		getUpdateVersionById.setIsFileter(true);
+		mathodServiceConfig.put("00-44-01", getUpdateVersionById);
+		
 	}
 	
 	

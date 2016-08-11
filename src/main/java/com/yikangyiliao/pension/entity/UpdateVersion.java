@@ -19,6 +19,12 @@ public class UpdateVersion {
 
     private Byte mobilePhoneType;
 
+    private Byte forcedToUpdate;
+
+    private String updateInfo;
+
+    private Integer updateNumbers;
+
     public Long getUpdateVersionId() {
         return updateVersionId;
     }
@@ -81,5 +87,29 @@ public class UpdateVersion {
 
     public void setMobilePhoneType(Byte mobilePhoneType) {
         this.mobilePhoneType = mobilePhoneType;
+    }
+
+    public Byte getForcedToUpdate() {
+        return forcedToUpdate;
+    }
+
+    public void setForcedToUpdate(Byte forcedToUpdate) {
+        this.forcedToUpdate = forcedToUpdate;
+    }
+
+    public String getUpdateInfo() {
+        return updateInfo;
+    }
+
+    public void setUpdateInfo(String updateInfo) {
+        this.updateInfo = updateInfo == null ? null : updateInfo.trim();
+    }
+
+    public Integer getUpdateNumbers() {
+        return updateNumbers;
+    }
+
+    public void setUpdateNumbers(Integer updateNumbers) {
+        this.updateNumbers = updateNumbers;
     }
 }
