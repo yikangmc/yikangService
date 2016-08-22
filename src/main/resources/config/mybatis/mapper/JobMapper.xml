@@ -1,0 +1,192 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yikangyiliao.pension.dao.JobDao">
+  <resultMap id="BaseResultMap" type="com.yikangyiliao.pension.entity.Job" >
+    <id column="job_id" property="jobId" jdbcType="BIGINT" />
+    <result column="job_title" property="jobTitle" jdbcType="VARCHAR" />
+    <result column="create_datetime" property="createDatetime" jdbcType="TIMESTAMP" />
+    <result column="update_datetime" property="updateDatetime" jdbcType="TIMESTAMP" />
+    <result column="job_content" property="jobContent" jdbcType="VARCHAR" />
+    <result column="create_user_id" property="createUserId" jdbcType="BIGINT" />
+    <result column="score" property="score" jdbcType="INTEGER" />
+    <result column="job_type" property="jobType" jdbcType="TINYINT" />
+    <result column="of_user_position" property="ofUserPosition" jdbcType="TINYINT" />
+    <result column="is_auto_distribution" property="isAutoDistribution" jdbcType="TINYINT" />
+    <result column="job_unique_code" property="jobUniqueCode" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    job_id, job_title, create_datetime, update_datetime, job_content, create_user_id, 
+    score, job_type, of_user_position, is_auto_distribution, job_unique_code
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from jobs
+    where job_id = #{jobId,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from jobs
+    where job_id = #{jobId,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.yikangyiliao.pension.entity.Job" >
+    insert into jobs (job_id, job_title, create_datetime, 
+      update_datetime, job_content, create_user_id, 
+      score, job_type, of_user_position, 
+      is_auto_distribution, job_unique_code)
+    values (#{jobId,jdbcType=BIGINT}, #{jobTitle,jdbcType=VARCHAR}, #{createDatetime,jdbcType=TIMESTAMP}, 
+      #{updateDatetime,jdbcType=TIMESTAMP}, #{jobContent,jdbcType=VARCHAR}, #{createUserId,jdbcType=BIGINT}, 
+      #{score,jdbcType=INTEGER}, #{jobType,jdbcType=TINYINT}, #{ofUserPosition,jdbcType=TINYINT}, 
+      #{isAutoDistribution,jdbcType=TINYINT}, #{jobUniqueCode,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.yikangyiliao.pension.entity.Job" >
+    insert into jobs
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="jobId != null" >
+        job_id,
+      </if>
+      <if test="jobTitle != null" >
+        job_title,
+      </if>
+      <if test="createDatetime != null" >
+        create_datetime,
+      </if>
+      <if test="updateDatetime != null" >
+        update_datetime,
+      </if>
+      <if test="jobContent != null" >
+        job_content,
+      </if>
+      <if test="createUserId != null" >
+        create_user_id,
+      </if>
+      <if test="score != null" >
+        score,
+      </if>
+      <if test="jobType != null" >
+        job_type,
+      </if>
+      <if test="ofUserPosition != null" >
+        of_user_position,
+      </if>
+      <if test="isAutoDistribution != null" >
+        is_auto_distribution,
+      </if>
+      <if test="jobUniqueCode != null" >
+        job_unique_code,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="jobId != null" >
+        #{jobId,jdbcType=BIGINT},
+      </if>
+      <if test="jobTitle != null" >
+        #{jobTitle,jdbcType=VARCHAR},
+      </if>
+      <if test="createDatetime != null" >
+        #{createDatetime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateDatetime != null" >
+        #{updateDatetime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="jobContent != null" >
+        #{jobContent,jdbcType=VARCHAR},
+      </if>
+      <if test="createUserId != null" >
+        #{createUserId,jdbcType=BIGINT},
+      </if>
+      <if test="score != null" >
+        #{score,jdbcType=INTEGER},
+      </if>
+      <if test="jobType != null" >
+        #{jobType,jdbcType=TINYINT},
+      </if>
+      <if test="ofUserPosition != null" >
+        #{ofUserPosition,jdbcType=TINYINT},
+      </if>
+      <if test="isAutoDistribution != null" >
+        #{isAutoDistribution,jdbcType=TINYINT},
+      </if>
+      <if test="jobUniqueCode != null" >
+        #{jobUniqueCode,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.yikangyiliao.pension.entity.Job" >
+    update jobs
+    <set >
+      <if test="jobTitle != null" >
+        job_title = #{jobTitle,jdbcType=VARCHAR},
+      </if>
+      <if test="createDatetime != null" >
+        create_datetime = #{createDatetime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateDatetime != null" >
+        update_datetime = #{updateDatetime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="jobContent != null" >
+        job_content = #{jobContent,jdbcType=VARCHAR},
+      </if>
+      <if test="createUserId != null" >
+        create_user_id = #{createUserId,jdbcType=BIGINT},
+      </if>
+      <if test="score != null" >
+        score = #{score,jdbcType=INTEGER},
+      </if>
+      <if test="jobType != null" >
+        job_type = #{jobType,jdbcType=TINYINT},
+      </if>
+      <if test="ofUserPosition != null" >
+        of_user_position = #{ofUserPosition,jdbcType=TINYINT},
+      </if>
+      <if test="isAutoDistribution != null" >
+        is_auto_distribution = #{isAutoDistribution,jdbcType=TINYINT},
+      </if>
+      <if test="jobUniqueCode != null" >
+        job_unique_code = #{jobUniqueCode,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where job_id = #{jobId,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.yikangyiliao.pension.entity.Job" >
+    update jobs
+    set job_title = #{jobTitle,jdbcType=VARCHAR},
+      create_datetime = #{createDatetime,jdbcType=TIMESTAMP},
+      update_datetime = #{updateDatetime,jdbcType=TIMESTAMP},
+      job_content = #{jobContent,jdbcType=VARCHAR},
+      create_user_id = #{createUserId,jdbcType=BIGINT},
+      score = #{score,jdbcType=INTEGER},
+      job_type = #{jobType,jdbcType=TINYINT},
+      of_user_position = #{ofUserPosition,jdbcType=TINYINT},
+      is_auto_distribution = #{isAutoDistribution,jdbcType=TINYINT},
+      job_unique_code = #{jobUniqueCode,jdbcType=VARCHAR}
+    where job_id = #{jobId,jdbcType=BIGINT}
+  </update>
+  
+  
+  
+  
+  <!-- 获取日常任务 -->
+  <resultMap id="getUsualJobResultMap" type="com.yikangyiliao.pension.entity.Job" extends="BaseResultMap">
+  	<result column="jobState" property="jobState"></result>
+  </resultMap>
+  <select id="getUsualJob" resultMap="BaseResultMap" parameterType="long">
+  	select 
+  		jobs.*,if(ifnull(integrals.integral_id,0)>0,1,0) as jobState 
+  	from jobs left join integrals on ( job_id=integrals.jobs_id and owner_user_id =#{userId})
+  	where job_type=1
+  </select>
+  
+  <!-- 获取一次性任务 -->
+  <resultMap id="getONCEJobResultMap" type="com.yikangyiliao.pension.entity.Job" extends="BaseResultMap">
+  	<result column="jobState" property="jobState"></result>
+  </resultMap>
+  <select id="getONCEJob" resultMap="getONCEJobResultMap" parameterType="long">
+  	select 
+  		jobs.*,if(ifnull(integrals.integral_id,0)>0,1,0) as jobState 
+  	from jobs left join integrals on( job_id=integrals.jobs_id and owner_user_id =#{userId})
+  	where job_type=0
+  </select>
+  
+  
+  
+</mapper>

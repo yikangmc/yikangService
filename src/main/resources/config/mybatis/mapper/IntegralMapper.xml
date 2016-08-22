@@ -1,0 +1,180 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yikangyiliao.pension.dao.IntegralDao">
+  <resultMap id="BaseResultMap" type="com.yikangyiliao.pension.entity.Integral" >
+    <id column="integral_id" property="integralId" jdbcType="BIGINT" />
+    <result column="jobs_id" property="jobsId" jdbcType="BIGINT" />
+    <result column="score" property="score" jdbcType="INTEGER" />
+    <result column="create_datetime" property="createDatetime" jdbcType="TIMESTAMP" />
+    <result column="update_datetime" property="updateDatetime" jdbcType="TIMESTAMP" />
+    <result column="create_user_id" property="createUserId" jdbcType="BIGINT" />
+    <result column="job_group" property="jobGroup" jdbcType="TINYINT" />
+    <result column="job_state" property="jobState" jdbcType="TINYINT" />
+    <result column="integral_type" property="integralType" jdbcType="TINYINT" />
+    <result column="owner_user_id" property="ownerUserId" jdbcType="BIGINT" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    integral_id, jobs_id, score, create_datetime, update_datetime, create_user_id, job_group, 
+    job_state, integral_type, owner_user_id
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from integrals
+    where integral_id = #{integralId,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from integrals
+    where integral_id = #{integralId,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.yikangyiliao.pension.entity.Integral" >
+    insert into integrals (integral_id, jobs_id, score, 
+      create_datetime, update_datetime, create_user_id, 
+      job_group, job_state, integral_type, 
+      owner_user_id)
+    values (#{integralId,jdbcType=BIGINT}, #{jobsId,jdbcType=BIGINT}, #{score,jdbcType=INTEGER}, 
+      #{createDatetime,jdbcType=TIMESTAMP}, #{updateDatetime,jdbcType=TIMESTAMP}, #{createUserId,jdbcType=BIGINT}, 
+      #{jobGroup,jdbcType=TINYINT}, #{jobState,jdbcType=TINYINT}, #{integralType,jdbcType=TINYINT}, 
+      #{ownerUserId,jdbcType=BIGINT})
+  </insert>
+  <insert id="insertSelective" parameterType="com.yikangyiliao.pension.entity.Integral" >
+    insert into integrals
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="integralId != null" >
+        integral_id,
+      </if>
+      <if test="jobsId != null" >
+        jobs_id,
+      </if>
+      <if test="score != null" >
+        score,
+      </if>
+      <if test="createDatetime != null" >
+        create_datetime,
+      </if>
+      <if test="updateDatetime != null" >
+        update_datetime,
+      </if>
+      <if test="createUserId != null" >
+        create_user_id,
+      </if>
+      <if test="jobGroup != null" >
+        job_group,
+      </if>
+      <if test="jobState != null" >
+        job_state,
+      </if>
+      <if test="integralType != null" >
+        integral_type,
+      </if>
+      <if test="ownerUserId != null" >
+        owner_user_id,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="integralId != null" >
+        #{integralId,jdbcType=BIGINT},
+      </if>
+      <if test="jobsId != null" >
+        #{jobsId,jdbcType=BIGINT},
+      </if>
+      <if test="score != null" >
+        #{score,jdbcType=INTEGER},
+      </if>
+      <if test="createDatetime != null" >
+        #{createDatetime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateDatetime != null" >
+        #{updateDatetime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createUserId != null" >
+        #{createUserId,jdbcType=BIGINT},
+      </if>
+      <if test="jobGroup != null" >
+        #{jobGroup,jdbcType=TINYINT},
+      </if>
+      <if test="jobState != null" >
+        #{jobState,jdbcType=TINYINT},
+      </if>
+      <if test="integralType != null" >
+        #{integralType,jdbcType=TINYINT},
+      </if>
+      <if test="ownerUserId != null" >
+        #{ownerUserId,jdbcType=BIGINT},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.yikangyiliao.pension.entity.Integral" >
+    update integrals
+    <set >
+      <if test="jobsId != null" >
+        jobs_id = #{jobsId,jdbcType=BIGINT},
+      </if>
+      <if test="score != null" >
+        score = #{score,jdbcType=INTEGER},
+      </if>
+      <if test="createDatetime != null" >
+        create_datetime = #{createDatetime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateDatetime != null" >
+        update_datetime = #{updateDatetime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createUserId != null" >
+        create_user_id = #{createUserId,jdbcType=BIGINT},
+      </if>
+      <if test="jobGroup != null" >
+        job_group = #{jobGroup,jdbcType=TINYINT},
+      </if>
+      <if test="jobState != null" >
+        job_state = #{jobState,jdbcType=TINYINT},
+      </if>
+      <if test="integralType != null" >
+        integral_type = #{integralType,jdbcType=TINYINT},
+      </if>
+      <if test="ownerUserId != null" >
+        owner_user_id = #{ownerUserId,jdbcType=BIGINT},
+      </if>
+    </set>
+    where integral_id = #{integralId,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.yikangyiliao.pension.entity.Integral" >
+    update integrals
+    set jobs_id = #{jobsId,jdbcType=BIGINT},
+      score = #{score,jdbcType=INTEGER},
+      create_datetime = #{createDatetime,jdbcType=TIMESTAMP},
+      update_datetime = #{updateDatetime,jdbcType=TIMESTAMP},
+      create_user_id = #{createUserId,jdbcType=BIGINT},
+      job_group = #{jobGroup,jdbcType=TINYINT},
+      job_state = #{jobState,jdbcType=TINYINT},
+      integral_type = #{integralType,jdbcType=TINYINT},
+      owner_user_id = #{ownerUserId,jdbcType=BIGINT}
+    where integral_id = #{integralId,jdbcType=BIGINT}
+  </update>
+  
+  <!-- 查询我的总积分 -->
+  <select id="getMytotalScore" resultType="long" parameterType="long">
+  	select 
+  		sum(score) as totalScore from integrals 
+    where integral_type=1 and job_state=2 and owner_user_id=#{userId}
+  </select>
+  
+  <!-- 查询我减去的积分 -->
+  <select id="getDeductScore" resultType="long" parameterType="long">
+  	select 
+  		sum(score) as deductScore from integrals 
+	where integral_type=0 and job_state=2  and owner_user_id=#{userId}
+  </select>
+  
+  
+  <!--查询我的某一个任务的积分领取状态  -->
+  <select id="getIntegralJobstateByIntegralId" parameterType="long" resultType="Integer">
+  	select job_state from integrals where  integral_id = #{integralId,jdbcType=BIGINT}
+  </select>
+  
+  <!-- 修改积分状态为已经领取 -->
+  <update id="udpateIntegralJobStateIsRecived" parameterType="long">
+  	update integrals set job_state=2 where integral_id = #{integralId,jdbcType=BIGINT}
+  </update>
+  
+  
+</mapper>
