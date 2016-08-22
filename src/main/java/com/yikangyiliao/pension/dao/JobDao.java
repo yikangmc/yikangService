@@ -31,6 +31,12 @@ public interface JobDao {
      * @desc 获取一次执行的任务
      * */
     List<Job> getONCEJob(Long userId);
-    
+
+    /**
+     * @author liushuaic
+     * @date 2016-08-22 16:32
+     * @desc 根据任务的唯一标识，查询出任务
+     * **/
+    Job selectJobByJobUniqueCode(String jobUniqueCode);
     
 }

@@ -15,6 +15,8 @@ import com.yikangyiliao.pension.common.page.PageParameter;
 import com.yikangyiliao.pension.common.response.ResponseMessage;
 import com.yikangyiliao.pension.entity.Question;
 import com.yikangyiliao.pension.entity.QuestionAnswer;
+import com.yikangyiliao.pension.manager.IntegralManager;
+import com.yikangyiliao.pension.manager.JobManager;
 import com.yikangyiliao.pension.manager.QuestionAnswerManager;
 import com.yikangyiliao.pension.manager.QuestionManager;
 import com.yikangyiliao.pension.manager.UserManager;
@@ -31,6 +33,12 @@ public class QuestionService {
 	@Autowired
 	private UserManager userManager;
 	
+	
+	@Autowired
+	private JobManager jobManager;
+	
+	@Autowired
+	private IntegralManager integralManager;
 	
 	
 	/**
