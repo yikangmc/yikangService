@@ -2,6 +2,9 @@ package com.yikangyiliao.pension.manager;
 
 import java.util.Calendar;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -94,24 +97,43 @@ public class IntegralManager {
      * @date 2016-08-22 16:39
      * @desc 添加积分信息  加积分
      * @param jobUniqueCode  任务唯一编号 
-     * @param jobSate 0:未完成 1：已完成，带领取 2：已领取 
      * @param ownerUserId  用户id
+     * 
+     * @return if return 0 已经做了一次性任务
+     *         if return >0  添加成功
      * */
-    public Integer insertIntegralAddScoreIsONCEJob(String jobUniqueCode,Byte jobState,Long ownerUserId){
+    public Integer insertIntegralAddScoreIsONCEJob(String jobUniqueCode,Long ownerUserId){
+    	Map<String,Object> paramMap=new HashMap<String,Object>();
+    	paramMap.put("jobUniqueCode", jobUniqueCode);
+    	paramMap.put("userId", ownerUserId);
+        List<Integral>	integrals=integralDao.getIntegralByJobUniqueCodeAndUserId(paramMap);
+    	if(null == integrals  || integrals.size()==0){
+        	Job job=jobDao.selectJobByJobUniqueCode(jobUniqueCode);
+        	Date currentDate=Calendar.getInstance().getTime();
+        	Byte isAutoDistribution=job.getIsAutoDistribution();
+        	Integral integral=new Integral();
+        	integral.setJobsId(job.getJobId());
+        	Byte jobState=new Byte("1");
+        	if(null != isAutoDistribution){
+        		if(isAutoDistribution.equals(new Byte("0"))){
+        			integral.setJobState(jobState);
+        		}else if(isAutoDistribution.equals(new Byte("1"))){
+        			jobState=new Byte("2");
+        			integral.setJobState(jobState);
+        		}
+        	}else{
+        		integral.setJobState(jobState);
+        	}
+        	integral.setOwnerUserId(ownerUserId);
+        	integral.setJobGroup(new Byte("1"));
+        	integral.setScore(job.getScore());
+        	integral.setIntegralType(new Byte("1"));
+        	integral.setCreateDatetime(currentDate);
+        	integral.setUpdateDatetime(currentDate);
+        	return integralDao.insertSelective(integral);
+    	}
+    	return 0;
     	
-    	Job job=jobDao.selectJobByJobUniqueCode(jobUniqueCode);
-    	Date currentDate=Calendar.getInstance().getTime();
-    	
-    	Integral integral=new Integral();
-    	integral.setJobsId(job.getJobId());
-    	integral.setJobState(jobState);
-    	integral.setOwnerUserId(ownerUserId);
-    	integral.setJobGroup(new Byte("1"));
-    	integral.setScore(job.getScore());
-    	integral.setIntegralType(new Byte("1"));
-    	integral.setCreateDatetime(currentDate);
-    	integral.setUpdateDatetime(currentDate);
-    	return integralDao.insertSelective(integral);
     }
     
     /**

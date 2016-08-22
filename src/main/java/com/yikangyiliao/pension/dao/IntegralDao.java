@@ -1,5 +1,8 @@
 package com.yikangyiliao.pension.dao;
 
+import java.util.List;
+import java.util.Map;
+
 import com.yikangyiliao.pension.entity.Integral;
 
 public interface IntegralDao {
@@ -46,4 +49,13 @@ public interface IntegralDao {
      * 
      * */
     Integer udpateIntegralJobStateIsRecived(Long integralId);
+    
+    
+    /**
+     * @author liushuaic
+     * @date 2016-08-22 18:05
+     * @desc 获取积分记录，根据任务唯一编号 与  用户id
+     * 
+     * */
+    List<Integral> getIntegralByJobUniqueCodeAndUserId(Map<String,Object> paramMap);
 }

@@ -151,6 +151,15 @@
     where integral_id = #{integralId,jdbcType=BIGINT}
   </update>
   
+  
+  <!-- 获取我做的做一类任务 -->
+  <select id="getIntegralByJobUniqueCodeAndUserId" resultMap="BaseResultMap" parameterMap="map">
+  	select
+  		integrals.*
+  	from integrals inner join jobs on integrals.jobs_id=jobs.job_id
+  	where jobs.job_unique_code=#{jobUniqueCode} and integrals.owner_user_id=#{userId}
+  </select>
+  
   <!-- 查询我的总积分 -->
   <select id="getMytotalScore" resultType="long" parameterType="long">
   	select 
