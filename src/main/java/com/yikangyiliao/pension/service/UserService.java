@@ -29,6 +29,7 @@ import com.yikangyiliao.pension.entity.UserFrom;
 import com.yikangyiliao.pension.entity.UserInfo;
 import com.yikangyiliao.pension.entity.UserModel;
 import com.yikangyiliao.pension.entity.UserServiceInfo;
+import com.yikangyiliao.pension.manager.IntegralManager;
 import com.yikangyiliao.pension.manager.LocationManager;
 import com.yikangyiliao.pension.manager.ThreePartAccountManager;
 import com.yikangyiliao.pension.manager.UserAdeptMapManager;
@@ -49,6 +50,9 @@ public class UserService {
 
 	@Autowired
 	private UserFromManager userFromManager;
+	
+	@Autowired
+	private IntegralManager integralManager;
 
 //	@Autowired
 //	private OfficeManager officeManager;
@@ -297,6 +301,7 @@ public class UserService {
 			
 			String userName=paramData.get("userName").toString();
 			String gender=paramData.get("gender").toString();
+			String wxsex = paramData.get("sex").toString();
 			String accountId=paramData.get("accountId").toString();
 			String threePartAccountInfo=paramData.get("threePartAccountInfo").toString();
 			Byte userSource=Byte.valueOf(paramData.get("userSource").toString());
@@ -310,6 +315,15 @@ public class UserService {
 					sex=Byte.valueOf("2");
 				}
 			}
+			
+			if(wxsex.length()==1){
+				if(wxsex.equals("1")){
+					sex=Byte.valueOf("1");
+				}else if(wxsex.equals("2")){
+					sex=Byte.valueOf("2");
+				}
+			}
+			
 			
 		
 
@@ -898,10 +912,12 @@ public class UserService {
 			userServiceInfo.setAddressDetail(addressDetail);
 		}
 
+		//上传头像
 		if (paramData.containsKey("photoUrl")) {
 			String photoUrl = paramData.get("photoUrl").toString();
 			userServiceInfo.setPhotoUrl(photoUrl);
 			userInfo.setPhotoUrl(photoUrl);
+			integralManager.insertIntegralAddScoreIsONCEJob("HSXTX", Long.valueOf(userId));
 		}
 
 		if (paramData.containsKey("userPosition")) {
@@ -1033,6 +1049,7 @@ public class UserService {
 		if(paramData.containsKey("designationId")){
 			Long designationId=Long.valueOf(paramData.get("designationId").toString());
 			userInfo.setDesignationId(designationId);
+			integralManager.insertIntegralAddScoreIsONCEJob("TGFH", Long.valueOf(userId));
 		}
 		
 		userInfo.setUserId(Long.valueOf(userId));

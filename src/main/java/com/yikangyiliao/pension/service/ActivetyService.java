@@ -18,6 +18,7 @@ import com.yikangyiliao.pension.entity.Activety;
 import com.yikangyiliao.pension.entity.ActivetyComment;
 import com.yikangyiliao.pension.manager.ActivetyCommentManager;
 import com.yikangyiliao.pension.manager.ActivetyManager;
+import com.yikangyiliao.pension.manager.IntegralManager;
 import com.yikangyiliao.pension.manager.UserActivetyListManager;
 
 @Service(value="activetyService")
@@ -33,6 +34,9 @@ public class ActivetyService {
 	
 	@Autowired
 	private ActivetyCommentManager activetyCommentManager;
+	
+	@Autowired
+	private IntegralManager integralManager;
 	
 	
 	/**
@@ -169,7 +173,8 @@ public class ActivetyService {
 			}
 			
 			activetyManager.insertActivety(title,content,startTime,endTime,entryStartTime,entryEndTime,lng,lat,personNumber,cost,taglibIds,mapPositionAddress,detailAddress,districtCode,userId,activetyMode,recommendPicUrl);
-			
+			integralManager.insertIntegralAddScoreIsONCEJob("FBHD",userId);
+			integralManager.insertIntegralAddScoreIsUsualJob("FBHD",Byte.valueOf("2"),userId);
 		}else{
 			resData.setStatus(ExceptionConstants.parameterException.parameterException.errorCode);
 			resData.setMessage(ExceptionConstants.parameterException.parameterException.errorMessage);

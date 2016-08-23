@@ -20,12 +20,14 @@ import com.yikangyiliao.pension.dao.FormPostsDao;
 import com.yikangyiliao.pension.dao.FormPostsStarListDao;
 import com.yikangyiliao.pension.dao.FormPostsTaglibsMapDao;
 import com.yikangyiliao.pension.dao.ForumPostDetailDao;
+import com.yikangyiliao.pension.dao.JobDao;
 import com.yikangyiliao.pension.dao.TaglibDao;
 import com.yikangyiliao.pension.entity.FormPosts;
 import com.yikangyiliao.pension.entity.FormPostsStarList;
 import com.yikangyiliao.pension.entity.FormPostsTaglibsMap;
 import com.yikangyiliao.pension.entity.ForumPostDetail;
 import com.yikangyiliao.pension.entity.ForumPostsImage;
+import com.yikangyiliao.pension.entity.Job;
 import com.yikangyiliao.pension.entity.Taglib;
 import com.yikangyiliao.pension.entity.UserServiceInfo;
 
@@ -49,6 +51,9 @@ public class FormPostManager {
 	
 	@Autowired
 	private TaglibDao taglibDao;
+	
+	@Autowired
+	private JobDao jobDao;
 
 	
 	private Logger logger=LoggerFactory.getLogger(FormPostManager.class);
@@ -133,8 +138,6 @@ public class FormPostManager {
 			forumPostsImage.setImageUrl(img);
 			forumPostsImageManager.insertSelective(forumPostsImage);
 		}
-		
-		
 		try{
 			OperationMessage operationMessage=new OperationMessage();
 			operationMessage.setContent(formPosts.getForumPostId().toString());

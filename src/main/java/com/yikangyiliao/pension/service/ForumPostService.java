@@ -20,6 +20,7 @@ import com.yikangyiliao.pension.entity.FormPosts;
 import com.yikangyiliao.pension.manager.FormPostManager;
 import com.yikangyiliao.pension.manager.ForumPostTxtEditorManager;
 import com.yikangyiliao.pension.manager.ForumPostsAnswerManager;
+import com.yikangyiliao.pension.manager.IntegralManager;
 
 @Service(value="forumPostService")
 public class ForumPostService {
@@ -37,6 +38,9 @@ public class ForumPostService {
 	
 	@Autowired
 	private ForumPostDetailDao forumPostDetailDao;
+	
+	@Autowired
+	private IntegralManager integralManager;
 	
 	
     /**
@@ -69,7 +73,7 @@ public class ForumPostService {
     /**
      * @author liushuaic
      * @date 2016-04-27 16:33
-     * @desc 发布文章
+     * @desc 发布帖子
      * 
      * */
     public  ResponseMessage<List<FormPosts>> insertPublishForumPosts(Map<String,Object> paramData){
@@ -97,6 +101,8 @@ public class ForumPostService {
     				tags[i]=Long.valueOf(taglibIds.get(i).toString());
     			}
     			formPostManager.insertPublishFormPosts(title,content,tags,Long.valueOf(userId),imgs);
+    			integralManager.insertIntegralAddScoreIsONCEJob("FGTZ", Long.valueOf(userId));
+    			integralManager.insertIntegralAddScoreIsUsualJob("FGTZ", Byte.valueOf("2"), Long.valueOf(userId));
     		}else{
     			res.setStatus(ExceptionConstants.parameterException.parameterException.errorCode);
         		res.setMessage(ExceptionConstants.parameterException.parameterException.errorMessage);
@@ -110,7 +116,7 @@ public class ForumPostService {
 	/**
 	 * @author liushuaic
 	 * @date 2016-04-27 16:33
-	 * @desc 发布文章
+	 * @desc 发布专业文章
 	 *
 	 * */
 	public  ResponseMessage<List<FormPosts>> insertPerformencePublishForumPosts(Map<String,Object> paramData){
@@ -144,6 +150,8 @@ public class ForumPostService {
 				tags[i]=Long.valueOf(taglibIds.get(i).toString());
 			}
 			 formPostManager.insertPerformencePublishForumPosts(title,forumPostDetailContent,forumPostHtmlDetailContent,tags,Long.valueOf(userId),imgs,recommendPicUrl);
+			 integralManager.insertIntegralAddScoreIsONCEJob("FBZJS",Long.valueOf(userId));
+			 integralManager.insertIntegralAddScoreIsUsualJob("FBZJS",Byte.valueOf("2"),Long.valueOf(userId));
 		}else{
 			res.setStatus(ExceptionConstants.parameterException.parameterException.errorCode);
 			res.setMessage(ExceptionConstants.parameterException.parameterException.errorMessage);
@@ -190,7 +198,7 @@ public class ForumPostService {
     /**
      * @author liushuaic
      * @date 2016-04-27 17:36
-     * @desc 文章回复
+     * @desc 文章/帖子回复
      * @param fourmPostId
      * @param answerText
      * 
@@ -218,6 +226,8 @@ public class ForumPostService {
         			answerTo=YKConstants.AnswerTo.AnswerToFormPosts.getValue();
         		}
         		forumPostsAnswerManager.insertSelective(content,Long.valueOf(createUserId),Long.valueOf(formPostId),toUserId,answerTo);
+        		integralManager.insertIntegralAddScoreIsONCEJob("PLTZ",Long.valueOf(toUserId));
+        		integralManager.insertIntegralAddScoreIsUsualJob("PLTZ",Byte.valueOf("2"),Long.valueOf(toUserId));
     		}
 
     		
