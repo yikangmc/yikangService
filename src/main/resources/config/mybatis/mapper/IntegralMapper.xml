@@ -153,7 +153,7 @@
   
   
   <!-- 获取我做的做一类任务 -->
-  <select id="getIntegralByJobUniqueCodeAndUserId" resultMap="BaseResultMap" parameterMap="map">
+  <select id="getIntegralByJobUniqueCodeAndUserId" resultMap="BaseResultMap" parameterType="map">
   	select
   		integrals.*
   	from integrals inner join jobs on integrals.jobs_id=jobs.job_id
