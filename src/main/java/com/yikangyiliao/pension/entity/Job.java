@@ -1,6 +1,6 @@
 package com.yikangyiliao.pension.entity;
 
-import java.util.Date;
+import java.util.Date; 
 
 public class Job {
     private Long jobId;
