@@ -1,292 +1,313 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="com.yikangyiliao.pension.dao.QuestionAnswerDao" >
-  <resultMap id="BaseResultMap" type="com.yikangyiliao.pension.entity.QuestionAnswer" >
-    <id column="question_answer_id" property="questionAnswerId" jdbcType="BIGINT" />
-    <result column="create_user_id" property="createUserId" jdbcType="BIGINT" />
-    <result column="data_source" property="dataSource" jdbcType="TINYINT" />
-    <result column="content" property="content" jdbcType="VARCHAR" />
-    <result column="question_id" property="questionId" jdbcType="BIGINT" />
-    <result column="star_num" property="starNum" jdbcType="INTEGER" />
-    <result column="is_recommend" property="isRecommend" jdbcType="TINYINT" />
-    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
-    <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
-  </resultMap>
-  <sql id="Base_Column_List" >
-    question_answer_id, create_user_id, data_source, content, question_id, star_num, 
-    is_recommend, create_time, update_time
-  </sql>
-  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
-    select 
-    <include refid="Base_Column_List" />
-    from question_answers
-    where question_answer_id = #{questionAnswerId,jdbcType=BIGINT}
-  </select>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
-    delete from question_answers
-    where question_answer_id = #{questionAnswerId,jdbcType=BIGINT}
-  </delete>
-  <insert id="insert" parameterType="com.yikangyiliao.pension.entity.QuestionAnswer" >
-  	<selectKey resultType="Long" keyProperty="questionAnswerId" order="AFTER">
-		SELECT LAST_INSERT_ID()
-	</selectKey>
-    insert into question_answers (question_answer_id, create_user_id, data_source, 
-      content, question_id, star_num, 
-      is_recommend, create_time, update_time
-      )
-    values (#{questionAnswerId,jdbcType=BIGINT}, #{createUserId,jdbcType=BIGINT}, #{dataSource,jdbcType=TINYINT}, 
-      #{content,jdbcType=VARCHAR}, #{questionId,jdbcType=BIGINT}, #{starNum,jdbcType=INTEGER}, 
-      #{isRecommend,jdbcType=TINYINT}, #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP}
-      )
-  </insert>
-  <insert id="insertSelective" parameterType="com.yikangyiliao.pension.entity.QuestionAnswer" >
-  	
-  	<selectKey resultType="Long" keyProperty="questionAnswerId" order="AFTER">
-		SELECT LAST_INSERT_ID()
-	</selectKey>
-  	
-    insert into question_answers
-    <trim prefix="(" suffix=")" suffixOverrides="," >
-      <if test="questionAnswerId != null" >
-        question_answer_id,
-      </if>
-      <if test="createUserId != null" >
-        create_user_id,
-      </if>
-      <if test="dataSource != null" >
-        data_source,
-      </if>
-      <if test="content != null" >
-        content,
-      </if>
-      <if test="questionId != null" >
-        question_id,
-      </if>
-      <if test="starNum != null" >
-        star_num,
-      </if>
-      <if test="isRecommend != null" >
-        is_recommend,
-      </if>
-      <if test="createTime != null" >
-        create_time,
-      </if>
-      <if test="updateTime != null" >
-        update_time,
-      </if>
-    </trim>
-    <trim prefix="values (" suffix=")" suffixOverrides="," >
-      <if test="questionAnswerId != null" >
-        #{questionAnswerId,jdbcType=BIGINT},
-      </if>
-      <if test="createUserId != null" >
-        #{createUserId,jdbcType=BIGINT},
-      </if>
-      <if test="dataSource != null" >
-        #{dataSource,jdbcType=TINYINT},
-      </if>
-      <if test="content != null" >
-        #{content,jdbcType=VARCHAR},
-      </if>
-      <if test="questionId != null" >
-        #{questionId,jdbcType=BIGINT},
-      </if>
-      <if test="starNum != null" >
-        #{starNum,jdbcType=INTEGER},
-      </if>
-      <if test="isRecommend != null" >
-        #{isRecommend,jdbcType=TINYINT},
-      </if>
-      <if test="createTime != null" >
-        #{createTime,jdbcType=TIMESTAMP},
-      </if>
-      <if test="updateTime != null" >
-        #{updateTime,jdbcType=TIMESTAMP},
-      </if>
-    </trim>
-  </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="com.yikangyiliao.pension.entity.QuestionAnswer" >
-    update question_answers
-    <set >
-      <if test="createUserId != null" >
-        create_user_id = #{createUserId,jdbcType=BIGINT},
-      </if>
-      <if test="dataSource != null" >
-        data_source = #{dataSource,jdbcType=TINYINT},
-      </if>
-      <if test="content != null" >
-        content = #{content,jdbcType=VARCHAR},
-      </if>
-      <if test="questionId != null" >
-        question_id = #{questionId,jdbcType=BIGINT},
-      </if>
-      <if test="starNum != null" >
-        star_num = #{starNum,jdbcType=INTEGER},
-      </if>
-      <if test="isRecommend != null" >
-        is_recommend = #{isRecommend,jdbcType=TINYINT},
-      </if>
-      <if test="createTime != null" >
-        create_time = #{createTime,jdbcType=TIMESTAMP},
-      </if>
-      <if test="updateTime != null" >
-        update_time = #{updateTime,jdbcType=TIMESTAMP},
-      </if>
-    </set>
-    where question_answer_id = #{questionAnswerId,jdbcType=BIGINT}
-  </update>
-  <update id="updateByPrimaryKey" parameterType="com.yikangyiliao.pension.entity.QuestionAnswer" >
-    update question_answers
-    set create_user_id = #{createUserId,jdbcType=BIGINT},
-      data_source = #{dataSource,jdbcType=TINYINT},
-      content = #{content,jdbcType=VARCHAR},
-      question_id = #{questionId,jdbcType=BIGINT},
-      star_num = #{starNum,jdbcType=INTEGER},
-      is_recommend = #{isRecommend,jdbcType=TINYINT},
-      create_time = #{createTime,jdbcType=TIMESTAMP},
-      update_time = #{updateTime,jdbcType=TIMESTAMP}
-    where question_answer_id = #{questionAnswerId,jdbcType=BIGINT}
-  </update>
-  
-  <!-- 支持问题回复 -->
-  <update id="updateQuestionAnsweStartup" parameterType="long">
-  	update question_answers set star_num=star_num+1 where question_answer_id=#{questionAnswerId}
-  </update>
-  
-  <!-- 取消问题支持 -->
-  <update id="updateQuestionAnswerdown" parameterType="long">
-  	update question_answers set star_num=star_num-1 where question_answer_id=#{questionAnswerId}
-  </update>
-  
-  <!-- 查询某一个问题的所有回复 -->
-  <resultMap type="com.yikangyiliao.pension.entity.QuestionAnswer" extends="BaseResultMap" id="selectQuestionAnswerResultMap">
-  	<result column="isStar" property="isStar"/>
-  	<result column="user_name" property="userName"/>
-  	<result column="photo_url" property="photoUrl"/>
-  	<result column="user_position" property="userPosition"/>
-  	<association property="question" javaType="com.yikangyiliao.pension.entity.Question">
-  		<result column="title" property="title"/>
-  	</association>
-  </resultMap>
-  <select id="selectQuestionAnswer" parameterType="map" resultMap="selectQuestionAnswerResultMap">
-	<if test="userId eq null">
-	  	  select
-	  		question_answers.*,
-	  		    ui.user_name,
-    			ui.photo_url,
-    			usi.user_position
-	  	from question_answers left join user_infos ui on ui.user_id=question_answers.create_user_id
-	  	left join user_service_infos usi on ui.user_id=usi.user_id
-	  	where question_id=#{questionId}
-	  	order by create_time desc
-	</if>
-	<if test="null neq userId">
-		select qa.*,
+<mapper namespace="com.yikangyiliao.pension.dao.QuestionAnswerDao">
+	<resultMap id="BaseResultMap"
+		type="com.yikangyiliao.pension.entity.QuestionAnswer">
+		<id column="question_answer_id" property="questionAnswerId"
+			jdbcType="BIGINT" />
+		<result column="create_user_id" property="createUserId"
+			jdbcType="BIGINT" />
+		<result column="data_source" property="dataSource" jdbcType="TINYINT" />
+		<result column="content" property="content" jdbcType="VARCHAR" />
+		<result column="question_id" property="questionId" jdbcType="BIGINT" />
+		<result column="star_num" property="starNum" jdbcType="INTEGER" />
+		<result column="is_recommend" property="isRecommend" jdbcType="TINYINT" />
+		<result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+		<result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+	</resultMap>
+	<sql id="Base_Column_List">
+		question_answer_id, create_user_id, data_source, content, question_id, star_num,
+		is_recommend, create_time, update_time
+	</sql>
+	<select id="selectByPrimaryKey" resultMap="BaseResultMap"
+		parameterType="java.lang.Long">
+		select
+		<include refid="Base_Column_List" />
+		from question_answers
+		where question_answer_id = #{questionAnswerId,jdbcType=BIGINT}
+	</select>
+	<delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+		delete from question_answers
+		where question_answer_id = #{questionAnswerId,jdbcType=BIGINT}
+	</delete>
+	<insert id="insert" parameterType="com.yikangyiliao.pension.entity.QuestionAnswer">
+		<selectKey resultType="Long" keyProperty="questionAnswerId"
+			order="AFTER">
+			SELECT LAST_INSERT_ID()
+		</selectKey>
+		insert into question_answers (question_answer_id, create_user_id,
+		data_source,
+		content, question_id, star_num,
+		is_recommend, create_time, update_time
+		)
+		values (#{questionAnswerId,jdbcType=BIGINT},
+		#{createUserId,jdbcType=BIGINT}, #{dataSource,jdbcType=TINYINT},
+		#{content,jdbcType=VARCHAR}, #{questionId,jdbcType=BIGINT},
+		#{starNum,jdbcType=INTEGER},
+		#{isRecommend,jdbcType=TINYINT}, #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP}
+		)
+	</insert>
+	<insert id="insertSelective" parameterType="com.yikangyiliao.pension.entity.QuestionAnswer">
+
+		<selectKey resultType="Long" keyProperty="questionAnswerId"
+			order="AFTER">
+			SELECT LAST_INSERT_ID()
+		</selectKey>
+
+		insert into question_answers
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="questionAnswerId != null">
+				question_answer_id,
+			</if>
+			<if test="createUserId != null">
+				create_user_id,
+			</if>
+			<if test="dataSource != null">
+				data_source,
+			</if>
+			<if test="content != null">
+				content,
+			</if>
+			<if test="questionId != null">
+				question_id,
+			</if>
+			<if test="starNum != null">
+				star_num,
+			</if>
+			<if test="isRecommend != null">
+				is_recommend,
+			</if>
+			<if test="createTime != null">
+				create_time,
+			</if>
+			<if test="updateTime != null">
+				update_time,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="questionAnswerId != null">
+				#{questionAnswerId,jdbcType=BIGINT},
+			</if>
+			<if test="createUserId != null">
+				#{createUserId,jdbcType=BIGINT},
+			</if>
+			<if test="dataSource != null">
+				#{dataSource,jdbcType=TINYINT},
+			</if>
+			<if test="content != null">
+				#{content,jdbcType=VARCHAR},
+			</if>
+			<if test="questionId != null">
+				#{questionId,jdbcType=BIGINT},
+			</if>
+			<if test="starNum != null">
+				#{starNum,jdbcType=INTEGER},
+			</if>
+			<if test="isRecommend != null">
+				#{isRecommend,jdbcType=TINYINT},
+			</if>
+			<if test="createTime != null">
+				#{createTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="updateTime != null">
+				#{updateTime,jdbcType=TIMESTAMP},
+			</if>
+		</trim>
+	</insert>
+	<update id="updateByPrimaryKeySelective" parameterType="com.yikangyiliao.pension.entity.QuestionAnswer">
+		update question_answers
+		<set>
+			<if test="createUserId != null">
+				create_user_id = #{createUserId,jdbcType=BIGINT},
+			</if>
+			<if test="dataSource != null">
+				data_source = #{dataSource,jdbcType=TINYINT},
+			</if>
+			<if test="content != null">
+				content = #{content,jdbcType=VARCHAR},
+			</if>
+			<if test="questionId != null">
+				question_id = #{questionId,jdbcType=BIGINT},
+			</if>
+			<if test="starNum != null">
+				star_num = #{starNum,jdbcType=INTEGER},
+			</if>
+			<if test="isRecommend != null">
+				is_recommend = #{isRecommend,jdbcType=TINYINT},
+			</if>
+			<if test="createTime != null">
+				create_time = #{createTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="updateTime != null">
+				update_time = #{updateTime,jdbcType=TIMESTAMP},
+			</if>
+		</set>
+		where question_answer_id = #{questionAnswerId,jdbcType=BIGINT}
+	</update>
+	<update id="updateByPrimaryKey" parameterType="com.yikangyiliao.pension.entity.QuestionAnswer">
+		update question_answers
+		set create_user_id = #{createUserId,jdbcType=BIGINT},
+		data_source = #{dataSource,jdbcType=TINYINT},
+		content = #{content,jdbcType=VARCHAR},
+		question_id = #{questionId,jdbcType=BIGINT},
+		star_num = #{starNum,jdbcType=INTEGER},
+		is_recommend = #{isRecommend,jdbcType=TINYINT},
+		create_time = #{createTime,jdbcType=TIMESTAMP},
+		update_time = #{updateTime,jdbcType=TIMESTAMP}
+		where question_answer_id = #{questionAnswerId,jdbcType=BIGINT}
+	</update>
+
+	<!-- 支持问题回复 -->
+	<update id="updateQuestionAnsweStartup" parameterType="long">
+		update question_answers set star_num=star_num+1 where
+		question_answer_id=#{questionAnswerId}
+	</update>
+
+	<!-- 取消问题支持 -->
+	<update id="updateQuestionAnswerdown" parameterType="long">
+		update question_answers set star_num=star_num-1 where
+		question_answer_id=#{questionAnswerId}
+	</update>
+
+	<!-- 查询某一个问题的所有回复 -->
+	<resultMap type="com.yikangyiliao.pension.entity.QuestionAnswer"
+		extends="BaseResultMap" id="selectQuestionAnswerResultMap">
+		<result column="isStar" property="isStar" />
+		<result column="user_name" property="userName" />
+		<result column="photo_url" property="photoUrl" />
+		<result column="user_position" property="userPosition" />
+		<association property="question"
+			javaType="com.yikangyiliao.pension.entity.Question">
+			<result column="title" property="title" />
+		</association>
+	</resultMap>
+	<select id="selectQuestionAnswer" parameterType="map"
+		resultMap="selectQuestionAnswerResultMap">
+		<if test="userId eq null">
+			select
+			question_answers.*,
+			ui.user_name,
+			ui.photo_url,
+			usi.user_position
+			from question_answers left join user_infos ui on
+			ui.user_id=question_answers.create_user_id
+			left join user_service_infos usi on ui.user_id=usi.user_id
+			where question_id=#{questionId}
+			order by create_time desc
+		</if>
+		<if test="null neq userId">
+			select qa.*,
 			case
-				when qasl2.question_answer_start_list_id>=0 then 1
-				else 0
-		    end  as 'isStar' ,
-  		    ui.user_name,
-   			ui.photo_url,
-   			usi.user_position
-		from question_answers qa left join (  select * from question_answer_start_lists where create_user_id=#{userId}) qasl2
-		on qa.question_answer_id=qasl2.question_answer_id
-		left join user_infos ui on ui.user_id=qa.create_user_id
-		left join user_service_infos usi on ui.user_id=usi.user_id
-		where  qa.question_id=#{questionId}
-		order by create_time desc
-	</if>
-	
-  </select>
-  
-  <!--精彩回答  -->
-  <select id="getHotQuestionAnswer" resultMap="selectQuestionAnswerResultMap" parameterType="map">
-  	<if test="userId eq null">
-		select 
-			qa.*,
-		    questions.*,
-  		    ui.user_name,
-   			ui.photo_url,
-   			usi.user_position
-		from question_answers qa 
-		inner join questions on qa.question_id=questions.question_id
-		inner join  (
-		select question_id,star_num,question_answer_id from question_answers group by question_id order by star_num desc limit 4
-		)  qatemp on qa.question_answer_id=qatemp.question_answer_id
-		left join user_infos ui on ui.user_id=qa.create_user_id
-		left join user_service_infos usi on ui.user_id=usi.user_id
-		order by qatemp.star_num desc
-	</if>
-	<if test="null neq userId">
-<!-- 		select qa.*, -->
-<!-- 			case -->
-<!-- 				when qasl2.question_answer_start_list_id>=0 then 1 -->
-<!-- 				else 0 -->
-<!-- 		    end  as 'isStar'  -->
-<!-- 		from question_answers qa left join (  select * from question_answer_start_lists where create_user_id=#{userId}) qasl2 -->
-<!-- 		on qa.question_answer_id=qasl2.question_answer_id -->
-<!-- 	    order by star_num desc limit 3 -->
-	select qa.*,
-		case
 			when qasl2.question_answer_start_list_id>=0 then 1
 			else 0
-		end  as 'isStar',
-	    questions.*,
-  		    ui.user_name,
-   			ui.photo_url,
-   			usi.user_position
-	from question_answers qa left join (  select * from question_answer_start_lists where create_user_id=#{userId}) qasl2
-	on qa.question_answer_id=qasl2.question_answer_id
-	inner join questions on qa.question_id=questions.question_id
-	inner join  (
-	select question_id,star_num,question_answer_id from question_answers group by question_id order by star_num desc limit 3
-	)  qatemp on qa.question_answer_id=qatemp.question_answer_id
-	left join user_infos ui on ui.user_id=qa.create_user_id
-	left join user_service_infos usi on ui.user_id=usi.user_id
-	order by qatemp.star_num desc
-	</if>
-  </select>
+			end as 'isStar' ,
+			ui.user_name,
+			ui.photo_url,
+			usi.user_position
+			from question_answers qa left join ( select * from
+			question_answer_start_lists where create_user_id=#{userId}) qasl2
+			on qa.question_answer_id=qasl2.question_answer_id
+			left join user_infos ui on ui.user_id=qa.create_user_id
+			left join user_service_infos usi on ui.user_id=usi.user_id
+			where qa.question_id=#{questionId}
+			order by create_time desc
+		</if>
 
-<!-- 我的回答 -->
-  <select id="getMyQuestionAnswerByCreateUserId" parameterType="map" resultMap="selectQuestionAnswerResultMap">
-  	select 
+	</select>
+
+	<!--精彩回答 -->
+	<select id="getHotQuestionAnswer" resultMap="selectQuestionAnswerResultMap"
+		parameterType="map">
+		<if test="userId eq null">
+			select
+			qa.*,
+			questions.*,
+			ui.user_name,
+			ui.photo_url,
+			usi.user_position
+			from question_answers qa
+			inner join questions on qa.question_id=questions.question_id
+			inner join (
+			select question_id,star_num,question_answer_id from question_answers where
+			is_recommend=1 group by question_id order by star_num desc limit 4
+			) qatemp on qa.question_answer_id=qatemp.question_answer_id
+			left join user_infos ui on ui.user_id=qa.create_user_id
+			left join user_service_infos usi on ui.user_id=usi.user_id
+			order by qatemp.star_num desc
+		</if>
+		<if test="null neq userId">
+			select qa.*,
+			case
+			when qasl2.question_answer_start_list_id>=0 then 1
+			else 0
+			end as 'isStar',
+			questions.*,
+			ui.user_name,
+			ui.photo_url,
+			usi.user_position
+			from question_answers qa left join ( select * from
+			question_answer_start_lists where create_user_id=#{userId}) qasl2
+			on qa.question_answer_id=qasl2.question_answer_id
+			inner join questions on qa.question_id=questions.question_id
+			inner join (
+			select question_id,star_num,question_answer_id from question_answers where
+			is_recommend=1 group by question_id order by star_num desc limit 3
+			) qatemp on qa.question_answer_id=qatemp.question_answer_id
+			left join user_infos ui on ui.user_id=qa.create_user_id
+			left join user_service_infos usi on ui.user_id=usi.user_id
+			order by qatemp.star_num desc
+		</if>
+	</select>
+
+	<!-- 我的回答 -->
+	<select id="getMyQuestionAnswerByCreateUserId" parameterType="map"
+		resultMap="selectQuestionAnswerResultMap">
+		select
 		qa.*,
-	    qad.question_answer_detail_content,
-	    qad.question_answer_html_content 
-	from question_answers qa left join question_answer_details qad on 
-	qa.question_answer_id=qad.question_answer_id
-	where qa.create_user_id=#{userId}
-  </select>
-  
-  
-  <update id="updateQuestionAnswerStarUpByQuestionAnswerId" parameterType="long">
-  	update question_answers set star_num=star_num+1 where question_answer_id=#{questionAnswerId}
-  </update>
-  
-  <!--查看回答详情  -->
-  <resultMap type="com.yikangyiliao.pension.entity.QuestionAnswer" id="getQuestionAnswerByQuestionAnswerIdResultMap" extends="BaseResultMap">
-  	<result column="question_answer_detail_content" property="detailContent"/>
-  	<result column="question_answer_html_content"   property="htmlDetailContent"/>
-  	<result column="user_name" 			property="userName"/>
-  	<result column="photo_url"	 		property="photoUrl"/>
-  	<result column="user_position" 		property="userPosition"/>
-  	<result column="isStar" 		property="isStar"/>
-  </resultMap>
-  <select id="getQuestionAnswerByQuestionAnswerId" parameterType="map" resultMap="getQuestionAnswerByQuestionAnswerIdResultMap">
-  	select 
+		qad.question_answer_detail_content,
+		qad.question_answer_html_content
+		from question_answers qa left join question_answer_details qad on
+		qa.question_answer_id=qad.question_answer_id
+		where qa.create_user_id=#{userId}
+	</select>
+
+
+	<update id="updateQuestionAnswerStarUpByQuestionAnswerId"
+		parameterType="long">
+		update question_answers set star_num=star_num+1 where
+		question_answer_id=#{questionAnswerId}
+	</update>
+
+	<!--查看回答详情 -->
+	<resultMap type="com.yikangyiliao.pension.entity.QuestionAnswer"
+		id="getQuestionAnswerByQuestionAnswerIdResultMap" extends="BaseResultMap">
+		<result column="question_answer_detail_content" property="detailContent" />
+		<result column="question_answer_html_content" property="htmlDetailContent" />
+		<result column="user_name" property="userName" />
+		<result column="photo_url" property="photoUrl" />
+		<result column="user_position" property="userPosition" />
+		<result column="isStar" property="isStar" />
+	</resultMap>
+	<select id="getQuestionAnswerByQuestionAnswerId" parameterType="map"
+		resultMap="getQuestionAnswerByQuestionAnswerIdResultMap">
+		select
 		que.title,
 		qa.*,
 		qad.question_answer_detail_content,
 		qad.question_answer_html_content,
 		ui.user_name,
-	    ui.photo_url,
-	    usi.user_position,
-	   if(ifnull((select question_answer_id from question_answer_start_lists where create_user_id=#{userId} and question_answer_id=#{questionAnswerId}),-1)>0,1,0) as isStar
-	from questions que,question_answers qa left join question_answer_details qad on 
-	qa.question_answer_id=qad.question_answer_id
-	left join user_infos ui on qa.create_user_id=ui.user_id
-	left join user_service_infos usi on qa.create_user_id=usi.user_id
-	where qa.question_answer_id=#{questionAnswerId} and que.question_id=qa.question_id
-  </select>
-  
+		ui.photo_url,
+		usi.user_position,
+		if(ifnull((select question_answer_id from question_answer_start_lists where
+		create_user_id=#{userId} and
+		question_answer_id=#{questionAnswerId}),-1)>0,1,0) as isStar
+		from questions que,question_answers qa left join question_answer_details
+		qad on
+		qa.question_answer_id=qad.question_answer_id
+		left join user_infos ui on qa.create_user_id=ui.user_id
+		left join user_service_infos usi on qa.create_user_id=usi.user_id
+		where qa.question_answer_id=#{questionAnswerId} and
+		que.question_id=qa.question_id
+	</select>
+
 </mapper>
