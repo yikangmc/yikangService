@@ -133,7 +133,6 @@ public class IntegralManager {
         	return integralDao.insertSelective(integral);
     	}
     	return 0;
-    	
     }
     
     /**

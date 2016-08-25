@@ -101,7 +101,7 @@ public class ForumPostService {
     				tags[i]=Long.valueOf(taglibIds.get(i).toString());
     			}
     			formPostManager.insertPublishFormPosts(title,content,tags,Long.valueOf(userId),imgs);
-    			integralManager.insertIntegralAddScoreIsONCEJob("FGTZ", Long.valueOf(userId));
+    			integralManager.insertIntegralAddScoreIsONCEJob("CSFT", Long.valueOf(userId));
     			integralManager.insertIntegralAddScoreIsUsualJob("FGTZ", Byte.valueOf("2"), Long.valueOf(userId));
     		}else{
     			res.setStatus(ExceptionConstants.parameterException.parameterException.errorCode);
@@ -150,7 +150,6 @@ public class ForumPostService {
 				tags[i]=Long.valueOf(taglibIds.get(i).toString());
 			}
 			 formPostManager.insertPerformencePublishForumPosts(title,forumPostDetailContent,forumPostHtmlDetailContent,tags,Long.valueOf(userId),imgs,recommendPicUrl);
-			 integralManager.insertIntegralAddScoreIsONCEJob("FBZJS",Long.valueOf(userId));
 			 integralManager.insertIntegralAddScoreIsUsualJob("FBZJS",Byte.valueOf("2"),Long.valueOf(userId));
 		}else{
 			res.setStatus(ExceptionConstants.parameterException.parameterException.errorCode);
@@ -226,8 +225,8 @@ public class ForumPostService {
         			answerTo=YKConstants.AnswerTo.AnswerToFormPosts.getValue();
         		}
         		forumPostsAnswerManager.insertSelective(content,Long.valueOf(createUserId),Long.valueOf(formPostId),toUserId,answerTo);
-        		integralManager.insertIntegralAddScoreIsONCEJob("PLTZ",Long.valueOf(toUserId));
-        		integralManager.insertIntegralAddScoreIsUsualJob("PLTZ",Byte.valueOf("2"),Long.valueOf(toUserId));
+        		integralManager.insertIntegralAddScoreIsONCEJob("CCPL",Long.valueOf(createUserId));
+        		integralManager.insertIntegralAddScoreIsUsualJob("PLTZ",Byte.valueOf("2"),Long.valueOf(createUserId));
     		}
 
     		

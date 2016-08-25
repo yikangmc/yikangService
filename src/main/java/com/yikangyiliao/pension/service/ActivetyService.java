@@ -173,7 +173,6 @@ public class ActivetyService {
 			}
 			
 			activetyManager.insertActivety(title,content,startTime,endTime,entryStartTime,entryEndTime,lng,lat,personNumber,cost,taglibIds,mapPositionAddress,detailAddress,districtCode,userId,activetyMode,recommendPicUrl);
-			integralManager.insertIntegralAddScoreIsONCEJob("FBHD",userId);
 			integralManager.insertIntegralAddScoreIsUsualJob("FBHD",Byte.valueOf("2"),userId);
 		}else{
 			resData.setStatus(ExceptionConstants.parameterException.parameterException.errorCode);

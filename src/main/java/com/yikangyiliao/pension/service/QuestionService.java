@@ -65,7 +65,7 @@ public class QuestionService {
 			String[] images=ParamMapUtils.converObjectArrayToString(imagesArray);
 			
 			questionManager.insertQuestion(title, content, tagIds, userId,images);
-			integralManager.insertIntegralAddScoreIsONCEJob("TGWT",userId);
+			integralManager.insertIntegralAddScoreIsONCEJob("CCTW",userId);
 			integralManager.insertIntegralAddScoreIsUsualJob("TGWT",Byte.valueOf("2"),userId);
 		}else{
 			
@@ -128,7 +128,6 @@ public class QuestionService {
 			images=imageArray.toArray(images);
 			
 			questionAnswerManager.insertSelective(questionId, content,detailContent,htmlDetailContent, createUserId,images);
-			integralManager.insertIntegralAddScoreIsONCEJob("TJWTJD",createUserId);
 			integralManager.insertIntegralAddScoreIsUsualJob("TJWTJD",Byte.valueOf("2"),createUserId);
 		}else{
 			resData.setStatus(ExceptionConstants.parameterException.parameterException.errorCode);
