@@ -229,7 +229,7 @@
 			inner join questions on qa.question_id=questions.question_id
 			inner join (
 			select question_id,star_num,question_answer_id from question_answers where
-			is_recommend=1 group by question_id order by star_num desc limit 4
+			is_recommend=1 group by question_id order by star_num desc
 			) qatemp on qa.question_answer_id=qatemp.question_answer_id
 			left join user_infos ui on ui.user_id=qa.create_user_id
 			left join user_service_infos usi on ui.user_id=usi.user_id
@@ -251,7 +251,7 @@
 			inner join questions on qa.question_id=questions.question_id
 			inner join (
 			select question_id,star_num,question_answer_id from question_answers where
-			is_recommend=1 group by question_id order by star_num desc limit 3
+			is_recommend=1 group by question_id order by star_num desc
 			) qatemp on qa.question_answer_id=qatemp.question_answer_id
 			left join user_infos ui on ui.user_id=qa.create_user_id
 			left join user_service_infos usi on ui.user_id=usi.user_id
