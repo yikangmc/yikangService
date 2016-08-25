@@ -35,7 +35,7 @@ public class UserServiceInfo {
     
     private String userName;
 
-    private String userSex;
+    private String userSex="";
     
     private Date birthday;
     
@@ -79,7 +79,7 @@ public class UserServiceInfo {
     private Integer newUserPosition;
     
     //组织机构名称
-    private String oraganizationName;
+    private String oraganizationName="";
 
     //用户介绍
     private String userIntroduce;

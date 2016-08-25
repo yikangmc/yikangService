@@ -1,6 +1,6 @@
 package com.yikangyiliao.pension.entity;
 
-import java.util.Date;
+import java.util.Date; 
 
 public class Job {
     private Long jobId;
@@ -24,6 +24,8 @@ public class Job {
     private Byte isAutoDistribution;
 
     private String jobUniqueCode;
+    
+    private int jobState;
 
     public Long getJobId() {
         return jobId;
@@ -112,4 +114,12 @@ public class Job {
     public void setJobUniqueCode(String jobUniqueCode) {
         this.jobUniqueCode = jobUniqueCode == null ? null : jobUniqueCode.trim();
     }
+
+	public int getJobState() {
+		return jobState;
+	}
+
+	public void setJobState(int jobState) {
+		this.jobState = jobState;
+	}
 }
