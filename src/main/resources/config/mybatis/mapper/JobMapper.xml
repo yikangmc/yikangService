@@ -186,7 +186,11 @@
   	from jobs left join integrals on( job_id=integrals.jobs_id and owner_user_id =#{userId})
   	where job_type=0
   </select>
-  
+  <select id="selectJobByJobUniqueCode" parameterType="string" resultMap="BaseResultMap">
+  	select
+  		<include refid="Base_Column_List" />
+  	from jobs where job_unique_code = #{jobUniqueCode,jdbcType=VARCHAR}
+  </select>
   
   
 </mapper>

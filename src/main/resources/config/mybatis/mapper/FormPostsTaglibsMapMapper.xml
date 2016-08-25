@@ -92,4 +92,5 @@
       update_time = #{updateTime,jdbcType=TIMESTAMP}
     where forum_posts_taglibs_maps_id = #{forumPostsTaglibsMapsId,jdbcType=BIGINT}
   </update>
+ 
 </mapper>
