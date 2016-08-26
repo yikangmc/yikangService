@@ -301,29 +301,19 @@ public class UserService {
 			
 			String userName=paramData.get("userName").toString();
 			String gender=paramData.get("gender").toString();
-			String wxsex = paramData.get("sex").toString();
 			String accountId=paramData.get("accountId").toString();
 			String threePartAccountInfo=paramData.get("threePartAccountInfo").toString();
 			Byte userSource=Byte.valueOf(paramData.get("userSource").toString());
 			
 			
 			Byte sex=Byte.valueOf("0");
-			if(gender.length()==1){
-				if(gender.equals("男") || gender.equals("m")){
+			if(null != gender &&  gender.length()==1){
+				if(gender.equals("男") || gender.equals("m") || gender.equals("1")){
 					sex=Byte.valueOf("1");
-				}else if(gender.equals("女") || gender.equals("wm")){
+				}else if(gender.equals("女") || gender.equals("wm") || gender.equals("2")){
 					sex=Byte.valueOf("2");
 				}
 			}
-			
-			if(wxsex.length()==1){
-				if(wxsex.equals("1")){
-					sex=Byte.valueOf("1");
-				}else if(wxsex.equals("2")){
-					sex=Byte.valueOf("2");
-				}
-			}
-			
 			
 		
 

@@ -35,7 +35,7 @@ public class UserServiceInfo {
     
     private String userName;
 
-    private String userSex="";
+    private String userSex;
     
     private Date birthday;
     
