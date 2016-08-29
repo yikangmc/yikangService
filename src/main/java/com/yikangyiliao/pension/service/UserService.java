@@ -408,7 +408,12 @@ public class UserService {
 				userFrom.setCreateTime(currentDateTime);
 				userFrom.setUpdateTime(currentDateTime);
 				// 设置为用户注册
-				userFrom.setUserFrom("5");
+				if(paramData.containsKey("userFrom")){
+					String userFromStr=paramData.get("userFrom").toString();
+					userFrom.setUserFrom(userFromStr);
+				}else{
+					userFrom.setUserFrom("6");
+				}
 				userFrom.setUserStatus(Byte.valueOf("0"));
 				userFrom.setNumbers(0l);
 				userFrom.setActiveTime(0l);
@@ -545,7 +550,12 @@ public class UserService {
 				userFrom.setCreateTime(currentDateTime);
 				userFrom.setUpdateTime(currentDateTime);
 				// 设置为用户注册
-				userFrom.setUserFrom("5");
+				if(paramData.containsKey("userFrom")){
+					String userFromStr=paramData.get("userFrom").toString();
+					userFrom.setUserFrom(userFromStr);
+				}else{
+					userFrom.setUserFrom("6");
+				}
 				userFrom.setUserStatus(Byte.valueOf("0"));
 				userFrom.setNumbers(0l);
 				userFrom.setActiveTime(0l);
