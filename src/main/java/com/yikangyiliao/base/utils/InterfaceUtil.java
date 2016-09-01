@@ -392,10 +392,10 @@ public class InterfaceUtil {
 		mathodServiceConfig.put("00-28-11",geWZForumPostsByCreateUserId);
 		
 		//获取某一个用户的专业帖子
-		YiKangServiceConfige geForumPostsByServerUserId=new YiKangServiceConfige();
-		geForumPostsByServerUserId.setServiceName("forumPostService");
-		geForumPostsByServerUserId.setMethodName("geForumPostsByServerUserId");
-		geForumPostsByServerUserId.setIsFileter(false);
+		YiKangServiceConfige getForumPostsByServerUserId=new YiKangServiceConfige();
+		getForumPostsByServerUserId.setServiceName("forumPostService");
+		getForumPostsByServerUserId.setMethodName("getForumPostsByServerUserId");
+		getForumPostsByServerUserId.setIsFileter(false);
 		mathodServiceConfig.put("00-28-12",geWZForumPostsByCreateUserId);
 		
 		//获取相关推荐数据
