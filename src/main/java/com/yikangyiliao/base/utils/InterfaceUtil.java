@@ -404,6 +404,13 @@ public class InterfaceUtil {
 		getFormPostRelatedReading.setMethodName("getFormPostRelatedReading");
 		getFormPostRelatedReading.setIsFileter(false);
 		mathodServiceConfig.put("00-28-13",getFormPostRelatedReading);
+		
+		//获取某一个人的文章
+		YiKangServiceConfige getWZForumPostsByServerUserId=new YiKangServiceConfige();
+		getWZForumPostsByServerUserId.setServiceName("forumPostService");
+		getWZForumPostsByServerUserId.setMethodName("getWZForumPostsByServerUserId");
+		getWZForumPostsByServerUserId.setIsFileter(false);
+		mathodServiceConfig.put("00-28-14",getWZForumPostsByServerUserId);
 
 		//问题处理
 		serviceClassName.put("00-29","questionService");
@@ -805,6 +812,18 @@ public class InterfaceUtil {
 		getQuestionAnswerDetail.setMethodName("getQuestionAnswerDetail");
 		getQuestionAnswerDetail.setIsFileter(true);
 		mathodServiceConfig.put("00-39-02",getQuestionAnswerDetail);
+		
+		
+		/**
+		 * @author liushuaic
+		 * @date 2016-06-29 10:31
+		 * @desc 获取某一个人回答
+		 * **/
+		YiKangServiceConfige getQuestionAnswerByServerUserId=new YiKangServiceConfige();
+		getQuestionAnswerByServerUserId.setServiceName("questionAnswerService");
+		getQuestionAnswerByServerUserId.setMethodName("getQuestionAnswerByServerUserId");
+		getQuestionAnswerByServerUserId.setIsFileter(true);
+		mathodServiceConfig.put("00-39-03",getQuestionAnswerByServerUserId);
 		
 		
 		

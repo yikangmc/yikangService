@@ -37,7 +37,27 @@ public class QuestionAnswerService {
 		Long userId=Long.valueOf(paramMap.get("userId").toString());
 		PageParameter page=new PageParameter();
 		if(paramMap.containsKey("page")){
-			page=(PageParameter)paramMap.get("page");
+			int currentPage=Integer.valueOf(paramMap.get("page").toString());
+			page.setCurrentPage(currentPage);
+		}
+		List<QuestionAnswer> questionAnswersArray=questionAnswerManager.getQuestionAnswerListByCreateUserId(userId, page);
+		questionAnswers.setData(questionAnswersArray);
+		return questionAnswers;
+	}
+	
+	
+	/**
+	 * @author liushuaic
+	 * @date 2016-06-15 17:18
+	 * @desc 查询某一个人的所有回答
+	 * */
+	public ResponseMessage<List<QuestionAnswer>> getQuestionAnswerByServerUserId(Map<String,Object> paramMap){
+		ResponseMessage<List<QuestionAnswer>> questionAnswers=new ResponseMessage<List<QuestionAnswer>>();
+		Long userId=Long.valueOf(paramMap.get("serverUserId").toString());
+		PageParameter page=new PageParameter();
+		if(paramMap.containsKey("page")){
+			int currentPage=Integer.valueOf(paramMap.get("page").toString());
+			page.setCurrentPage(currentPage);
 		}
 		List<QuestionAnswer> questionAnswersArray=questionAnswerManager.getQuestionAnswerListByCreateUserId(userId, page);
 		questionAnswers.setData(questionAnswersArray);

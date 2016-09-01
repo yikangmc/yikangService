@@ -289,8 +289,6 @@ public class ForumPostService {
     				&& paramData.containsKey("page")
     			){
 
-    			Map<String,Object> resData=new HashMap<String,Object>();
-    			
     			Long taglibId=Long.valueOf(paramData.get("taglibId").toString());
     			 Long userId=null;
     			 if(paramData.containsKey("userId")){
@@ -302,8 +300,6 @@ public class ForumPostService {
     				 page.setCurrentPage(currentPage);
     			 }
     			List<FormPosts> data=formPostManager.getForumPostsByTaglibsId(taglibId,userId,page);
-    			resData.put("data", data);
-    			resData.put("page", page);
     			res.setData(data);
     		}else{
        		 res.setStatus(ExceptionConstants.systemException.systemException.errorCode);

@@ -31,7 +31,7 @@ public class SearchUtil{
 		try {
 			int[] indexArray=RandomUtils.randomNumber(formPosts.size(), retCount);
 			for(int i=0;i<indexArray.length;i++){
-				rtnformPosts.add(formPosts.get(i));
+				rtnformPosts.add(formPosts.get(indexArray[i]));
 			}
 		} catch (Exception e) {
 			e.printStackTrace();

@@ -198,8 +198,6 @@ public class QuestionService {
 			}
 			Long taglibId=Long.valueOf(paramMap.get("taglibId").toString());
 			List<Question> questions=questionManager.getQuestionByTaglibid(taglibId,page);
-			resultMap.put("result", questions);
-			resultMap.put("page", page);
 			resData.setData(questions);
 		}else{
 			resData.setStatus(ExceptionConstants.parameterException.parameterException.errorCode);
