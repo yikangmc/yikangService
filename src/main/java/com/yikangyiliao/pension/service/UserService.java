@@ -23,7 +23,6 @@ import com.yikangyiliao.pension.common.response.ResponseMessage;
 import com.yikangyiliao.pension.common.utils.map.MapUtils;
 import com.yikangyiliao.pension.common.utils.map.model.GeoCodeModel;
 import com.yikangyiliao.pension.entity.Location;
-import com.yikangyiliao.pension.entity.ThreePartAccount;
 import com.yikangyiliao.pension.entity.User;
 import com.yikangyiliao.pension.entity.UserFrom;
 import com.yikangyiliao.pension.entity.UserInfo;
@@ -898,7 +897,7 @@ public class UserService {
 		if (paramData.containsKey("jobCategory")) {
 			String jobCategory = paramData.get("jobCategory").toString();
 			userServiceInfo.setJobCategory(Long.valueOf(jobCategory));
-		}
+		} 
 		if (paramData.containsKey("districtCode") && paramData.containsKey("mapPositionAddress")) {
 
 			String mapPositionAddress = paramData.get("mapPositionAddress").toString();

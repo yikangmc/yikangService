@@ -403,4 +403,9 @@ public class FormPostManager {
 	public UserServiceInfo getUserServiceInfoByForumPostId(Long forumPostId){
 		return null;
 	}
+	
+	public List<FormPosts> getFormPostsALL(){
+		return formPostsDao.getFormPostsAll();
+	}
+	
 }

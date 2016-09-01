@@ -412,4 +412,13 @@
  	order by stars desc
   </select>
   
+  <!-- 
+  	查询所有的文章数据 限制200条
+   -->
+  <select id="getFormPostsAll" resultMap="BaseResultMap">
+  	select 
+  		<include refid="Base_Column_List"></include>
+  	from forum_posts order by create_time desc limit 200
+  </select>
+  
 </mapper>

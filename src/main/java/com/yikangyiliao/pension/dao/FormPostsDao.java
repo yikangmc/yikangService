@@ -91,4 +91,12 @@ public interface FormPostsDao {
      * */
     UserServiceInfo getUserServiceInfoByForumPostId();
     
+    
+    /**
+     * @author liushuaic
+     * @date 2016-08-31 16:53
+     * @desc 获取所有的文章
+     * */
+    List<FormPosts> getFormPostsAll();
+    
 }

@@ -9,6 +9,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.yikangyiliao.base.search.SearchUtil;
 import com.yikangyiliao.base.utils.SystemProperties;
 import com.yikangyiliao.pension.common.constants.YKConstants;
 import com.yikangyiliao.pension.common.error.ExceptionConstants;
@@ -17,6 +18,7 @@ import com.yikangyiliao.pension.common.response.ResponseMessage;
 import com.yikangyiliao.pension.common.utils.GenreateNumberUtils;
 import com.yikangyiliao.pension.dao.ForumPostDetailDao;
 import com.yikangyiliao.pension.entity.FormPosts;
+import com.yikangyiliao.pension.entity.Taglib;
 import com.yikangyiliao.pension.manager.FormPostManager;
 import com.yikangyiliao.pension.manager.ForumPostTxtEditorManager;
 import com.yikangyiliao.pension.manager.ForumPostsAnswerManager;
@@ -35,9 +37,6 @@ public class ForumPostService {
 	
 	@Autowired
 	private ForumPostTxtEditorManager forumPostTxtEditorManager;
-	
-	@Autowired
-	private ForumPostDetailDao forumPostDetailDao;
 	
 	@Autowired
 	private IntegralManager integralManager;
@@ -471,6 +470,28 @@ public class ForumPostService {
 	   
    	   return res;
    }
-
+   
+   /**
+    * @author liushuaic
+    * @date 2016-08-31 
+    * @desc 相关性阅读推荐
+    * */
+   public ResponseMessage<List<FormPosts>> getFormPostRelatedReading(Map<String,Object> paramData){
+	   ResponseMessage<List<FormPosts>> res=new ResponseMessage<List<FormPosts>>();
+	   if(paramData.containsKey("forumPostId")){
+		   Long forumPostId=Long.valueOf(paramData.get("forumPostId").toString());
+		   FormPosts formPosts= formPostManager.getForumPostsDetail(forumPostId, null);
+		   String title=formPosts.getTitle();
+		   String content=formPosts.getContent();
+		   List<Taglib> taglibs=formPosts.getTaglibs();
+		   List<FormPosts> rtnData=SearchUtil.searchForumPosts(title, content, taglibs, 4);
+		   res.setData(rtnData);
+	   }else{
+		   res.setStatus(ExceptionConstants.parameterException.parameterException.errorCode);
+		   res.setMessage(ExceptionConstants.parameterException.parameterException.errorMessage);
+	   }
+	   return res;
+	   
+   }
 
 }

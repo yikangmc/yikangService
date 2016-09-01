@@ -33,8 +33,9 @@ public class UserTest {
 		try {
 //			for(int i=1;i<51;i++){
 				Map<String,Object> paramData=new HashMap<String, Object>();
-				paramData.put("loginName","13716907545");
+				paramData.put("loginName","13716907546");
 				paramData.put("password","123456");
+				paramData.put("userFrom","7");
 				SendRequest.sendPost("registerUser?appId=1",paramData);
 //			}
 //			for(int i=141;i<201;i++){

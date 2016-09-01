@@ -395,12 +395,16 @@ public class InterfaceUtil {
 		YiKangServiceConfige geForumPostsByServerUserId=new YiKangServiceConfige();
 		geForumPostsByServerUserId.setServiceName("forumPostService");
 		geForumPostsByServerUserId.setMethodName("geForumPostsByServerUserId");
-		geForumPostsByServerUserId.setIsFileter(true);
+		geForumPostsByServerUserId.setIsFileter(false);
 		mathodServiceConfig.put("00-28-12",geWZForumPostsByCreateUserId);
-
-
 		
-		
+		//获取相关推荐数据
+		YiKangServiceConfige getFormPostRelatedReading=new YiKangServiceConfige();
+		getFormPostRelatedReading.setServiceName("forumPostService");
+		getFormPostRelatedReading.setMethodName("getFormPostRelatedReading");
+		getFormPostRelatedReading.setIsFileter(false);
+		mathodServiceConfig.put("00-28-13",getFormPostRelatedReading);
+
 		//问题处理
 		serviceClassName.put("00-29","questionService");
 		YiKangServiceConfige insertQuestion=new YiKangServiceConfige();

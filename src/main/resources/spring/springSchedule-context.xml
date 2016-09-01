@@ -14,19 +14,42 @@
 <!-- 用于生成，每个全职服务人员后三天的， -->
 		
 	
+<!-- 	<bean id="servicerScheudleJob"  class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean"> -->
+<!--           调用的类 -->
+<!--           <property name="targetObject"> -->
+<!--            <ref bean="servicerScheudle" /> -->
+<!--           </property> -->
+<!--           调用类中的方法 -->
+<!--           <property name="targetMethod"> -->
+<!--            <value>GenerateServiceSchedulDetailForServicerPingGu</value> -->
+<!--           </property> -->
+<!--      </bean> -->
+
 	<bean id="servicerScheudleJob"  class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
-          <!-- 调用的类 -->
+<!--           调用的类 -->
           <property name="targetObject">
-           <ref bean="servicerScheudle" />
+           <ref bean="recommendDataSchedule" />
           </property>
-          <!-- 调用类中的方法 -->
+<!--           调用类中的方法 -->
           <property name="targetMethod">
-           <value>GenerateServiceSchedulDetailForServicerPingGu</value>
+           <value>reloadRecommendForumPostData</value>
           </property>
      </bean>
 	
 	
-	<bean id="servicerScheudleTrriger"  class="org.springframework.scheduling.quartz.CronTriggerFactoryBean">
+	
+	
+<!-- 	<bean id="servicerScheudleTrriger"  class="org.springframework.scheduling.quartz.CronTriggerFactoryBean"> -->
+<!-- 		<property name="jobDetail"> -->
+<!--            <ref bean="servicerScheudleJob" /> -->
+<!--         </property> -->
+       
+<!--         <property name="cronExpression"> -->
+<!--            <value>0 0/1 * * * ?</value> -->
+<!--         </property> -->
+<!-- 	</bean> -->
+
+	<bean id="servicerScheudleJobTrriger"  class="org.springframework.scheduling.quartz.CronTriggerFactoryBean">
 		<property name="jobDetail">
            <ref bean="servicerScheudleJob" />
         </property>
@@ -35,15 +58,22 @@
            <value>0 0/1 * * * ?</value>
         </property>
 	</bean>
+	
+	
+	
 	   <!-- cron表达式 -->
 	  <!-- 总管理类 如果将lazy-init='false'那么容器启动就会执行调度程序 -->
-<!--      <bean id="startQuertz" autowire="byName" lazy-init="true"  class="org.springframework.scheduling.quartz.SchedulerFactoryBean"> -->
-<!--         <property name="triggers"> -->
-<!--            <list> -->
+     <bean id="startQuertz" autowire="byName" lazy-init="true"  class="org.springframework.scheduling.quartz.SchedulerFactoryBean">
+        <property name="triggers">
+           <list>
 <!--                 <ref bean="servicerScheudleTrriger" /> -->
-<!--            </list> -->
-<!--         </property> -->
-<!--      </bean> -->
+                <ref bean="servicerScheudleJobTrriger" />
+           </list>
+        </property>
+     </bean>
+
+
+
 	
 
 </beans>
