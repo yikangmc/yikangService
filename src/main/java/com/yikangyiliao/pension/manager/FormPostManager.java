@@ -380,6 +380,20 @@ public class FormPostManager {
 		return formPostsDao.geForumPostsByCreateUserIdAndForumPostGroup(paramMap);
 	}
 	
+	
+	/**
+	 * @author liushuaic
+	 * @date 2016-06-07 10:52
+	 * @desc 获取某一个用户创建的帖子列表
+	 * */
+	public List<FormPosts> geTZForumPostsByCreateUserIdPage(Long userId,PageParameter page){
+		Map<String,Object> paramMap=new HashMap<String,Object>();
+		paramMap.put("createUserId", userId);
+		paramMap.put("forumPostGroup", 0);
+		paramMap.put("page", page);
+		return formPostsDao.geForumPostsByCreateUserIdAndForumPostGroupPage(paramMap);
+	}
+	
 	/**
 	 * @author liushuaic
 	 * @date 2016-06-07 10:52
@@ -390,6 +404,19 @@ public class FormPostManager {
 		paramMap.put("createUserId", userId);
 		paramMap.put("forumPostGroup", 1);
 		return formPostsDao.geForumPostsByCreateUserIdAndForumPostGroup(paramMap);
+	}
+	
+	/**
+	 * @author liushuaic
+	 * @date 2016-06-07 10:52
+	 * @desc 获取某一个用户创建的文章列表
+	 * */
+	public List<FormPosts> geWZForumPostsByCreateUserIdPage(Long userId,PageParameter page){
+		Map<String,Object> paramMap=new HashMap<String,Object>();
+		paramMap.put("createUserId", userId);
+		paramMap.put("forumPostGroup", 1);
+		paramMap.put("page", page);
+		return formPostsDao.geForumPostsByCreateUserIdAndForumPostGroupPage(paramMap);
 	}
 	
 	/**

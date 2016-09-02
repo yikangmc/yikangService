@@ -411,6 +411,21 @@ public class InterfaceUtil {
 		getWZForumPostsByServerUserId.setMethodName("getWZForumPostsByServerUserId");
 		getWZForumPostsByServerUserId.setIsFileter(false);
 		mathodServiceConfig.put("00-28-14",getWZForumPostsByServerUserId);
+		
+		
+		//获取某一个人的帖子，分页
+		YiKangServiceConfige getForumPostsByServerUserIdPage=new YiKangServiceConfige();
+		getForumPostsByServerUserIdPage.setServiceName("forumPostService");
+		getForumPostsByServerUserIdPage.setMethodName("getForumPostsByServerUserIdPage");
+		getForumPostsByServerUserIdPage.setIsFileter(false);
+		mathodServiceConfig.put("00-28-15",getForumPostsByServerUserIdPage);
+		
+		//获取料一个人的文章，分页
+		YiKangServiceConfige getWZForumPostsByServerUserIdPage=new YiKangServiceConfige();
+		getWZForumPostsByServerUserIdPage.setServiceName("forumPostService");
+		getWZForumPostsByServerUserIdPage.setMethodName("getWZForumPostsByServerUserIdPage");
+		getWZForumPostsByServerUserIdPage.setIsFileter(false);
+		mathodServiceConfig.put("00-28-16",getWZForumPostsByServerUserIdPage);
 
 		//问题处理
 		serviceClassName.put("00-29","questionService");

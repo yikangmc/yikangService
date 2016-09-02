@@ -75,6 +75,16 @@ public interface FormPostsDao {
      * */
     List<FormPosts> geForumPostsByCreateUserIdAndForumPostGroup(Map<String,Object> paramMap);
     
+    /**
+     * @author liushuaic
+     * @date 2016-09-01 10:41
+     * @param  createUserId 
+     * @param  forumPostGroup
+     * @param  Pageparameter page
+     * @desc 获取某一个用户的所有文章
+     * */
+    List<FormPosts> geForumPostsByCreateUserIdAndForumPostGroupPage(Map<String,Object> paramMap);
+    
     
     /**
      * @author liushuaic

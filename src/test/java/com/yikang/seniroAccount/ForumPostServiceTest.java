@@ -232,6 +232,30 @@ public class ForumPostServiceTest {
 		}
 		
 	}
+	//获取某一个人创建的人员的文章
+	@Test
+	public void  getForumPostsByServerUserIdPage(){
+		try{
+			Map<String,Object> paramData=new HashMap<String,Object>();
+			paramData.put("serverUserId", 139);
+			paramData.put("page", 1);
+			SendRequest.sendPost("00-28-15?appId=234&accessTicket=99b5ee453affe2efad86f03909495dd1b9ce342e78fd9ac33497fe204e9991195e4c7afd323d91954ba85f0a1bf9bb45&machineCode=123123", paramData);
+		}catch(Exception e){
+			e.printStackTrace();
+		}
+	}
+	//获取某一个人创建的人员的文章
+	@Test
+	public void  getWZForumPostsByServerUserIdPage(){
+		try{
+			Map<String,Object> paramData=new HashMap<String,Object>();
+			paramData.put("serverUserId", 139);
+			paramData.put("page", 1);
+			SendRequest.sendPost("00-28-16?appId=234&accessTicket=99b5ee453affe2efad86f03909495dd1b9ce342e78fd9ac33497fe204e9991195e4c7afd323d91954ba85f0a1bf9bb45&machineCode=123123", paramData);
+		}catch(Exception e){
+			e.printStackTrace();
+		}
+	}
 	
 	public static void main(String[] args) {
 		ForumPostServiceTest fpst=new ForumPostServiceTest();

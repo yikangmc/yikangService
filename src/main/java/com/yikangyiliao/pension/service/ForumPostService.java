@@ -16,7 +16,6 @@ import com.yikangyiliao.pension.common.error.ExceptionConstants;
 import com.yikangyiliao.pension.common.page.PageParameter;
 import com.yikangyiliao.pension.common.response.ResponseMessage;
 import com.yikangyiliao.pension.common.utils.GenreateNumberUtils;
-import com.yikangyiliao.pension.dao.ForumPostDetailDao;
 import com.yikangyiliao.pension.entity.FormPosts;
 import com.yikangyiliao.pension.entity.Taglib;
 import com.yikangyiliao.pension.manager.FormPostManager;
@@ -467,6 +466,29 @@ public class ForumPostService {
    	   return res;
    }
    
+   /**
+    * @author liushuaic
+    * @date 2016-06-07 10:31
+    * @desc 获取某一个人创建的帖子
+    * */
+   public  ResponseMessage<List<FormPosts>> getForumPostsByServerUserIdPage(Map<String,Object> paramData){
+	   ResponseMessage<List<FormPosts>> res=new ResponseMessage<List<FormPosts>>();
+	   
+	   if(paramData.containsKey("serverUserId") && paramData.containsKey("page")){
+		   int currrentPage=Integer.valueOf(paramData.get("page").toString());
+		   Long userId=Long.valueOf(paramData.get("serverUserId").toString());
+		   PageParameter page=new PageParameter();
+		   page.setCurrentPage(currrentPage);
+		   List<FormPosts> formPosts=formPostManager.geTZForumPostsByCreateUserIdPage(userId,page);
+		   res.setData(formPosts);
+	   }else{
+		   res.setStatus(ExceptionConstants.parameterException.parameterException.errorCode);
+		   res.setMessage(ExceptionConstants.parameterException.parameterException.errorMessage);
+	   }
+	   
+	   return res;
+   }
+   
    
    /**
     * @author liushuaic
@@ -486,6 +508,28 @@ public class ForumPostService {
 	   }
 	   
   	   return res;
+  }
+  /**
+   * @author liushuaic
+   * @date 2016-06-07 10:31
+   * @desc 获取某一个人创建的帖子
+   * */
+  public  ResponseMessage<List<FormPosts>> getWZForumPostsByServerUserIdPage(Map<String,Object> paramData){
+	  ResponseMessage<List<FormPosts>> res=new ResponseMessage<List<FormPosts>>();
+	  
+	  if(paramData.containsKey("serverUserId") && paramData.containsKey("page")){
+		  Long userId=Long.valueOf(paramData.get("serverUserId").toString());
+		  int currentPage=Integer.valueOf(paramData.get("page").toString());
+		  PageParameter page=new PageParameter();
+		  page.setCurrentPage(currentPage);
+		  List<FormPosts> formPosts=formPostManager.geWZForumPostsByCreateUserIdPage(userId,page);
+		  res.setData(formPosts);
+	  }else{
+		  res.setStatus(ExceptionConstants.systemException.systemException.errorCode);
+		  res.setMessage(ExceptionConstants.systemException.systemException.errorMessage);
+	  }
+	  
+	  return res;
   }
    
    

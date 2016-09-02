@@ -30,7 +30,7 @@ public class RandomUtils {
 		if(rtnCount == 0){
 			throw new Exception("rtnCount 不能为 0");
 		}
-		//logger.info("maxNumber:"+maxNumber+"rtnCount:"+rtnCount);
+//		logger.info("maxNumber:"+maxNumber+"rtnCount:"+rtnCount);
 		if(rtnCount>maxNumber){
 			throw new ArrayIndexOutOfBoundsException("rtnCount 不能大于 maxNumber");
 		}
@@ -44,7 +44,7 @@ public class RandomUtils {
 			int val=chacheArray.get(index);
 			rtnNumber[j]=val;
 			chacheArray.remove(index);
-			//logger.info("rtnData--index:"+j+" value:"+val);
+//			logger.info("rtnData--index:"+j+" value:"+val);
 		}
 		logger.info("endTime:"+Calendar.getInstance().getTimeInMillis());
 		return rtnNumber;
@@ -52,7 +52,7 @@ public class RandomUtils {
 	
 	public static void main(String[] args) {
 		try {
-			RandomUtils.randomNumber(1000000, 10000);
+			RandomUtils.randomNumber(10 , 10);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
