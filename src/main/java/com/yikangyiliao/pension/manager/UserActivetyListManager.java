@@ -3,6 +3,7 @@ package com.yikangyiliao.pension.manager;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -48,8 +49,8 @@ public class UserActivetyListManager {
 	 * @date 2016-05-23 15:14
 	 * @desc 查询我参与的活动
 	 * */
-	public List<Activety> getMyActivetyByUserId(Long userId){
-		return  userActivetyListDao.getMyActivetyByUserId(userId);
+	public List<Activety> getMyActivetyByUserId(Map map){
+		return  userActivetyListDao.getMyActivetyByUserIdPage(map);
 	}
 	
 	

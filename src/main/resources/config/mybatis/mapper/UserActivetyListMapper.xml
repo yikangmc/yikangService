@@ -156,7 +156,7 @@
   </resultMap>
   
   <!-- 获取我参见的活动 -->
-  <select id="getMyActivetyByUserId" resultMap="getMyActivetyByUserIdResultMap">
+  <select id="getMyActivetyByUserIdPage" parameterType="map" resultMap="getMyActivetyByUserIdResultMap">
   	select act.*,
 		ui.user_name as createUsername,
 		ui.user_sex,

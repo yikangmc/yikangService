@@ -120,8 +120,8 @@ public class QuestionManager {
      * @date 2016-06-06 11:23
      * @desc 获取某一个用户创建的所有问题
      * */
-    public List<Question> getQuestionByCreateUserId(Long taglibId){
-    	return questionDao.getQuestionByCreateUserId(taglibId);
+    public List<Question> getQuestionByCreateUserId(Map map){
+    	return questionDao.getQuestionByCreateUserIdPage(map);
     }
     
     

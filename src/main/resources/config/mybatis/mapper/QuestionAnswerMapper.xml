@@ -260,7 +260,7 @@
 	</select>
 
 	<!-- 我的回答 -->
-	<select id="getMyQuestionAnswerByCreateUserId" parameterType="map"
+	<select id="getMyQuestionAnswerByCreateUserIdPage" parameterType="map"
 		resultMap="selectQuestionAnswerResultMap">
 		select
 		qa.*,

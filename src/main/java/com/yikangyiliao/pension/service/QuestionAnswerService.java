@@ -34,13 +34,13 @@ public class QuestionAnswerService {
 	 * */
 	public ResponseMessage<List<QuestionAnswer>> getQuestionAnswerByCreateUserId(Map<String,Object> paramMap){
 		ResponseMessage<List<QuestionAnswer>> questionAnswers=new ResponseMessage<List<QuestionAnswer>>();
-		Long userId=Long.valueOf(paramMap.get("userId").toString());
+		Long userId=Long.valueOf(paramMap.get("serverUserId").toString());
 		PageParameter page=new PageParameter();
 		if(paramMap.containsKey("page")){
 			int currentPage=Integer.valueOf(paramMap.get("page").toString());
 			page.setCurrentPage(currentPage);
 		}
-		List<QuestionAnswer> questionAnswersArray=questionAnswerManager.getQuestionAnswerListByCreateUserId(userId, page);
+		List<QuestionAnswer> questionAnswersArray=questionAnswerManager.getQuestionAnswerListByCreateUserIdPage(userId, page);
 		questionAnswers.setData(questionAnswersArray);
 		return questionAnswers;
 	}
@@ -59,7 +59,7 @@ public class QuestionAnswerService {
 			int currentPage=Integer.valueOf(paramMap.get("page").toString());
 			page.setCurrentPage(currentPage);
 		}
-		List<QuestionAnswer> questionAnswersArray=questionAnswerManager.getQuestionAnswerListByCreateUserId(userId, page);
+		List<QuestionAnswer> questionAnswersArray=questionAnswerManager.getQuestionAnswerListByCreateUserIdPage(userId, page);
 		questionAnswers.setData(questionAnswersArray);
 		return questionAnswers;
 	}

@@ -1277,7 +1277,9 @@ public class UserService {
 			if(paramData.containsKey("userPosition")){
 				String userPosition=paramData.get("userPosition").toString();
 				String userId=paramData.get("userId").toString();
-				userManager.submitUpdateUserPosition(Long.valueOf(userId),Long.valueOf(userPosition));
+				int result = userManager.submitUpdateUserPosition(Long.valueOf(userId),Long.valueOf(userPosition));
+				if(result>0){
+				}
 				responseMessage.setStatus(ExceptionConstants.responseSuccess.responseSuccess.code);
 				responseMessage.setMessage(ExceptionConstants.responseSuccess.responseSuccess.message);
 			}else{

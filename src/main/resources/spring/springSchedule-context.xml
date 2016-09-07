@@ -25,29 +25,29 @@
 <!--           </property> -->
 <!--      </bean> -->
 
-	<bean id="servicerScheudleJob"  class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
-<!--           调用的类 -->
+	<!-- <bean id="servicerScheudleJob"  class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
+          调用的类
           <property name="targetObject">
            <ref bean="recommendDataSchedule" />
           </property>
-<!--           调用类中的方法 -->
+          调用类中的方法
           <property name="targetMethod">
            <value>reloadRecommendForumPostData</value>
-          </property>
-     </bean>
+          </property> 
+     </bean> -->
 	
 	
 	
-	
-<!-- 	<bean id="servicerScheudleTrriger"  class="org.springframework.scheduling.quartz.CronTriggerFactoryBean"> -->
-<!-- 		<property name="jobDetail"> -->
-<!--            <ref bean="servicerScheudleJob" /> -->
-<!--         </property> -->
+	<!-- 
+	<bean id="servicerScheudleTrriger"  class="org.springframework.scheduling.quartz.CronTriggerFactoryBean">
+		<property name="jobDetail">
+           <ref bean="servicerScheudleJob" />
+        </property>
        
-<!--         <property name="cronExpression"> -->
-<!--            <value>0 0/1 * * * ?</value> -->
-<!--         </property> -->
-<!-- 	</bean> -->
+        <property name="cronExpression">
+           <value>0 0/1 * * * ?</value>
+        </property>
+	</bean>
 
 	<bean id="servicerScheudleJobTrriger"  class="org.springframework.scheduling.quartz.CronTriggerFactoryBean">
 		<property name="jobDetail">
@@ -61,19 +61,19 @@
 	
 	
 	
-	   <!-- cron表达式 -->
-	  <!-- 总管理类 如果将lazy-init='false'那么容器启动就会执行调度程序 -->
+	   cron表达式
+	  总管理类 如果将lazy-init='false'那么容器启动就会执行调度程序
      <bean id="startQuertz" autowire="byName" lazy-init="true"  class="org.springframework.scheduling.quartz.SchedulerFactoryBean">
         <property name="triggers">
            <list>
-<!--                 <ref bean="servicerScheudleTrriger" /> -->
+                <ref bean="servicerScheudleTrriger" />
                 <ref bean="servicerScheudleJobTrriger" />
            </list>
         </property>
      </bean>
 
 
-
+ -->
 	
 
 </beans>

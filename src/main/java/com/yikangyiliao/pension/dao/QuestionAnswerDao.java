@@ -65,7 +65,7 @@ public interface QuestionAnswerDao {
      * @desc 获取用户的创建回复
      * 
      ***/
-    List<QuestionAnswer> getMyQuestionAnswerByCreateUserId(Map<String,Object> paramMap);
+    List<QuestionAnswer> getMyQuestionAnswerByCreateUserIdPage(Map<String,Object> paramMap);
     
     
     /**

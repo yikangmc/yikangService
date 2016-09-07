@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.yikangyiliao.pension.dao.QuestionAnswersCommentDao" >
+  <resultMap id="BaseResultMap" type="com.yikangyiliao.pension.entity.QuestionAnswersComment" >
+    <id column="question_answers_comment_id" property="questionAnswersCommentId" jdbcType="BIGINT" />
+    <result column="question_answer_id" property="questionAnswerId" jdbcType="BIGINT" />
+    <result column="create_user_id" property="createUserId" jdbcType="BIGINT" />
+    <result column="to_user_id" property="toUserId" jdbcType="BIGINT" />
+    <result column="content" property="content" jdbcType="VARCHAR" />
+    <result column="answer_to" property="answerTo" jdbcType="TINYINT" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    question_answers_comment_id, question_answer_id, create_user_id, to_user_id, content, 
+    answer_to, create_time
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from question_answers_comment
+    where question_answers_comment_id = #{questionAnswersCommentId,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from question_answers_comment
+    where question_answers_comment_id = #{questionAnswersCommentId,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.yikangyiliao.pension.entity.QuestionAnswersComment" >
+    insert into question_answers_comment (question_answers_comment_id, question_answer_id, 
+      create_user_id, to_user_id, content, 
+      answer_to, create_time)
+    values (#{questionAnswersCommentId,jdbcType=BIGINT}, #{questionAnswerId,jdbcType=BIGINT}, 
+      #{createUserId,jdbcType=BIGINT}, #{toUserId,jdbcType=BIGINT}, #{content,jdbcType=VARCHAR}, 
+      #{answerTo,jdbcType=TINYINT}, #{createTime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.yikangyiliao.pension.entity.QuestionAnswersComment" >
+    insert into question_answers_comment
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="questionAnswersCommentId != null" >
+        question_answers_comment_id,
+      </if>
+      <if test="questionAnswerId != null" >
+        question_answer_id,
+      </if>
+      <if test="createUserId != null" >
+        create_user_id,
+      </if>
+      <if test="toUserId != null" >
+        to_user_id,
+      </if>
+      <if test="content != null" >
+        content,
+      </if>
+      <if test="answerTo != null" >
+        answer_to,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="questionAnswersCommentId != null" >
+        #{questionAnswersCommentId,jdbcType=BIGINT},
+      </if>
+      <if test="questionAnswerId != null" >
+        #{questionAnswerId,jdbcType=BIGINT},
+      </if>
+      <if test="createUserId != null" >
+        #{createUserId,jdbcType=BIGINT},
+      </if>
+      <if test="toUserId != null" >
+        #{toUserId,jdbcType=BIGINT},
+      </if>
+      <if test="content != null" >
+        #{content,jdbcType=VARCHAR},
+      </if>
+      <if test="answerTo != null" >
+        #{answerTo,jdbcType=TINYINT},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.yikangyiliao.pension.entity.QuestionAnswersComment" >
+    update question_answers_comment
+    <set >
+      <if test="questionAnswerId != null" >
+        question_answer_id = #{questionAnswerId,jdbcType=BIGINT},
+      </if>
+      <if test="createUserId != null" >
+        create_user_id = #{createUserId,jdbcType=BIGINT},
+      </if>
+      <if test="toUserId != null" >
+        to_user_id = #{toUserId,jdbcType=BIGINT},
+      </if>
+      <if test="content != null" >
+        content = #{content,jdbcType=VARCHAR},
+      </if>
+      <if test="answerTo != null" >
+        answer_to = #{answerTo,jdbcType=TINYINT},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where question_answers_comment_id = #{questionAnswersCommentId,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.yikangyiliao.pension.entity.QuestionAnswersComment" >
+    update question_answers_comment
+    set question_answer_id = #{questionAnswerId,jdbcType=BIGINT},
+      create_user_id = #{createUserId,jdbcType=BIGINT},
+      to_user_id = #{toUserId,jdbcType=BIGINT},
+      content = #{content,jdbcType=VARCHAR},
+      answer_to = #{answerTo,jdbcType=TINYINT},
+      create_time = #{createTime,jdbcType=TIMESTAMP}
+    where question_answers_comment_id = #{questionAnswersCommentId,jdbcType=BIGINT}
+  </update>
+  <resultMap id="getQuestionAnswersCommentListByUserIdAndQuestionAnswerIdMap" type="com.yikangyiliao.pension.entity.QuestionAnswersComment" >
+  	<result column="question_answer_id" property="questionAnswerId" jdbcType="BIGINT" />
+    <result column="create_user_id" property="createUserId" jdbcType="BIGINT" />
+    <result column="to_user_id" property="toUserId" jdbcType="BIGINT" />
+    <result column="content" property="content" jdbcType="VARCHAR" />
+    <result column="answer_to" property="answerTo" jdbcType="TINYINT" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="designation_name" property="designationName" jdbcType="VARCHAR" />
+    <result column="to_user_name" property="toUserName" jdbcType="VARCHAR" />
+	<result column="photo_url" property="photol" jdbcType="VARCHAR"/>
+	<result column="user_name" property="userName" jdbcType="VARCHAR"/>
+	<result column="user_position" property="userPosition" jdbcType="VARCHAR"/>
+  </resultMap>
+  <select id="getQuestionAnswersCommentListByUserIdAndQuestionAnswerIdPage" resultMap="getQuestionAnswersCommentListByUserIdAndQuestionAnswerIdMap" parameterType="map" >
+
+	select
+	qac.question_answer_id,qac.create_user_id,qac.content,qac.answer_to,qac.to_user_id,ui.photo_url,ui.user_name,qac.create_time,usi.user_position,
+	(select designation_name from designations where
+	designations.designation_id=ui.designation_id) as designation_name,
+	(select user_name from user_infos where 
+	user_infos.user_id=qac.to_user_id)as to_user_name from
+	question_answers_comment qac 
+	LEFT JOIN user_service_infos usi on usi.user_id=qac.create_user_id 
+	LEFT JOIN user_infos ui ON ui.user_id=qac.create_user_id 
+  	where qac.question_answer_id=#{questionAnswerId} 
+  </select>
+</mapper>

@@ -113,10 +113,12 @@ public class SendRequest {
 	public void TestRequest(){
 		try {
 			Map<String,Object> paramData=new HashMap<String, Object>();
-			paramData.put("name","hello");
+			paramData.put("loginName","13716907523");
+			paramData.put("passWord", "111111");
+			paramData.put("machineCode", "123123");
 			
-			SendRequest.sendPost("00-01-01",paramData);
-		} catch (IOException e) {
+			SendRequest.sendPost("00-29-01?appId=234&accessTicket=99b5ee453affe2efad86f03909495dd1b9ce342e78fd9ac33497fe204e9991195e4c7afd323d91954ba85f0a1bf9bb45&machineCode=123123",paramData);
+			} catch (IOException e) {
 			e.printStackTrace();
 		}
 	}

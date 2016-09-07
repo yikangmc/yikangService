@@ -3,6 +3,7 @@ package com.yikangyiliao.pension.service;
 import java.text.ParseException;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -13,6 +14,7 @@ import org.springframework.util.StringUtils;
 import com.yikangyiliao.base.utils.DateUtils;
 import com.yikangyiliao.base.utils.ParamMapUtils;
 import com.yikangyiliao.pension.common.error.ExceptionConstants;
+import com.yikangyiliao.pension.common.page.PageParameter;
 import com.yikangyiliao.pension.common.response.ResponseMessage;
 import com.yikangyiliao.pension.entity.Activety;
 import com.yikangyiliao.pension.entity.ActivetyComment;
@@ -283,9 +285,15 @@ public class ActivetyService {
 		
 		ResponseMessage<List<Activety>> resData=new ResponseMessage<List<Activety>>();
 		
-		if(paramMap.containsKey("userId")){
-			Long userId=Long.valueOf(paramMap.get("userId").toString());
-			List<Activety> activetys= activetyListManager.getMyActivetyByUserId(userId);
+		if(paramMap.containsKey("serverUserId")&&paramMap.containsKey("page")){
+			Long userId=Long.valueOf(paramMap.get("serverUserId").toString());
+			Integer currentPage = Integer.valueOf(paramMap.get("page").toString());
+			PageParameter pageParameter = new PageParameter();
+			Map<String, Object> map = new HashMap<String, Object>();
+			pageParameter.setCurrentPage(currentPage);
+			map.put("page", pageParameter);
+			map.put("userId", userId);
+			List<Activety> activetys= activetyListManager.getMyActivetyByUserId(map);
 			resData.setData(activetys);
 		}else{
 			resData.setStatus(ExceptionConstants.parameterException.parameterException.errorCode);

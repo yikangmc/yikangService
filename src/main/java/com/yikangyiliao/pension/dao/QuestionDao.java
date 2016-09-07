@@ -41,7 +41,7 @@ public interface QuestionDao {
      * @date 2016-06-07 11:22
      * @desc 获取某一个用户创建的所有问题
      * **/
-    List<Question> getQuestionByCreateUserId(Long userId);
+    List<Question> getQuestionByCreateUserIdPage(Map map);
     
     
     

@@ -133,11 +133,11 @@ public class QuestionAnswerManager {
 	 * @date 2016-06-29 09:54
 	 * @desc  获取我的回答列表
 	 * */
-	public List<QuestionAnswer> getQuestionAnswerListByCreateUserId(Long userId,PageParameter page){
+	public List<QuestionAnswer> getQuestionAnswerListByCreateUserIdPage(Long userId,PageParameter page){
 		Map<String,Object> paramMap=new HashMap<String,Object>();
 		paramMap.put("userId", userId);
 		paramMap.put("page", page);
-		return questionAnswerDao.getMyQuestionAnswerByCreateUserId(paramMap);
+		return questionAnswerDao.getMyQuestionAnswerByCreateUserIdPage(paramMap);
 	}
 	
 	
