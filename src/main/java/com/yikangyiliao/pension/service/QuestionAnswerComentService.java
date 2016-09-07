@@ -50,9 +50,9 @@ public class QuestionAnswerComentService {
 			}
 			answersComment.setCreateTime(new Date());
 			int result=answerComentManager.insertSelective(answersComment);
-			/*if(result>0){
-				推送待定
-			}*/
+			if(result>0){
+				
+			}
 		}else{
 			data.setStatus(ExceptionConstants.parameterException.parameterException.errorCode);
 			data.setMessage(ExceptionConstants.parameterException.parameterException.errorMessage);

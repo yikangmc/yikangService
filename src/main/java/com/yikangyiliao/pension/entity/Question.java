@@ -32,6 +32,12 @@ public class Question {
     //标签列表
     private List<Taglib> taglibs;
     
+    //用户信息
+    private UserInfo userInfo;
+    
+    //服务人员信息表
+    private UserServiceInfo userServiceInfo;
+    
     //问题列表
     private List<QuestionAnswer> questionAnswers= new ArrayList<QuestionAnswer>();
     
@@ -151,5 +157,21 @@ public class Question {
 
 	public void setQuestionImages(List<QuestionImage> questionImages) {
 		this.questionImages = questionImages;
+	}
+
+	public UserInfo getUserInfo() {
+		return userInfo;
+	}
+
+	public void setUserInfo(UserInfo userInfo) {
+		this.userInfo = userInfo;
+	}
+
+	public UserServiceInfo getUserServiceInfo() {
+		return userServiceInfo;
+	}
+
+	public void setUserServiceInfo(UserServiceInfo userServiceInfo) {
+		this.userServiceInfo = userServiceInfo;
 	}
 }

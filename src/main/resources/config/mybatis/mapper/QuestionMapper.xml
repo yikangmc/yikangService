@@ -136,19 +136,24 @@
 		where question_id = #{questionId,jdbcType=BIGINT}
 	</update>
 
-
-
+	
 	<resultMap type="com.yikangyiliao.pension.entity.Question"
 		id="getQuestionDetailByQuestionIdResultMap" extends="BaseResultMap">
 		<result column="user_name" property="userName" />
 		<result column="photo_url" property="photoUrl" />
-
+		<association property="userInfo" javaType="com.yikangyiliao.pension.entity.UserInfo">
+			<result column="designation_name" property="designationName" />
+		</association>
+		<association property="userServiceInfo" javaType="com.yikangyiliao.pension.entity.UserServiceInfo">
+			<result column="user_position" property="userPosition" />
+		</association>
 		<collection property="taglibs" column="question_id"
 			select="com.yikangyiliao.pension.dao.QuestionTaglibMapDao.getQuestionTaglibsByQuestionId"></collection>
 		<collection property="questionImages" column="question_id"
 			select="com.yikangyiliao.pension.dao.QuestionImageDao.getQuestionImageByQuestionId"></collection>
 
 	</resultMap>
+	
 
 	<!--查询某一个问题详情 -->
 	<select id="getQuestionDetailByQuestionId" parameterType="long"
@@ -159,9 +164,12 @@
 		questions.content, questions.create_user_id, questions.create_time, questions.is_delete,
 		questions.star, questions.update_time,
 		ui.user_name,
-		ui.photo_url
+		ui.photo_url,
+		(select designations.designation_name from designations where designations.designation_id=ui.designation_id) as designation_name,
+		usi.user_position
 		from questions left join user_infos ui on
-		questions.create_user_id=ui.user_id
+		questions.create_user_id=ui.user_id 
+		LEFT JOIN user_service_infos usi ON questions.create_user_id=usi.user_id
 		where question_id=#{questionId}
 	</select>
 
@@ -171,6 +179,12 @@
 		<result column="user_name" property="userName" />
 		<result column="photo_url" property="photoUrl" />
 		<result column="answer_num" property="answerNum" />
+		<association property="userInfo" javaType="com.yikangyiliao.pension.entity.UserInfo">
+			<result column="designation_name" property="designationName" />
+		</association>
+		<association property="userServiceInfo" javaType="com.yikangyiliao.pension.entity.UserServiceInfo">
+			<result column="user_position" property="userPosition" />
+		</association>
 	</resultMap>
 	
 <select id="getQuestionByTaglibidPage" resultMap="getQuestionByTaglibidResultMap" parameterType="map">
@@ -184,11 +198,14 @@
   		que.star,
   		ui.user_name,
   		ui.photo_url,
+  		(select designations.designation_name from designations where designations.designation_id=ui.designation_id) as designation_name,
+		usi.user_position,
   		(select count(1) from question_answers where question_id=que.question_id  ) as answer_num
   	from 
   		question_taglib_maps qtm  
 	inner join questions que on qtm.questions_id=que.question_id
-	left join  user_infos ui on que.create_user_id=ui.user_id
+	left join  user_infos ui on que.create_user_id=ui.user_id 
+	left join user_service_infos usi on que.create_user_id=usi.user_id  
 	where taglibs_id=#{taglibId}
 	order by que.create_time desc
   </select>

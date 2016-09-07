@@ -179,7 +179,12 @@
 		<association property="question"
 			javaType="com.yikangyiliao.pension.entity.Question">
 			<result column="title" property="title" />
+			<collection property="taglibs" resultMap="selectTagLibResultMap"></collection>
 		</association>
+	</resultMap>
+	<resultMap type="com.yikangyiliao.pension.entity.Taglib"
+		id="selectTagLibResultMap">
+		<result column="taglib_name" property="tagName" />
 	</resultMap>
 	<select id="selectQuestionAnswer" parameterType="map"
 		resultMap="selectQuestionAnswerResultMap">
@@ -263,11 +268,15 @@
 	<select id="getMyQuestionAnswerByCreateUserIdPage" parameterType="map"
 		resultMap="selectQuestionAnswerResultMap">
 		select
+		q.title,
+		(select tag_name from taglibs t where t.taglib_id=qtm.taglibs_id) as taglib_name,
 		qa.*,
 		qad.question_answer_detail_content,
 		qad.question_answer_html_content
 		from question_answers qa left join question_answer_details qad on
-		qa.question_answer_id=qad.question_answer_id
+		qa.question_answer_id=qad.question_answer_id 
+		left JOIN questions q on qa.question_id=q.question_id 
+		LEFT JOIN question_taglib_maps qtm on qa.question_id=qtm.questions_id
 		where qa.create_user_id=#{userId}
 	</select>
 

@@ -20,8 +20,6 @@ import com.yikangyiliao.pension.entity.QuestionAnswer;
 import com.yikangyiliao.pension.entity.QuestionAnswerDetail;
 import com.yikangyiliao.pension.entity.QuestionAnswerImage;
 import com.yikangyiliao.pension.entity.QuestionAnswerStartList;
-import com.yikangyiliao.pension.entity.QuestionImage;
-import com.yikangyiliao.pension.message.QuestionAnswerMsgOperation;
 
 @Component
 public class QuestionAnswerManager {
