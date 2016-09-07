@@ -368,6 +368,18 @@ public class FormPostManager {
 		return formPostsDao.getHotForumPosts();
 	}
 	
+	
+    /**
+     * @author liushuaic
+     * @date 2016-09-07 10:41
+     * @desc 获取最热帖子分页
+     * **/
+    public List<FormPosts> getHotForumPostsPage(PageParameter page){
+    		Map<String,Object> paramMap=new HashMap<String,Object>();
+    		paramMap.put("page", page);
+    		return formPostsDao.getHotForumPostsPage(paramMap);
+    }
+	
 	/**
 	 * @author liushuaic
 	 * @date 2016-06-07 10:52

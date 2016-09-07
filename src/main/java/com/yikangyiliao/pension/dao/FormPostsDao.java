@@ -96,6 +96,14 @@ public interface FormPostsDao {
     
     /**
      * @author liushuaic
+     * @date 2016-09-07 10:41
+     * @desc 获取最热帖子分页
+     * **/
+    List<FormPosts> getHotForumPostsPage(Map<String,Object> paramMap);
+    
+    
+    /**
+     * @author liushuaic
      * @date 2016-08-01 15:21
      * @desc 获取用户信息根据发部文章id
      * */

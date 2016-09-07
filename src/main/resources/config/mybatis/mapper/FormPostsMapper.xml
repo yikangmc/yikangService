@@ -422,6 +422,24 @@
  	order by stars desc
   </select>
   
+  <!-- 获取最热帖子 -->
+  <select id="getHotForumPostsPage" resultMap="getForumPostsByTaglibsIdResultMap" parameterType="map">
+  	select 
+		forum_posts.*,
+	(select count(1) from forum_posts_answers fpa where fpa.form_post_id=forum_posts.forum_post_id) as answersNums,
+	ui.user_name,
+	ui.photo_url,
+	usi.user_position,
+	designations.designation_name
+ 	from forum_posts
+ 	left join  user_infos ui 			on forum_posts.create_user_id=ui.user_id
+ 	left join  user_service_infos usi 	on ui.user_id=usi.user_id
+	left join  designations  				on ui.designation_id=designations.designation_id
+	inner join recommend_datas rd  		on (forum_posts.forum_post_id=rd.data_id and rd.recomend_group=2 and rd.is_delete=0)
+	where forum_posts.forum_post_group=0
+ 	order by stars desc
+  </select>
+  
   <!-- 
   	查询所有的文章数据 限制200条
    -->

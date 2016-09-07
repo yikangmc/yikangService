@@ -426,6 +426,14 @@ public class InterfaceUtil {
 		getWZForumPostsByServerUserIdPage.setMethodName("getWZForumPostsByServerUserIdPage");
 		getWZForumPostsByServerUserIdPage.setIsFileter(false);
 		mathodServiceConfig.put("00-28-16",getWZForumPostsByServerUserIdPage);
+		
+		//获取最热帖子分页 no login
+		YiKangServiceConfige getHotForumPostsForPage=new YiKangServiceConfige();
+		getHotForumPostsForPage.setServiceName("forumPostService");
+		getHotForumPostsForPage.setMethodName("getHotForumPostsForPage");
+		getHotForumPostsForPage.setIsFileter(false);
+		mathodServiceConfig.put("00-28-17",getHotForumPostsForPage);
+		
 
 		//问题处理
 		serviceClassName.put("00-29","questionService");
