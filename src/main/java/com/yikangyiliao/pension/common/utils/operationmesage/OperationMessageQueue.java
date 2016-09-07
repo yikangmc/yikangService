@@ -177,4 +177,37 @@ public class OperationMessageQueue {
 		
 	}
 	
+	/**
+	 * @desc 添加问题解答回复队列
+	 * **/
+	public static BlockingQueue<OperationMessage> QuestionAnswersCommentQueue=new LinkedBlockingQueue<OperationMessage>();
+	
+	public static void putQuestionAnswersCommentQueue(OperationMessage operationMessage){
+		logger.info("QuestionAnswersCommentQueue -->putQuestionAnswersCommentQueue-->info--> "+operationMessage.getContent());
+		try {
+			QuestionAnswersCommentQueue.put(operationMessage);
+		} catch (InterruptedException e) {
+			logger.error("QuestionAnswersCommentQueue -->putQuestionAnswersCommentQueue-->error:"+e.getMessage());
+			e.printStackTrace();
+		}
+	}
+	
+	
+	/**
+	 * @author liushuaic
+	 * @date 2016-08-01 14:14
+	 * @desc 获取文章回复
+	 * **/
+	public static OperationMessage takeQuestionAnswersComment(){
+		try {
+			logger.info("QuestionAnswersCommentQueue-->takeQuestionAnswersCommentQueue-->info:getMessage");
+			return QuestionAnswersCommentQueue.take();
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+			logger.error("forumPostsAnswerQueues-->takeForumPostsAnswer-->error:"+e.getMessage());
+		}
+		return null;
+		
+	}
+	
 }

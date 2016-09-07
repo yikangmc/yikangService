@@ -134,8 +134,12 @@
 	qac.question_answer_id,qac.create_user_id,qac.content,qac.answer_to,qac.to_user_id,ui.photo_url,ui.user_name,qac.create_time,usi.user_position,
 	(select designation_name from designations where
 	designations.designation_id=ui.designation_id) as designation_name,
-	(select user_name from user_infos where 
-	user_infos.user_id=qac.to_user_id)as to_user_name from
+	(select userInfos.user_name  from user_infos userInfos 
+	LEFT JOIN user_service_infos userServiceInfos on userInfos.user_id=userServiceInfos.user_id 
+	where userInfos.user_id=qac.to_user_id) as to_user_name,
+    (select userServiceInfos.user_position   from user_infos userInfos 
+	LEFT JOIN user_service_infos userServiceInfos on userInfos.user_id=userServiceInfos.user_id 
+	where userInfos.user_id=qac.to_user_id) as to_user_position from
 	question_answers_comment qac 
 	LEFT JOIN user_service_infos usi on usi.user_id=qac.create_user_id 
 	LEFT JOIN user_infos ui ON ui.user_id=qac.create_user_id 

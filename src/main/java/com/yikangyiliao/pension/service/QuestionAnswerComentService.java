@@ -49,10 +49,7 @@ public class QuestionAnswerComentService {
 				answersComment.setAnswerTo(Byte.valueOf("1"));
 			}
 			answersComment.setCreateTime(new Date());
-			int result=answerComentManager.insertSelective(answersComment);
-			if(result>0){
-				
-			}
+			answerComentManager.insertSelective(answersComment);
 		}else{
 			data.setStatus(ExceptionConstants.parameterException.parameterException.errorCode);
 			data.setMessage(ExceptionConstants.parameterException.parameterException.errorMessage);

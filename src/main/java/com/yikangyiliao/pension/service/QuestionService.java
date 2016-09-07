@@ -214,10 +214,12 @@ public class QuestionService {
 	 * **/
 	public ResponseMessage<List<Question>> getQuestionByCreateUserId(Map<String,Object> paramMap){
 		ResponseMessage<List<Question>> resData=new ResponseMessage<List<Question>>();
-		if(paramMap.containsKey("userId")){
-			Long userId=Long.valueOf(paramMap.get("userId").toString());
+		if(paramMap.containsKey("serverUserId")&&paramMap.containsKey("page")){
+			Long userId=Long.valueOf(paramMap.get("serverUserId").toString());
+			Integer currentPage = Integer.valueOf(paramMap.get("page").toString());
 			PageParameter pageParameter = new PageParameter();
 			Map<String, Object> map = new HashMap<String, Object>();
+			pageParameter.setCurrentPage(currentPage);
 			map.put("page", pageParameter);
 			map.put("userId", userId);
 			List<Question> questions=questionManager.getQuestionByCreateUserId(map);
