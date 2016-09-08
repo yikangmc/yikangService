@@ -345,7 +345,7 @@ public class ActivetyService {
 			pageParameter.setCurrentPage(currentPage);
 			Map<String, Object> map = new HashMap<String, Object>();
 			map.put("userId", userId);
-			map.put("page", currentPage);
+			map.put("page", pageParameter);
 			List<Activety> activetys= activetyListManager.getMyActivetyByUserIdPage(map);
 			resData.setData(activetys);
 		}else{
