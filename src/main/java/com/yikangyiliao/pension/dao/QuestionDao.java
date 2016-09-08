@@ -43,6 +43,8 @@ public interface QuestionDao {
      * **/
     List<Question> getQuestionByCreateUserIdPage(Map map);
     
+    List<Question> getQuestionByCreateUserId(Map map);
+    
     
     
 }

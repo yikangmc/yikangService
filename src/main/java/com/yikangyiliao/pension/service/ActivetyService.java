@@ -285,13 +285,9 @@ public class ActivetyService {
 		
 		ResponseMessage<List<Activety>> resData=new ResponseMessage<List<Activety>>();
 		
-		if(paramMap.containsKey("serverUserId")&&paramMap.containsKey("page")){
-			Long userId=Long.valueOf(paramMap.get("serverUserId").toString());
-			Integer currentPage = Integer.valueOf(paramMap.get("page").toString());
-			PageParameter pageParameter = new PageParameter();
+		if(paramMap.containsKey("userId")){
+			Long userId=Long.valueOf(paramMap.get("userId").toString());
 			Map<String, Object> map = new HashMap<String, Object>();
-			pageParameter.setCurrentPage(currentPage);
-			map.put("page", pageParameter);
 			map.put("userId", userId);
 			List<Activety> activetys= activetyListManager.getMyActivetyByUserId(map);
 			resData.setData(activetys);
@@ -307,7 +303,33 @@ public class ActivetyService {
 	
 	
 	
-	
+	/**
+	 * @author liushuaic
+	 * @date 2016-05-23 10:57
+	 * @desc 获取我参加的活动列表
+	 * **/
+	public ResponseMessage<List<Activety>> getActiveyByJoinUserIdPage(Map<String,Object> paramMap){
+		
+		ResponseMessage<List<Activety>> resData=new ResponseMessage<List<Activety>>();
+		
+		if(paramMap.containsKey("serverUserId")&&paramMap.containsKey("page")){
+			Long userId=Long.valueOf(paramMap.get("serverUserId").toString());
+			Integer currentPage = Integer.valueOf(paramMap.get("page").toString());
+			PageParameter pageParameter = new PageParameter();
+			pageParameter.setCurrentPage(currentPage);
+			Map<String, Object> map = new HashMap<String, Object>();
+			map.put("userId", userId);
+			map.put("page", currentPage);
+			List<Activety> activetys= activetyListManager.getMyActivetyByUserIdPage(map);
+			resData.setData(activetys);
+		}else{
+			resData.setStatus(ExceptionConstants.parameterException.parameterException.errorCode);
+			resData.setMessage(ExceptionConstants.parameterException.parameterException.errorMessage);
+		}
+		
+		
+		return resData;
+	}
 	
 	
 }

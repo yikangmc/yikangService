@@ -502,6 +502,18 @@ public class InterfaceUtil {
 		getQuestionByCreateUserId.setIsFileter(true);
 		mathodServiceConfig.put("00-29-07",getQuestionByCreateUserId);
 		
+		/**
+		 * @author liushuaic
+		 * @date 2016-06-06 19:37
+		 * @desc 获取某一个人创建的所有问题
+		 * **/
+		YiKangServiceConfige getQuestionByCreateUserIdPage=new YiKangServiceConfige();
+		getQuestionByCreateUserIdPage.setServiceName("questionService");
+		getQuestionByCreateUserIdPage.setMethodName("getQuestionByCreateUserIdPage");
+		getQuestionByCreateUserIdPage.setIsFileter(true);
+		mathodServiceConfig.put("00-29-08",getQuestionByCreateUserIdPage);
+		
+		
 		
 		/**
 		 * @author liushuaic
@@ -657,7 +669,16 @@ public class InterfaceUtil {
 		getActiveyByJoinUserId.setIsFileter(true);
 		mathodServiceConfig.put("00-31-07",getActiveyByJoinUserId);
 		
-		
+		/**
+		 * @author liushuaic
+		 * @date 2016-05-23 16:20
+		 * @desc 获取我参加的活动列表
+		 * **/
+		YiKangServiceConfige getActiveyByJoinUserIdPage=new YiKangServiceConfige();
+		getActiveyByJoinUserIdPage.setServiceName("activetyService");
+		getActiveyByJoinUserIdPage.setMethodName("getActiveyByJoinUserIdPage");
+		getActiveyByJoinUserIdPage.setIsFileter(true);
+		mathodServiceConfig.put("00-31-08",getActiveyByJoinUserIdPage);
 		
 		
 		/**

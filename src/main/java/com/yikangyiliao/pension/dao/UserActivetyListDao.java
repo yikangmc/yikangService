@@ -37,4 +37,11 @@ public interface UserActivetyListDao {
      * @desc 获取我参与的活动
      * **/
     List<Activety> getMyActivetyByUserIdPage(Map map);
+    
+    /**
+     * @author liushuaic
+     * @date 2016-05-23 15:12
+     * @desc 获取我参与的活动
+     * **/
+    List<Activety> getMyActivetyByUserId(Map map);
 }
