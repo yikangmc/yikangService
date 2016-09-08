@@ -147,5 +147,6 @@
 	LEFT JOIN user_service_infos usi on usi.user_id=qac.create_user_id 
 	LEFT JOIN user_infos ui ON ui.user_id=qac.create_user_id 
   	where qac.question_answer_id=#{questionAnswerId} 
+  	order by qac.create_time desc 
   </select>
 </mapper>
