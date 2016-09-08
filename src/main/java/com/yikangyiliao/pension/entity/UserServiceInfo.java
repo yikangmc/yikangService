@@ -96,6 +96,8 @@ public class UserServiceInfo {
     
     private String designationName;
     
+    //我关注的用户数量
+    private int watchUserNumber;
     
     private int followUserNumber;
     
@@ -459,6 +461,14 @@ public class UserServiceInfo {
 
 	public void setAdeptName(String adeptName) {
 		this.adeptName = adeptName;
+	}
+
+	public int getWatchUserNumber() {
+		return watchUserNumber;
+	}
+
+	public void setWatchUserNumber(int watchUserNumber) {
+		this.watchUserNumber = watchUserNumber;
 	}
 
 	
