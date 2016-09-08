@@ -33,6 +33,9 @@
       #{answerTo,jdbcType=TINYINT}, #{createTime,jdbcType=TIMESTAMP})
   </insert>
   <insert id="insertSelective" parameterType="com.yikangyiliao.pension.entity.QuestionAnswersComment" >
+     <selectKey resultType="Long" keyProperty="questionAnswersCommentId" order="AFTER">
+		SELECT LAST_INSERT_ID()
+	</selectKey>
     insert into question_answers_comment
     <trim prefix="(" suffix=")" suffixOverrides="," >
       <if test="questionAnswersCommentId != null" >

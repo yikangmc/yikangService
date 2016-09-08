@@ -21,11 +21,15 @@ public class QuestionAnswerComentManager {
 	
 	private Logger logger=LoggerFactory.getLogger(QuestionAnswerComentManager.class);
 	
-	public void insertSelective(QuestionAnswersComment answersComment,Long questionAnswerId){
+	/**
+	 * 添加 评论信息
+	 * @param answersComment
+	 */
+	public void insertSelective(QuestionAnswersComment answersComment){
 		answersCommentDao.insertSelective(answersComment);
 		try{
 			OperationMessage operationMessage=new OperationMessage();
-			operationMessage.setContent(String.valueOf(questionAnswerId));
+			operationMessage.setContent(String.valueOf(answersComment.getQuestionAnswersCommentId()));
 			operationMessage.setContentType("2");
 			OperationMessageQueue.putQuestionAnswersCommentQueue(operationMessage);
 		}catch(Exception e){
@@ -34,7 +38,22 @@ public class QuestionAnswerComentManager {
 		}
 	}
 	
+	
+	/**
+	 * 获取评论信息
+	 * @param map
+	 * @return
+	 */
 	public List<QuestionAnswersComment> getQuestionAnswersCommentListByUserIdAndQuestionAnswerId(Map map){
 		return answersCommentDao.getQuestionAnswersCommentListByUserIdAndQuestionAnswerIdPage(map);
+	}
+	
+	/**
+	 * 通过主键获取评论信息
+	 * @param questionAnswerCommentId
+	 * @return
+	 */
+	public QuestionAnswersComment selectByPrimaryKey(Long questionAnswerCommentId){
+		return answersCommentDao.selectByPrimaryKey(questionAnswerCommentId);
 	}
 }
