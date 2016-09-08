@@ -27,15 +27,6 @@ public class QuestionAnswerComentManager {
 	 */
 	public void insertSelective(QuestionAnswersComment answersComment){
 		answersCommentDao.insertSelective(answersComment);
-		try{
-			OperationMessage operationMessage=new OperationMessage();
-			operationMessage.setContent(String.valueOf(answersComment.getQuestionAnswersCommentId()));
-			operationMessage.setContentType("2");
-			OperationMessageQueue.putQuestionAnswersCommentQueue(operationMessage);
-		}catch(Exception e){
-			e.printStackTrace();
-			logger.error("推送发生异常!");
-		}
 	}
 	
 	

@@ -5,12 +5,16 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.yikangyiliao.pension.common.error.ExceptionConstants;
 import com.yikangyiliao.pension.common.page.PageParameter;
 import com.yikangyiliao.pension.common.response.ResponseMessage;
+import com.yikangyiliao.pension.common.utils.operationmesage.OperationMessage;
+import com.yikangyiliao.pension.common.utils.operationmesage.OperationMessageQueue;
 import com.yikangyiliao.pension.entity.QuestionAnswer;
 import com.yikangyiliao.pension.entity.QuestionAnswersComment;
 import com.yikangyiliao.pension.manager.QuestionAnswerComentManager;
@@ -18,6 +22,8 @@ import com.yikangyiliao.pension.manager.QuestionAnswerComentManager;
 @Service(value="questionAnswerComent")
 public class QuestionAnswerComentService {
 
+
+	private Logger logger=LoggerFactory.getLogger(QuestionAnswerComentService.class);
 	@Autowired
 	private QuestionAnswerComentManager answerComentManager;
 	/**
@@ -50,6 +56,16 @@ public class QuestionAnswerComentService {
 			}
 			answersComment.setCreateTime(new Date());
 			answerComentManager.insertSelective(answersComment);
+			try{
+				OperationMessage operationMessage=new OperationMessage();
+				operationMessage.setContent(String.valueOf(answersComment.getQuestionAnswersCommentId()));
+				operationMessage.setContentType("2");
+				OperationMessageQueue.putQuestionAnswersCommentQueue(operationMessage);
+			}catch(Exception e){
+				e.printStackTrace();
+				logger.error("推送发生异常!");
+			}
+
 		}else{
 			data.setStatus(ExceptionConstants.parameterException.parameterException.errorCode);
 			data.setMessage(ExceptionConstants.parameterException.parameterException.errorMessage);
