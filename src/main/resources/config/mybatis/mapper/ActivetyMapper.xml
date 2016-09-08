@@ -326,6 +326,16 @@
   	 order by activetys.create_time desc
   </select>
   
+    <!--查询我发布的活动  -->
+  <select id="selectActivetyByUserIdPage"  parameterType="long" resultMap="BaseResultMap">
+  	 select 
+  		 <include refid="Base_Column_List"></include>,
+  		 (select count(1) as partaketNums from user_activety_lists where activety_id=activetys.activety_id) as partakeNums
+  	 from activetys
+  	 where create_user_id=#{userId}
+  	 order by activetys.create_time desc
+  </select>
+  
   <!-- 查询某一个用户参加的某一个活动的信息 -->
   <select id="getActivetyByUserIdAndActivetyId" parameterType="map" resultMap="BaseResultMap" >
   	select

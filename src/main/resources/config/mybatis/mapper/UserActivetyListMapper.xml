@@ -167,6 +167,19 @@
   </select>
   
   
+  <!-- 获取我创建的活动列表  -->
+  <select id="getMyCreateActivetyByUserIdPage" parameterType="map" resultMap="getMyActivetyByUserIdResultMap">
+  	  select act.*,
+		ui.user_name as createUsername,
+		ui.user_sex,
+		ui.photo_url
+	 from user_activety_lists ual 
+	inner join activetys act on ual.activety_id=act.activety_id
+	left  join user_infos ui on act.create_user_id=ui.user_id  
+	where
+  	 act.
+  </select>
+  
   
   
   

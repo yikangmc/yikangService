@@ -9,6 +9,7 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import com.yikangyiliao.pension.common.page.PageParameter;
 import com.yikangyiliao.pension.dao.ActivetyDao;
 import com.yikangyiliao.pension.dao.ActivetyTaglibMapDao;
 import com.yikangyiliao.pension.entity.Activety;
@@ -118,5 +119,17 @@ public class ActivetyManager {
 		return activetyDao.getActivetyByUserIdAndActivetyId(paramMap);
 	}
 	
+	
+	/**
+	 * @author liushuaic
+	 * @date 2016-09-08 10:45
+	 * @desc 获取某一个人创建的活动列表 ，添加分页
+	 * */
+	public List<Activety> selectActivetyByUserIdPage(Long userId,PageParameter page){
+		Map<String,Object> paramMap=new HashMap<String,Object>();
+		paramMap.put("userId", userId);
+		paramMap.put("page", page);
+		return activetyDao.selectActivetyByUserIdPage(paramMap);
+	}
 	
 }

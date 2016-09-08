@@ -52,4 +52,13 @@ public interface ActivetyDao {
      * @desc 获取某一个用户的参与的某一个活动的信息
      * **/
     Activety getActivetyByUserIdAndActivetyId(Map<String,Object> paramMap);
+    
+    
+    /**
+     * @author liushuaic
+     * @date 2016-09-08 10:41
+     * @desc 查询我发起的活动列表
+     * */
+    List<Activety> selectActivetyByUserIdPage(Map<String,Object> paramMap);
+    
 }
