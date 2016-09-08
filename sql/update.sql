@@ -24,13 +24,14 @@ update taglibs set orders =19 where tag_name='综合';
 
 --增加专家解答评论关系表
 CREATE TABLE `question_answers_comment` (
-  `question_answers_comment_id` bigint(20) NOT NULL AUTO_INCREMENT,
-  `question_answer_id` bigint(20) NOT NULL COMMENT '帖子id',
-  `create_user_id` bigint(20) NOT NULL COMMENT '回复者id',
-  `to_user_id` bigint(20) NOT NULL DEFAULT '-2' COMMENT '二级评论被评论人的用户id',
-  `content` varchar(1100) CHARACTER SET utf8 NOT NULL COMMENT '评论内容',
-  `answer_to` tinyint(2) NOT NULL COMMENT '评论给谁\n1:解答\n2:个人及解答',
-  `create_time` datetime NOT NULL COMMENT '创建时间',
-  PRIMARY KEY (`question_answers_comment_id`),
-  KEY `fk_question_answers_comment_id_idx` (`question_answers_comment_id`)
+  `question_answers_comment_id` bigint(20) 		NOT NULL AUTO_INCREMENT,
+  `question_answer_id` 			bigint(20) 		NOT NULL COMMENT '帖子id',
+  `create_user_id` 				bigint(20) 		NOT NULL COMMENT '回复者id',
+  `to_user_id` 					bigint(20) 		NOT NULL DEFAULT '-2' COMMENT '二级评论被评论人的用户id',
+  `content`						varchar(1100) 	CHARACTER SET utf8 NOT NULL COMMENT '评论内容',
+  `answer_to` 					tinyint(2) 		NOT NULL COMMENT '评论给谁\n1:解答\n2:个人及解答',
+  `create_time` 					datetime 		NOT NULL COMMENT '创建时间',
+  PRIMARY KEY (`question_answers_comment_id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci COMMENT='问题解答评论表';
+
+
