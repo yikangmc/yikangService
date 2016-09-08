@@ -123,10 +123,12 @@
   <!-- 获取某一个文章的所有的回复 -->
   
   <resultMap id="getForumPostsAnswersByFormPostId" type="com.yikangyiliao.pension.entity.ForumPostsAnswer" extends="BaseResultMap">
+  	<result column="createUserId" 	property="createUserId"/>
   	<result column="createUserName" 	property="createUserName"/>
   	<result column="createUserPhotoUrl" property="createUserPhotoUrl"/>
   	<result column="createUserPosition" property="createUserPosition"/>
   	<result column="createUserDesignationName" property="createUserDesignationName"/>
+  	<result column="toUserId" 		property="toUserId"/>
   	<result column="toUserName" 		property="toUserName"/>
   	<result column="toUserPhotoUrl" 	property="toUserPhotoUrl"/>
   	<result column="toUserPosition" 	property="toUserPosition"/>
@@ -137,10 +139,12 @@
 		fpa.form_post_id,
 		fpa.content,
 		fpa.create_time,	    
+		ui.user_id			as createUserId,
 		ui.user_name 		as createUserName,
 		ui.photo_url 		as createUserPhotoUrl,
 	    usi.user_position 	as createUserPosition,
 	    des.designation_name as createUserDesignationName,
+	    toui.user_id			as toUserId,
 		toui.user_name 		as toUserName,
 		toui.photo_url 		as toUserPhotoUrl,
 		tousi.user_position as toUserPosition,
