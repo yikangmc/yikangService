@@ -8,6 +8,7 @@ import com.yikangyiliao.base.utils.messageUtil.im.MessageThreads;
 import com.yikangyiliao.pension.message.ForumPostAnswerMsgOperation;
 import com.yikangyiliao.pension.message.ForumPostStarOperation;
 import com.yikangyiliao.pension.message.ForumPostsMsgOpration;
+import com.yikangyiliao.pension.message.QuestionAnswerCommentOperation;
 import com.yikangyiliao.pension.message.QuestionAnswerMsgOperation;
 
 
@@ -57,6 +58,11 @@ public class PorpertiesLonder implements ApplicationContextAware {
 		Thread forumPostAnswerMsgOperationThread=new Thread(forumPostAnswerMsgOperation);
 		forumPostAnswerMsgOperationThread.start();
 		
+		
+		//专家解答的评论
+		QuestionAnswerCommentOperation questionAnswerCommentOperation = (QuestionAnswerCommentOperation) applicationContext.getBean("questionAnswerCommentOperation");
+		Thread questionAnswerCommentOperationThread = new Thread(questionAnswerCommentOperation);
+		questionAnswerCommentOperationThread.start();
 	}
 
 }

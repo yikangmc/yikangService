@@ -21,17 +21,17 @@ public class QuestionAnswerComentManager {
 	
 	private Logger logger=LoggerFactory.getLogger(QuestionAnswerComentManager.class);
 	
-	public void insertSelective(QuestionAnswersComment answersComment){
+	public void insertSelective(QuestionAnswersComment answersComment,Long questionAnswerId){
 		answersCommentDao.insertSelective(answersComment);
-		/*try{
+		try{
 			OperationMessage operationMessage=new OperationMessage();
-			operationMessage.setContent(formPosts.getForumPostId().toString());
-			operationMessage.setContentType("1");
+			operationMessage.setContent(String.valueOf(questionAnswerId));
+			operationMessage.setContentType("2");
 			OperationMessageQueue.putQuestionAnswersCommentQueue(operationMessage);
 		}catch(Exception e){
 			e.printStackTrace();
 			logger.error("推送发生异常!");
-		}*/
+		}
 	}
 	
 	public List<QuestionAnswersComment> getQuestionAnswersCommentListByUserIdAndQuestionAnswerId(Map map){

@@ -139,6 +139,18 @@ public class QuestionAnswerManager {
 	}
 	
 	
+	/**
+	 * @author liushuaic
+	 * @date 2016-06-29 09:54
+	 * @desc  获取我的回答列表无分页
+	 * */
+	public List<QuestionAnswer> getQuestionAnswerListByCreateUserId(Long userId){
+		Map<String,Object> paramMap=new HashMap<String,Object>();
+		paramMap.put("userId", userId);
+		return questionAnswerDao.getMyQuestionAnswerByCreateUserId(paramMap);
+	}
+	
+	
 	
 	
 }

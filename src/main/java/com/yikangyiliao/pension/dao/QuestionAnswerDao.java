@@ -67,6 +67,15 @@ public interface QuestionAnswerDao {
      ***/
     List<QuestionAnswer> getMyQuestionAnswerByCreateUserIdPage(Map<String,Object> paramMap);
     
+    /**
+     * 
+     * @author liushuaic
+     * @date 2016-06-28 18:55
+     * @desc 获取用户的创建回复
+     * 
+     ***/
+    List<QuestionAnswer> getMyQuestionAnswerByCreateUserId(Map<String,Object> paramMap);
+    
     
     /**
      * @author liushuaic
