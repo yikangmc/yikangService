@@ -63,6 +63,8 @@ public class QuestionAnswerCommentOperation implements Runnable{
 				
 				User toUser=userManager.getUserByUserId(toUserId);
 				
+				User toAnswerUser = userManager.getUserByUserId(answerUserId);
+				
 				String subTitle=question.getTitle().length()>20?question.getTitle().substring(0,20):question.getTitle();
 				//评论的评论
 				if("2".equals(questionAnswersComment.getAnswerTo().toString())){
@@ -75,13 +77,13 @@ public class QuestionAnswerCommentOperation implements Runnable{
 					message.setContent(alertTitle);
 					message.setMessageCategroy(0);
 					MessageQueue.put(message);
-					messageManager.insertDynamicFollowMessage(commentUserId, answerUserId, alertTitle,alertContent,questionAnswerId,Byte.valueOf("1"));
+					messageManager.insertDynamicFollowMessage(commentUserId, toUserId, alertTitle,alertContent,questionAnswerId,Byte.valueOf("1"));
 				}else{//评论的解答
 					String alertTitle="“"+answerUser.getUserName()+"”评论了你对问题 “"+subTitle+"”的回答";
 					String alertContent="“"+answerUser.getUserName()+"”评论了你对问题 “"+subTitle+"”的回答";
 					System.err.println(alertContent);
 					Message<String> message=new Message<String>();
-					message.setAlias(toUser.getPushAlias());
+					message.setAlias(toAnswerUser.getPushAlias());
 					message.setContent(alertTitle);
 					message.setMessageCategroy(0);
 					MessageQueue.put(message);
