@@ -2,6 +2,7 @@ package com.yikangyiliao.base.utils.messageUtil;
 
 import java.util.List;
 
+import com.yikangyiliao.base.utils.SystemProperties;
 import com.yikangyiliao.base.utils.messageUtil.im.IosSound;
 
 import cn.jpush.api.JPushClient;
@@ -44,13 +45,13 @@ public class MessageUtils {
 	/**
 	 * appk
 	 * */
-	private static String appKey="1d7ea5381ea5e395ab5f7ef4";
+	private static String appKey=SystemProperties.getPropertieValue("JPUSH_APPKEY");
 	
 	/**
 	 * 安全密钥
 	 * 
 	 * **/
-	private static String masterSecret="5307749f0466d6744ad3fa17";
+	private static String masterSecret=SystemProperties.getPropertieValue("JPUSH_MASTERSECRET");
 	
 	/**
 	 * 
