@@ -656,7 +656,7 @@
 		us.create_time 		as createTime,
 		us.update_time
 		as updateTime,
-		us.user_service_name as userServiceName,
+		ui.user_name as userServiceName,
 		us.map_position_address as mapPositionAddress,
 		us.hospital,
 		us.offices,
