@@ -44,15 +44,24 @@ public class UserActivetyListManager {
 	}
 	
 	
+	
+	
 	/**
 	 * @author liushuaic
 	 * @date 2016-05-23 15:14
 	 * @desc 查询我参与的活动
 	 * */
 	public List<Activety> getMyActivetyByUserId(Map map){
-		return  userActivetyListDao.getMyActivetyByUserIdPage(map);
+		return  userActivetyListDao.getMyActivetyByUserId(map);
 	}
 	
-	
+	/**
+	 * @author liushuaic
+	 * @date 2016-05-23 15:14
+	 * @desc 查询我参与的活动
+	 * */
+	public List<Activety> getMyActivetyByUserIdPage(Map map){
+		return  userActivetyListDao.getMyActivetyByUserIdPage(map);
+	}
 
 }

@@ -214,6 +214,28 @@ public class QuestionService {
 	 * **/
 	public ResponseMessage<List<Question>> getQuestionByCreateUserId(Map<String,Object> paramMap){
 		ResponseMessage<List<Question>> resData=new ResponseMessage<List<Question>>();
+		if(paramMap.containsKey("userId")){
+			Long userId=Long.valueOf(paramMap.get("userId").toString());
+			Map<String, Object> map = new HashMap<String, Object>();
+			map.put("userId", userId);
+			List<Question> questions=questionManager.getQuestionByCreateUserId(map);
+			resData.setData(questions);
+		}else{
+			resData.setStatus(ExceptionConstants.parameterException.parameterException.errorCode);
+			resData.setMessage(ExceptionConstants.parameterException.parameterException.errorMessage);
+		}
+		return resData;
+	}
+	
+	
+	
+	/**
+	 * @author liushuaic
+	 * @date 2016-06-07 11:26
+	 * @desc 获取某一个用户创建的问题列表
+	 * **/
+	public ResponseMessage<List<Question>> getQuestionByCreateUserIdPage(Map<String,Object> paramMap){
+		ResponseMessage<List<Question>> resData=new ResponseMessage<List<Question>>();
 		if(paramMap.containsKey("serverUserId")&&paramMap.containsKey("page")){
 			Long userId=Long.valueOf(paramMap.get("serverUserId").toString());
 			Integer currentPage = Integer.valueOf(paramMap.get("page").toString());
@@ -222,7 +244,7 @@ public class QuestionService {
 			pageParameter.setCurrentPage(currentPage);
 			map.put("page", pageParameter);
 			map.put("userId", userId);
-			List<Question> questions=questionManager.getQuestionByCreateUserId(map);
+			List<Question> questions=questionManager.getQuestionByCreateUserIdPage(map);
 			resData.setData(questions);
 		}else{
 			resData.setStatus(ExceptionConstants.parameterException.parameterException.errorCode);

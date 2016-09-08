@@ -13,7 +13,8 @@
 		<result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
 	</resultMap>
 	<sql id="Base_Column_List">
-		question_id, title, content, create_user_id, create_time, is_delete, star,
+		question_id, title, content, create_user_id, create_time,
+		is_delete, star,
 		update_time
 	</sql>
 	<select id="selectByPrimaryKey" resultMap="BaseResultMap"
@@ -24,7 +25,8 @@
 		where question_id = #{questionId,jdbcType=BIGINT}
 	</select>
 	<delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
-		delete from questions
+		delete from
+		questions
 		where question_id = #{questionId,jdbcType=BIGINT}
 	</delete>
 	<insert id="insert" parameterType="com.yikangyiliao.pension.entity.Question">
@@ -32,11 +34,14 @@
 			SELECT LAST_INSERT_ID()
 		</selectKey>
 		insert into questions (question_id, title, content,
-		create_user_id, create_time, is_delete,
+		create_user_id,
+		create_time, is_delete,
 		star, update_time)
-		values (#{questionId,jdbcType=BIGINT}, #{title,jdbcType=VARCHAR},
+		values
+		(#{questionId,jdbcType=BIGINT}, #{title,jdbcType=VARCHAR},
 		#{content,jdbcType=VARCHAR},
-		#{createUserId,jdbcType=BIGINT}, #{createTime,jdbcType=TIMESTAMP}, #{isDelete,jdbcType=TINYINT},
+		#{createUserId,jdbcType=BIGINT},
+		#{createTime,jdbcType=TIMESTAMP}, #{isDelete,jdbcType=TINYINT},
 		#{star,jdbcType=INTEGER}, #{updateTime,jdbcType=TIMESTAMP})
 	</insert>
 	<insert id="insertSelective" parameterType="com.yikangyiliao.pension.entity.Question">
@@ -127,24 +132,31 @@
 	<update id="updateByPrimaryKey" parameterType="com.yikangyiliao.pension.entity.Question">
 		update questions
 		set title = #{title,jdbcType=VARCHAR},
-		content = #{content,jdbcType=VARCHAR},
-		create_user_id = #{createUserId,jdbcType=BIGINT},
-		create_time = #{createTime,jdbcType=TIMESTAMP},
-		is_delete = #{isDelete,jdbcType=TINYINT},
+		content =
+		#{content,jdbcType=VARCHAR},
+		create_user_id =
+		#{createUserId,jdbcType=BIGINT},
+		create_time =
+		#{createTime,jdbcType=TIMESTAMP},
+		is_delete =
+		#{isDelete,jdbcType=TINYINT},
 		star = #{star,jdbcType=INTEGER},
 		update_time = #{updateTime,jdbcType=TIMESTAMP}
-		where question_id = #{questionId,jdbcType=BIGINT}
+		where question_id =
+		#{questionId,jdbcType=BIGINT}
 	</update>
 
-	
+
 	<resultMap type="com.yikangyiliao.pension.entity.Question"
 		id="getQuestionDetailByQuestionIdResultMap" extends="BaseResultMap">
 		<result column="user_name" property="userName" />
 		<result column="photo_url" property="photoUrl" />
-		<association property="userInfo" javaType="com.yikangyiliao.pension.entity.UserInfo">
+		<association property="userInfo"
+			javaType="com.yikangyiliao.pension.entity.UserInfo">
 			<result column="designation_name" property="designationName" />
 		</association>
-		<association property="userServiceInfo" javaType="com.yikangyiliao.pension.entity.UserServiceInfo">
+		<association property="userServiceInfo"
+			javaType="com.yikangyiliao.pension.entity.UserServiceInfo">
 			<result column="user_position" property="userPosition" />
 		</association>
 		<collection property="taglibs" column="question_id"
@@ -153,7 +165,7 @@
 			select="com.yikangyiliao.pension.dao.QuestionImageDao.getQuestionImageByQuestionId"></collection>
 
 	</resultMap>
-	
+
 
 	<!--查询某一个问题详情 -->
 	<select id="getQuestionDetailByQuestionId" parameterType="long"
@@ -161,14 +173,18 @@
 		select
 		questions.question_id,
 		questions.title,
-		questions.content, questions.create_user_id, questions.create_time, questions.is_delete,
+		questions.content, questions.create_user_id, questions.create_time,
+		questions.is_delete,
 		questions.star, questions.update_time,
 		ui.user_name,
 		ui.photo_url,
-		(select designations.designation_name from designations where designations.designation_id=ui.designation_id) as designation_name,
+		(select designations.designation_name from
+		designations where designations.designation_id=ui.designation_id) as
+		designation_name,
 		usi.user_position
-		from questions left join user_infos ui on
-		questions.create_user_id=ui.user_id 
+		from questions left join user_infos
+		ui on
+		questions.create_user_id=ui.user_id
 		LEFT JOIN user_service_infos usi ON questions.create_user_id=usi.user_id
 		where question_id=#{questionId}
 	</select>
@@ -179,37 +195,42 @@
 		<result column="user_name" property="userName" />
 		<result column="photo_url" property="photoUrl" />
 		<result column="answer_num" property="answerNum" />
-		<association property="userInfo" javaType="com.yikangyiliao.pension.entity.UserInfo">
+		<association property="userInfo"
+			javaType="com.yikangyiliao.pension.entity.UserInfo">
 			<result column="designation_name" property="designationName" />
 		</association>
-		<association property="userServiceInfo" javaType="com.yikangyiliao.pension.entity.UserServiceInfo">
+		<association property="userServiceInfo"
+			javaType="com.yikangyiliao.pension.entity.UserServiceInfo">
 			<result column="user_position" property="userPosition" />
 		</association>
 	</resultMap>
-	
-<select id="getQuestionByTaglibidPage" resultMap="getQuestionByTaglibidResultMap" parameterType="map">
-  	select 
-  		que.question_id, 
-  		que.title, 
-  		que.content, 
-  		que.create_user_id, 
-  		que.create_time, 
-  		que.is_delete, 
-  		que.star,
-  		ui.user_name,
-  		ui.photo_url,
-  		(select designations.designation_name from designations where designations.designation_id=ui.designation_id) as designation_name,
+
+	<select id="getQuestionByTaglibidPage" resultMap="getQuestionByTaglibidResultMap"
+		parameterType="map">
+		select
+		que.question_id,
+		que.title,
+		que.content,
+		que.create_user_id,
+		que.create_time,
+		que.is_delete,
+		que.star,
+		ui.user_name,
+		ui.photo_url,
+		(select designations.designation_name from designations where
+		designations.designation_id=ui.designation_id) as designation_name,
 		usi.user_position,
-  		(select count(1) from question_answers where question_id=que.question_id  ) as answer_num
-  	from 
-  		question_taglib_maps qtm  
-	inner join questions que on qtm.questions_id=que.question_id
-	left join  user_infos ui on que.create_user_id=ui.user_id 
-	left join user_service_infos usi on que.create_user_id=usi.user_id  
-	where taglibs_id=#{taglibId}
-	order by que.create_time desc
-  </select>
-  
+		(select count(1) from question_answers where question_id=que.question_id ) as
+		answer_num
+		from
+		question_taglib_maps qtm
+		inner join questions que on qtm.questions_id=que.question_id
+		left join user_infos ui on que.create_user_id=ui.user_id
+		left join user_service_infos usi on que.create_user_id=usi.user_id
+		where taglibs_id=#{taglibId}
+		order by que.create_time desc
+	</select>
+
 
 	<!-- 获取某一个用户创建的所有问题 -->
 	<resultMap type="com.yikangyiliao.pension.entity.Question"
@@ -232,13 +253,42 @@
 		que.star,
 		ui.user_name,
 		ui.photo_url,
-		(select count(1) from question_answers where question_id=que.question_id ) as
+		(select count(1) from question_answers where
+		question_id=que.question_id ) as
 		answer_num
 		from
 		question_taglib_maps qtm
 		inner join questions que on qtm.questions_id=que.question_id
-		left join user_infos ui on que.create_user_id=ui.user_id
-		where create_user_id=#{userId}
+		left join
+		user_infos ui on que.create_user_id=ui.user_id
+		where
+		create_user_id=#{userId}
+		order by que.create_time desc
+	</select>
+	<select id="getQuestionByCreateUserId" parameterType="map"
+		resultMap="getQuestionByCreateUserIdResultMap">
+		select
+		que.question_id,
+		que.title,
+		que.content,
+		que.create_user_id,
+		que.create_time,
+		que.is_delete,
+		que.star,
+		ui.user_name,
+		ui.photo_url,
+		(select count(1) from question_answers where
+		question_id=que.question_id ) as
+		answer_num
+		from
+		question_taglib_maps qtm
+		inner join questions que on qtm.questions_id=que.question_id
+		left join
+		user_infos ui on que.create_user_id=ui.user_id
+		where
+		create_user_id=#{userId}
 		order by que.create_time desc
 	</select>
 </mapper>
+
+

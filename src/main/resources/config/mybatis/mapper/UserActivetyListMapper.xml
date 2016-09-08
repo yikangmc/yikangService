@@ -155,6 +155,10 @@
 	<result column="photo_url"      property="photoUrl"/>
   </resultMap>
   
+
+
+
+  
   <!-- 获取我参见的活动 -->
   <select id="getMyActivetyByUserIdPage" parameterType="map" resultMap="getMyActivetyByUserIdResultMap">
   	select act.*,
@@ -166,21 +170,16 @@
 	left  join user_infos ui on act.create_user_id=ui.user_id  where ual.user_id=#{userId}
   </select>
   
-  
-  <!-- 获取我创建的活动列表  -->
-  <select id="getMyCreateActivetyByUserIdPage" parameterType="map" resultMap="getMyActivetyByUserIdResultMap">
-  	  select act.*,
+  <!-- 获取我参见的活动 -->
+  <select id="getMyActivetyByUserId" parameterType="map" resultMap="getMyActivetyByUserIdResultMap">
+  	select act.*,
 		ui.user_name as createUsername,
 		ui.user_sex,
 		ui.photo_url
 	 from user_activety_lists ual 
 	inner join activetys act on ual.activety_id=act.activety_id
-	left  join user_infos ui on act.create_user_id=ui.user_id  
-	where
-  	 act.
+	left  join user_infos ui on act.create_user_id=ui.user_id  where ual.user_id=#{userId}
   </select>
   
-  
-  
-  
+
 </mapper>

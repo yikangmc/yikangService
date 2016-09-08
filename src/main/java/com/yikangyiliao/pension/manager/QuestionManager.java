@@ -121,6 +121,15 @@ public class QuestionManager {
      * @desc 获取某一个用户创建的所有问题
      * */
     public List<Question> getQuestionByCreateUserId(Map map){
+    	return questionDao.getQuestionByCreateUserId(map);
+    }
+    
+    /**
+     * @author liushuaic
+     * @date 2016-06-06 11:23
+     * @desc 获取某一个用户创建的所有问题
+     * */
+    public List<Question> getQuestionByCreateUserIdPage(Map map){
     	return questionDao.getQuestionByCreateUserIdPage(map);
     }
     
@@ -132,6 +141,8 @@ public class QuestionManager {
     public Question getQuestionByQuestionId(Long questionId){
     	return questionDao.selectByPrimaryKey(questionId);
     }
+    
+    
     
     
 }

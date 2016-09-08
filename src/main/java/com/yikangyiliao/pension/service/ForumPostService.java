@@ -463,17 +463,16 @@ public class ForumPostService {
    public  ResponseMessage<List<FormPosts>> getForumPostsByServerUserId(Map<String,Object> paramData){
 	   ResponseMessage<List<FormPosts>> res=new ResponseMessage<List<FormPosts>>();
 	   
-	   if(paramData.containsKey("serverUserId")&&paramData.containsKey("page")){
-		   Long userId=Long.valueOf(paramData.get("serverUserId").toString());
-		   Integer currentPage = Integer.valueOf(paramData.get("page").toString());
-		   PageParameter pageParameter = new PageParameter();
-		   pageParameter.setCurrentPage(currentPage);
-		   List<FormPosts> formPosts=formPostManager.geTZForumPostsByCreateUserIdPage(userId,pageParameter);
+	   if(paramData.containsKey("userId")){
+		   Long userId=Long.valueOf(paramData.get("userId").toString());
+		   List<FormPosts> formPosts=formPostManager.geTZForumPostsByCreateUserId(userId);
 		   res.setData(formPosts);
 	   }else{
 		   res.setStatus(ExceptionConstants.systemException.systemException.errorCode);
    		   res.setMessage(ExceptionConstants.systemException.systemException.errorMessage);
 	   }
+	   
+	   
 	   
    	   return res;
    }
