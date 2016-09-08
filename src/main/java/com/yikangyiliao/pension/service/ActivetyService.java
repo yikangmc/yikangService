@@ -306,7 +306,7 @@ public class ActivetyService {
 	 * @date 2016-09-08 10:20
 	 * @desc 获取某一个用户创建的活动  分页
 	 * **/
-	public ResponseMessage<List<Activety>> getActivetyByCreateUserId(Map<String,Object> paramMap){
+	public ResponseMessage<List<Activety>> getActivetyByCreateUserIdPage(Map<String,Object> paramMap){
 		
 		ResponseMessage<List<Activety>> resData=new ResponseMessage<List<Activety>>();
 		

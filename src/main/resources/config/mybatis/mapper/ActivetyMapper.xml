@@ -326,7 +326,7 @@
   	 order by activetys.create_time desc
   </select>
   
-    <!--查询我发布的活动  -->
+    <!--查询我发布的活动  分页-->
   <select id="selectActivetyByUserIdPage"  parameterType="long" resultMap="BaseResultMap">
   	 select 
   		 <include refid="Base_Column_List"></include>,

@@ -682,6 +682,17 @@ public class InterfaceUtil {
 		getActiveyByJoinUserIdPage.setIsFileter(true);
 		mathodServiceConfig.put("00-31-08",getActiveyByJoinUserIdPage);
 		
+		/**
+		 * @author liushuaic
+		 * @date 2016-09-08 11:16
+		 * @desc 获取我创建的活动列表分页
+		 * **/
+		YiKangServiceConfige getActivetyByCreateUserIdPage=new YiKangServiceConfige();
+		getActivetyByCreateUserIdPage.setServiceName("activetyService");
+		getActivetyByCreateUserIdPage.setMethodName("getActivetyByCreateUserIdPage");
+		getActivetyByCreateUserIdPage.setIsFileter(true);
+		mathodServiceConfig.put("00-31-09",getActivetyByCreateUserIdPage);
+		
 		
 		/**
 		 * @author liushuaic
