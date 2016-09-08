@@ -669,6 +669,8 @@ public class InterfaceUtil {
 		getActiveyByJoinUserId.setIsFileter(true);
 		mathodServiceConfig.put("00-31-07",getActiveyByJoinUserId);
 		
+		
+		
 		/**
 		 * @author liushuaic
 		 * @date 2016-05-23 16:20

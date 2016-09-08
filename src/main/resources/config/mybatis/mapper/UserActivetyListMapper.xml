@@ -56,7 +56,7 @@
       <if test="updateTime != null" >
         update_time,
       </if>
-    </trim>
+    </trim>  
     <trim prefix="values (" suffix=")" suffixOverrides="," >
       <if test="userActivetyListId != null" >
         #{userActivetyListId,jdbcType=BIGINT},

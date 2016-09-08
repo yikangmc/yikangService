@@ -44,6 +44,8 @@ public class UserActivetyListManager {
 	}
 	
 	
+	
+	
 	/**
 	 * @author liushuaic
 	 * @date 2016-05-23 15:14
