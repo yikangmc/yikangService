@@ -336,7 +336,7 @@ public class InterfaceUtil {
 		//发布文章
 		YiKangServiceConfige publishForumPosts=new YiKangServiceConfige();
 		publishForumPosts.setServiceName("forumPostService");
-		publishForumPosts.setMethodName("insertPublishForumPosts");
+		publishForumPosts.setMethodName("publishForumPosts");
 		publishForumPosts.setIsFileter(true);
 		mathodServiceConfig.put("00-28-04",publishForumPosts);
 		
@@ -377,11 +377,11 @@ public class InterfaceUtil {
 		mathodServiceConfig.put("00-28-09",getPerformenceForumPostsByTaglibId);
 
 		//发布专业内容 createdate: 2016-06-22
-		YiKangServiceConfige insertPerformencePublishForumPosts=new YiKangServiceConfige();
-		insertPerformencePublishForumPosts.setServiceName("forumPostService");
-		insertPerformencePublishForumPosts.setMethodName("insertPerformencePublishForumPosts");
-		insertPerformencePublishForumPosts.setIsFileter(true);
-		mathodServiceConfig.put("00-28-10",insertPerformencePublishForumPosts);
+		YiKangServiceConfige performencePublishForumPosts=new YiKangServiceConfige();
+		performencePublishForumPosts.setServiceName("forumPostService");
+		performencePublishForumPosts.setMethodName("performencePublishForumPosts");
+		performencePublishForumPosts.setIsFileter(true);
+		mathodServiceConfig.put("00-28-10",performencePublishForumPosts);
 		
 		
 		//获取某一个用户创建的专业文章

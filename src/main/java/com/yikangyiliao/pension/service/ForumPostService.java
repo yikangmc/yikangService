@@ -16,6 +16,8 @@ import com.yikangyiliao.pension.common.error.ExceptionConstants;
 import com.yikangyiliao.pension.common.page.PageParameter;
 import com.yikangyiliao.pension.common.response.ResponseMessage;
 import com.yikangyiliao.pension.common.utils.GenreateNumberUtils;
+import com.yikangyiliao.pension.common.utils.operationmesage.OperationMessage;
+import com.yikangyiliao.pension.common.utils.operationmesage.OperationMessageQueue;
 import com.yikangyiliao.pension.entity.FormPosts;
 import com.yikangyiliao.pension.entity.Taglib;
 import com.yikangyiliao.pension.manager.FormPostManager;
@@ -71,7 +73,7 @@ public class ForumPostService {
 	 * @desc 发布帖子
 	 * 
 	 */
-	public ResponseMessage<List<FormPosts>> insertPublishForumPosts(Map<String, Object> paramData) {
+	public ResponseMessage<List<FormPosts>> publishForumPosts(Map<String, Object> paramData) {
 		ResponseMessage<List<FormPosts>> res = new ResponseMessage<List<FormPosts>>();
 
 		if (paramData.containsKey("title") && paramData.containsKey("content") && paramData.containsKey("taglibIds")) {
@@ -91,9 +93,15 @@ public class ForumPostService {
 			for (int i = 0; i < taglibIds.size(); i++) {
 				tags[i] = Long.valueOf(taglibIds.get(i).toString());
 			}
-			formPostManager.insertPublishFormPosts(title, content, tags, Long.valueOf(userId), imgs);
-			integralManager.insertIntegralAddScoreIsONCEJob("CSFT", Long.valueOf(userId));
-			integralManager.insertIntegralAddScoreIsUsualJob("FGTZ", Byte.valueOf("2"), Long.valueOf(userId));
+			FormPosts formPosts=formPostManager.insertPublishFormPosts(title, content, tags, Long.valueOf(userId), imgs);
+			try{
+				OperationMessage operationMessage=new OperationMessage();
+				operationMessage.setContent(formPosts.getForumPostId().toString());
+				operationMessage.setContentType("1");
+				OperationMessageQueue.putMessage(operationMessage);
+			}catch(Exception e){
+				log.error("推送发生异常!"+e.getMessage());
+			}
 		} else {
 			res.setStatus(ExceptionConstants.parameterException.parameterException.errorCode);
 			res.setMessage(ExceptionConstants.parameterException.parameterException.errorMessage);
@@ -108,7 +116,7 @@ public class ForumPostService {
 	 * @desc 发布专业文章
 	 *
 	 */
-	public ResponseMessage<List<FormPosts>> insertPerformencePublishForumPosts(Map<String, Object> paramData) {
+	public ResponseMessage<List<FormPosts>> performencePublishForumPosts(Map<String, Object> paramData) {
 		ResponseMessage<List<FormPosts>> res = new ResponseMessage<List<FormPosts>>();
 
 		if (paramData.containsKey("title") && (paramData.get("title").toString().length() < 150)
@@ -134,10 +142,20 @@ public class ForumPostService {
 			for (int i = 0; i < taglibIds.size(); i++) {
 				tags[i] = Long.valueOf(taglibIds.get(i).toString());
 			}
-			formPostManager.insertPerformencePublishForumPosts(title, forumPostDetailContent,
+			FormPosts formPosts=formPostManager.insertPerformencePublishForumPosts(title, forumPostDetailContent,
 					forumPostHtmlDetailContent, tags, Long.valueOf(userId), imgs, recommendPicUrl);
+			try{
+				OperationMessage operationMessage=new OperationMessage();
+				operationMessage.setContent(formPosts.getForumPostId().toString());
+				operationMessage.setContentType("1");
+				OperationMessageQueue.putMessage(operationMessage);
+			}catch(Exception e){
+				e.printStackTrace();
+			}
+
 			integralManager.insertIntegralAddScoreIsUsualJob("FBZJS", Byte.valueOf("2"), Long.valueOf(userId));
-		} else {
+		
+		}else {
 			res.setStatus(ExceptionConstants.parameterException.parameterException.errorCode);
 			res.setMessage(ExceptionConstants.parameterException.parameterException.errorMessage);
 		}

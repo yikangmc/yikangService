@@ -25,9 +25,6 @@
 <!-- 		<property name="url" value="jdbc:mysql://yikangtest.cdry2qjq29ol.rds.cn-north-1.amazonaws.com.cn:3306/yikang2?useUnicode=yes&amp;characterEncoding=UTF8"></property> -->
 <!-- 		<property name="username" value="yikangtest"></property> -->
 <!-- 		<property name="password" value="yikangtest"></property> -->
-		<!-- <property name="url" value="jdbc:mysql://yikangtest.cdry2qjq29ol.rds.cn-north-1.amazonaws.com.cn:3306/yikang2?useUnicode=yes&amp;characterEncoding=UTF8"></property>
-		<property name="username" value="yikangtest"></property>
-		<property name="password" value="yikangtest"></property> -->
 
 <!-- 北京测试 -->
 		<property name="url" value="jdbc:mysql://yikangstaging.cdry2qjq29ol.rds.cn-north-1.amazonaws.com.cn:3306/yikangNew?useUnicode=yes&amp;characterEncoding=UTF8"></property>
@@ -71,8 +68,8 @@
   </tx:advice>
   
   <aop:config>    
-<!--     把事务控制在Service层 -->
-    <aop:pointcut id="ykTxAdvicePointCut" expression="execution(public * com.yikangyiliao.pension.service.*.*(..))" /> 
+<!--     把事务控制在Service or manage层 -->
+    <aop:pointcut id="ykTxAdvicePointCut" expression="(execution(public * com.yikangyiliao.pension.service.*.*(..))) or (execution(public * com.yikangyiliao.pension.manager.*.*(..)))" /> 
     <aop:advisor pointcut-ref="ykTxAdvicePointCut" advice-ref="ykTxAdvice" />
   </aop:config>
 

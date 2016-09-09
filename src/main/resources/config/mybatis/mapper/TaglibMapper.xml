@@ -310,27 +310,27 @@
 <!-- 		tag2.parent_id as parentId2 -->
 <!-- 	from taglibs tag inner join taglibs tag2 -->
 <!-- 	where tag2.parent_id=tag.taglib_id -->
-	select 
-		tag.taglib_id,
-		tag.tag_name,
-		tag.tag_pic,
-		tag2.taglib_id as taglibId2,
-		tag2.tag_name as taglibName2,
-		tag2.tag_pic as tagPic2,
-		tag2.follow_number as followNumber2,
-		tag2.fornum_posts_number as forumPostsNumber2,
-		tag2.forum_posts_tznumber as forumPostsTZNumber,
-		tag2.answer_number as answerNumber2,
-		tag2.parent_id as parentId2,
-        tag2.forum_posts_update_time,
-        tag2.forum_posts_tz_update_time,
-		if(ifnull(user_taglib_maps.taglib_id,-1)>0,1,0) as isStore,
-		(select count(1) from user_taglib_maps where taglib_id=tag.taglib_id ) as followNumber2
-	from taglibs tag inner join taglibs tag2
-	left join user_taglib_maps on (tag2.taglib_id=user_taglib_maps.taglib_id and user_taglib_maps.create_user_id=#{userId})
-	where tag2.parent_id=tag.taglib_id
-	and tag2.is_delete=0
-	order by tag2.orders asc
+select 
+	tag.taglib_id,
+	tag.tag_name,
+	tag.tag_pic,
+	tag2.taglib_id as taglibId2,
+	tag2.tag_name as taglibName2,
+	tag2.tag_pic as tagPic2,
+	tag2.follow_number as followNumber2,
+	tag2.fornum_posts_number as forumPostsNumber2,
+	tag2.forum_posts_tznumber as forumPostsTZNumber,
+	tag2.answer_number as answerNumber2,
+	tag2.parent_id as parentId2,
+	tag2.forum_posts_update_time,
+	tag2.forum_posts_tz_update_time,
+	if(ifnull(user_taglib_maps.taglib_id,-1)>0,1,0) as isStore,
+	(select count(1) from user_taglib_maps where taglib_id=tag.taglib_id ) as followNumber2
+from taglibs tag inner join taglibs tag2 on (tag2.parent_id=tag.taglib_id and tag.is_delete=0)
+left join user_taglib_maps on (tag2.taglib_id=user_taglib_maps.taglib_id and user_taglib_maps.create_user_id=11)
+where 
+ tag2.is_delete=0
+order by  tag.orders,tag2.orders asc;
  </select>
  
  

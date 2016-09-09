@@ -13,6 +13,8 @@ import com.yikangyiliao.base.utils.ParamMapUtils;
 import com.yikangyiliao.pension.common.error.ExceptionConstants;
 import com.yikangyiliao.pension.common.page.PageParameter;
 import com.yikangyiliao.pension.common.response.ResponseMessage;
+import com.yikangyiliao.pension.common.utils.operationmesage.OperationMessage;
+import com.yikangyiliao.pension.common.utils.operationmesage.OperationMessageQueue;
 import com.yikangyiliao.pension.entity.Question;
 import com.yikangyiliao.pension.entity.QuestionAnswer;
 import com.yikangyiliao.pension.manager.IntegralManager;
@@ -127,8 +129,14 @@ public class QuestionService {
 			List<String> imageArray=MatchHtmlElementAttrValue.getImgSrc(htmlDetailContent);
 			images=imageArray.toArray(images);
 			
-			questionAnswerManager.insertSelective(questionId, content,detailContent,htmlDetailContent, createUserId,images);
-			integralManager.insertIntegralAddScoreIsUsualJob("TJWTJD",Byte.valueOf("2"),createUserId);
+			QuestionAnswer questionAnswer=questionAnswerManager.insertSelective(questionId, content,detailContent,htmlDetailContent, createUserId,images);
+			
+			//推送信息
+			OperationMessage operationMessage=new OperationMessage();
+			operationMessage.setContent(questionAnswer.getQuestionAnswerId()+"");  //设置问题id
+			operationMessage.setContentType(2+"");    //设置分类id
+			OperationMessageQueue.putQuestionAnswerMessage(operationMessage);
+			
 		}else{
 			resData.setStatus(ExceptionConstants.parameterException.parameterException.errorCode);
 			resData.setMessage(ExceptionConstants.parameterException.parameterException.errorMessage);

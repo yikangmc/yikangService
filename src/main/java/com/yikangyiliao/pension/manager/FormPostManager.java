@@ -55,6 +55,8 @@ public class FormPostManager {
 	@Autowired
 	private JobDao jobDao;
 
+	@Autowired
+	private IntegralManager integralManager;
 	
 	private Logger logger=LoggerFactory.getLogger(FormPostManager.class);
 	
@@ -74,7 +76,7 @@ public class FormPostManager {
 	 * @date 2016-04-27 16:48
 	 * @desc 发布帖子
 	 **/
-	public void insertPublishFormPosts(String title, String content, Long[] taglibIds, Long userId, String[] images) {
+	public FormPosts insertPublishFormPosts(String title, String content, Long[] taglibIds, Long userId, String[] images) {
 
 		//UserServiceInfo userServiceInfo=userManager.getUserServiceInfoByUserIdTwo(userId);
 		logger.info("添加帖子"+"用户id:"+userId+" 标题："+title);
@@ -138,16 +140,12 @@ public class FormPostManager {
 			forumPostsImage.setImageUrl(img);
 			forumPostsImageManager.insertSelective(forumPostsImage);
 		}
-		try{
-			OperationMessage operationMessage=new OperationMessage();
-			operationMessage.setContent(formPosts.getForumPostId().toString());
-			operationMessage.setContentType("1");
-			OperationMessageQueue.putMessage(operationMessage);
-		}catch(Exception e){
-			e.printStackTrace();
-			logger.error("推送发生异常!");
-		}
-
+		
+		integralManager.insertIntegralAddScoreIsONCEJob("CSFT", Long.valueOf(userId));
+		integralManager.insertIntegralAddScoreIsUsualJob("FGTZ", Byte.valueOf("2"), Long.valueOf(userId));
+		
+		return formPosts;
+		
 	}
 
 
@@ -156,7 +154,7 @@ public class FormPostManager {
 	 * @date 2016-06-22 11:38
 	 * @desc 发布专业内容
 	 **/
-	public void insertPerformencePublishForumPosts(String title, String forumPostDetailContent,String forumPostHtmlDetailContent ,Long[] taglibIds, Long userId, String[] images,String recommendPicUrl) {
+	public FormPosts insertPerformencePublishForumPosts(String title, String forumPostDetailContent,String forumPostHtmlDetailContent ,Long[] taglibIds, Long userId, String[] images,String recommendPicUrl) {
 
 		//UserServiceInfo userServiceInfo=userManager.getUserServiceInfoByUserIdTwo(userId);
 
@@ -221,15 +219,7 @@ public class FormPostManager {
 			}
 		}
 		
-		try{
-			OperationMessage operationMessage=new OperationMessage();
-			operationMessage.setContent(formPosts.getForumPostId().toString());
-			operationMessage.setContentType("1");
-			OperationMessageQueue.putMessage(operationMessage);
-		}catch(Exception e){
-			e.printStackTrace();
-		}
-
+		return formPosts;
 	}
 
 	/**
@@ -308,25 +298,18 @@ public class FormPostManager {
 	 * @date 2016-05-06 11:50
 	 * @desc 修改文章支持
 	 **/
-	public void updateForumPostStar(Long forumPostId, Long userId) {
+	public int updateForumPostStar(Long forumPostId, Long userId) {
 		Map<String, Object> paramMap = new HashMap<String, Object>();
 		paramMap.put("forumPostId", forumPostId);
 		paramMap.put("userId", userId);
 		FormPostsStarList fps = formPostsStarListDao.selectForumPostStartListByCreateUserIdAndForumPostsId(paramMap);
 		if (null == fps) {
 			this.updateForumPostsStarUp(forumPostId, userId);
-			try{
-				OperationMessage operationMessage=new OperationMessage();
-				operationMessage.setContent(forumPostId.toString());
-				operationMessage.setContentType("1");
-				OperationMessageQueue.putForumPostStarMessage(operationMessage);
-			}catch(Exception e){
-				e.printStackTrace();
-			}
+			return 1;
 		} else {
 			this.updateForumPostsDown(forumPostId, userId);
 		}
-		
+		return 0;
 	}
 
 	/**

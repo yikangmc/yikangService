@@ -36,13 +36,16 @@ public class QuestionAnswerManager {
 	@Autowired
 	private QuestionAnswerDetailDao questionAnswerDetailDao;
 	
+	@Autowired
+	private IntegralManager integralManager;
+	
 	
 	/**
 	 * @author liushuaic
 	 * @date 2016-05-09 18:17
 	 * @desc 添加问题回复
 	 * **/
-	public int insertSelective(Long questionId,String content,String detailContent,String htmlDetailContent,Long createUserId,String[] images){
+	public QuestionAnswer insertSelective(Long questionId,String content,String detailContent,String htmlDetailContent,Long createUserId,String[] images){
 		Date currentDate=Calendar.getInstance().getTime();
 		QuestionAnswer questionAnswer=new QuestionAnswer();
 		questionAnswer.setCreateUserId(createUserId);
@@ -73,14 +76,9 @@ public class QuestionAnswerManager {
 		questionAnswerDetail.setQuestionAnswerHtmlContent(htmlDetailContent);
 		questionAnswerDetail.setCreateUserId(createUserId);
 		questionAnswerDetailDao.insertSelective(questionAnswerDetail);
+		integralManager.insertIntegralAddScoreIsUsualJob("TJWTJD",Byte.valueOf("2"),createUserId);
 		
-		//推送信息
-		OperationMessage operationMessage=new OperationMessage();
-		operationMessage.setContent(questionAnswer.getQuestionAnswerId()+"");  //设置问题id
-		operationMessage.setContentType(2+"");    //设置分类id
-		OperationMessageQueue.putQuestionAnswerMessage(operationMessage);
-		
-		return 1;
+		return questionAnswer;
 	}
 	
 	/**
