@@ -77,7 +77,7 @@ public class QuestionAnswerCommentOperation implements Runnable{
 					message.setContent(alertTitle);
 					message.setMessageCategroy(0);
 					MessageQueue.put(message);
-					messageManager.insertDynamicFollowMessage(commentUserId, toUserId, alertTitle,alertContent,questionAnswerId,Byte.valueOf("1"));
+					messageManager.insertDynamicFollowMessage(commentUserId, toUserId, alertTitle,alertContent,questionAnswerId,Byte.valueOf("8"));
 				}else{//评论的解答
 					String alertTitle="“"+answerUser.getUserName()+"”评论了你对问题 “"+subTitle+"”的回答";
 					String alertContent="“"+answerUser.getUserName()+"”评论了你对问题 “"+subTitle+"”的回答";
@@ -87,7 +87,7 @@ public class QuestionAnswerCommentOperation implements Runnable{
 					message.setContent(alertTitle);
 					message.setMessageCategroy(0);
 					MessageQueue.put(message);
-					messageManager.insertDynamicFollowMessage(commentUserId, answerUserId, alertTitle,alertContent,questionAnswerId,Byte.valueOf("1"));
+					messageManager.insertDynamicFollowMessage(commentUserId, answerUserId, alertTitle,alertContent,questionAnswerId,Byte.valueOf("8"));
 				}
 			}catch(Exception  e){
 				e.printStackTrace();
