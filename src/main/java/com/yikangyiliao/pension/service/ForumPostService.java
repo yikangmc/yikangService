@@ -94,14 +94,6 @@ public class ForumPostService {
 				tags[i] = Long.valueOf(taglibIds.get(i).toString());
 			}
 			FormPosts formPosts=formPostManager.insertPublishFormPosts(title, content, tags, Long.valueOf(userId), imgs);
-			try{
-				OperationMessage operationMessage=new OperationMessage();
-				operationMessage.setContent(formPosts.getForumPostId().toString());
-				operationMessage.setContentType("1");
-				OperationMessageQueue.putMessage(operationMessage);
-			}catch(Exception e){
-				log.error("推送发生异常!"+e.getMessage());
-			}
 		} else {
 			res.setStatus(ExceptionConstants.parameterException.parameterException.errorCode);
 			res.setMessage(ExceptionConstants.parameterException.parameterException.errorMessage);
