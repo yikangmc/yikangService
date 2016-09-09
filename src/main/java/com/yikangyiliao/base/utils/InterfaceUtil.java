@@ -940,11 +940,11 @@ public class InterfaceUtil {
 		mathodServiceConfig.put("00-44-01", getUpdateVersionById);
 		
 		serviceClassName.put("00-45", "questionAnswerComent");
-		YiKangServiceConfige insertQuestionAnswersCommentDetail = new YiKangServiceConfige();
-		insertQuestionAnswersCommentDetail.setServiceName("questionAnswerComent");
-		insertQuestionAnswersCommentDetail.setMethodName("insertQuestionAnswersCommentDetail");
-		insertQuestionAnswersCommentDetail.setIsFileter(true);
-		mathodServiceConfig.put("00-45-01", insertQuestionAnswersCommentDetail);
+		YiKangServiceConfige addQuestionAnswersCommentDetail = new YiKangServiceConfige();
+		addQuestionAnswersCommentDetail.setServiceName("questionAnswerComent");
+		addQuestionAnswersCommentDetail.setMethodName("addQuestionAnswersCommentDetail");
+		addQuestionAnswersCommentDetail.setIsFileter(true);
+		mathodServiceConfig.put("00-45-01", addQuestionAnswersCommentDetail);
 		
 		YiKangServiceConfige getQuestionAnswersCommentDetail = new YiKangServiceConfige();
 		getQuestionAnswersCommentDetail.setServiceName("questionAnswerComent");

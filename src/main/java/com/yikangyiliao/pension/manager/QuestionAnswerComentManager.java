@@ -22,6 +22,8 @@ public class QuestionAnswerComentManager {
 	private Logger logger=LoggerFactory.getLogger(QuestionAnswerComentManager.class);
 	
 	/**
+	 * @author houyantao
+	 * @date 2016-09-09 17:42
 	 * 添加 评论信息
 	 * @param answersComment
 	 */
@@ -31,7 +33,9 @@ public class QuestionAnswerComentManager {
 	
 	
 	/**
-	 * 获取评论信息
+	 * @author houyantao
+	 * @date 2016-09-09 17:42
+	 * 获取解答评论列表
 	 * @param map
 	 * @return
 	 */

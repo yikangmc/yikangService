@@ -27,11 +27,11 @@ public class QuestionAnswerComentService {
 	@Autowired
 	private QuestionAnswerComentManager answerComentManager;
 	/**
-	 * @author liushuaic
-	 * @date 2016-06-28 17:42
-	 * @desc 添加回复列表
+	 * @author houyantao
+	 * @date 2016-09-09 17:42
+	 * @desc 添加解答评论
 	 * */
-	public ResponseMessage<String> insertQuestionAnswersCommentDetail(Map<String,Object> paramMap){
+	public ResponseMessage<String> addQuestionAnswersCommentDetail(Map<String,Object> paramMap){
 		ResponseMessage<String> data=new ResponseMessage<String>();
 		if(
 				paramMap.containsKey("content")
@@ -75,9 +75,9 @@ public class QuestionAnswerComentService {
 	
 	
 	/**
-	 * @author liushuaic
-	 * @date 2016-06-28 17:42
-	 * @desc 获取回复列表
+	 * @author houyantao
+	 * @date 2016-09-09 17:42
+	 * @desc 获取解答评论列表
 	 * */
 	public ResponseMessage<List<QuestionAnswersComment>> getQuestionAnswersCommentDetail(Map<String,Object> paramMap){
 		ResponseMessage<List<QuestionAnswersComment>> data=new ResponseMessage<List<QuestionAnswersComment>>();
