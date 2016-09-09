@@ -79,8 +79,8 @@ public class QuestionAnswerCommentOperation implements Runnable{
 					MessageQueue.put(message);
 					messageManager.insertDynamicFollowMessage(commentUserId, toUserId, alertTitle,alertContent,questionAnswerId,Byte.valueOf("9"));
 				}else{//评论的解答
-					String alertTitle="“"+answerUser.getUserName()+"”评论了你对问题 “"+subTitle+"”的回答";
-					String alertContent="“"+answerUser.getUserName()+"”评论了你对问题 “"+subTitle+"”的回答";
+					String alertTitle="“"+commentUser.getUserName()+"”评论了你对问题 “"+subTitle+"”的回答";
+					String alertContent="“"+commentUser.getUserName()+"”评论了你对问题 “"+subTitle+"”的回答";
 					System.err.println(alertContent);
 					Message<String> message=new Message<String>();
 					message.setAlias(toAnswerUser.getPushAlias());
