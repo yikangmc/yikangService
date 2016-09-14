@@ -33,24 +33,24 @@ public class Message {
     
     private Integer userPosition;
     //系统消息未读数量
-    private Byte systemNoReadNum;
+    private Integer systemNoReadNum;
     //动态消息未读数量
-    private Byte dynamicNoReadNum;
+    private Integer dynamicNoReadNum;
 
 
-	public Byte getSystemNoReadNum() {
+	public Integer getSystemNoReadNum() {
 		return systemNoReadNum;
 	}
 
-	public void setSystemNoReadNum(Byte systemNoReadNum) {
+	public void setSystemNoReadNum(Integer systemNoReadNum) {
 		this.systemNoReadNum = systemNoReadNum;
 	}
 
-	public Byte getDynamicNoReadNum() {
+	public Integer getDynamicNoReadNum() {
 		return dynamicNoReadNum;
 	}
 
-	public void setDynamicNoReadNum(Byte dynamicNoReadNum) {
+	public void setDynamicNoReadNum(Integer dynamicNoReadNum) {
 		this.dynamicNoReadNum = dynamicNoReadNum;
 	}
 

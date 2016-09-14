@@ -168,8 +168,8 @@ public class MessageService {
 			Message message = new Message();
 			Map<String, Object> messageSys = messageManager.getMessageUnreadNumberByUserId(Long.valueOf(userId),"0");
 			Map<String, Object> messageDy = messageManager.getMessageUnreadNumberByUserId(Long.valueOf(userId),"1");
-			 message.setSystemNoReadNum(Byte.valueOf(messageSys.get("noReadNum").toString()));
-			 message.setDynamicNoReadNum(Byte.valueOf(messageDy.get("noReadNum").toString()));
+			 message.setSystemNoReadNum(Integer.valueOf(messageSys.get("noReadNum").toString()));
+			 message.setDynamicNoReadNum(Integer.valueOf(messageDy.get("noReadNum").toString()));
 			 resData.setData(message);
 		}else{
 			resData.setStatus(ExceptionConstants.parameterException.parameterException.errorCode);
