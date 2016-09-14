@@ -5,6 +5,7 @@ import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.util.ObjectUtils;
 
 import com.yikangyiliao.pension.common.error.ExceptionConstants;
 import com.yikangyiliao.pension.common.page.PageParameter;
@@ -72,6 +73,7 @@ public class QuestionAnswerService {
 			if(paramMap.containsKey("userId")){
 				userId=Long.valueOf(paramMap.get("userId").toString());
 			}
+		    //ObjectUtils.
 			QuestionAnswer questionAnswer=questionAnswerManager.getQuestionAnswerByQuestionAnswerId(userId,questionAnswerId);
 			data.setData(questionAnswer);
 		}else{

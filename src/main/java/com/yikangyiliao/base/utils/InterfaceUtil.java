@@ -444,11 +444,11 @@ public class InterfaceUtil {
 		mathodServiceConfig.put("00-29-01",insertQuestion);
 		
 		//更新问题支持状态
-		YiKangServiceConfige updateQuestionStar=new YiKangServiceConfige();
-		updateQuestionStar.setServiceName("questionService");
-		updateQuestionStar.setMethodName("updateQuestionStar");
-		updateQuestionStar.setIsFileter(true);
-		mathodServiceConfig.put("00-29-02",updateQuestionStar);
+		YiKangServiceConfige upQuestionStar=new YiKangServiceConfige();
+		upQuestionStar.setServiceName("questionService");
+		upQuestionStar.setMethodName("upQuestionStar");
+		upQuestionStar.setIsFileter(true);
+		mathodServiceConfig.put("00-29-02",upQuestionStar);
 		
 		//问题回复
 		YiKangServiceConfige addQuestionAnswer=new YiKangServiceConfige();
@@ -767,6 +767,14 @@ public class InterfaceUtil {
 		getDynamicMessageByUserId.setMethodName("getDynamicMessageByUserId");
 		getDynamicMessageByUserId.setIsFileter(true);
 		mathodServiceConfig.put("00-35-02",getDynamicMessageByUserId);
+		
+		
+		//动态消息列表,分页
+		YiKangServiceConfige getDynamicMessageByUserIdPage=new YiKangServiceConfige();
+		getDynamicMessageByUserIdPage.setServiceName("messageService");
+		getDynamicMessageByUserIdPage.setMethodName("getDynamicMessageByUserIdPage");
+		getDynamicMessageByUserIdPage.setIsFileter(true);
+		mathodServiceConfig.put("00-35-06",getDynamicMessageByUserIdPage);
 		
 		//用户标签管理
 		serviceClassName.put("00-36", "userTaglibMapService");

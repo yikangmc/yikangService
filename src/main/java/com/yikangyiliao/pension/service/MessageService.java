@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.yikangyiliao.pension.common.error.ExceptionConstants;
+import com.yikangyiliao.pension.common.page.PageParameter;
 import com.yikangyiliao.pension.common.response.ResponseMessage;
 import com.yikangyiliao.pension.entity.Message;
 import com.yikangyiliao.pension.manager.MessageManager;
@@ -105,6 +106,31 @@ public class MessageService {
 		return resData;
 		
 	}
+	
+	/**
+	 * @author liushuaic
+	 * @date 2016-06-07 10:13
+	 * @desc 获取动态信息
+	 * */
+	public ResponseMessage<List<Message>> getDynamicMessageByUserIdPage(Map<String,Object> paramMap){
+		ResponseMessage<List<Message>> resData=new ResponseMessage<List<Message>>();
+		if(
+				paramMap.containsKey("userId") && paramMap.containsKey("page")
+		){
+			Long userId=Long.valueOf(paramMap.get("userId").toString());
+			PageParameter page=new PageParameter();
+			int currentPage=Integer.valueOf(paramMap.get("page").toString());
+			page.setCurrentPage(currentPage);
+			List<Message> data=messageManager.getDynamicMessageByUserIdPage(userId,page);
+			resData.setData(data);
+		}else{
+			resData.setStatus(ExceptionConstants.parameterException.parameterException.errorCode);
+			resData.setMessage(ExceptionConstants.parameterException.parameterException.errorMessage);
+		}
+		return resData;
+		
+	}
+	
 	
 
 }

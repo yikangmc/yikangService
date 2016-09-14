@@ -57,19 +57,19 @@ public class QuestionStarOperation implements Runnable{
 			
 			try{
 				
-				OperationMessage operationMessage=OperationMessageQueue.takeForumPostStarMessage();
-				
-				Long questionAnswerId=Long.valueOf(operationMessage.getContent());
+				OperationMessage operationMessage=OperationMessageQueue.takeQuestionAnswerStarMessage();
+				String[] contentStrArray=operationMessage.getContent().split("-");
+				Long questionAnswerId=Long.valueOf(contentStrArray[0]);
+				Long fromUserId=Long.valueOf(contentStrArray[1]);
 				
 				QuestionAnswer questionAnswer=questionAnswerManager.selectiveByQuestionAnswerId(questionAnswerId);
 				if(null != questionAnswer){
-					Long fromUserId=questionAnswer.getCreateUserId();
 					Question question=questionManager.getQuestionByQuestionId(questionAnswer.getQuestionId());
-					Long toUserId=question.getQuestionId();
+					Long toUserId=questionAnswer.getCreateUserId();
 					UserConfigration userConfigration= userConfigrationManager.getUserConfigration(toUserId);
 					String title="有新的用户支持了，你在 “"+question.getTitle()+"” 的回答";
 					// 判断用户是否打开了动态通知
-					if(userConfigration.getDynamicAlert().equals(1)){
+					if(null == userConfigration || userConfigration.getDynamicAlert().equals(1)){
 						try{
 							User user=userManager.getUserByUserId(toUserId);
 							Message<String> message=new Message<String>();

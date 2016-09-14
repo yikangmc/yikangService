@@ -86,7 +86,7 @@ public class QuestionService {
 	 * @desc 问题 支持与取消
 	 * 
 	 * */
-	public ResponseMessage<Integer> updateQuestionStar(Map<String,Object> paramMap){
+	public ResponseMessage<Integer> upQuestionStar(Map<String,Object> paramMap){
 		ResponseMessage<Integer> resData=new ResponseMessage<Integer>();
 		if(
 			paramMap.containsKey("questionAnswerId")
@@ -102,8 +102,8 @@ public class QuestionService {
 				
 			}else if(isStar==1){ //支持
 				OperationMessage operationMessage=new OperationMessage();
-				operationMessage.setContent(questionAnswerId+"");
-				OperationMessageQueue.putForumPostStarMessage(operationMessage);
+				operationMessage.setContent(questionAnswerId+"-"+userId);
+				OperationMessageQueue.putQuestionAnswersStarMessage(operationMessage);
 			}
 		}else{
 			resData.setStatus(ExceptionConstants.parameterException.parameterException.errorCode);

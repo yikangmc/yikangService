@@ -205,4 +205,15 @@
 	</select>
 
 
+<!-- 查询某一个用户收到的某一个类型的信息 -->
+	<select id="getMessageByMessageGroupAndUserIdPage" parameterType="map"
+		resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List"></include>
+		from messages
+		where message_group=#{messageGroup}
+		and to_user_id=#{userId}
+		order by create_time desc
+	</select>
+
 </mapper>

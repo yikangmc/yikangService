@@ -32,4 +32,11 @@ public interface MessageDao {
      * */
     List<Message> getMessageByMessageGroupAndUserId(Map<String,Object> paramMap);
     
+    /**
+     * @author liushuaic
+     * @date 2016-09-14 13:07
+     * @desc 查询某一个用户下的，某一些分类信息  page
+     * */
+    List<Message> getMessageByMessageGroupAndUserIdPage(Map<String,Object> paramMap);
+    
 }

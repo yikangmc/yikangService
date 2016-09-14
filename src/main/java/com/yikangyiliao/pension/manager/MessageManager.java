@@ -9,6 +9,7 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import com.yikangyiliao.pension.common.page.PageParameter;
 import com.yikangyiliao.pension.dao.MessageDao;
 import com.yikangyiliao.pension.entity.Message;
 
@@ -64,6 +65,19 @@ public class MessageManager {
 		paramMap.put("messageGroup",1);
 		paramMap.put("userId",userId);
 		return messageDao.getMessageByMessageGroupAndUserId(paramMap);
+	}
+	
+	/**
+	 * @author liushuaic
+	 * @date 2016-09-14 13:08
+	 * @desc 获取某个用户的动态信息列表，分页
+	 * */
+	public List<Message> getDynamicMessageByUserIdPage(Long userId,PageParameter page){
+		Map<String,Object> paramMap=new HashMap<String,Object>();
+		paramMap.put("messageGroup",1);
+		paramMap.put("userId",userId);
+		paramMap.put("page",page);
+		return messageDao.getMessageByMessageGroupAndUserIdPage(paramMap);
 	}
 	
 	/**
