@@ -17,7 +17,6 @@
 		<result column="content_group" property="contentGroup"
 			jdbcType="TINYINT" />
 		<result column="data_id" property="dataId" jdbcType="BIGINT" />
-		<result column="noReadNum" property = "noReadNum" jdbcType="TINYINT"/>
 	</resultMap>
 	<sql id="Base_Column_List">
 		messages_id, title, content, from_user_id, to_user_id, create_time,
