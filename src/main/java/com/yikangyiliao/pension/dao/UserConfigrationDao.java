@@ -1,5 +1,7 @@
 package com.yikangyiliao.pension.dao;
 
+import java.util.List;
+
 import com.yikangyiliao.pension.entity.UserConfigration;
 
 public interface UserConfigrationDao {
@@ -32,5 +34,13 @@ public interface UserConfigrationDao {
      * @desc 修改用户配置
      * */
     int updateByUseridSelective(UserConfigration uc);
+    
+    /**
+     * @author houyt
+     * @date 2016-09-14 10:43
+     * @desc 获取所有用户配置
+     * @return
+     */
+    List<UserConfigration> selectAllUserConfigration();
     
 }

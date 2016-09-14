@@ -1,5 +1,7 @@
 package com.yikangyiliao.pension.manager;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -50,5 +52,15 @@ public class UserConfigrationManager {
 		uc.setUserId(userId);
 		return userConfigrationDao.insertSelective(uc);
 	} 
+	
+	/**
+     * @author houyt
+     * @date 2016-09-14 10:43
+     * @desc 获取所有用户配置
+     * @return
+     */
+	public List<UserConfigration> selectAllUserConfigration(){
+		return userConfigrationDao.selectAllUserConfigration();
+	}
 
 }

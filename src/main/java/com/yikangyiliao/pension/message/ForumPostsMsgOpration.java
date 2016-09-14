@@ -6,12 +6,14 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import com.yikangyiliao.base.cache.UserConfigrationsCache;
 import com.yikangyiliao.base.utils.messageUtil.im.Message;
 import com.yikangyiliao.base.utils.messageUtil.im.MessageQueue;
 import com.yikangyiliao.pension.common.utils.operationmesage.OperationMessage;
 import com.yikangyiliao.pension.common.utils.operationmesage.OperationMessageQueue;
 import com.yikangyiliao.pension.entity.FormPosts;
 import com.yikangyiliao.pension.entity.Taglib;
+import com.yikangyiliao.pension.entity.UserConfigration;
 import com.yikangyiliao.pension.entity.UserInfo;
 import com.yikangyiliao.pension.manager.FormPostManager;
 import com.yikangyiliao.pension.manager.MessageManager;
@@ -55,16 +57,22 @@ public class ForumPostsMsgOpration implements Runnable {
 							
 							for (UserInfo userInfo : userInfos) {
 								messageManager.insertDynamicFollowMessage(-1l, userInfo.getUserId(),taglibAlert, formPosts.getTitle(),forumPostId,Byte.valueOf("4"));
-								pushAlias.add(userInfo.getPushAlias());
-								if (pushAlias.size() > 5) {
-									try {
-										Message<List<String>> pushMessage = new Message<List<String>>();
-										pushMessage.setAlias(new ArrayList<String>(pushAlias));
-										pushMessage.setContent(taglibAlert);
-										MessageQueue.put(pushMessage);
-										pushAlias = new ArrayList<String>();
-									} catch (Exception e) {
-										e.printStackTrace();
+								//判断被评论的用户是否开启了消息推送 0未开启，1已开启
+								if(null!=UserConfigrationsCache.get(String.valueOf(userInfo.getUserId()))){
+									UserConfigration userConfigration = (UserConfigration) UserConfigrationsCache.get(String.valueOf(userInfo.getUserId()));
+									if(userConfigration.getDynamicAlert()==1){
+										pushAlias.add(userInfo.getPushAlias());
+										if (pushAlias.size() > 5) {
+											try {
+												Message<List<String>> pushMessage = new Message<List<String>>();
+												pushMessage.setAlias(new ArrayList<String>(pushAlias));
+												pushMessage.setContent(taglibAlert);
+												MessageQueue.put(pushMessage);
+												pushAlias = new ArrayList<String>();
+											} catch (Exception e) {
+												e.printStackTrace();
+											}
+										}
 									}
 								}
 							}

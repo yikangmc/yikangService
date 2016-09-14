@@ -116,8 +116,22 @@ public class MessageManager {
 		return	messageDao.insertSelective(message);
 	}
 	
+	/**
+	 * @author houyt
+	 * @serialData 2016/09/12 17:28
+	 * @param paramMap
+	 * @desc 通过消息标识标记此条状态为已读
+	 * @return
+	 */
+	public void setTheMessageAsRead(Byte isRead,Long messagesId){
+		Message record = new Message();
+		record.setIsRead(isRead);
+		record.setMessagesId(messagesId);
+		messageDao.updateByPrimaryKeySelective(record);
+	}
 	
 	/**
+<<<<<<< Updated upstream
 	 * @author liushuaic
 	 * @date 2016-09-13 13:20
 	 * @desc 添加问题回答支持
@@ -137,7 +151,31 @@ public class MessageManager {
 		message.setCreateTimeMillisecond(currentDateTime.getTime());
 		message.setDataId(dataId);
 		return	messageDao.insertSelective(message);
+=======
+	 * @author houyt
+	 * @serialData 2016/09/12/18:05
+	 * @param paramMap
+	 * @desc 根据登录用户ID查询他的动态/系统 消息的未读数量
+	 * @return
+	 */
+	public  Message getMessageUnreadNumberByUserId(Long userId,String messageGroup){
+		Message message = new Message();
+		message.setToUserId(userId);
+		message.setMessageGroup(Byte.valueOf(messageGroup));
+		return messageDao.getMessageUnreadNumberByUserId(message);
+>>>>>>> Stashed changes
 	}
 	
+	
+	/**
+	 * @author houyt
+	 * @serialData 2016/09/13 10:28
+	 * @param paramMap
+	 * @desc 通过用户标识和未读标识标记所有未读消息状态为已读
+	 * @return
+	 */
+	public void setAllMessageAsRead(Long userId){
+		messageDao.setAllMessageAsRead(userId);
+	}
 	
 }

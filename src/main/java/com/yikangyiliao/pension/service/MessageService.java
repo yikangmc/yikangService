@@ -1,5 +1,6 @@
 package com.yikangyiliao.pension.service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -107,6 +108,7 @@ public class MessageService {
 		
 	}
 	
+<<<<<<< Updated upstream
 	/**
 	 * @author liushuaic
 	 * @date 2016-06-07 10:13
@@ -123,14 +125,79 @@ public class MessageService {
 			page.setCurrentPage(currentPage);
 			List<Message> data=messageManager.getDynamicMessageByUserIdPage(userId,page);
 			resData.setData(data);
+=======
+	
+	/**
+	 * @author houyt
+	 * @serialData 2016/09/12 17:28
+	 * @param paramMap
+	 * @desc 通过消息标识标记此条状态为已读
+	 * @return
+	 */
+	public ResponseMessage<List<Message>> setTheMessageAsReadByMessagesId(Map<String,Object> paramMap){
+		ResponseMessage<List<Message>> resData=new ResponseMessage<List<Message>>();
+		if(paramMap.containsKey("messagesId")){
+			String messagesId = paramMap.get("messagesId").toString();
+			messageManager.setTheMessageAsRead(Byte.valueOf("1"), Long.valueOf(messagesId));
+>>>>>>> Stashed changes
 		}else{
 			resData.setStatus(ExceptionConstants.parameterException.parameterException.errorCode);
 			resData.setMessage(ExceptionConstants.parameterException.parameterException.errorMessage);
 		}
 		return resData;
+<<<<<<< Updated upstream
 		
 	}
 	
 	
+=======
+	}
+	
+	
+	/**
+	 * @author houyt
+	 * @serialData 2016/09/12/18:05
+	 * @param paramMap
+	 * @desc 根据登录用户ID查询他的动态/系统 消息的未读数量
+	 * @return
+	 */
+	public  ResponseMessage<List<Message>> getMessageUnreadNumberByUserId(Map<String,Object> paramMap){
+		ResponseMessage<List<Message>> resData=new ResponseMessage<List<Message>>();
+		if(paramMap.containsKey("userId")){
+			String userId = paramMap.get("userId").toString();
+			 Message messageSys = messageManager.getMessageUnreadNumberByUserId(Long.valueOf(userId),"0");
+			 messageSys.setMessageGroup(Byte.valueOf("0"));
+			 Message messageDy = messageManager.getMessageUnreadNumberByUserId(Long.valueOf(userId),"1");
+			 messageDy.setMessageGroup(Byte.valueOf("1"));
+			 List<Message> list = new ArrayList<Message>();
+			 list.add(messageDy);
+			 list.add(messageSys);
+			 resData.setData(list);
+		}else{
+			resData.setStatus(ExceptionConstants.parameterException.parameterException.errorCode);
+			resData.setMessage(ExceptionConstants.parameterException.parameterException.errorMessage);
+		}
+		return resData;
+	}
+	
+	/**
+	 * @author houyt
+	 * @serialData 2016/09/13 10:28
+	 * @param paramMap
+	 * @desc 通过用户标识和未读标识标记所有未读消息状态为已读
+	 * @return
+	 */
+	public ResponseMessage<List<Message>> setAllMessageAsReadByUserId(Map<String,Object> paramMap){
+		ResponseMessage<List<Message>> resData=new ResponseMessage<List<Message>>();
+		if(paramMap.containsKey("userId")){
+			String userId = paramMap.get("userId").toString();
+			messageManager.setAllMessageAsRead(Long.valueOf(userId));
+		}else{
+			resData.setStatus(ExceptionConstants.parameterException.parameterException.errorCode);
+			resData.setMessage(ExceptionConstants.parameterException.parameterException.errorMessage);
+		}
+		return resData;
+	}
+>>>>>>> Stashed changes
 
 }

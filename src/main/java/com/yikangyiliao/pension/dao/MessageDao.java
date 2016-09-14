@@ -32,11 +32,33 @@ public interface MessageDao {
      * */
     List<Message> getMessageByMessageGroupAndUserId(Map<String,Object> paramMap);
     
+<<<<<<< Updated upstream
     /**
      * @author liushuaic
      * @date 2016-09-14 13:07
      * @desc 查询某一个用户下的，某一些分类信息  page
      * */
     List<Message> getMessageByMessageGroupAndUserIdPage(Map<String,Object> paramMap);
+=======
+    
+    /**
+	 * @author houyt
+	 * @serialData 2016/09/12/18:05
+	 * @param paramMap
+	 * @desc 根据登录用户ID查询他的动态/系统 消息的未读数量
+	 * @return
+	 */
+    Message getMessageUnreadNumberByUserId(Message message);
+    
+    
+    /**
+	 * @author houyt
+	 * @serialData 2016/09/13 10:28
+	 * @param paramMap
+	 * @desc 通过用户标识和未读标识标记所有未读消息状态为已读
+	 * @return
+	 */
+    void setAllMessageAsRead(Long userId);
+>>>>>>> Stashed changes
     
 }

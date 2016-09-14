@@ -78,7 +78,7 @@ public class ForumPostServiceTest {
 		
 		try{
 			Map<String,Object> paramData=new HashMap<String,Object>();
-			paramData.put("forumPostId",1);
+			paramData.put("forumPostId",2);
 			Long[] ids={1l,2l};
 			String[] imgs={"34343","3434"};
 			paramData.put("taglibIds",ids);

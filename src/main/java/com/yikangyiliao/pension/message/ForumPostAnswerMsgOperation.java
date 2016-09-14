@@ -5,12 +5,14 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import com.yikangyiliao.base.cache.UserConfigrationsCache;
 import com.yikangyiliao.base.utils.messageUtil.im.Message;
 import com.yikangyiliao.base.utils.messageUtil.im.MessageQueue;
 import com.yikangyiliao.pension.common.utils.operationmesage.OperationMessage;
 import com.yikangyiliao.pension.common.utils.operationmesage.OperationMessageQueue;
 import com.yikangyiliao.pension.entity.FormPosts;
 import com.yikangyiliao.pension.entity.ForumPostsAnswer;
+import com.yikangyiliao.pension.entity.UserConfigration;
 import com.yikangyiliao.pension.entity.UserInfo;
 import com.yikangyiliao.pension.manager.FormPostManager;
 import com.yikangyiliao.pension.manager.ForumPostsAnswerManager;
@@ -64,14 +66,20 @@ public class ForumPostAnswerMsgOperation implements Runnable{
 				}
 				//添加  文章回答的 动态信息 
 				messageManager.insertDynamicFollowMessage(createAnswerUserInfo.getUserId(), fp.getCreateUserId(), title, title, fp.getForumPostId(), contentGroup);
-				try{
-					Message<String> messages=new Message<String>();
-					messages.setAlias(userInfo.getPushAlias());
-					messages.setContent(title);
-					MessageQueue.put(messages);
-				}catch(Exception e){
-					e.printStackTrace();
-					log.error(e.getMessage());
+				//判断被评论的用户是否开启了消息推送 0未开启，1已开启
+				if(null!=UserConfigrationsCache.get(String.valueOf(fp.getCreateUserId()))){
+					UserConfigration userConfigration = (UserConfigration) UserConfigrationsCache.get(String.valueOf(fp.getCreateUserId()));
+					if(userConfigration.getDynamicAlert()==1){
+						try{
+							Message<String> messages=new Message<String>();
+							messages.setAlias(userInfo.getPushAlias());
+							messages.setContent(title);
+							MessageQueue.put(messages);
+						}catch(Exception e){
+							e.printStackTrace();
+							log.error(e.getMessage());
+						}
+					}
 				}
 			}
 		}

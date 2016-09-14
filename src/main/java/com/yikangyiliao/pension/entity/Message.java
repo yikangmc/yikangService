@@ -32,8 +32,18 @@ public class Message {
     private String photoUrl;
     
     private Integer userPosition;
+    
+    private Byte noReadNum;
 
-    public Long getMessagesId() {
+    public Byte getNoReadNum() {
+		return noReadNum;
+	}
+
+	public void setNoReadNum(Byte noReadNum) {
+		this.noReadNum = noReadNum;
+	}
+
+	public Long getMessagesId() {
         return messagesId;
     }
 

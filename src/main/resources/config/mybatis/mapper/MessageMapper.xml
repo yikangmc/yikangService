@@ -17,6 +17,7 @@
 		<result column="content_group" property="contentGroup"
 			jdbcType="TINYINT" />
 		<result column="data_id" property="dataId" jdbcType="BIGINT" />
+		<result column="noReadNum" property = "noReadNum" jdbcType="TINYINT"/>
 	</resultMap>
 	<sql id="Base_Column_List">
 		messages_id, title, content, from_user_id, to_user_id, create_time,
@@ -204,6 +205,7 @@
 		order by create_time desc
 	</select>
 
+<<<<<<< Updated upstream
 
 <!-- 查询某一个用户收到的某一个类型的信息 -->
 	<select id="getMessageByMessageGroupAndUserIdPage" parameterType="map"
@@ -216,4 +218,16 @@
 		order by create_time desc
 	</select>
 
+=======
+	<!-- 根据登录用户ID查询他的动态/系统 消息的未读数量 -->
+	<select id="getMessageUnreadNumberByUserId" parameterType="com.yikangyiliao.pension.entity.Message" resultMap="BaseResultMap">
+		select message_group,count(is_read) as noReadNum from messages 
+		where to_user_id = #{toUserId} and is_read = 0 and message_group=#{messageGroup}
+	</select>
+	
+	<!-- 通过用户标识和未读标识标记所有未读消息状态为已读 -->
+	<select id="setAllMessageAsRead" parameterType="Long">
+		update messages set is_read=1 where to_user_id=#{userId} and is_read=0;
+	</select>
+>>>>>>> Stashed changes
 </mapper>

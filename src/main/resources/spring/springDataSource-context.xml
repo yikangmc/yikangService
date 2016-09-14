@@ -22,9 +22,9 @@
 <!-- 			<property name="username" value="yikang"></property> -->
 <!-- 			<property name="password" value="yikang9988"></property> -->
 	<!-- 北京线上 -->
-<!-- 		<property name="url" value="jdbc:mysql://yikangtest.cdry2qjq29ol.rds.cn-north-1.amazonaws.com.cn:3306/yikang2?useUnicode=yes&amp;characterEncoding=UTF8"></property> -->
-<!-- 		<property name="username" value="yikangtest"></property> -->
-<!-- 		<property name="password" value="yikangtest"></property> -->
+		<!-- <property name="url" value="jdbc:mysql://yikangtest.cdry2qjq29ol.rds.cn-north-1.amazonaws.com.cn:3306/yikang2?useUnicode=yes&amp;characterEncoding=UTF8"></property>
+		<property name="username" value="yikangtest"></property>
+		<property name="password" value="yikangtest"></property> -->
 
 <!-- 北京测试 -->
 		<property name="url" value="jdbc:mysql://yikangstaging.cdry2qjq29ol.rds.cn-north-1.amazonaws.com.cn:3306/yikangNew?useUnicode=yes&amp;characterEncoding=UTF8"></property>

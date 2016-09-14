@@ -663,6 +663,7 @@ public class UserService {
 			}
 
 			userManager.insertUserServiceSelective(userServiceInfo);
+			integralManager.insertIntegral(Long.valueOf("55"), Byte.valueOf("0"), Long.valueOf(userId), 200, Byte.valueOf("1"), Byte.valueOf("1"));
 			rtnData.put("status", ExceptionConstants.responseSuccess.responseSuccess.code);
 			rtnData.put("message", ExceptionConstants.responseSuccess.responseSuccess.message);
 

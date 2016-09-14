@@ -108,5 +108,10 @@
   	where user_id=#{userId}
   </select>
   
-  
+  <!-- 获取所有用户配置 -->
+  <select id="selectAllUserConfigration" resultMap="BaseResultMap">
+  	select 
+  		user_configrations_id, user_id, system_alert, dynamic_alert
+  	from user_configrations
+  </select>
 </mapper>

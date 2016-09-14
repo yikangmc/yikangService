@@ -769,12 +769,44 @@ public class InterfaceUtil {
 		mathodServiceConfig.put("00-35-02",getDynamicMessageByUserId);
 		
 		
+<<<<<<< Updated upstream
 		//动态消息列表,分页
 		YiKangServiceConfige getDynamicMessageByUserIdPage=new YiKangServiceConfige();
 		getDynamicMessageByUserIdPage.setServiceName("messageService");
 		getDynamicMessageByUserIdPage.setMethodName("getDynamicMessageByUserIdPage");
 		getDynamicMessageByUserIdPage.setIsFileter(true);
 		mathodServiceConfig.put("00-35-06",getDynamicMessageByUserIdPage);
+=======
+		// 通过消息标识标记此条状态为已读
+		YiKangServiceConfige setTheMessageAsReadByMessagesId = new YiKangServiceConfige();
+		setTheMessageAsReadByMessagesId.setServiceName("messageService");
+		setTheMessageAsReadByMessagesId.setMethodName("setTheMessageAsReadByMessagesId");
+		setTheMessageAsReadByMessagesId.setIsFileter(false);
+		mathodServiceConfig.put("00-35-03", setTheMessageAsReadByMessagesId);
+		
+		
+		// 根据登录用户ID查询他的动态/系统 消息的未读数量
+		YiKangServiceConfige getMessageUnreadNumberByUserId = new YiKangServiceConfige();
+		getMessageUnreadNumberByUserId.setServiceName("messageService");
+		getMessageUnreadNumberByUserId.setMethodName("getMessageUnreadNumberByUserId");
+		getMessageUnreadNumberByUserId.setIsFileter(false);
+		mathodServiceConfig.put("00-35-04", getMessageUnreadNumberByUserId);
+		
+		/**
+		 * @author houyt
+		 * @serialData 2016/09/13 10:28
+		 * @param paramMap
+		 * @desc 通过用户标识和未读标识标记所有未读消息状态为已读
+		 * @return
+		 */
+		YiKangServiceConfige setAllMessageAsRead = new YiKangServiceConfige();
+		setAllMessageAsRead.setServiceName("messageService");
+		setAllMessageAsRead.setMethodName("setAllMessageAsRead");
+		setAllMessageAsRead.setIsFileter(false);
+		mathodServiceConfig.put("00-35-05", setAllMessageAsRead);
+				
+		
+>>>>>>> Stashed changes
 		
 		//用户标签管理
 		serviceClassName.put("00-36", "userTaglibMapService");
