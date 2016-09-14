@@ -10,6 +10,7 @@ import com.yikangyiliao.pension.message.ForumPostStarOperation;
 import com.yikangyiliao.pension.message.ForumPostsMsgOpration;
 import com.yikangyiliao.pension.message.QuestionAnswerCommentOperation;
 import com.yikangyiliao.pension.message.QuestionAnswerMsgOperation;
+import com.yikangyiliao.pension.message.QuestionStarOperation;
 
 
 /**
@@ -63,6 +64,15 @@ public class PorpertiesLonder implements ApplicationContextAware {
 		QuestionAnswerCommentOperation questionAnswerCommentOperation = (QuestionAnswerCommentOperation) applicationContext.getBean("questionAnswerCommentOperation");
 		Thread questionAnswerCommentOperationThread = new Thread(questionAnswerCommentOperation);
 		questionAnswerCommentOperationThread.start();
+		
+		
+		//专家解答的评论
+		QuestionStarOperation questionStarOperationRunable = (QuestionStarOperation) applicationContext.getBean("questionStarOperation");
+		Thread questionStarOperationThread = new Thread(questionStarOperationRunable);
+		questionStarOperationThread.start();
+		
+		
+		
 	}
 
 }

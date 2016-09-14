@@ -85,7 +85,7 @@ public class QuestionAnswerManager {
 	 * @author liushuaic
 	 * @date 2016-05-09 18:36 
 	 * @desc 修改问题回复支持状态
-	 * @return 0: 未支持，1：支持
+	 * @return 0:取消支持，1：支持
 	 * */
 	public int updateQustionAnswerStar(Long questionAnswerId,Long userId){
 		
@@ -148,6 +148,15 @@ public class QuestionAnswerManager {
 		return questionAnswerDao.getMyQuestionAnswerByCreateUserId(paramMap);
 	}
 	
+	
+	/**
+	 * @author liushuaic
+	 * @date 201609-13 11:57
+	 * @desc 查询某一个回答详情
+	 * */
+	public QuestionAnswer selectiveByQuestionAnswerId(Long questionAnswerId){
+		return questionAnswerDao.selectByPrimaryKey(questionAnswerId);
+	}
 	
 	
 	

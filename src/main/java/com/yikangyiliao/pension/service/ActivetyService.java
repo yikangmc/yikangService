@@ -331,6 +331,33 @@ public class ActivetyService {
 	
 	/**
 	 * @author liushuaic
+	 * @date 2016-09-08 10:20
+	 * @desc 获取某一个用户创建的活动  分页
+	 * **/
+	public ResponseMessage<List<Activety>> getActivetyByServerUserIdPage(Map<String,Object> paramMap){
+		
+		ResponseMessage<List<Activety>> resData=new ResponseMessage<List<Activety>>();
+		
+		if(paramMap.containsKey("serverUserId")&&paramMap.containsKey("page")){
+			Long userId=Long.valueOf(paramMap.get("serverUserId").toString());
+			Integer currentPage = Integer.valueOf(paramMap.get("page").toString());
+			PageParameter pageParameter = new PageParameter();
+			pageParameter.setCurrentPage(currentPage);
+			List<Activety> activetys=activetyManager.selectActivetyByUserIdPage(userId, pageParameter);
+			resData.setData(activetys);
+		}else{
+			resData.setStatus(ExceptionConstants.parameterException.parameterException.errorCode);
+			resData.setMessage(ExceptionConstants.parameterException.parameterException.errorMessage);
+		}
+		
+		
+		return resData;
+		
+	}
+	
+	
+	/**
+	 * @author liushuaic
 	 * @date 2016-05-23 10:57
 	 * @desc 获取我参加的活动列表
 	 * **/

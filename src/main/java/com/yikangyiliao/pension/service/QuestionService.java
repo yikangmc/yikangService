@@ -96,6 +96,15 @@ public class QuestionService {
 			Long userId=Long.valueOf(paramMap.get("userId").toString());
 			int isStar=questionAnswerManager.updateQustionAnswerStar(questionAnswerId, userId);
 			resData.setData(isStar);
+			
+			//取消支持
+			if(isStar==0){
+				
+			}else if(isStar==1){ //支持
+				OperationMessage operationMessage=new OperationMessage();
+				operationMessage.setContent(questionAnswerId+"");
+				OperationMessageQueue.putForumPostStarMessage(operationMessage);
+			}
 		}else{
 			resData.setStatus(ExceptionConstants.parameterException.parameterException.errorCode);
 			resData.setMessage(ExceptionConstants.parameterException.parameterException.errorMessage);

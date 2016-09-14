@@ -19,6 +19,9 @@ public class DateUtils {
 	
 	
 	private static String defaultFormateStr="yyyy-MM-dd";
+	private static String defaultFormateDateTimeStr="yyyy-MM-dd HH:mm:ss";
+	
+	private static SimpleDateFormat defaultDateFormat=new SimpleDateFormat(defaultFormateDateTimeStr);
 	
 	/**
 	 * @param dataStr 2015-06-25
@@ -131,6 +134,17 @@ public class DateUtils {
 			data.put(properties, DateUtils.formateDate(new Date(dateTime)));
 		}
 		
+	}
+	
+	
+	/**
+	 * @author liushuaic
+	 * @date 2016-09-13 10:11
+	 * @desc  获取当时间格式化的字符串
+	 * @return 格式化的字符串  2016-09-13 10:11:11
+	 * */
+	public static String getCurrentDateTimeStr(){
+		return defaultDateFormat.format(Calendar.getInstance().getTime());
 	}
 	
 	

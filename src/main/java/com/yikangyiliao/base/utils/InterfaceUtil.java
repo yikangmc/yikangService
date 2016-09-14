@@ -696,6 +696,18 @@ public class InterfaceUtil {
 		
 		/**
 		 * @author liushuaic
+		 * @date 2016-09-12 16:18
+		 * @desc 获取某一个用户的发布的活动列表
+		 ***/
+		YiKangServiceConfige getActivetyByServerUserIdPage=new YiKangServiceConfige();
+		getActivetyByServerUserIdPage.setServiceName("activetyService");
+		getActivetyByServerUserIdPage.setMethodName("getActivetyByServerUserIdPage");
+		getActivetyByServerUserIdPage.setIsFileter(false);
+		mathodServiceConfig.put("00-31-10",getActivetyByServerUserIdPage);
+		
+		
+		/**
+		 * @author liushuaic
 		 * @date 2016-05-17 14:55
 		 * @desc 获取用户的配置信息
 		 * */
