@@ -108,7 +108,6 @@ public class MessageService {
 		
 	}
 	
-<<<<<<< Updated upstream
 	/**
 	 * @author liushuaic
 	 * @date 2016-06-07 10:13
@@ -125,7 +124,13 @@ public class MessageService {
 			page.setCurrentPage(currentPage);
 			List<Message> data=messageManager.getDynamicMessageByUserIdPage(userId,page);
 			resData.setData(data);
-=======
+		}else{
+			resData.setStatus(ExceptionConstants.parameterException.parameterException.errorCode);
+			resData.setMessage(ExceptionConstants.parameterException.parameterException.errorMessage);
+		}
+		return resData;
+		
+	}
 	
 	/**
 	 * @author houyt
@@ -139,19 +144,14 @@ public class MessageService {
 		if(paramMap.containsKey("messagesId")){
 			String messagesId = paramMap.get("messagesId").toString();
 			messageManager.setTheMessageAsRead(Byte.valueOf("1"), Long.valueOf(messagesId));
->>>>>>> Stashed changes
 		}else{
 			resData.setStatus(ExceptionConstants.parameterException.parameterException.errorCode);
 			resData.setMessage(ExceptionConstants.parameterException.parameterException.errorMessage);
 		}
 		return resData;
-<<<<<<< Updated upstream
 		
 	}
 	
-	
-=======
-	}
 	
 	
 	/**
@@ -198,6 +198,5 @@ public class MessageService {
 		}
 		return resData;
 	}
->>>>>>> Stashed changes
 
 }

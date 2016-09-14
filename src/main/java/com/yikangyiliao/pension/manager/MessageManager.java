@@ -131,7 +131,6 @@ public class MessageManager {
 	}
 	
 	/**
-<<<<<<< Updated upstream
 	 * @author liushuaic
 	 * @date 2016-09-13 13:20
 	 * @desc 添加问题回答支持
@@ -151,8 +150,9 @@ public class MessageManager {
 		message.setCreateTimeMillisecond(currentDateTime.getTime());
 		message.setDataId(dataId);
 		return	messageDao.insertSelective(message);
-=======
-	 * @author houyt
+	}
+	
+	/* @author houyt
 	 * @serialData 2016/09/12/18:05
 	 * @param paramMap
 	 * @desc 根据登录用户ID查询他的动态/系统 消息的未读数量
@@ -163,7 +163,6 @@ public class MessageManager {
 		message.setToUserId(userId);
 		message.setMessageGroup(Byte.valueOf(messageGroup));
 		return messageDao.getMessageUnreadNumberByUserId(message);
->>>>>>> Stashed changes
 	}
 	
 	

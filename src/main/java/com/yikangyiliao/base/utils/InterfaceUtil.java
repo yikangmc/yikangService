@@ -769,14 +769,12 @@ public class InterfaceUtil {
 		mathodServiceConfig.put("00-35-02",getDynamicMessageByUserId);
 		
 		
-<<<<<<< Updated upstream
 		//动态消息列表,分页
 		YiKangServiceConfige getDynamicMessageByUserIdPage=new YiKangServiceConfige();
 		getDynamicMessageByUserIdPage.setServiceName("messageService");
 		getDynamicMessageByUserIdPage.setMethodName("getDynamicMessageByUserIdPage");
 		getDynamicMessageByUserIdPage.setIsFileter(true);
 		mathodServiceConfig.put("00-35-06",getDynamicMessageByUserIdPage);
-=======
 		// 通过消息标识标记此条状态为已读
 		YiKangServiceConfige setTheMessageAsReadByMessagesId = new YiKangServiceConfige();
 		setTheMessageAsReadByMessagesId.setServiceName("messageService");
@@ -806,7 +804,6 @@ public class InterfaceUtil {
 		mathodServiceConfig.put("00-35-05", setAllMessageAsRead);
 				
 		
->>>>>>> Stashed changes
 		
 		//用户标签管理
 		serviceClassName.put("00-36", "userTaglibMapService");
