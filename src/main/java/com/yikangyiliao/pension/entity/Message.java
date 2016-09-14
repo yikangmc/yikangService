@@ -32,15 +32,26 @@ public class Message {
     private String photoUrl;
     
     private Integer userPosition;
-    
-    private Byte noReadNum;
+    //系统消息未读数量
+    private Byte systemNoReadNum;
+    //动态消息未读数量
+    private Byte dynamicNoReadNum;
 
-    public Byte getNoReadNum() {
-		return noReadNum;
+
+	public Byte getSystemNoReadNum() {
+		return systemNoReadNum;
 	}
 
-	public void setNoReadNum(Byte noReadNum) {
-		this.noReadNum = noReadNum;
+	public void setSystemNoReadNum(Byte systemNoReadNum) {
+		this.systemNoReadNum = systemNoReadNum;
+	}
+
+	public Byte getDynamicNoReadNum() {
+		return dynamicNoReadNum;
+	}
+
+	public void setDynamicNoReadNum(Byte dynamicNoReadNum) {
+		this.dynamicNoReadNum = dynamicNoReadNum;
 	}
 
 	public Long getMessagesId() {

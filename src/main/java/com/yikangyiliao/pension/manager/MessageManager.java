@@ -158,7 +158,7 @@ public class MessageManager {
 	 * @desc 根据登录用户ID查询他的动态/系统 消息的未读数量
 	 * @return
 	 */
-	public  Message getMessageUnreadNumberByUserId(Long userId,String messageGroup){
+	public  Map<String, Object> getMessageUnreadNumberByUserId(Long userId,String messageGroup){
 		Message message = new Message();
 		message.setToUserId(userId);
 		message.setMessageGroup(Byte.valueOf(messageGroup));

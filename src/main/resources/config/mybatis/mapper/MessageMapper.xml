@@ -205,23 +205,9 @@
 		order by create_time desc
 	</select>
 
-<<<<<<< Updated upstream
-
-<!-- 查询某一个用户收到的某一个类型的信息 -->
-	<select id="getMessageByMessageGroupAndUserIdPage" parameterType="map"
-		resultMap="BaseResultMap">
-		select
-		<include refid="Base_Column_List"></include>
-		from messages
-		where message_group=#{messageGroup}
-		and to_user_id=#{userId}
-		order by create_time desc
-	</select>
-
-=======
 	<!-- 根据登录用户ID查询他的动态/系统 消息的未读数量 -->
-	<select id="getMessageUnreadNumberByUserId" parameterType="com.yikangyiliao.pension.entity.Message" resultMap="BaseResultMap">
-		select message_group,count(is_read) as noReadNum from messages 
+	<select id="getMessageUnreadNumberByUserId" parameterType="com.yikangyiliao.pension.entity.Message" resultType="map">
+		select count(is_read) as noReadNum from messages 
 		where to_user_id = #{toUserId} and is_read = 0 and message_group=#{messageGroup}
 	</select>
 	
@@ -229,5 +215,4 @@
 	<select id="setAllMessageAsRead" parameterType="Long">
 		update messages set is_read=1 where to_user_id=#{userId} and is_read=0;
 	</select>
->>>>>>> Stashed changes
 </mapper>

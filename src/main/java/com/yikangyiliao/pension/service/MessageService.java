@@ -161,18 +161,16 @@ public class MessageService {
 	 * @desc 根据登录用户ID查询他的动态/系统 消息的未读数量
 	 * @return
 	 */
-	public  ResponseMessage<List<Message>> getMessageUnreadNumberByUserId(Map<String,Object> paramMap){
-		ResponseMessage<List<Message>> resData=new ResponseMessage<List<Message>>();
+	public  ResponseMessage<Message> getMessageUnreadNumberByUserId(Map<String,Object> paramMap){
+		ResponseMessage<Message> resData=new ResponseMessage<Message>();
 		if(paramMap.containsKey("userId")){
 			String userId = paramMap.get("userId").toString();
-			 Message messageSys = messageManager.getMessageUnreadNumberByUserId(Long.valueOf(userId),"0");
-			 messageSys.setMessageGroup(Byte.valueOf("0"));
-			 Message messageDy = messageManager.getMessageUnreadNumberByUserId(Long.valueOf(userId),"1");
-			 messageDy.setMessageGroup(Byte.valueOf("1"));
-			 List<Message> list = new ArrayList<Message>();
-			 list.add(messageDy);
-			 list.add(messageSys);
-			 resData.setData(list);
+			Message message = new Message();
+			Map<String, Object> messageSys = messageManager.getMessageUnreadNumberByUserId(Long.valueOf(userId),"0");
+			Map<String, Object> messageDy = messageManager.getMessageUnreadNumberByUserId(Long.valueOf(userId),"1");
+			 message.setSystemNoReadNum(Byte.valueOf(messageSys.get("noReadNum").toString()));
+			 message.setDynamicNoReadNum(Byte.valueOf(messageDy.get("noReadNum").toString()));
+			 resData.setData(message);
 		}else{
 			resData.setStatus(ExceptionConstants.parameterException.parameterException.errorCode);
 			resData.setMessage(ExceptionConstants.parameterException.parameterException.errorMessage);

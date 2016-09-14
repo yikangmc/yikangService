@@ -46,7 +46,7 @@ public interface MessageDao {
 	 * @desc 根据登录用户ID查询他的动态/系统 消息的未读数量
 	 * @return
 	 */
-    Message getMessageUnreadNumberByUserId(Message message);
+    Map<String, Object> getMessageUnreadNumberByUserId(Message message);
     
     
     /**
