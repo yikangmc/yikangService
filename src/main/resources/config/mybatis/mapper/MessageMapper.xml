@@ -203,6 +203,16 @@
 		and to_user_id=#{userId}
 		order by create_time desc
 	</select>
+	<!-- 查询某一个用户收到的某一个类型的信息 -->
+	<select id="getMessageByMessageGroupAndUserIdPage" parameterType="map"
+		resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List"></include>
+		from messages
+		where message_group=#{messageGroup}
+		and to_user_id=#{userId}
+		order by create_time desc
+	</select>
 
 	<!-- 根据登录用户ID查询他的动态/系统 消息的未读数量 -->
 	<select id="getMessageUnreadNumberByUserId" parameterType="com.yikangyiliao.pension.entity.Message" resultType="map">
