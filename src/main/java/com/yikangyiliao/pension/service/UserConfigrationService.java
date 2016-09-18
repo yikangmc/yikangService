@@ -56,10 +56,17 @@ public class UserConfigrationService {
 		
 		if(
 			   paramMap.containsKey("systemAlert")
-			&& paramMap.containsKey("dynamicAlert")
+			|| paramMap.containsKey("dynamicAlert")
 		){
-			Integer systemAlert=Integer.valueOf(paramMap.get("systemAlert").toString());
-			Integer dynamicAlert=Integer.valueOf(paramMap.get("dynamicAlert").toString());
+			/*Integer systemAlert=Integer.valueOf(paramMap.get("systemAlert").toString());
+			Integer dynamicAlert=Integer.valueOf(paramMap.get("dynamicAlert").toString());*/
+			Integer systemAlert=-1;
+			Integer dynamicAlert=-1;
+			if(paramMap.containsKey("systemAlert")){
+			    systemAlert=Integer.valueOf(paramMap.get("systemAlert").toString());
+			}else{
+				dynamicAlert=Integer.valueOf(paramMap.get("dynamicAlert").toString());
+			}
 			Long userId=Long.valueOf(paramMap.get("userId").toString());
 			userConfigrationManager.updateUserConfigration(systemAlert, dynamicAlert, userId);
 		}else{

@@ -23,8 +23,12 @@ public class UserConfigrationManager {
 	 * **/
 	public int updateUserConfigration(Integer systemAlert,Integer dynamicAlert,Long userId){
 		UserConfigration uc=new UserConfigration();
-		uc.setDynamicAlert(dynamicAlert.byteValue());
-		uc.setSystemAlert(systemAlert.byteValue());
+		if(systemAlert!=-1){
+			uc.setSystemAlert(systemAlert.byteValue());
+		}
+		if(dynamicAlert!=-1){
+			uc.setDynamicAlert(dynamicAlert.byteValue());
+		}
 		uc.setUserId(userId);
 		return userConfigrationDao.updateByUseridSelective(uc);
 	}

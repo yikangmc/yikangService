@@ -436,7 +436,7 @@
 		adepts.adept_id as adeptId,
 		adepts.adept_name as adeptName,
 		us.position_audit_status as positionAuditStatus,
-		designations.designation_name
+		IFNULL(designations.designation_name,'') as designation_name
 		from
 		user_service_infos us
 		inner join users on us.user_id=users.user_id
