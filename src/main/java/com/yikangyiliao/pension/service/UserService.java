@@ -437,6 +437,8 @@ public class UserService {
 				userInfo.setAddress("");
 				userManager.insertSelective(userInfo);
 
+				userConfigrationManager.insertSelective(1, 1, user.getUserId());
+				
 				resData.setStatus(ExceptionConstants.responseSuccess.responseSuccess.code);
 				resData.setMessage(ExceptionConstants.responseSuccess.responseSuccess.message);
 			} else {
@@ -579,6 +581,8 @@ public class UserService {
 				userInfo.setAddress("");
 				userManager.insertSelective(userInfo);
 
+				userConfigrationManager.insertSelective(1, 1, user.getUserId());
+				
 				rtnData.put("status", ExceptionConstants.responseSuccess.responseSuccess.code);
 				rtnData.put("message", ExceptionConstants.responseSuccess.responseSuccess.message);
 			} else {
