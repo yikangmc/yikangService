@@ -69,7 +69,7 @@ public class TaglibManager {
 	public List<Taglib> getAllTag(Long userId){
 		Map<String,Object> paramMap=new HashMap<String,Object>();
 		paramMap.put("userId", userId);
-    	return taglibDao.getAllTag(paramMap);
+		return taglibDao.getAllTag(paramMap);
     }
 	
 	
