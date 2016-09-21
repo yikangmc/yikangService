@@ -851,7 +851,7 @@ public class InterfaceUtil {
 		YiKangServiceConfige getMessageUnreadNumberByUserId = new YiKangServiceConfige();
 		getMessageUnreadNumberByUserId.setServiceName("messageService");
 		getMessageUnreadNumberByUserId.setMethodName("getMessageUnreadNumberByUserId");
-		getMessageUnreadNumberByUserId.setIsFileter(false);
+		getMessageUnreadNumberByUserId.setIsFileter(true);
 		mathodServiceConfig.put("00-35-04", getMessageUnreadNumberByUserId);
 		
 		/**
