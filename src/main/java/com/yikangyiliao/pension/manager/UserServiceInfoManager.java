@@ -47,7 +47,7 @@ public class UserServiceInfoManager {
      * @dsec 查询某一个员工的信息，根据 serverUserId 
      * */
     public UserServiceInfo getUserServiceInfoByServerUserId(Long serarchUserId,Long userId){
-    	return userServiceInfoDao.getUserServiceInfoByServerUserId(serarchUserId,userId);
+    		return userServiceInfoDao.getUserServiceInfoByServerUserId(serarchUserId,userId);
     }
 	
 }

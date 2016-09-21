@@ -21,22 +21,25 @@ import com.yikangyiliao.base.config.YiKangServiceConfige;
 public class InterfaceUtil {
 	
 	
-	private static Map<String,String> serviceClassName=null;
-	
-	private static Map<String,String> mathodClassPath=null;
+//	private static Map<String,String> serviceClassName=null;
+//	
+//	private static Map<String,String> mathodClassPath=null;
 	
 	private static Map<String,YiKangServiceConfige> mathodServiceConfig=null;
 	
 	static{
-		serviceClassName=new HashMap<String,String>();
-		mathodClassPath=new HashMap<String,String>();
+//		serviceClassName=new HashMap<String,String>();
+//		mathodClassPath=new HashMap<String,String>();
 		mathodServiceConfig=new HashMap<String,YiKangServiceConfige>();
 		
 		
-		serviceClassName.put("login", "login");
-		mathodClassPath.put("login", "login");
+		YiKangServiceConfige login=new YiKangServiceConfige();
+		login.setServiceName("login");
+		login.setMethodName("login");
+		login.setIsFileter(true);
+		mathodServiceConfig.put("login",login);
 		
-		serviceClassName.put("loginForThreepartLogin", "login");
+//		serviceClassName.put("loginForThreepartLogin", "login");
 		YiKangServiceConfige loginForThreepartLogin=new YiKangServiceConfige();
 		loginForThreepartLogin.setServiceName("login");
 		loginForThreepartLogin.setMethodName("loginForThreepartLogin");
@@ -50,7 +53,7 @@ public class InterfaceUtil {
 		 * 用户管理
 		 * **/
 		
-		serviceClassName.put("registerUser", "userService");
+//		serviceClassName.put("registerUser", "userService");
 		YiKangServiceConfige registUser=new YiKangServiceConfige();
 		registUser.setServiceName("userService");
 		registUser.setMethodName("registerUser");
@@ -63,7 +66,7 @@ public class InterfaceUtil {
 		 * @date 2016-08-08 17:46
 		 * @desc 注册用户
 		 * */
-		serviceClassName.put("insertRegisterUserForThreepart", "userService");
+//		serviceClassName.put("insertRegisterUserForThreepart", "userService");
 		YiKangServiceConfige insertRegisterUserForThreepart=new YiKangServiceConfige();
 		insertRegisterUserForThreepart.setServiceName("userService");
 		insertRegisterUserForThreepart.setMethodName("insertRegisterUserForThreepart");
@@ -72,16 +75,49 @@ public class InterfaceUtil {
 		
 		
 		
-		serviceClassName.put("registerUserAndSaveServiceInfo", "userService");
-		mathodClassPath.put("registerUserAndSaveServiceInfo", "saveRegisterUserAndSaveServiceInfo");
+//		serviceClassName.put("registerUserAndSaveServiceInfo", "userService");
+//		mathodClassPath.put("registerUserAndSaveServiceInfo", "saveRegisterUserAndSaveServiceInfo");
+		YiKangServiceConfige registerUserAndSaveServiceInfo=new YiKangServiceConfige();
+		registerUserAndSaveServiceInfo.setServiceName("userService");
+		registerUserAndSaveServiceInfo.setMethodName("registerUserAndSaveServiceInfo");
+		registerUserAndSaveServiceInfo.setIsFileter(false);
+		mathodServiceConfig.put("registerUserAndSaveServiceInfo", registerUserAndSaveServiceInfo);
 		
-		serviceClassName.put("00-17", "userService");
-		mathodClassPath.put("00-17-01", "registerUser");
-		mathodClassPath.put("00-17-02", "saveServiceUserInfo");
-		mathodClassPath.put("00-17-03", "registerUserAndSaveServiceInfo");
-		// 获取某一个服务人员信息 
-		mathodClassPath.put("00-17-04", "getUserServiceInfoByUserId");
-		mathodClassPath.put("00-17-05", "updateUserServiceAndServiceInfo");
+		
+		
+		YiKangServiceConfige registerUser=new YiKangServiceConfige();
+		registerUser.setServiceName("userService");
+		registerUser.setMethodName("registerUser");
+		registerUser.setIsFileter(false);
+		mathodServiceConfig.put("00-17-01", registerUser);
+		
+		
+		YiKangServiceConfige registerUserAndSaveServiceInfo13=new YiKangServiceConfige();
+		registerUserAndSaveServiceInfo13.setServiceName("saveServiceUserInfo");
+		registerUserAndSaveServiceInfo13.setMethodName("registerUserAndSaveServiceInfo");
+		registerUserAndSaveServiceInfo13.setIsFileter(false);
+		mathodServiceConfig.put("00-17-03", registerUserAndSaveServiceInfo13);
+		// 获取个人信息 
+//		mathodClassPath.put("00-17-04", "getUserServiceInfoByUserId");
+		YiKangServiceConfige getUserServiceInfoByUserId=new YiKangServiceConfige();
+		getUserServiceInfoByUserId.setServiceName("userService");
+		getUserServiceInfoByUserId.setMethodName("getUserServiceInfoByUserId");
+		getUserServiceInfoByUserId.setIsFileter(true);
+		mathodServiceConfig.put("00-17-04",getUserServiceInfoByUserId);
+		
+		
+		
+		/**
+		 * @author liushuaic
+		 * @date 
+		 * @desc 修改个人信息
+		 * */
+		YiKangServiceConfige updateUserServiceAndServiceInfo=new YiKangServiceConfige();
+		updateUserServiceAndServiceInfo.setServiceName("userService");
+		updateUserServiceAndServiceInfo.setMethodName("updateUserServiceAndServiceInfo");
+		updateUserServiceAndServiceInfo.setIsFileter(true);
+		mathodServiceConfig.put("00-17-05",updateUserServiceAndServiceInfo);
+//		mathodClassPath.put("00-17-05", "updateUserServiceAndServiceInfo");
 		
 		
 		
@@ -162,7 +198,7 @@ public class InterfaceUtil {
 		YiKangServiceConfige getUserServiceInfoByServerUserId=new YiKangServiceConfige();
 		getUserServiceInfoByServerUserId.setServiceName("userService");
 		getUserServiceInfoByServerUserId.setMethodName("getUserServiceInfoByServerUserId");
-		getUserServiceInfoByServerUserId.setIsFileter(true);
+		getUserServiceInfoByServerUserId.setIsFileter(false);
 		mathodServiceConfig.put("00-17-15",getUserServiceInfoByServerUserId);
 		
 		/**
@@ -170,11 +206,21 @@ public class InterfaceUtil {
 		 * @date 2015/09/01 14:19
 		 * @desc 设备管理
 		 * **/
-		serviceClassName.put("00-18", "deviceService");
+//		serviceClassName.put("00-18", "deviceService");
 		//保存设备
-		mathodClassPath.put("00-18-01", "saveDevice");
-		//获取别名
-		mathodClassPath.put("00-18-02", "getAliasByUser");
+		YiKangServiceConfige saveDevice=new YiKangServiceConfige();
+		saveDevice.setServiceName("deviceService");
+		saveDevice.setMethodName("saveDevice");
+		saveDevice.setIsFileter(true);
+		mathodServiceConfig.put("00-18-01",saveDevice);
+//		mathodClassPath.put("00-18-01", "saveDevice");
+		//获取别名 需登陆
+		YiKangServiceConfige getAliasByUser=new YiKangServiceConfige();
+		getAliasByUser.setServiceName("deviceService");
+		getAliasByUser.setMethodName("getAliasByUser");
+		getAliasByUser.setIsFileter(true);
+		mathodServiceConfig.put("00-18-02",getAliasByUser);
+//		mathodClassPath.put("00-18-02", "getAliasByUser");
 		
 		
 		/**
@@ -184,18 +230,39 @@ public class InterfaceUtil {
 		 * @desc 服务人员日程管理
 		 * **/
 		
-		serviceClassName.put("00-19", "serviceScheduleService");
-		mathodClassPath.put("00-19-01", "getScheduleListByMonth");
-		mathodClassPath.put("00-19-02", "getServiceScheduleDetail");
-		mathodClassPath.put("00-19-03", "insertServiceScheduleDetail");
+		YiKangServiceConfige getScheduleListByMonth=new YiKangServiceConfige();
+		getScheduleListByMonth.setServiceName("serviceScheduleService");
+		getScheduleListByMonth.setMethodName("getScheduleListByMonth");
+		getScheduleListByMonth.setIsFileter(true);
+		mathodServiceConfig.put("00-19-01",getScheduleListByMonth);
+//		mathodClassPath.put("00-19-01", "getScheduleListByMonth");
+		
+		YiKangServiceConfige getServiceScheduleDetail=new YiKangServiceConfige();
+		getServiceScheduleDetail.setServiceName("serviceScheduleService");
+		getServiceScheduleDetail.setMethodName("getScheduleListByMonth");
+		getServiceScheduleDetail.setIsFileter(true);
+		mathodServiceConfig.put("00-19-02",getServiceScheduleDetail);
+//		mathodClassPath.put("00-19-02", "getServiceScheduleDetail");
+		
+		
+		YiKangServiceConfige insertServiceScheduleDetail=new YiKangServiceConfige();
+		insertServiceScheduleDetail.setServiceName("serviceScheduleService");
+		insertServiceScheduleDetail.setMethodName("insertServiceScheduleDetail");
+		insertServiceScheduleDetail.setIsFileter(true);
+		mathodServiceConfig.put("00-19-03",insertServiceScheduleDetail);
+//		mathodClassPath.put("00-19-03", "insertServiceScheduleDetail");
 		
 		/**
 		 * @author liushuaic
 		 * @date 2015/10/10 17:23
 		 * 预约日期查询
 		 * **/
-		serviceClassName.put("00-20", "timeQuantumService");
-		mathodClassPath.put("00-20-01", "getTimeQuantumsForCustomer");
+		YiKangServiceConfige timeQuantumService=new YiKangServiceConfige();
+		timeQuantumService.setServiceName("timeQuantumService");
+		timeQuantumService.setMethodName("timeQuantumService");
+		timeQuantumService.setIsFileter(true);
+		mathodServiceConfig.put("00-20-01",timeQuantumService);
+//		mathodClassPath.put("00-20-01", "getTimeQuantumsForCustomer");
 		
 		
 		
@@ -204,16 +271,16 @@ public class InterfaceUtil {
 		 * @date 2015/10/12 15:11
 		 * 预约管理
 		 * **/
-		serviceClassName.put("00-21","appointmentOrderService");
-		mathodClassPath.put("00-21-01", "addPointmentOrder");
-		mathodClassPath.put("00-21-02", "getServiceUserByOrderId");
-		mathodClassPath.put("00-21-03", "addPointmentOrderAndSubmitAssessment");
-		// 查询我的工作日程
-		mathodClassPath.put("00-21-04", "getServicerScheduleByServiceUserId");
-		//查询我的工作日程详情
-		mathodClassPath.put("00-21-05", "getOrderServiceDetailById");
-		//保存反馈信息，设置订单服务完成
-		mathodClassPath.put("00-21-06", "saveFeedback");
+//		serviceClassName.put("00-21","appointmentOrderService");
+//		mathodClassPath.put("00-21-01", "addPointmentOrder");
+//		mathodClassPath.put("00-21-02", "getServiceUserByOrderId");
+//		mathodClassPath.put("00-21-03", "addPointmentOrderAndSubmitAssessment");
+//		// 查询我的工作日程
+//		mathodClassPath.put("00-21-04", "getServicerScheduleByServiceUserId");
+//		//查询我的工作日程详情
+//		mathodClassPath.put("00-21-05", "getOrderServiceDetailById");
+//		//保存反馈信息，设置订单服务完成
+//		mathodClassPath.put("00-21-06", "saveFeedback");
 		
 		
 		
@@ -229,12 +296,19 @@ public class InterfaceUtil {
 		 * @date 2015/10/14 20:18
 		 * 服务人员服务
 		 * */
-		serviceClassName.put("00-22","servicerService");
-		mathodClassPath.put("00-22-01","getAssessmentService");
+		YiKangServiceConfige getAssessmentService=new YiKangServiceConfige();
+		getAssessmentService.setServiceName("appointmentOrderService");
+		getAssessmentService.setMethodName("getAssessmentService");
+		getAssessmentService.setIsFileter(true);
+		mathodServiceConfig.put("00-22-01",getAssessmentService);
+//		mathodClassPath.put("00-22-01","getAssessmentService");
 		
 		
-		
-		serviceClassName.put("00-23","adeptService");
+		/**
+		 * @author liushuaic
+		 * @date 2016-09-20 14:27
+		 * @desc 获取某一类型的擅长
+		 * */
 		YiKangServiceConfige getAdeptsByType=new YiKangServiceConfige();
 		getAdeptsByType.setServiceName("adeptService");
 		getAdeptsByType.setMethodName("getAdeptsByType");
@@ -247,7 +321,6 @@ public class InterfaceUtil {
 		 * @date 2016-03-22 16:38
 		 * @desc 获取办公室列表
 		 * */
-		serviceClassName.put("00-24","officeService");
 		YiKangServiceConfige getOffice=new YiKangServiceConfige();
 		getOffice.setServiceName("officeService");
 		getOffice.setMethodName("getOffice");
@@ -261,7 +334,6 @@ public class InterfaceUtil {
 		 * @date 2016-03-22 15:19
 		 * @desc  获取验证码
 		 * */
-		serviceClassName.put("00-25","captchaService");
 		YiKangServiceConfige getCaptchar=new YiKangServiceConfige();
 		getCaptchar.setServiceName("captchaService");
 		getCaptchar.setMethodName("getCaptchar");
@@ -280,7 +352,6 @@ public class InterfaceUtil {
 		 * 轮播图
 		 * 首页
 		 * **/
-		serviceClassName.put("00-26","banerService");
 		YiKangServiceConfige getBanerList=new YiKangServiceConfige();
 		getBanerList.setServiceName("banerService");
 		getBanerList.setMethodName("getBanerList");
@@ -299,7 +370,6 @@ public class InterfaceUtil {
 		
 		
 		
-		serviceClassName.put("00-27","searchService");
 		YiKangServiceConfige getTaglibsList=new YiKangServiceConfige();
 		getTaglibsList.setServiceName("searchService");
 		getTaglibsList.setMethodName("getTaglibList");
@@ -307,7 +377,6 @@ public class InterfaceUtil {
 		mathodServiceConfig.put("00-27-01",getTaglibsList);
 		
 		
-		serviceClassName.put("00-28","forumPostService");
 		YiKangServiceConfige getIsEssence=new YiKangServiceConfige();
 		getIsEssence.setServiceName("forumPostService");
 		getIsEssence.setMethodName("getIsEssence");
@@ -317,7 +386,6 @@ public class InterfaceUtil {
 		
 		
 		// 获取文章详情
-		serviceClassName.put("00-28","forumPostService");
 		YiKangServiceConfige getFourmPostDetail=new YiKangServiceConfige();
 		getFourmPostDetail.setServiceName("forumPostService");
 		getFourmPostDetail.setMethodName("getFourmPostDetail");
@@ -325,7 +393,7 @@ public class InterfaceUtil {
 		mathodServiceConfig.put("00-28-02",getFourmPostDetail);
 		
 		
-		//定单支持
+		//文章支持
 		YiKangServiceConfige updateForumPostStar=new YiKangServiceConfige();
 		updateForumPostStar.setServiceName("forumPostService");
 		updateForumPostStar.setMethodName("updateForumPostStar");
@@ -333,7 +401,7 @@ public class InterfaceUtil {
 		mathodServiceConfig.put("00-28-03",updateForumPostStar);
 		
 		
-		//发布文章
+		//发布帖子
 		YiKangServiceConfige publishForumPosts=new YiKangServiceConfige();
 		publishForumPosts.setServiceName("forumPostService");
 		publishForumPosts.setMethodName("insertPublishForumPosts");
@@ -359,7 +427,7 @@ public class InterfaceUtil {
 		YiKangServiceConfige geForumPostsByCreateUserId=new YiKangServiceConfige();
 		geForumPostsByCreateUserId.setServiceName("forumPostService");
 		geForumPostsByCreateUserId.setMethodName("geForumPostsByCreateUserId");
-		geForumPostsByCreateUserId.setIsFileter(false);
+		geForumPostsByCreateUserId.setIsFileter(true);
 		mathodServiceConfig.put("00-28-07",geForumPostsByCreateUserId);
 		
 		//获取最热帖子
@@ -380,11 +448,11 @@ public class InterfaceUtil {
 		YiKangServiceConfige insertPerformencePublishForumPosts=new YiKangServiceConfige();
 		insertPerformencePublishForumPosts.setServiceName("forumPostService");
 		insertPerformencePublishForumPosts.setMethodName("insertPerformencePublishForumPosts");
-		insertPerformencePublishForumPosts.setIsFileter(false);
+		insertPerformencePublishForumPosts.setIsFileter(true);
 		mathodServiceConfig.put("00-28-10",insertPerformencePublishForumPosts);
 		
 		
-		//获取某一个用户创建的专业文章
+		//获取我创建的专业文章
 		YiKangServiceConfige geWZForumPostsByCreateUserId=new YiKangServiceConfige();
 		geWZForumPostsByCreateUserId.setServiceName("forumPostService");
 		geWZForumPostsByCreateUserId.setMethodName("geWZForumPostsByCreateUserId");
@@ -396,7 +464,7 @@ public class InterfaceUtil {
 		getForumPostsByServerUserId.setServiceName("forumPostService");
 		getForumPostsByServerUserId.setMethodName("getForumPostsByServerUserId");
 		getForumPostsByServerUserId.setIsFileter(false);
-		mathodServiceConfig.put("00-28-12",geWZForumPostsByCreateUserId);
+		mathodServiceConfig.put("00-28-12",getForumPostsByServerUserId);
 		
 		//获取相关推荐数据
 		YiKangServiceConfige getFormPostRelatedReading=new YiKangServiceConfige();
@@ -436,7 +504,6 @@ public class InterfaceUtil {
 		
 
 		//问题处理
-		serviceClassName.put("00-29","questionService");
 		YiKangServiceConfige insertQuestion=new YiKangServiceConfige();
 		insertQuestion.setServiceName("questionService");
 		insertQuestion.setMethodName("insertQuestion");
@@ -508,7 +575,6 @@ public class InterfaceUtil {
 		 * @date 2016-05-12 15:03
 		 * @desc 标签管理 热门标签
 		 * ***/
-		serviceClassName.put("00-30","taglibService");
 		YiKangServiceConfige getRecommendTaglib=new YiKangServiceConfige();
 		getRecommendTaglib.setServiceName("taglibService");
 		getRecommendTaglib.setMethodName("getRecommendTaglib");
@@ -577,7 +643,6 @@ public class InterfaceUtil {
 		 * @date 2016-05-12 15:03
 		 * @desc 活动管理
 		 **/
-		serviceClassName.put("00-31","activetyService");
 		YiKangServiceConfige getActivetys=new YiKangServiceConfige();
 		getActivetys.setServiceName("activetyService");
 		getActivetys.setMethodName("getActivetys");
@@ -593,7 +658,7 @@ public class InterfaceUtil {
 		YiKangServiceConfige getActivetyByActivetyId=new YiKangServiceConfige();
 		getActivetyByActivetyId.setServiceName("activetyService");
 		getActivetyByActivetyId.setMethodName("getActivetyByActivetyId");
-		getActivetyByActivetyId.setIsFileter(true);
+		getActivetyByActivetyId.setIsFileter(false);
 		mathodServiceConfig.put("00-31-02",getActivetyByActivetyId);
 		
 		
@@ -605,7 +670,7 @@ public class InterfaceUtil {
 		YiKangServiceConfige insertActivety=new YiKangServiceConfige();
 		insertActivety.setServiceName("activetyService");
 		insertActivety.setMethodName("insertActivety");
-		insertActivety.setIsFileter(false);
+		insertActivety.setIsFileter(true);
 		mathodServiceConfig.put("00-31-03",insertActivety);
 		
 		
@@ -617,7 +682,7 @@ public class InterfaceUtil {
 		YiKangServiceConfige insertMyAcitivety=new YiKangServiceConfige();
 		insertMyAcitivety.setServiceName("activetyService");
 		insertMyAcitivety.setMethodName("insertMyAcitivety");
-		insertMyAcitivety.setIsFileter(false);
+		insertMyAcitivety.setIsFileter(true);
 		mathodServiceConfig.put("00-31-04",insertMyAcitivety);
 		
 		
@@ -630,7 +695,7 @@ public class InterfaceUtil {
 		YiKangServiceConfige insertActivetyComment=new YiKangServiceConfige();
 		insertActivetyComment.setServiceName("activetyService");
 		insertActivetyComment.setMethodName("insertActivetyComment");
-		insertActivetyComment.setIsFileter(false);
+		insertActivetyComment.setIsFileter(true);
 		mathodServiceConfig.put("00-31-05",insertActivetyComment);
 		
 		/**
@@ -654,7 +719,7 @@ public class InterfaceUtil {
 		YiKangServiceConfige getActiveyByJoinUserId=new YiKangServiceConfige();
 		getActiveyByJoinUserId.setServiceName("activetyService");
 		getActiveyByJoinUserId.setMethodName("getActiveyByJoinUserId");
-		getActiveyByJoinUserId.setIsFileter(false);
+		getActiveyByJoinUserId.setIsFileter(true);
 		mathodServiceConfig.put("00-31-07",getActiveyByJoinUserId);
 		
 		
@@ -665,7 +730,6 @@ public class InterfaceUtil {
 		 * @date 2016-05-17 14:55
 		 * @desc 获取用户的配置信息
 		 * */
-		serviceClassName.put("00-32","userConfigrationService");
 		YiKangServiceConfige getUserConfigrationByUserId=new YiKangServiceConfige();
 		getUserConfigrationByUserId.setServiceName("userConfigrationService");
 		getUserConfigrationByUserId.setMethodName("getUserConfigrationByUserId");
@@ -706,7 +770,6 @@ public class InterfaceUtil {
 		 * @date 2016-06-07 10:25
 		 * @desc 获取系统消息列表
 		 * */
-		serviceClassName.put("00-35", "messageService");
 		
 		//系统消息列表
 		YiKangServiceConfige getSystemMessageByUserId=new YiKangServiceConfige();
@@ -723,7 +786,6 @@ public class InterfaceUtil {
 		mathodServiceConfig.put("00-35-02",getDynamicMessageByUserId);
 		
 		//用户标签管理
-		serviceClassName.put("00-36", "userTaglibMapService");
 		
 		//添加关注的标签
 		YiKangServiceConfige addUserTaglibMap=new YiKangServiceConfige();
@@ -750,13 +812,12 @@ public class InterfaceUtil {
 		YiKangServiceConfige getUserMyFollowTaglibByServerUserId=new YiKangServiceConfige();
 		getUserMyFollowTaglibByServerUserId.setServiceName("userTaglibMapService");
 		getUserMyFollowTaglibByServerUserId.setMethodName("getUserMyFollowTaglibByServerUserId");
-		getUserMyFollowTaglibByServerUserId.setIsFileter(true);
+		getUserMyFollowTaglibByServerUserId.setIsFileter(false);
 		mathodServiceConfig.put("00-36-04",getUserMyFollowTaglibByServerUserId);
 		
 		//用户收藏
-		serviceClassName.put("00-37", "storeupService");
 		
-		//获取收藏的文章列表
+		//获取我的收藏的文章列表
 		YiKangServiceConfige getStoreupsByUserId=new YiKangServiceConfige();
 		getStoreupsByUserId.setServiceName("storeupService");
 		getStoreupsByUserId.setMethodName("getStoreupsByUserId");
@@ -777,7 +838,6 @@ public class InterfaceUtil {
 		
 		
 		//人员收藏
-		serviceClassName.put("00-38", "followUserMapService");
 		
 		
 		//添加关注人员
@@ -810,10 +870,7 @@ public class InterfaceUtil {
 		mathodServiceConfig.put("00-38-04",getFollowUseByServerUserId);
 		
 		
-		
-		serviceClassName.put("00-39", "questionAnswerService");
-		
-		
+		 
 		/**
 		 * @author liushuaic
 		 * @date 2016-06-29 10:35
@@ -850,37 +907,35 @@ public class InterfaceUtil {
 		
 		
 		
-		serviceClassName.put("00-40", "designationService");
-		
+		// 获取番号
 		YiKangServiceConfige getDesignations=new YiKangServiceConfige();
 		getDesignations.setServiceName("designationService");
 		getDesignations.setMethodName("getDesignations");
-		getDesignations.setIsFileter(true);
+		getDesignations.setIsFileter(false);
 		mathodServiceConfig.put("00-40-01", getDesignations);
 		
-		serviceClassName.put("00-41", "recommendDataService");
-		
+		// 获取推荐用户列表
 		YiKangServiceConfige queryRecommedUserInfo=new YiKangServiceConfige();
 		queryRecommedUserInfo.setServiceName("recommendDataService");
 		queryRecommedUserInfo.setMethodName("queryRecommedUserInfo");
-		queryRecommedUserInfo.setIsFileter(true);
+		queryRecommedUserInfo.setIsFileter(false);
 		mathodServiceConfig.put("00-41-01", queryRecommedUserInfo);
 		
 		YiKangServiceConfige queryRecommendTaglibsInfo=new YiKangServiceConfige();
 		queryRecommendTaglibsInfo.setServiceName("recommendDataService");
 		queryRecommendTaglibsInfo.setMethodName("queryRecommendTaglibsInfo");
-		queryRecommendTaglibsInfo.setIsFileter(true);
+		queryRecommendTaglibsInfo.setIsFileter(false);
 		mathodServiceConfig.put("00-41-02", queryRecommendTaglibsInfo);
 		
-		serviceClassName.put("00-42", "feedbackInfoService");
 		
 		YiKangServiceConfige insertFeedbackData=new YiKangServiceConfige();
 		insertFeedbackData.setServiceName("feedbackInfoService");
 		insertFeedbackData.setMethodName("insertFeedbackData");
-		insertFeedbackData.setIsFileter(false);
+		insertFeedbackData.setIsFileter(true);
 		mathodServiceConfig.put("00-42-01", insertFeedbackData);
 		
-		serviceClassName.put("00-43", "forumPostTextEditorService");
+		
+		//修改文章的所属用户
 		YiKangServiceConfige updateForumPostTxtEditorOwnUserIdByUniqueCode=new YiKangServiceConfige();
 		updateForumPostTxtEditorOwnUserIdByUniqueCode.setServiceName("forumPostTextEditorService");
 		updateForumPostTxtEditorOwnUserIdByUniqueCode.setMethodName("updateForumPostTxtEditorOwnUserIdByUniqueCode");
@@ -898,11 +953,16 @@ public class InterfaceUtil {
 		getForumPostTextByUniqueCode.setIsFileter(true);
 		mathodServiceConfig.put("00-43-02", getForumPostTextByUniqueCode);
 		
-		serviceClassName.put("00-44", "updateVersionService");
+		
+		/**
+		 * @author liushuaic
+		 * @date 2016-09-20 19:09
+		 * @desc 获取某一类型手机下的最新版本号
+		 * **/
 		YiKangServiceConfige getUpdateVersionById = new YiKangServiceConfige();
 		getUpdateVersionById.setServiceName("updateVersionService");
 		getUpdateVersionById.setMethodName("selectUpdateVersionById");
-		getUpdateVersionById.setIsFileter(true);
+		getUpdateVersionById.setIsFileter(false);
 		mathodServiceConfig.put("00-44-01", getUpdateVersionById);
 		
 	}
@@ -925,20 +985,6 @@ public class InterfaceUtil {
 		}
 
 	}
-	
-	/**
-	 *
-	 *@author liushuaic
-	 *@date 2015/07/24 15:33
-	 *@desc 返回serviceName
-	 *
-	 ***/
-	public static String getBeanNameByServiceCode(String serviceCode){
-		if(serviceCode.indexOf('-')!=-1){
-			serviceCode=serviceCode.substring(0,serviceCode.lastIndexOf('-'));
-		}
-		return serviceClassName.get(serviceCode);
-	}
 
 	
 	/**
@@ -949,21 +995,6 @@ public class InterfaceUtil {
 	 * **/
 	public static YiKangServiceConfige getMethodYikangServiceConfigByServiceCode(String serviceCode){
 		return mathodServiceConfig.get(serviceCode);
-	}
-	
-	/***
-	 *@author liushuaic
-	 *@date 2015/07/24 15:32
-	 *返回方法名称
-	 * */
-	public static String getMethodNameByServiceCode(String serviceCode){
-		return mathodClassPath.get(serviceCode);
-	}
-	
-	
-	public static void main(String[] args) {
-		String codeStr="00-02-01";
-		System.out.println(codeStr.substring(0,codeStr.lastIndexOf('-')));
 	}
 	
 	

@@ -69,10 +69,14 @@ public class ActivetyService {
 		ResponseMessage<Activety> resData=new ResponseMessage<Activety>(); 
 		if(
 			paramMap.containsKey("activetyId")  && (!StringUtils.isEmpty(paramMap.get("activetyId")))
-			&& paramMap.containsKey("userId")  && (!StringUtils.isEmpty(paramMap.get("userId")))
 		){
 			Long activetyId=Long.valueOf(paramMap.get("activetyId").toString());
-			Long userId=Long.valueOf(paramMap.get("userId").toString());
+			
+			Long userId=-2l;
+			if( paramMap.containsKey("userId")  && (!StringUtils.isEmpty(paramMap.get("userId")))){
+				userId=Long.valueOf(paramMap.get("userId").toString());
+			}
+			
 			Activety activety=activetyManager.getActivetysDetailById(userId,activetyId);
 			resData.setData(activety);
 		}else{
