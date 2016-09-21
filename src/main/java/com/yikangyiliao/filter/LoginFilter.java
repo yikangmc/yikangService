@@ -12,9 +12,6 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.apache.log4j.Logger;
 
-import com.yikangyiliao.base.config.YiKangServiceConfige;
-import com.yikangyiliao.base.utils.AccessTiketCheckout;
-import com.yikangyiliao.base.utils.InterfaceUtil;
 import com.yikangyiliao.base.utils.NetworkUtil;
 
 

@@ -1,5 +1,7 @@
 package com.yikangyiliao.pension.message;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -19,6 +21,8 @@ import com.yikangyiliao.pension.manager.UserManager;
 @Component(value="questionAnswerMsgOperation")
 public class QuestionAnswerMsgOperation implements Runnable{
 	
+	
+	private static Logger log = LoggerFactory.getLogger(ForumPostStarOperation.class);
 	
 	@Autowired
 	private QuestionManager questionManager;
@@ -58,14 +62,23 @@ public class QuestionAnswerMsgOperation implements Runnable{
 				String alertTitle="“"+answerUser.getUserName()+"” 回答了你的问题 “"+subTitle+"”";
 				String alertContent="“"+answerUser.getUserName()+"” 回答了你的问题 “"+subTitle+"”";
 				
-				Message<String> message=new Message<String>();
-				message.setAlias(questionUser.getPushAlias());
-				message.setContent(alertTitle);
-				message.setMessageCategroy(0);
-				MessageQueue.put(message);
+				
 				messageManager.insertDynamicFollowMessage(answerUserId, questionCreateUserId, alertTitle,alertContent,questionId,Byte.valueOf("1"));
+				
+				try{
+					Message<String> message=new Message<String>();
+					message.setAlias(questionUser.getPushAlias());
+					message.setContent(alertTitle);
+					message.setMessageCategroy(0);
+					MessageQueue.put(message);
+				}catch(Exception e){
+					e.printStackTrace();
+					log.error(e.getMessage());
+				}
+				
 			}catch(Exception  e){
 				e.printStackTrace();
+				log.error(e.getMessage());
 			}
 			
 		}

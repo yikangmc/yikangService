@@ -78,7 +78,7 @@ public class ServiceController {
 						Map<String, Object> paramMap = new HashMap<String, Object>();
 						
 						//解密请求
-						if (paramData.length() > 5) {
+						if (null != paramData && paramData.length() > 5) {
 							paramData = AES.Decrypt(paramData, passKey);
 							logger.debug("serviceController --> 接收到的paramData数据：" + paramData);
 							paramMap = objectMapper.readValue(paramData, Map.class);

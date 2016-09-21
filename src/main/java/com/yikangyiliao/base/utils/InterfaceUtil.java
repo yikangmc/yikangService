@@ -890,7 +890,7 @@ public class InterfaceUtil {
 		YiKangServiceConfige getQuestionAnswerDetail=new YiKangServiceConfige();
 		getQuestionAnswerDetail.setServiceName("questionAnswerService");
 		getQuestionAnswerDetail.setMethodName("getQuestionAnswerDetail");
-		getQuestionAnswerDetail.setIsFileter(true);
+		getQuestionAnswerDetail.setIsFileter(false);
 		mathodServiceConfig.put("00-39-02",getQuestionAnswerDetail);
 		
 		
