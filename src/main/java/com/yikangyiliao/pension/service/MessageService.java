@@ -85,6 +85,30 @@ public class MessageService {
 		
 	}
 	
+	/**
+	 * @author houyt
+	 * @date 2016-09-21 17:12
+	 * @desc 获取系统消息
+	 * */
+	public ResponseMessage<List<Message>> getSystemMessageByUserIdPage(Map<String,Object> paramMap){
+		ResponseMessage<List<Message>> resData=new ResponseMessage<List<Message>>();
+		if(
+				paramMap.containsKey("userId")&& paramMap.containsKey("page")
+		){
+			Long userId=Long.valueOf(paramMap.get("userId").toString());
+			PageParameter page=new PageParameter();
+			int currentPage=Integer.valueOf(paramMap.get("page").toString());
+			page.setCurrentPage(currentPage);
+			List<Message> data=messageManager.getSystemMessageByUserIdPage(userId,page);
+			resData.setData(data);
+		}else{
+			resData.setStatus(ExceptionConstants.parameterException.parameterException.errorCode);
+			resData.setMessage(ExceptionConstants.parameterException.parameterException.errorMessage);
+		}
+		return resData;
+		
+	}
+	
 	
 	
 	/**

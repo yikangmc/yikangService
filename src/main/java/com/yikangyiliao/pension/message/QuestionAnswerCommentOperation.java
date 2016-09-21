@@ -1,5 +1,7 @@
 package com.yikangyiliao.pension.message;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -23,7 +25,7 @@ import com.yikangyiliao.pension.manager.UserManager;
 @Component(value="questionAnswerCommentOperation")
 public class QuestionAnswerCommentOperation implements Runnable{
 	
-	
+	private Logger log = LoggerFactory.getLogger(getClass());
 	@Autowired
 	private QuestionManager questionManager;
 	
@@ -93,11 +95,16 @@ public class QuestionAnswerCommentOperation implements Runnable{
 					if(null!=UserConfigrationsCache.get(String.valueOf(toUserId))){
 						UserConfigration userConfigration = (UserConfigration) UserConfigrationsCache.get(String.valueOf(toUserId));
 						if(userConfigration.getDynamicAlert()==1){
-							Message<String> message=new Message<String>();
-							message.setAlias(toAnswerUser.getPushAlias());
-							message.setContent(alertTitle);
-							message.setMessageCategroy(0);
-							MessageQueue.put(message);
+							try {
+								Message<String> message=new Message<String>();
+								message.setAlias(toAnswerUser.getPushAlias());
+								message.setContent(alertTitle);
+								message.setMessageCategroy(0);
+								MessageQueue.put(message);
+							} catch (Exception e) {
+								log.info(e.getMessage());
+								e.printStackTrace();
+							}
 						}
 					}
 				}

@@ -55,6 +55,21 @@ public class MessageManager {
 		return messageDao.getMessageByMessageGroupAndUserId(paramMap);
 	}
 	
+	/***
+	 * @author houyt
+	 * @date 2016-09-21 17:12
+	 * @desc 获取系统消息
+	 * */
+	
+	public List<Message> getSystemMessageByUserIdPage(Long userId,PageParameter page){
+		Map<String,Object> paramMap=new HashMap<String,Object>();
+		paramMap.put("messageGroup",0);
+		paramMap.put("userId",userId);
+		paramMap.put("page",page);
+		return messageDao.getMessageByMessageGroupAndUserIdPage(paramMap);
+	}
+	
+	
 	/**
 	 * @author liushuaic
 	 * @date 2016-06-07 10:13
