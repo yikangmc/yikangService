@@ -802,6 +802,21 @@ public class InterfaceUtil {
 		setAllMessageAsRead.setMethodName("setAllMessageAsRead");
 		setAllMessageAsRead.setIsFileter(false);
 		mathodServiceConfig.put("00-35-05", setAllMessageAsRead);
+		
+		
+		/**
+		 * @author houyt
+		 * @serialData 2016/09/21 10:28
+		 * @param paramMap
+		 * @desc 获取系统消息（分页）
+		 * @return
+		 */
+		YiKangServiceConfige getSystemMessageByUserIdPage = new YiKangServiceConfige();
+		getSystemMessageByUserIdPage.setServiceName("messageService");
+		getSystemMessageByUserIdPage.setMethodName("getSystemMessageByUserIdPage");
+		getSystemMessageByUserIdPage.setIsFileter(false);
+		mathodServiceConfig.put("00-35-07", getSystemMessageByUserIdPage);
+		
 				
 		
 		
