@@ -157,7 +157,7 @@ public class InterfaceUtil {
 		
 		//获取我的信息
 		YiKangServiceConfige getUserServiceInfoByUserIdTwo=new YiKangServiceConfige();
-		getInvationUserByUserId.setServiceName("userService");
+		getUserServiceInfoByUserIdTwo.setServiceName("userService");
 		getUserServiceInfoByUserIdTwo.setMethodName("getUserServiceInfoByUserIdTwo");
 		getUserServiceInfoByUserIdTwo.setIsFileter(true);
 		mathodServiceConfig.put("00-17-10",getUserServiceInfoByUserIdTwo);
@@ -878,7 +878,7 @@ public class InterfaceUtil {
 		YiKangServiceConfige getSystemMessageByUserIdPage = new YiKangServiceConfige();
 		getSystemMessageByUserIdPage.setServiceName("messageService");
 		getSystemMessageByUserIdPage.setMethodName("getSystemMessageByUserIdPage");
-		getSystemMessageByUserIdPage.setIsFileter(false);
+		getSystemMessageByUserIdPage.setIsFileter(true);
 		mathodServiceConfig.put("00-35-07", getSystemMessageByUserIdPage);
 		
 				
