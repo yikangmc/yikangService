@@ -39,8 +39,8 @@ public class LoginFilter implements Filter {
 		log.debug("登陆ip-->"+hostIp);
 		
 		//在登陆时，对ip 做登陆限制
-		
-		if( null != appId && appId.length()>1 &&  null != machineCode && machineCode.length()>1){
+		              
+		if( null != appId &&  null != machineCode && machineCode.length()>1){
 			arg2.doFilter(arg0, arg1);
 		}else{
 			arg1.setCharacterEncoding("utf-8");

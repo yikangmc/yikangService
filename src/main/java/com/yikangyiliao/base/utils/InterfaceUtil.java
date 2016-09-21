@@ -36,7 +36,7 @@ public class InterfaceUtil {
 		YiKangServiceConfige login=new YiKangServiceConfige();
 		login.setServiceName("login");
 		login.setMethodName("login");
-		login.setIsFileter(true);
+		login.setIsFileter(false);
 		mathodServiceConfig.put("login",login);
 		
 //		serviceClassName.put("loginForThreepartLogin", "login");
@@ -484,14 +484,14 @@ public class InterfaceUtil {
 		YiKangServiceConfige getForumPostsByServerUserIdPage=new YiKangServiceConfige();
 		getForumPostsByServerUserIdPage.setServiceName("forumPostService");
 		getForumPostsByServerUserIdPage.setMethodName("getForumPostsByServerUserIdPage");
-		getForumPostsByServerUserIdPage.setIsFileter(true);
+		getForumPostsByServerUserIdPage.setIsFileter(false);
 		mathodServiceConfig.put("00-28-15",getForumPostsByServerUserIdPage);
 		
 		//获取料一个人的文章，分页
 		YiKangServiceConfige getWZForumPostsByServerUserIdPage=new YiKangServiceConfige();
 		getWZForumPostsByServerUserIdPage.setServiceName("forumPostService");
 		getWZForumPostsByServerUserIdPage.setMethodName("getWZForumPostsByServerUserIdPage");
-		getWZForumPostsByServerUserIdPage.setIsFileter(true);
+		getWZForumPostsByServerUserIdPage.setIsFileter(false);
 		mathodServiceConfig.put("00-28-16",getWZForumPostsByServerUserIdPage);
 		
 		//获取最热帖子分页 no login
@@ -576,7 +576,7 @@ public class InterfaceUtil {
 		YiKangServiceConfige getQuestionByCreateUserIdPage=new YiKangServiceConfige();
 		getQuestionByCreateUserIdPage.setServiceName("questionService");
 		getQuestionByCreateUserIdPage.setMethodName("getQuestionByCreateUserIdPage");
-		getQuestionByCreateUserIdPage.setIsFileter(true);
+		getQuestionByCreateUserIdPage.setIsFileter(false);
 		mathodServiceConfig.put("00-29-08",getQuestionByCreateUserIdPage);
 		
 		
@@ -1001,7 +1001,7 @@ public class InterfaceUtil {
 		YiKangServiceConfige getQuestionAnswerByServerUserId=new YiKangServiceConfige();
 		getQuestionAnswerByServerUserId.setServiceName("questionAnswerService");
 		getQuestionAnswerByServerUserId.setMethodName("getQuestionAnswerByServerUserId");
-		getQuestionAnswerByServerUserId.setIsFileter(true);
+		getQuestionAnswerByServerUserId.setIsFileter(false);
 		mathodServiceConfig.put("00-39-03",getQuestionAnswerByServerUserId);
 		
 		
