@@ -1,8 +1,5 @@
 package com.yikangyiliao.pension.common.error;
 
-import java.util.HashMap;
-import java.util.Map;
-
 /**
  * 
  * @author liushuaic
@@ -204,5 +201,25 @@ public class ExceptionConstants {
 		}
 	}
 	
+	/**
+	 * @author liushuaic
+	 * @date 2016-09-07 16:57
+	 * @desc accessTiket校验异常
+	 * 09
+	 * */
+	public enum accessTiketException{
+		
+		accessTikeCheckException("090001","accessTiket 校验异常！"),
+		unlogin("090002","请登陆后，在做操作！");
+		
+		public String errorCode;
+		public String errorMessage;
+		
+		private accessTiketException(String errorCode,String errorMessage){
+			this.errorCode=errorCode;
+			this.errorMessage=errorMessage;
+		}
+		
+	}
 
 }

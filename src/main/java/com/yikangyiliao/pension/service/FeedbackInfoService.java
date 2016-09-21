@@ -34,8 +34,8 @@ public class FeedbackInfoService {
 					String image = paramMap.get("image").toString();
 					info.setImage(image);
 				}
-				if(paramMap.get("createUserId")!=null&&paramMap.get("createUserId").toString().length()>1){
-					String createUserId = paramMap.get("createUserId").toString();
+				if(paramMap.get("userId")!=null&&paramMap.get("userId").toString().length()>1){
+					String createUserId = paramMap.get("userId").toString();
 					info.setCreateUserId(Long.valueOf(createUserId));
 				}
 				if(paramMap.get("connectMethod")!=null&&paramMap.get("connectMethod").toString().length()>1){
