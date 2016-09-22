@@ -1,5 +1,5 @@
 
---  未发版  2016年09月08日18:27
+--  已发版  2016年09月08日18:27
 select * from taglibs where tag_name like '%心脑%';
 select * from taglibs where tag_name like '%慢病%';
 
@@ -33,5 +33,17 @@ CREATE TABLE `question_answers_comment` (
   `create_time` 					datetime 		NOT NULL COMMENT '创建时间',
   PRIMARY KEY (`question_answers_comment_id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci COMMENT='问题解答评论表';
+
+--  上面已经发版
+
+
+
+
+
+
+
+
+
+
 
 
