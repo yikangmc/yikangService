@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import com.yikangyiliao.base.cache.UserConfigrationsCache;
+import com.yikangyiliao.base.utils.LogUtils;
 import com.yikangyiliao.base.utils.messageUtil.im.Message;
 import com.yikangyiliao.base.utils.messageUtil.im.MessageQueue;
 import com.yikangyiliao.pension.common.utils.operationmesage.OperationMessage;
@@ -35,7 +36,8 @@ public class ForumPostAnswerMsgOperation implements Runnable{
 	private MessageManager messageManager;
 	
 	
-	private Logger log=LoggerFactory.getLogger(getClass());
+	private static Logger LOG=LoggerFactory.getLogger(ForumPostAnswerMsgOperation.class);
+	
 
 	public void run() {
 		while(true){
@@ -76,8 +78,8 @@ public class ForumPostAnswerMsgOperation implements Runnable{
 							messages.setContent(title);
 							MessageQueue.put(messages);
 						}catch(Exception e){
-							log.error(e.getMessage());
 							e.printStackTrace();
+							LOG.error(LogUtils.getErrorStr(this.getClass().getName(), "run:90","推送异常:"+e.getMessage()));
 						}
 					}
 				}

@@ -25,6 +25,7 @@ import com.yikangyiliao.base.encryption.AES;
 import com.yikangyiliao.base.utils.AccessTiketCheckout;
 import com.yikangyiliao.base.utils.ApplicationContextUtil;
 import com.yikangyiliao.base.utils.InterfaceUtil;
+import com.yikangyiliao.base.utils.LogUtils;
 import com.yikangyiliao.pension.common.error.ExceptionConstants;
 import com.yikangyiliao.pension.common.response.ResponseMessage;
 
@@ -67,7 +68,7 @@ public class ServiceController {
 							returnMethod = invokObject.getClass().getMethod(methodName,Map.class);
 						}catch(Exception e){
 							e.printStackTrace();
-							//logger.error(Logu);
+							logger.error(LogUtils.getErrorStr(getClass().getName(), "doMethod", e.getMessage()));
 							rtnMap.put("status", "999999");
 							rtnMap.put("message", "没有找到服务！");
 							return rtnMap;
@@ -97,6 +98,7 @@ public class ServiceController {
 										paramMap.put("machineCode", MC);
 									}catch(Exception e){
 										e.printStackTrace();
+										logger.error(LogUtils.getErrorStr(getClass().getName(), "doMethod", e.getMessage()));
 										responseMessage.setStatus( ExceptionConstants.accessTiketException.accessTikeCheckException.errorCode);
 										responseMessage.setMessage( ExceptionConstants.accessTiketException.accessTikeCheckException.errorMessage);
 										return responseMessage;
@@ -158,7 +160,7 @@ public class ServiceController {
 							}
 
 						} catch (Exception e) {
-							logger.error(e.getMessage());
+							logger.error(LogUtils.getErrorStr(getClass().getName(), "doMethod:163", e.getMessage()));
 							e.printStackTrace();
 							rtnMap.put("status", ExceptionConstants.systemException.systemException.errorCode);
 							rtnMap.put("message", ExceptionConstants.systemException.systemException.errorMessage);
@@ -166,24 +168,32 @@ public class ServiceController {
 						}
 					} catch (IllegalAccessException e) {
 						e.printStackTrace();
+						logger.error(LogUtils.getErrorStr(getClass().getName(), "doMethod:170", e.getMessage()));
 					} catch (IllegalArgumentException e) {
 						e.printStackTrace();
+						logger.error(LogUtils.getErrorStr(getClass().getName(), "doMethod:174", e.getMessage()));
 					} catch (InvocationTargetException e) {
 						e.printStackTrace();
+						logger.error(LogUtils.getErrorStr(getClass().getName(), "doMethod:177", e.getMessage()));
 					} catch (NoSuchMethodException e) {
 						e.printStackTrace();
+						logger.error(LogUtils.getErrorStr(getClass().getName(), "doMethod:177", e.getMessage()));
 					} catch (SecurityException e) {
 						e.printStackTrace();
+						logger.error(LogUtils.getErrorStr(getClass().getName(), "doMethod:182", e.getMessage()));
 					} catch (JsonGenerationException e) {
 						e.printStackTrace();
+						logger.error(LogUtils.getErrorStr(getClass().getName(), "doMethod:186", e.getMessage()));
 					} catch (JsonMappingException e) {
 						e.printStackTrace();
+						logger.error(LogUtils.getErrorStr(getClass().getName(), "doMethod:189", e.getMessage()));
 					} catch (IOException e) {
 						e.printStackTrace();
+						logger.error(LogUtils.getErrorStr(getClass().getName(), "doMethod:192", e.getMessage()));
 					} catch (Exception e) {
 						e.printStackTrace();
+						logger.error(LogUtils.getErrorStr(getClass().getName(), "doMethod:195", e.getMessage()));
 					}
-
 				}
 			}
 			rtnMap.put("status", "999999");

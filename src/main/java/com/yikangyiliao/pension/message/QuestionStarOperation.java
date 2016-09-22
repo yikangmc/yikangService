@@ -79,7 +79,7 @@ public class QuestionStarOperation implements Runnable{
 							MessageQueue.put(message);
 						}catch(Exception e){
 							e.printStackTrace();
-							LOG.error(LogUtils.getErrorStr(this.getClass().getName(), "run","极光推送异常"+e.getMessage()));
+							LOG.error(LogUtils.getErrorStr(this.getClass().getName(), "run:82","极光推送异常:"+e.getMessage()));
 						}
 					}
 					messageManager.insertQuestionAnswerStarMessage(fromUserId, toUserId, title, title, questionAnswerId);
@@ -87,7 +87,7 @@ public class QuestionStarOperation implements Runnable{
 						
 			}catch(Exception e){
 				e.printStackTrace();
-				LOG.error(LogUtils.getErrorStr(this.getClass().getName(), "run","exception:"+e.getMessage()));
+				LOG.error(LogUtils.getErrorStr(this.getClass().getName(), "run:90","exception:"+e.getMessage()));
 			}
 			
 		}

@@ -3,10 +3,13 @@ package com.yikangyiliao.pension.message;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import com.yikangyiliao.base.cache.UserConfigrationsCache;
+import com.yikangyiliao.base.utils.LogUtils;
 import com.yikangyiliao.base.utils.messageUtil.im.Message;
 import com.yikangyiliao.base.utils.messageUtil.im.MessageQueue;
 import com.yikangyiliao.pension.common.utils.operationmesage.OperationMessage;
@@ -35,6 +38,8 @@ public class ForumPostsMsgOpration implements Runnable {
 	@Autowired
 	private UserManager userManager;
 
+	private static Logger LOG=LoggerFactory.getLogger(ForumPostsMsgOpration.class);
+	
 	public void run() {
 
 		while (true) {
@@ -71,6 +76,7 @@ public class ForumPostsMsgOpration implements Runnable {
 												pushAlias = new ArrayList<String>();
 											} catch (Exception e) {
 												e.printStackTrace();
+												LOG.error(LogUtils.getErrorStr(this.getClass().getName(), "run:79","极光推送异常:"+e.getMessage()));
 											}
 										}
 									}
@@ -83,11 +89,13 @@ public class ForumPostsMsgOpration implements Runnable {
 								MessageQueue.put(pushMessage);
 							} catch (Exception e) {
 								e.printStackTrace();
+								LOG.error(LogUtils.getErrorStr(this.getClass().getName(), "run:92","极光推送异常:"+e.getMessage()));
 							}
 						}
 					}
 				} catch (Exception e) {
 					e.printStackTrace();
+					LOG.error(LogUtils.getErrorStr(this.getClass().getName(), "run:98","exception:"+e.getMessage()));
 				}
 			}
 		}

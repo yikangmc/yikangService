@@ -5,6 +5,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import com.yikangyiliao.base.utils.LogUtils;
 import com.yikangyiliao.base.utils.messageUtil.im.Message;
 import com.yikangyiliao.base.utils.messageUtil.im.MessageQueue;
 import com.yikangyiliao.pension.common.utils.operationmesage.OperationMessage;
@@ -68,6 +69,7 @@ public class ForumPostStarOperation implements Runnable {
 
 			} catch (Exception e) {
 				e.printStackTrace();
+				log.error(LogUtils.getErrorStr(this.getClass().toString(), "run", e.getMessage()));
 			}
 
 		}

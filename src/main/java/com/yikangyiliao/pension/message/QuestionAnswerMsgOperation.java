@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import com.yikangyiliao.base.cache.UserConfigrationsCache;
+import com.yikangyiliao.base.utils.LogUtils;
 import com.yikangyiliao.base.utils.messageUtil.im.Message;
 import com.yikangyiliao.base.utils.messageUtil.im.MessageQueue;
 import com.yikangyiliao.pension.common.utils.operationmesage.OperationMessage;
@@ -77,14 +78,14 @@ public class QuestionAnswerMsgOperation implements Runnable {
 							MessageQueue.put(message);
 						} catch (Exception e) {
 							e.printStackTrace();
-							log.error(e.getMessage());
+							log.error(LogUtils.getInfoStr(this.getClass().getName(), "run:81", e.getMessage()));
 						}
 					}
 				}
 
 			} catch (Exception e) {
 				e.printStackTrace();
-				log.error(e.getMessage());
+				log.error(LogUtils.getInfoStr(this.getClass().getName(), "run:81", e.getMessage()));
 			}
 		}
 

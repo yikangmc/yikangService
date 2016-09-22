@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import com.yikangyiliao.base.cache.UserConfigrationsCache;
+import com.yikangyiliao.base.utils.LogUtils;
 import com.yikangyiliao.base.utils.messageUtil.im.Message;
 import com.yikangyiliao.base.utils.messageUtil.im.MessageQueue;
 import com.yikangyiliao.pension.common.utils.operationmesage.OperationMessage;
@@ -51,7 +52,6 @@ public class QuestionAnswerCommentOperation implements Runnable{
 			try{
 				OperationMessage operationMessage=OperationMessageQueue.takeQuestionAnswersComment();
 				
-				//questionAnswerCommentID
 				Long questionAnswerCommentID=Long.valueOf(operationMessage.getContent());
 				QuestionAnswersComment questionAnswersComment = questionAnswerCommentOperation.selectByPrimaryKey(questionAnswerCommentID);
 				Long  questionAnswerId = questionAnswersComment.getQuestionAnswerId();
@@ -102,14 +102,15 @@ public class QuestionAnswerCommentOperation implements Runnable{
 								message.setMessageCategroy(0);
 								MessageQueue.put(message);
 							} catch (Exception e) {
-								log.info(e.getMessage());
 								e.printStackTrace();
+								log.error(LogUtils.getErrorStr(getClass().getName(), "doMethod:107", "极光推送异常:"+e.getMessage()));
 							}
 						}
 					}
 				}
 			}catch(Exception  e){
 				e.printStackTrace();
+				log.error(LogUtils.getErrorStr(getClass().getName(), "doMethod:114", "exception:"+e.getMessage()));
 			}
 			
 		}
