@@ -76,6 +76,7 @@ public class ForumPostAnswerMsgOperation implements Runnable{
 							Message<String> messages=new Message<String>();
 							messages.setAlias(userInfo.getPushAlias());
 							messages.setContent(title);
+							messages.setMessageCategroy(0);
 							MessageQueue.put(messages);
 						}catch(Exception e){
 							e.printStackTrace();

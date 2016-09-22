@@ -83,11 +83,11 @@ public class QuestionAnswerComentService {
 		ResponseMessage<List<QuestionAnswersComment>> data=new ResponseMessage<List<QuestionAnswersComment>>();
 		if(
 				paramMap.containsKey("question_answer_id")
-				&& paramMap.containsKey("userId")
+				//&& paramMap.containsKey("userId")
 				&& paramMap.containsKey("page")
 			){
 			Long questionAnswerId = Long.valueOf(paramMap.get("question_answer_id").toString());
-			Long userId = Long.valueOf(paramMap.get("userId").toString());
+			//Long userId = Long.valueOf(paramMap.get("userId").toString());
 			Integer currentPage = Integer.valueOf(paramMap.get("page").toString());
 			Map<String,Object> map = new HashMap<String, Object>();
 			PageParameter page = new PageParameter();

@@ -667,7 +667,6 @@ public class UserService {
 			}
 
 			userManager.insertUserServiceSelective(userServiceInfo);
-			integralManager.insertIntegral(Long.valueOf("55"), Byte.valueOf("0"), Long.valueOf(userId), 200, Byte.valueOf("1"), Byte.valueOf("1"));
 			rtnData.put("status", ExceptionConstants.responseSuccess.responseSuccess.code);
 			rtnData.put("message", ExceptionConstants.responseSuccess.responseSuccess.message);
 
@@ -928,6 +927,7 @@ public class UserService {
 			Byte userPosition = Byte.valueOf(paramData.get("userPosition").toString());
 			userServiceInfo.setUserPosition(userPosition);
 			userServiceInfo.setNewUserPosition(Integer.valueOf(userPosition));
+			integralManager.insertIntegral(Long.valueOf("55"), Byte.valueOf("0"), Long.valueOf(userId), Integer.valueOf(200), Byte.valueOf("1"), Byte.valueOf("1"));
 		}
 
 		if (paramData.containsKey("userName")) {
@@ -1284,6 +1284,7 @@ public class UserService {
 				String userId=paramData.get("userId").toString();
 				int result = userManager.submitUpdateUserPosition(Long.valueOf(userId),Long.valueOf(userPosition));
 				if(result>0){
+					integralManager.insertIntegral(Long.valueOf("55"), Byte.valueOf("0"), Long.valueOf(userId), Integer.valueOf(200), Byte.valueOf("1"), Byte.valueOf("1"));
 				}
 				responseMessage.setStatus(ExceptionConstants.responseSuccess.responseSuccess.code);
 				responseMessage.setMessage(ExceptionConstants.responseSuccess.responseSuccess.message);

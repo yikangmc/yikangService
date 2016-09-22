@@ -58,6 +58,7 @@ public class ForumPostStarOperation implements Runnable {
 							Message<String> message = new Message<String>();
 							message.setAlias(pushAlias);
 							message.setContent(alertTitle);
+							message.setMessageCategroy(0);
 							MessageQueue.put(message);
 						} catch (Exception e) {
 							e.printStackTrace();

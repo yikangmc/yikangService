@@ -48,7 +48,7 @@ public class ForumPostsAnswerManager {
 				operationMessage.setContent(record.getForumPostsAnswerId()+"");  //设置问题id
 				operationMessage.setContentType(2+"");    //设置分类id
 				OperationMessageQueue.putForumPostsAnswerToQueue(operationMessage);
-		return rowCount;
+				return rowCount;
 	}
 	
 	

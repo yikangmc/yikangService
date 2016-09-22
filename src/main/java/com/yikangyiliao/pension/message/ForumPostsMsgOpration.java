@@ -86,6 +86,7 @@ public class ForumPostsMsgOpration implements Runnable {
 								Message<List<String>> pushMessage = new Message<List<String>>();
 								pushMessage.setAlias(pushAlias);
 								pushMessage.setContent(taglibAlert);
+								pushMessage.setMessageCategroy(0);
 								MessageQueue.put(pushMessage);
 							} catch (Exception e) {
 								e.printStackTrace();
