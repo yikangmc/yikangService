@@ -151,4 +151,28 @@ public class TaglibService {
 	}
 	
 	
+	/**
+	 * @author liushuaic
+	 * @date 2016-09-22 20:45
+	 * @desc 获取某一个标签的详情
+	 * **/
+	public ResponseMessage<Taglib> getTaglibByTaglibIdUserId(Map<String,Object> paramData){
+		
+		ResponseMessage<Taglib> resData=new ResponseMessage<Taglib>();
+		if(paramData.containsKey("taglibId")){
+			Long taglibId=Long.valueOf(paramData.get("taglibId").toString());
+			Long userId=0l;
+			if(paramData.containsKey("userId")){
+				userId=Long.valueOf(paramData.get("userId").toString());
+			}
+			Taglib taglib=taglibManager.getTaglibByTaglibIdUserId(userId, taglibId);
+			resData.setData(taglib);
+		}else{
+			resData.setStatus(ExceptionConstants.parameterException.parameterException.errorCode);
+			resData.setMessage(ExceptionConstants.parameterException.parameterException.errorMessage);
+		}
+		return resData;
+		
+	}
+	
 }

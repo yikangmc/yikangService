@@ -14,7 +14,6 @@ import com.yikangyiliao.pension.common.response.ResponseMessage;
 import com.yikangyiliao.pension.dao.UserDao;
 import com.yikangyiliao.pension.entity.User;
 import com.yikangyiliao.pension.entity.UserInfo;
-import com.yikangyiliao.pension.manager.ThreePartAccountManager;
 import com.yikangyiliao.pension.manager.UserManager;
 
 

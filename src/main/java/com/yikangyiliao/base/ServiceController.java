@@ -114,6 +114,26 @@ public class ServiceController {
 								return responseMessage;
 
 							}
+						}else{
+							if (null != accessTicket ) {
+								if(accessTicket.length() > 5){
+									try{
+										String UD = AccessTiketCheckout.getAccessTiketUD(accessTicket);
+										String LDT = AccessTiketCheckout.getAccessTiketLDT(accessTicket);
+										String MC = AccessTiketCheckout.getAccessTiketMC(accessTicket);
+										paramMap.put("userId", UD);
+										paramMap.put("loginDateTime", LDT);
+										paramMap.put("machineCode", MC);
+									}catch(Exception e){
+										e.printStackTrace();
+										logger.error(LogUtils.getErrorStr(getClass().getName(), "doMethod:130"));
+									}
+								}else{
+									logger.error(LogUtils.getErrorStr(getClass().getName(), "doMethod:133"));
+								}
+							} else {
+								logger.error(LogUtils.getErrorStr(getClass().getName(), "doMethod:136"));
+							}
 						}
 						
 

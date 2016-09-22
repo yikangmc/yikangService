@@ -646,6 +646,17 @@ public class InterfaceUtil {
 		getSecondAllTaglib.setIsFileter(false);
 		mathodServiceConfig.put("00-30-06",getSecondAllTaglib);
 		
+		/**
+		 * @author liushuaic
+		 * @date 2016-09-22 20:47
+		 * @desc 查询某一个标签的信息
+		 * **/
+		YiKangServiceConfige getTaglibByTaglibIdUserId=new YiKangServiceConfige();
+		getTaglibByTaglibIdUserId.setServiceName("taglibService");
+		getTaglibByTaglibIdUserId.setMethodName("getTaglibByTaglibIdUserId");
+		getTaglibByTaglibIdUserId.setIsFileter(false);
+		mathodServiceConfig.put("00-30-07",getTaglibByTaglibIdUserId);
+		
 		
 		
 		

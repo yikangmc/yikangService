@@ -327,7 +327,7 @@ select
 	if(ifnull(user_taglib_maps.taglib_id,-1)>0,1,0) as isStore,
 	(select count(1) from user_taglib_maps where taglib_id=tag.taglib_id ) as followNumber2
 from taglibs tag inner join taglibs tag2 on (tag2.parent_id=tag.taglib_id and tag.is_delete=0)
-left join user_taglib_maps on (tag2.taglib_id=user_taglib_maps.taglib_id and user_taglib_maps.create_user_id=11)
+left join user_taglib_maps on (tag2.taglib_id=user_taglib_maps.taglib_id and user_taglib_maps.create_user_id=#{userId})
 where 
  tag2.is_delete=0
 order by  tag.orders,tag2.orders asc;
@@ -386,5 +386,18 @@ order by  tag.orders,tag2.orders asc;
   <update id="updateForumPostsTZNumberSubByTaglibId" parameterType="long">
   		update taglibs  set forum_posts_tznumber=forum_posts_tznumber-1 where taglib_id=#{taglibId}
   </update>
+ 
+ <!-- 查询某一个标签信息，及是否已经关注  -->
+ <resultMap id="getTaglibByTaglibIdUserIdResultMap" extends="BaseResultMap" type="com.yikangyiliao.pension.entity.Taglib">
+ 	<result column="isStore" 		property="isStore" jdbcType="INTEGER" />
+ </resultMap>
+ <select id="getTaglibByTaglibIdUserId" parameterType="map" resultMap="getTaglibByTaglibIdUserIdResultMap">
+  	select 
+		taglibs.*,
+		if(ifnull(utm.taglib_id,-1)>0,1,0) as isStore 
+	from taglibs left join user_taglib_maps utm 
+	on (taglibs.taglib_id=utm.taglib_id and utm.create_user_id=#{userId})
+	where taglibs.taglib_id=#{taglibId}
+ </select>
  
 </mapper>

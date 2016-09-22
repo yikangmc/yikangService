@@ -100,4 +100,16 @@ public class TaglibManager {
     	return taglibDao.getTaglibsByFormPostId(fourmPostId);
     }
     
+    /**
+     * @author liushuaic
+     * @date 2016-09-22 20:40
+     * @desc 查询某一个标签信息，及是否已经关注 
+     * **/
+    public Taglib getTaglibByTaglibIdUserId(Long userId,Long taglibId){
+    		Map<String,Object> paramMap=new HashMap<String,Object>();
+    		paramMap.put("userId", userId);
+    		paramMap.put("taglibId",taglibId);
+    		return taglibDao.getTaglibByTaglibIdUserId(paramMap);
+    }
+    
 }

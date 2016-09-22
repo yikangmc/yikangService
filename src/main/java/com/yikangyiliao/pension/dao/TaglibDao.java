@@ -134,4 +134,11 @@ public interface TaglibDao {
     int updateForumPostsNumberSubByTaglibId(Long taglibId);
     
     
+    /**
+     * @author liushuaic
+     * @date 2016-09-22 20:37
+     * @desc 获取某一个标签详情及是否已经关注
+     * */
+    Taglib getTaglibByTaglibIdUserId(Map<String,Object> paramMap);
+    
 }

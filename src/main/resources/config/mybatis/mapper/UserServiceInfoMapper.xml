@@ -597,7 +597,7 @@
 		left join user_infos fui on fui.user_id = fum.follow_user_id
 		left join user_adept_maps uam on usi.user_id=uam.user_id
 		left join adepts on uam.adept_id=adepts.adept_id  
-		where create_user_id=#{createUserId}
+		where create_user_id=#{createUserId} order by fum.create_time desc 
 	</select>
 	
 	<!-- 查询某一个服务人员 -->
