@@ -393,11 +393,11 @@ public class InterfaceUtil {
 		
 		
 		//文章支持
-		YiKangServiceConfige updateForumPostStar=new YiKangServiceConfige();
-		updateForumPostStar.setServiceName("forumPostService");
-		updateForumPostStar.setMethodName("updateForumPostStar");
-		updateForumPostStar.setIsFileter(true);
-		mathodServiceConfig.put("00-28-03",updateForumPostStar);
+		YiKangServiceConfige upForumPostStar=new YiKangServiceConfige();
+		upForumPostStar.setServiceName("forumPostService");
+		upForumPostStar.setMethodName("upForumPostStar");
+		upForumPostStar.setIsFileter(true);
+		mathodServiceConfig.put("00-28-03",upForumPostStar);
 		
 		
 		//发布帖子

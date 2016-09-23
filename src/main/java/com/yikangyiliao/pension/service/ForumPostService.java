@@ -164,7 +164,7 @@ public class ForumPostService {
      * @param formPostId
      * @param userId
      * */
-    public ResponseMessage<FormPosts> updateForumPostStar(Map<String,Object> paramData){
+    public ResponseMessage<FormPosts> upForumPostStar(Map<String,Object> paramData){
     	
     	ResponseMessage<FormPosts> res=new ResponseMessage<FormPosts>();
     	try{
@@ -173,6 +173,15 @@ public class ForumPostService {
     			Long forumPostsId=Long.valueOf(paramData.get("forumPostId").toString());
     			formPostManager.updateForumPostStar(forumPostsId,userId);
     			FormPosts formPosts=formPostManager.getForumPostsDetail(forumPostsId, userId);
+    			try{
+    				//推送信息
+    				OperationMessage operationMessage=new OperationMessage();
+    				operationMessage.setContent(formPosts.getForumPostId()+"");  //设置问题id
+    				operationMessage.setContentType(2+"");    //设置分类id
+    				OperationMessageQueue.putQuestionAnswerMessage(operationMessage);
+    			}catch(Exception e){
+    				e.printStackTrace();
+    			}
     			res.setData(formPosts);
     		}else{
     			res.setStatus(ExceptionConstants.parameterException.parameterException.errorCode);
