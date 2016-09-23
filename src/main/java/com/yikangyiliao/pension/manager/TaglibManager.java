@@ -39,6 +39,17 @@ public class TaglibManager {
 	}
 	
 	/**
+	 * @author houyt
+	 * @date 2016-09-23 15:19
+	 * @desc 获取推荐的二级标签
+	 * */
+	public List<Taglib>  getRecommendTaglibTwo(Long userId){
+		Map<String,Object> paramMap=new HashMap<String,Object>();
+		paramMap.put("userId", userId);
+		return taglibDao.getRecommendTaglibTwo(paramMap);
+	}
+	
+	/**
 	 * @author liushuaic
 	 * @date 2016-05-12 10:20
 	 * @desc 获取一极列表标签

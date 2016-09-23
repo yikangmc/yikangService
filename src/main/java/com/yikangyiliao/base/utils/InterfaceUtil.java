@@ -592,6 +592,17 @@ public class InterfaceUtil {
 		getRecommendTaglib.setIsFileter(false);
 		mathodServiceConfig.put("00-30-01",getRecommendTaglib);
 		
+		/**
+		 * @author houyt
+		 * @date 2016-09-23 15:03
+		 * @desc 标签管理 热门标签
+		 * ***/
+		YiKangServiceConfige getRecommendTaglibTwo=new YiKangServiceConfige();
+		getRecommendTaglibTwo.setServiceName("taglibService");
+		getRecommendTaglibTwo.setMethodName("getRecommendTaglibTwo");
+		getRecommendTaglibTwo.setIsFileter(false);
+		mathodServiceConfig.put("00-30-08",getRecommendTaglibTwo);
+		
 		
 		/**·
 		 * @author liushuaic

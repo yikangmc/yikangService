@@ -44,6 +44,26 @@ public class TaglibService {
 		return resData;
 	}
 	
+	/**
+	 * @author houyt
+	 * @date 2016-09-23 15:18
+	 * @desc 获取推荐的2级列表
+	 * */
+	public ResponseMessage<List<Taglib>> getRecommendTaglibTwo(Map<String,Object> paramMap){
+		
+		ResponseMessage<List<Taglib>> resData=new ResponseMessage<List<Taglib>>();
+		
+		Long userId=null;
+		if(paramMap.containsKey("userId")){
+			userId=Long.valueOf(paramMap.get("userId").toString());
+		}
+		List<Taglib> taglibs=taglibManager.getRecommendTaglibTwo(userId);
+		
+		resData.setData(taglibs); 
+		
+		return resData;
+	}
+	
 	
 	
 	/**

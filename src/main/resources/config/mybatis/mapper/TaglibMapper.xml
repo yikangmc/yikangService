@@ -257,6 +257,19 @@
 	order by orders asc
   </select>
   
+  <!-- ios版二级列表获取 -->
+  <select id="getRecommendTaglibTwo" resultMap="BaseResultMap" parameterType="map">
+  	select 
+  			taglibs.*
+			,if(ifnull(user_taglib_maps.taglib_id,-1)>0,1,0) as isStore
+	from taglibs
+	left join user_taglib_maps on (taglibs.taglib_id=user_taglib_maps.taglib_id and user_taglib_maps.create_user_id=#{userId})
+	where parent_id!=0
+	and is_recommend=1
+	and is_delete=0
+	order by update_time asc
+  </select>
+  
     <!-- 查询一级标签列表  -->
   <select id="getFristTaglib" resultMap="BaseResultMap">
   	select 
