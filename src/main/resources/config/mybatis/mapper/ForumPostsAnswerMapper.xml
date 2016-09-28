@@ -161,4 +161,43 @@
   </select>
   
   
+  <resultMap id="getForumPostsAnswersByFormPostIdPageResultMap" type="com.yikangyiliao.pension.entity.ForumPostsAnswer" extends="BaseResultMap">
+  	<result column="createUserId" 	property="createUserId"/>
+  	<result column="createUserName" 	property="createUserName"/>
+  	<result column="createUserPhotoUrl" property="createUserPhotoUrl"/>
+  	<result column="createUserPosition" property="createUserPosition"/>
+  	<result column="createUserDesignationName" property="createUserDesignationName"/>
+  	<result column="toUserId" 		property="toUserId"/>
+  	<result column="toUserName" 		property="toUserName"/>
+  	<result column="toUserPhotoUrl" 	property="toUserPhotoUrl"/>
+  	<result column="toUserPosition" 	property="toUserPosition"/>
+  	<result column="toUserDesignationName" 	property="toUserDesignationName"/>
+  </resultMap>
+  <select id="getForumPostsAnswersByFormPostIdPage" parameterType="long" resultMap="getForumPostsAnswersByFormPostIdPageResultMap">
+	 select 	
+		fpa.form_post_id,
+		fpa.content,
+		fpa.create_time,	    
+		ui.user_id			as createUserId,
+		ui.user_name 		as createUserName,
+		ui.photo_url 		as createUserPhotoUrl,
+	    usi.user_position 	as createUserPosition,
+	    des.designation_name as createUserDesignationName,
+	    toui.user_id			as toUserId,
+		toui.user_name 		as toUserName,
+		toui.photo_url 		as toUserPhotoUrl,
+		tousi.user_position as toUserPosition,
+	    udes.designation_name	as toUserDesignationName
+	page_from 
+	forum_posts_answers fpa 
+	inner join user_infos ui 		on fpa.create_user_id=ui.user_id 
+	left join user_service_infos usi on ui.user_id=usi.user_id 
+	left join designations des 		on ui.designation_id=des.designation_id 
+	left join user_infos toui 		on fpa.to_user_id =toui.user_id 
+	left join user_service_infos tousi on toui.user_id=tousi.user_id 
+	left join designations udes 	on ui.designation_id=udes.designation_id 
+	where fpa.form_post_id=#{formPostId} order by  fpa.create_time desc
+  </select>
+  
+  
 </mapper>

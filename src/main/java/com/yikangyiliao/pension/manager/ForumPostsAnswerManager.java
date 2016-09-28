@@ -2,11 +2,14 @@ package com.yikangyiliao.pension.manager;
 
 import java.util.Calendar;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import com.yikangyiliao.pension.common.page.PageParameter;
 import com.yikangyiliao.pension.common.utils.operationmesage.OperationMessage;
 import com.yikangyiliao.pension.common.utils.operationmesage.OperationMessageQueue;
 import com.yikangyiliao.pension.dao.ForumPostsAnswerDao;
@@ -26,6 +29,20 @@ public class ForumPostsAnswerManager {
 	}
 
 	
+	
+	/**
+	 * @author liushuaic
+	 * @date 2016-09-28 14:43
+	 * @desc 获取文章的评论列表分页
+	 * **/
+	public List<ForumPostsAnswer> getForumPostsAnswerListPage(Long forumPostId,PageParameter page){
+		
+		Map<String,Object> paramData=new HashMap<String,Object>();
+		paramData.put("forumPostId", forumPostId);
+		paramData.put("page", page);
+		return forumPostsAnswerDao.getForumPostsAnswersByFormPostIdPage(paramData);
+		
+	}
 	
 	
 	/**

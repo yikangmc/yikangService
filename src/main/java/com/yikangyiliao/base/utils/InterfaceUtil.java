@@ -1098,6 +1098,19 @@ public class InterfaceUtil {
 		getQuestionAnswersCommentDetail.setIsFileter(false);
 		mathodServiceConfig.put("00-45-02", getQuestionAnswersCommentDetail);
 		
+		/**
+		 * 
+		 * @author liushuaic
+		 * @date 2016-09-28 15:52
+		 * @desc 获取文章帖子回复列表
+		 * 00-46
+		 * */
+		YiKangServiceConfige getForumPostAnswerList=new YiKangServiceConfige();
+		getForumPostAnswerList.setServiceName("forumPostAnswerService");
+		getForumPostAnswerList.setMethodName("getForumPostsAnswerList");
+		getForumPostAnswerList.setIsFileter(false);
+		mathodServiceConfig.put("00-46-01", getForumPostAnswerList);
+		
 	}
 	
 	

@@ -343,7 +343,7 @@ from taglibs tag inner join taglibs tag2 on (tag2.parent_id=tag.taglib_id and ta
 left join user_taglib_maps on (tag2.taglib_id=user_taglib_maps.taglib_id and user_taglib_maps.create_user_id=#{userId})
 where 
  tag2.is_delete=0
-order by  tag.orders,tag2.orders asc;
+order by  tag.orders,tag2.orders asc
  </select>
  
  
