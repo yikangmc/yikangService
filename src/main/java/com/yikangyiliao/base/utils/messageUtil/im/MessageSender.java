@@ -71,6 +71,8 @@ public class MessageSender implements Runnable {
 				Message m=new Message();
 				m.setContent("测试");
 				m.setAlias("message_info_1655");
+				m.setContent("test");
+				m.setAlias("messsage_info_46");
 				m.setMessageCategroy(0);
 				
 //				Message m2=new Message();
