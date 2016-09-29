@@ -95,6 +95,7 @@
 	from forum_posts_star_lists fpsl
 	left join user_infos ui on fpsl.create_user_id=ui.user_id
 	where fpsl.forum_posts_id=#{forumPostsId}
+	order by fpsl.create_time desc
   </select>
   
   <!-- 删除支持 -->
