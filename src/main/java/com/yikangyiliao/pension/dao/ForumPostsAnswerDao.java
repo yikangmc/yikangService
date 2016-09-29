@@ -1,6 +1,7 @@
 package com.yikangyiliao.pension.dao;
 
 import java.util.List;
+import java.util.Map;
 
 import com.yikangyiliao.pension.entity.ForumPostsAnswer;
 
@@ -24,6 +25,15 @@ public interface ForumPostsAnswerDao {
      * @descc 获取文章回复
      * */
     List<ForumPostsAnswer> getForumPostsAnswersByFormPostId(Long forumPostsId);
+    
+    
+    
+    /**
+     * @author liushuaic
+     * @date 2016-09-28 14:20
+     * @desc 获取文章回复列表分页
+     * */
+    List<ForumPostsAnswer> getForumPostsAnswersByFormPostIdPage(Map<String,Object> paramMap);
     
     
     

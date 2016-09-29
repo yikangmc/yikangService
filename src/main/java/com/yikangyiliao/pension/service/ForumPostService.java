@@ -171,14 +171,17 @@ public class ForumPostService {
     		if(paramData.containsKey("forumPostId")){
     			Long userId=Long.valueOf(paramData.get("userId").toString());
     			Long forumPostsId=Long.valueOf(paramData.get("forumPostId").toString());
-    			formPostManager.updateForumPostStar(forumPostsId,userId);
+    			int isUp=formPostManager.updateForumPostStar(forumPostsId,userId);
     			FormPosts formPosts=formPostManager.getForumPostsDetail(forumPostsId, userId);
     			try{
-    				//推送信息
-    				OperationMessage operationMessage=new OperationMessage();
-    				operationMessage.setContent(formPosts.getForumPostId()+"");  //设置问题id
-    				operationMessage.setContentType(2+"");    //设置分类id
-    				OperationMessageQueue.putQuestionAnswerMessage(operationMessage);
+    				if(isUp==1){
+    					//推送信息
+        				OperationMessage operationMessage=new OperationMessage();
+        				operationMessage.setContent(formPosts.getForumPostId()+"");  //设置问题id
+        				operationMessage.setContentType(2+"");    //设置分类id
+        				OperationMessageQueue.putForumPostStarMessage(operationMessage);
+    				}
+    				
     			}catch(Exception e){
     				e.printStackTrace();
     			}
