@@ -95,7 +95,7 @@ public class QuestionAnswerCommentOperation implements Runnable{
 					messageManager.insertDynamicFollowMessage(commentUserId, answerUserId, alertTitle,alertContent,questionAnswerId,Byte.valueOf("8"));
 					//判断被评论的用户是否开启了消息推送 0未开启，1已开启
 					if(null!=UserConfigrationsCache.get(String.valueOf(answerUserId))){
-						UserConfigration userConfigration = (UserConfigration) UserConfigrationsCache.get(String.valueOf(toUserId));
+						UserConfigration userConfigration = (UserConfigration) UserConfigrationsCache.get(String.valueOf(answerUserId));
 						if(userConfigration.getDynamicAlert()==1){
 							try {
 								Message<String> message=new Message<String>();
