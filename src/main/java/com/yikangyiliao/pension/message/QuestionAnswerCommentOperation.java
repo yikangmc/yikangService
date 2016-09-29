@@ -86,6 +86,8 @@ public class QuestionAnswerCommentOperation implements Runnable{
 							message.setMessageCategroy(0);
 							MessageQueue.put(message);
 						}
+					}else{
+						log.error(LogUtils.getErrorStr(QuestionAnswer.class.getName(), "run", ""));
 					}
 				}else{//评论的解答
 					String alertTitle="“"+commentUser.getUserName()+"”评论了你对问题 “"+subTitle+"”的回答";
@@ -106,6 +108,8 @@ public class QuestionAnswerCommentOperation implements Runnable{
 								log.error(LogUtils.getErrorStr(getClass().getName(), "doMethod:107", "极光推送异常:"+e.getMessage()));
 							}
 						}
+					}else{
+						log.error(LogUtils.getErrorStr(QuestionAnswer.class.getName(), "run", "用户缓存没有加载 ！"));
 					}
 				}
 			}catch(Exception  e){

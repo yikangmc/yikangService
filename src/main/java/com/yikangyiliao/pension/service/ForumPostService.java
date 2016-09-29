@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.yikangyiliao.base.search.SearchUtil;
+import com.yikangyiliao.base.utils.LogUtils;
 import com.yikangyiliao.base.utils.SystemProperties;
 import com.yikangyiliao.pension.common.constants.YKConstants;
 import com.yikangyiliao.pension.common.error.ExceptionConstants;
@@ -19,6 +20,7 @@ import com.yikangyiliao.pension.common.utils.GenreateNumberUtils;
 import com.yikangyiliao.pension.common.utils.operationmesage.OperationMessage;
 import com.yikangyiliao.pension.common.utils.operationmesage.OperationMessageQueue;
 import com.yikangyiliao.pension.entity.FormPosts;
+import com.yikangyiliao.pension.entity.ForumPostsAnswer;
 import com.yikangyiliao.pension.entity.Taglib;
 import com.yikangyiliao.pension.manager.FormPostManager;
 import com.yikangyiliao.pension.manager.ForumPostTxtEditorManager;
@@ -231,9 +233,18 @@ public class ForumPostService {
         		}else{
         			answerTo=YKConstants.AnswerTo.AnswerToFormPosts.getValue();
         		}
-        		forumPostsAnswerManager.insertSelective(content,Long.valueOf(createUserId),Long.valueOf(formPostId),toUserId,answerTo);
-        		integralManager.insertIntegralAddScoreIsONCEJob("CCPL",Long.valueOf(createUserId));
-        		integralManager.insertIntegralAddScoreIsUsualJob("PLTZ",Byte.valueOf("2"),Long.valueOf(createUserId));
+        		ForumPostsAnswer record=forumPostsAnswerManager.insertSelective(content,Long.valueOf(createUserId),Long.valueOf(formPostId),toUserId,answerTo);
+        	    //推送信息
+        		try{
+        			System.out.println("-----发送推送");
+        			OperationMessage operationMessage=new OperationMessage();
+        			operationMessage.setContent(record.getForumPostsAnswerId()+"");  //设置问题id
+        			operationMessage.setContentType(2+"");    //设置分类id
+        			OperationMessageQueue.putForumPostsAnswerToQueue(operationMessage);
+        		}catch(Exception e){
+        				e.printStackTrace();
+        				log.error(LogUtils.getErrorStr(ForumPostService.class.getName(), "fourmPostAnswers", "信息发送失败: 回复id"+record.getForumPostsAnswerId()+""+e.getMessage()));
+        		}
     		}
 
     		

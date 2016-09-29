@@ -273,11 +273,12 @@
 		qa.*,
 		qad.question_answer_detail_content,
 		qad.question_answer_html_content
-		from question_answers qa left join question_answer_details qad on
+		page_from question_answers qa left join question_answer_details qad on
 		qa.question_answer_id=qad.question_answer_id 
 		left JOIN questions q on qa.question_id=q.question_id 
 		LEFT JOIN question_taglib_maps qtm on qa.question_id=qtm.questions_id
 		where qa.create_user_id=#{userId}
+		page_order  by qa.create_time desc
 	</select>
 	
 	<!-- 我的回答 无分页-->
@@ -289,11 +290,12 @@
 		qa.*,
 		qad.question_answer_detail_content,
 		qad.question_answer_html_content
-		from question_answers qa left join question_answer_details qad on
+		page_from question_answers qa left join question_answer_details qad on
 		qa.question_answer_id=qad.question_answer_id 
 		left JOIN questions q on qa.question_id=q.question_id 
 		LEFT JOIN question_taglib_maps qtm on qa.question_id=qtm.questions_id
 		where qa.create_user_id=#{userId}
+		page_order by create_time desc
 	</select>
 
 

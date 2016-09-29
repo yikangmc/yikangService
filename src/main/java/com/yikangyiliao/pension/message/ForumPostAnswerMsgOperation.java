@@ -88,6 +88,8 @@ public class ForumPostAnswerMsgOperation implements Runnable {
 										"推送异常:" + e.getMessage()));
 							}
 						}
+					}else{
+						LOG.error(LogUtils.getErrorStr(this.getClass().getName(), "run:90", "用户缓存为空！"));
 					}
 				}
 			} catch (Exception e) {

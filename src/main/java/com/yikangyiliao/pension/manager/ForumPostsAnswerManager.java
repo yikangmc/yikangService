@@ -19,6 +19,9 @@ public class ForumPostsAnswerManager {
 	@Autowired
 	private ForumPostsAnswerDao forumPostsAnswerDao;
 	
+	@Autowired
+	private IntegralManager integralManager;
+	
 	
 	
 	public int insertSelective(ForumPostsAnswer record){
@@ -33,7 +36,7 @@ public class ForumPostsAnswerManager {
 	 * @date 2016-04-28 16:22
 	 * @desc 添加回复
 	 * **/
-	public int insertSelective(String content,Long createUserId,Long formPostId,Long toUserId,Byte answerTo){
+	public ForumPostsAnswer insertSelective(String content,Long createUserId,Long formPostId,Long toUserId,Byte answerTo){
 		Date currentDate=Calendar.getInstance().getTime();
 		ForumPostsAnswer record=new ForumPostsAnswer();
 		record.setContent(content);
@@ -42,13 +45,12 @@ public class ForumPostsAnswerManager {
 		record.setToUserId(toUserId);
 		record.setAnswerTo(answerTo);
 		record.setCreateTime(currentDate);
-		int rowCount= forumPostsAnswerDao.insertSelective(record);
-		//推送信息
-				OperationMessage operationMessage=new OperationMessage();
-				operationMessage.setContent(record.getForumPostsAnswerId()+"");  //设置问题id
-				operationMessage.setContentType(2+"");    //设置分类id
-				OperationMessageQueue.putForumPostsAnswerToQueue(operationMessage);
-				return rowCount;
+		forumPostsAnswerDao.insertSelective(record);
+		
+		integralManager.insertIntegralAddScoreIsONCEJob("CCPL",Long.valueOf(createUserId));
+		integralManager.insertIntegralAddScoreIsUsualJob("PLTZ",Byte.valueOf("2"),Long.valueOf(createUserId));
+
+		return record;
 	}
 	
 	

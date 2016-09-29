@@ -71,7 +71,7 @@ public class MessageSender implements Runnable {
 	public static void main(String[] args) throws InterruptedException {
 				Message m=new Message();
 				m.setContent("m");
-				m.setAlias("13520883206");
+				m.setAlias("message_info_1655");
 				m.setMessageCategroy(0);
 				
 //				Message m2=new Message();

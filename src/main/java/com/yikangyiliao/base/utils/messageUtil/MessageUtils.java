@@ -2,6 +2,10 @@ package com.yikangyiliao.base.utils.messageUtil;
 
 import java.util.List;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import com.yikangyiliao.base.utils.LogUtils;
 import com.yikangyiliao.base.utils.SystemProperties;
 import com.yikangyiliao.base.utils.messageUtil.im.IosSound;
 
@@ -70,6 +74,8 @@ public class MessageUtils {
 	private static boolean IOSPUSHENVIRONMENT=false;
 	
 	
+	private static Logger LOG=LoggerFactory.getLogger(MessageUtils.class);
+	
 	
 	/**
 	 * @author liushuaic
@@ -92,8 +98,10 @@ public class MessageUtils {
 				
 			} catch (APIConnectionException e) {
 				e.printStackTrace();
+				LOG.error(LogUtils.getErrorStr(MessageUtils.class.getName(), "sendMessage 信息：",message+": error"+e.getMessage()));
 				return false;
 			} catch (APIRequestException e) {
+				LOG.error(LogUtils.getErrorStr(MessageUtils.class.getName(), "sendMessage 信息：",message+": error"+e.getMessage()));
 				e.printStackTrace();
 				return false;
 			}
@@ -256,12 +264,15 @@ public class MessageUtils {
 
 			} catch (APIConnectionException e) {
 				e.printStackTrace();
+				LOG.error(LogUtils.getErrorStr(MessageUtils.class.getName(), "sendMessage ", "error:"+e.getMessage())); 
 				return false;
 			} catch (APIRequestException e) {
 				e.printStackTrace();
+				LOG.error(LogUtils.getErrorStr(MessageUtils.class.getName(), "sendMessage ", "error:"+e.getMessage())); 
 				return false;
 			}catch (Exception e) {
 				e.printStackTrace();
+				LOG.error(LogUtils.getErrorStr(MessageUtils.class.getName(), "sendMessage ","error"+e.getMessage())); 
 				return false;
 			}
 			return true;
