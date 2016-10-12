@@ -86,6 +86,13 @@ public interface TaglibDao {
      * */
     List<Taglib> getMyWatchTaglibsByUserid(Long createUserId);
     
+    /**
+     * @author liushuaic
+     * @date 2016-06-01 09:27
+     * @desc  获取我关注的标签
+     * */
+    List<Taglib> getMyWatchTaglibsByUseridPage(Map<String, Object> paramMap);
+    
     
     /**
      * @author liushuaic

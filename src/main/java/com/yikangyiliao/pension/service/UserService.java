@@ -13,12 +13,14 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.mysql.fabric.xmlrpc.base.Value;
 import com.yikangyiliao.base.utils.AliasFactory;
 import com.yikangyiliao.base.utils.DateUtils;
 import com.yikangyiliao.base.utils.InvitationCodeGnerateUtil;
 import com.yikangyiliao.base.utils.SystemProperties;
 import com.yikangyiliao.base.utils.messageUtil.SMSUtil;
 import com.yikangyiliao.pension.common.error.ExceptionConstants;
+import com.yikangyiliao.pension.common.page.PageParameter;
 import com.yikangyiliao.pension.common.response.ResponseMessage;
 import com.yikangyiliao.pension.common.utils.map.MapUtils;
 import com.yikangyiliao.pension.common.utils.map.model.GeoCodeModel;
@@ -49,30 +51,29 @@ public class UserService {
 
 	@Autowired
 	private UserFromManager userFromManager;
-	
+
 	@Autowired
 	private IntegralManager integralManager;
 
-//	@Autowired
-//	private OfficeManager officeManager;
-//
-//	@Autowired
-//	private AdeptManager adeptManager;
-	
+	// @Autowired
+	// private OfficeManager officeManager;
+	//
+	// @Autowired
+	// private AdeptManager adeptManager;
+
 	@Autowired
 	private UserAdeptMapManager adeptMapManager;
-	
+
 	@Autowired
 	private UserServiceInfoManager userServiceInfoManager;
-	
+
 	@Autowired
 	private UserConfigrationManager userConfigrationManager;
-	
+
 	@Autowired
 	private ThreePartAccountManager threePartAccountManager;
-	
-	
-	private Logger logger=LoggerFactory.getLogger(UserService.class);
+
+	private Logger logger = LoggerFactory.getLogger(UserService.class);
 
 	/**
 	 * @author liushuaic
@@ -80,11 +81,8 @@ public class UserService {
 	 **/
 	public Map<String, Object> saveRegisterUserAndSaveServiceInfo(Map<String, Object> paramData) {
 		Map<String, Object> rtnData = new HashMap<String, Object>();
-		if (
-				paramData.containsKey("loginName")
-				&& paramData.containsKey("passWord") 
-				&& paramData.containsKey("userName")
-		) {
+		if (paramData.containsKey("loginName") && paramData.containsKey("passWord")
+				&& paramData.containsKey("userName")) {
 			String loginName = paramData.get("loginName").toString();
 			User u = userManager.getUserByLoginName(loginName);
 			if (null == u) {
@@ -94,45 +92,44 @@ public class UserService {
 				String passWord = paramData.get("passWord").toString();
 				String userName = paramData.get("userName").toString();
 
-				//默认-2 未填写
+				// 默认-2 未填写
 				String jobCategory = "-2";
 				if (paramData.containsKey("jobCategory")) {
 					jobCategory = paramData.get("jobCategory").toString();
 				}
-				
-				//默认-2 未填写
+
+				// 默认-2 未填写
 				String mapPositionAddress = "";
 				if (paramData.containsKey("mapPositionAddress")) {
 					mapPositionAddress = paramData.get("mapPositionAddress").toString();
 				}
-				//默认-2 未填写
+				// 默认-2 未填写
 				String districtCode = "-2";
 				if (paramData.containsKey("districtCode")) {
 					districtCode = paramData.get("districtCode").toString();
 				}
-				//默认空串
+				// 默认空串
 				String addressDetail = "";
 				if (paramData.containsKey("addressDetail")) {
 					addressDetail = paramData.get("addressDetail").toString();
 				}
 
-				//默认空串
+				// 默认空串
 				String photoUrl = "";
 				if (paramData.containsKey("photoUrl")) {
 					photoUrl = paramData.get("photoUrl").toString();
 				}
-				//默认空串
-				String offices = ""; 
+				// 默认空串
+				String offices = "";
 				if (paramData.containsKey("offices")) {
 					photoUrl = paramData.get("offices").toString();
 				}
-				
+
 				// 职位
-				Byte userPosition=0;  //默认是未认证
-				if( paramData.containsKey("userPosition")){
-					userPosition=Byte.valueOf(paramData.get("userPosition").toString());
+				Byte userPosition = 0; // 默认是未认证
+				if (paramData.containsKey("userPosition")) {
+					userPosition = Byte.valueOf(paramData.get("userPosition").toString());
 				}
-				
 
 				User user = new User();
 				user.setUserName(userName);
@@ -156,9 +153,9 @@ public class UserService {
 				// 修改用户邀请码
 				userManager.updateInvitationCodeByUserId(InvitationCodeGnerateUtil.generateInvitationCodeTwo(user),
 						user.getUserId());
-				
+
 				// 初始化用户信息
-				UserInfo userInfo=new UserInfo();
+				UserInfo userInfo = new UserInfo();
 				userInfo.setBirthday(null);
 				userInfo.setCityCode("");
 				userInfo.setCreateAt(currentDateTime.longValue());
@@ -173,9 +170,8 @@ public class UserService {
 				userInfo.setUpdateAt(currentDateTime);
 				userInfo.setUserId(user.getUserId());
 				userManager.insertSelective(userInfo);
-				
-				
-				//初始化服务人员信息
+
+				// 初始化服务人员信息
 				UserServiceInfo userServiceInfo = new UserServiceInfo();
 				userServiceInfo.setUserId(user.getUserId());
 				userServiceInfo.setPhotoUrl(photoUrl);
@@ -266,7 +262,7 @@ public class UserService {
 					userFrom.setActiveTime(0l);
 					userFromManager.insertSelective(userFrom);
 				}
-				
+
 				userConfigrationManager.insertSelective(1, 1, user.getUserId());
 
 				rtnData.put("status", ExceptionConstants.responseSuccess.responseSuccess.code);
@@ -282,39 +278,29 @@ public class UserService {
 		return rtnData;
 	}
 
-	
-	
-	public ResponseMessage<String> insertRegisterUserForThreepart(Map<String,Object> paramData){
-		
-		ResponseMessage<String> resData=new ResponseMessage<String>();
-		
-		if(
-			paramData.containsKey("userName")
-		    && paramData.containsKey("gender")
-		    && paramData.containsKey("accountId")
-		    && paramData.containsKey("threePartAccountInfo")
-		    && paramData.containsKey("userSource")
-		){
-			Date currentDate= Calendar.getInstance().getTime();
+	public ResponseMessage<String> insertRegisterUserForThreepart(Map<String, Object> paramData) {
+
+		ResponseMessage<String> resData = new ResponseMessage<String>();
+
+		if (paramData.containsKey("userName") && paramData.containsKey("gender") && paramData.containsKey("accountId")
+				&& paramData.containsKey("threePartAccountInfo") && paramData.containsKey("userSource")) {
+			Date currentDate = Calendar.getInstance().getTime();
 			Long currentDateTime = Calendar.getInstance().getTimeInMillis();
-			
-			String userName=paramData.get("userName").toString();
-			String gender=paramData.get("gender").toString();
-			String accountId=paramData.get("accountId").toString();
-			String threePartAccountInfo=paramData.get("threePartAccountInfo").toString();
-			Byte userSource=Byte.valueOf(paramData.get("userSource").toString());
-			
-			
-			Byte sex=Byte.valueOf("0");
-			if(null != gender &&  gender.length()==1){
-				if(gender.equals("男") || gender.equals("m") || gender.equals("1")){
-					sex=Byte.valueOf("1");
-				}else if(gender.equals("女") || gender.equals("wm") || gender.equals("2")){
-					sex=Byte.valueOf("2");
+
+			String userName = paramData.get("userName").toString();
+			String gender = paramData.get("gender").toString();
+			String accountId = paramData.get("accountId").toString();
+			String threePartAccountInfo = paramData.get("threePartAccountInfo").toString();
+			Byte userSource = Byte.valueOf(paramData.get("userSource").toString());
+
+			Byte sex = Byte.valueOf("0");
+			if (null != gender && gender.length() == 1) {
+				if (gender.equals("男") || gender.equals("m") || gender.equals("1")) {
+					sex = Byte.valueOf("1");
+				} else if (gender.equals("女") || gender.equals("wm") || gender.equals("2")) {
+					sex = Byte.valueOf("2");
 				}
 			}
-			
-		
 
 			UserInfo users = userManager.getUserIdByThreePartAccountId(accountId);
 			if (null == users) {
@@ -329,10 +315,10 @@ public class UserService {
 				user.setLoginTime(currentDateTime);
 				user.setPushAlias("");
 				user.setInvitationCode("");
-				user.setInfoWrite((byte)0); //设置为没有填写个人信息
+				user.setInfoWrite((byte) 0); // 设置为没有填写个人信息
 
 				userManager.insertUserSelective(user);
-				
+
 				user.setUserName(null);
 				user.setLoginName(null);
 				user.setLoginPassword(null);
@@ -375,26 +361,22 @@ public class UserService {
 				if (paramData.containsKey("adept")) {
 					userServiceInfo.setAdept(paramData.get("adept").toString());
 				}
-				
 
 				userServiceInfo.setLongitude(0d);
 				userServiceInfo.setLatitude(0d);
 
 				userManager.insertUserServiceSelective(userServiceInfo);
-				
-				
-				
 
-//				ThreePartAccount threePartAccount=new ThreePartAccount();
-//				threePartAccount.setAccountId(accountId);
-//				threePartAccount.setCreateTime(currentDate);
-//				threePartAccount.setUpdateTime(currentDate);
-//				threePartAccount.setUserName(userName);
-//				threePartAccount.setUserSource(userSource);
-//				threePartAccount.setUserId(user.getUserId());
-//				threePartAccount.setThreePartAccountInfo(threePartAccountInfo);
-				threePartAccountManager.insertSelective(userName, gender, accountId, userSource, threePartAccountInfo,user.getUserId());
-				
+				// ThreePartAccount threePartAccount=new ThreePartAccount();
+				// threePartAccount.setAccountId(accountId);
+				// threePartAccount.setCreateTime(currentDate);
+				// threePartAccount.setUpdateTime(currentDate);
+				// threePartAccount.setUserName(userName);
+				// threePartAccount.setUserSource(userSource);
+				// threePartAccount.setUserId(user.getUserId());
+				// threePartAccount.setThreePartAccountInfo(threePartAccountInfo);
+				threePartAccountManager.insertSelective(userName, gender, accountId, userSource, threePartAccountInfo,
+						user.getUserId());
 
 				UserFrom userFrom = new UserFrom();
 				userFrom.setUserId(user.getUserId());
@@ -407,10 +389,10 @@ public class UserService {
 				userFrom.setCreateTime(currentDateTime);
 				userFrom.setUpdateTime(currentDateTime);
 				// 设置为用户注册
-				if(paramData.containsKey("userFrom")){
-					String userFromStr=paramData.get("userFrom").toString();
+				if (paramData.containsKey("userFrom")) {
+					String userFromStr = paramData.get("userFrom").toString();
 					userFrom.setUserFrom(userFromStr);
-				}else{
+				} else {
 					userFrom.setUserFrom("6");
 				}
 				userFrom.setUserStatus(Byte.valueOf("0"));
@@ -418,9 +400,8 @@ public class UserService {
 				userFrom.setActiveTime(0l);
 				userFromManager.insertSelective(userFrom);
 
-
 				// 初始化用户信息
-				UserInfo userInfo=new UserInfo();
+				UserInfo userInfo = new UserInfo();
 				userInfo.setBirthday(null);
 				userInfo.setCityCode("");
 				userInfo.setCreateAt(currentDateTime.longValue());
@@ -438,25 +419,20 @@ public class UserService {
 				userManager.insertSelective(userInfo);
 
 				userConfigrationManager.insertSelective(1, 1, user.getUserId());
-				
+
 				resData.setStatus(ExceptionConstants.responseSuccess.responseSuccess.code);
 				resData.setMessage(ExceptionConstants.responseSuccess.responseSuccess.message);
 			} else {
-				resData.setStatus( ExceptionConstants.systemException.systemException.errorCode);
+				resData.setStatus(ExceptionConstants.systemException.systemException.errorCode);
 				resData.setMessage("用户已注册！");
 			}
-			
-			
-			
+
 		}
-		
-		
+
 		return resData;
-		
+
 	}
-	
-	
-	
+
 	/**
 	 * @author liushuaic
 	 * @date 2015/08/25 17:44 注册用户
@@ -473,11 +449,11 @@ public class UserService {
 				String passWord = paramData.get("password").toString();
 
 				User user = new User();
-				String userName="";
-				if(null != loginName && loginName.length()==11){
-					userName=loginName.substring(0,3)+"****"+loginName.substring(7,11);
-				}else{
-					userName=loginName;
+				String userName = "";
+				if (null != loginName && loginName.length() == 11) {
+					userName = loginName.substring(0, 3) + "****" + loginName.substring(7, 11);
+				} else {
+					userName = loginName;
 				}
 				user.setUserName(userName);
 				user.setLoginName(loginName);
@@ -487,10 +463,10 @@ public class UserService {
 				user.setLoginTime(currentDateTime);
 				user.setPushAlias("");
 				user.setInvitationCode("");
-				user.setInfoWrite((byte)0); //设置为没有填写个人信息
+				user.setInfoWrite((byte) 0); // 设置为没有填写个人信息
 
 				userManager.insertUserSelective(user);
-				
+
 				user.setUserName(null);
 				user.setLoginName(null);
 				user.setLoginPassword(null);
@@ -521,7 +497,7 @@ public class UserService {
 				userServiceInfo.setCityCode(Long.valueOf(0));
 				userServiceInfo.setDistrictCode(Long.valueOf(0));
 				userServiceInfo.setMapPositionAddress("");
-				
+
 				String hospital = "";
 				if (paramData.containsKey("hospital")) {
 					hospital = paramData.get("hospital").toString();
@@ -533,7 +509,6 @@ public class UserService {
 				if (paramData.containsKey("adept")) {
 					userServiceInfo.setAdept(paramData.get("adept").toString());
 				}
-				
 
 				userServiceInfo.setLongitude(0d);
 				userServiceInfo.setLatitude(0d);
@@ -551,10 +526,10 @@ public class UserService {
 				userFrom.setCreateTime(currentDateTime);
 				userFrom.setUpdateTime(currentDateTime);
 				// 设置为用户注册
-				if(paramData.containsKey("userFrom")){
-					String userFromStr=paramData.get("userFrom").toString();
+				if (paramData.containsKey("userFrom")) {
+					String userFromStr = paramData.get("userFrom").toString();
 					userFrom.setUserFrom(userFromStr);
-				}else{
+				} else {
 					userFrom.setUserFrom("6");
 				}
 				userFrom.setUserStatus(Byte.valueOf("0"));
@@ -562,9 +537,8 @@ public class UserService {
 				userFrom.setActiveTime(0l);
 				userFromManager.insertSelective(userFrom);
 
-
 				// 初始化用户信息
-				UserInfo userInfo=new UserInfo();
+				UserInfo userInfo = new UserInfo();
 				userInfo.setBirthday(null);
 				userInfo.setCityCode("");
 				userInfo.setCreateAt(currentDateTime.longValue());
@@ -582,7 +556,7 @@ public class UserService {
 				userManager.insertSelective(userInfo);
 
 				userConfigrationManager.insertSelective(1, 1, user.getUserId());
-				
+
 				rtnData.put("status", ExceptionConstants.responseSuccess.responseSuccess.code);
 				rtnData.put("message", ExceptionConstants.responseSuccess.responseSuccess.message);
 			} else {
@@ -605,8 +579,7 @@ public class UserService {
 
 		// 用户id 在paramData中存着
 		Map<String, Object> rtnData = new HashMap<String, Object>();
-		if (
-				paramData.containsKey("userPostion") // 职位
+		if (paramData.containsKey("userPostion") // 职位
 				&& paramData.containsKey("jobCategory") // 全职，兼职
 				&& paramData.containsKey("provenceCode") && paramData.containsKey("cityCode")
 				&& paramData.containsKey("districtCode") && paramData.containsKey("addressDetail")
@@ -737,13 +710,14 @@ public class UserService {
 
 		UserServiceInfo userServiceInfo = userManager.getUserServiceInfoByUserIdTwo(Long.valueOf(userId));
 		// 邀请url
-		String invitationUrl = SystemProperties.getPropertieValue("invitationUrl")+ userServiceInfo.getInvitationCode();
+		String invitationUrl = SystemProperties.getPropertieValue("invitationUrl")
+				+ userServiceInfo.getInvitationCode();
 		userServiceInfo.setInvitationUrl(invitationUrl);
 
 		rtnData.put("data", userServiceInfo);
 		rtnData.put("status", ExceptionConstants.responseSuccess.responseSuccess.code);
 		rtnData.put("message", ExceptionConstants.responseSuccess.responseSuccess.message);
-		
+
 		return rtnData;
 	}
 
@@ -766,7 +740,7 @@ public class UserService {
 
 		userServiceInfo.setUserId(Long.valueOf(userId));
 
-		//userManager.updateUserServiceInfoIsEmptyByUserId(Long.valueOf(userId));
+		// userManager.updateUserServiceInfoIsEmptyByUserId(Long.valueOf(userId));
 
 		if (paramData.containsKey("jobCategory")) {
 			String jobCategory = paramData.get("jobCategory").toString();
@@ -875,7 +849,6 @@ public class UserService {
 		return rtnData;
 	}
 
-	
 	/**
 	 * 
 	 * @author liushuaic
@@ -891,7 +864,7 @@ public class UserService {
 		Long currentDateTime = Calendar.getInstance().getTimeInMillis();
 
 		UserServiceInfo userServiceInfo = new UserServiceInfo();
-		UserInfo userInfo=new UserInfo();
+		UserInfo userInfo = new UserInfo();
 
 		String userId = paramData.get("userId").toString();
 
@@ -901,7 +874,7 @@ public class UserService {
 		if (paramData.containsKey("jobCategory")) {
 			String jobCategory = paramData.get("jobCategory").toString();
 			userServiceInfo.setJobCategory(Long.valueOf(jobCategory));
-		} 
+		}
 		if (paramData.containsKey("districtCode") && paramData.containsKey("mapPositionAddress")) {
 
 			String mapPositionAddress = paramData.get("mapPositionAddress").toString();
@@ -915,7 +888,7 @@ public class UserService {
 			userServiceInfo.setAddressDetail(addressDetail);
 		}
 
-		//上传头像
+		// 上传头像
 		if (paramData.containsKey("photoUrl")) {
 			String photoUrl = paramData.get("photoUrl").toString();
 			userServiceInfo.setPhotoUrl(photoUrl);
@@ -927,7 +900,8 @@ public class UserService {
 			Byte userPosition = Byte.valueOf(paramData.get("userPosition").toString());
 			userServiceInfo.setUserPosition(userPosition);
 			userServiceInfo.setNewUserPosition(Integer.valueOf(userPosition));
-			integralManager.insertIntegral(Long.valueOf("55"), Byte.valueOf("0"), Long.valueOf(userId), Integer.valueOf(200), Byte.valueOf("1"), Byte.valueOf("1"));
+			integralManager.insertIntegral(Long.valueOf("55"), Byte.valueOf("0"), Long.valueOf(userId),
+					Integer.valueOf(200), Byte.valueOf("1"), Byte.valueOf("1"));
 		}
 
 		if (paramData.containsKey("userName")) {
@@ -945,9 +919,9 @@ public class UserService {
 		if (paramData.containsKey("offices")) {
 			userServiceInfo.setOffices(Integer.valueOf(paramData.get("offices").toString()));
 		}
-		List<String> adepts=null;
+		List<String> adepts = null;
 		if (paramData.containsKey("adepts")) {
-			 adepts=(List<String>) paramData.get("adepts");
+			adepts = (List<String>) paramData.get("adepts");
 		}
 
 		// 反推一下，用户用户地址
@@ -1003,82 +977,70 @@ public class UserService {
 			}
 
 		}
-		if(paramData.containsKey("infoWrite")){
-			String infoWrite=paramData.get("infoWrite").toString();
-			User user=new User();
+		if (paramData.containsKey("infoWrite")) {
+			String infoWrite = paramData.get("infoWrite").toString();
+			User user = new User();
 			user.setUserId(Long.valueOf(userId));
 			user.setInfoWrite(Byte.valueOf(infoWrite));
 			userManager.updateUser(user);
 		}
-		
+
 		userInfo.setUserId(Long.valueOf(userId));
-		//用户个人简介
-		if(paramData.containsKey("userIntroduce")){
-			String userIntroduce=paramData.get("userIntroduce").toString();
-			//userServiceInfo.setUserIntroduce(userIntroduce);
+		// 用户个人简介
+		if (paramData.containsKey("userIntroduce")) {
+			String userIntroduce = paramData.get("userIntroduce").toString();
+			// userServiceInfo.setUserIntroduce(userIntroduce);
 			userInfo.setUserIntroduce(userIntroduce);
 		}
-		
-		//机构名称
-		if(paramData.containsKey("oraganizationName")){
-			String oraganizationName=paramData.get("oraganizationName").toString();
+
+		// 机构名称
+		if (paramData.containsKey("oraganizationName")) {
+			String oraganizationName = paramData.get("oraganizationName").toString();
 			userServiceInfo.setOraganizationName(oraganizationName);
 		}
-		
-//		工作领域
-		if(paramData.containsKey("workRealm")){
-			Byte workRealm=Byte.valueOf(paramData.get("workRealm").toString());
+
+		// 工作领域
+		if (paramData.containsKey("workRealm")) {
+			Byte workRealm = Byte.valueOf(paramData.get("workRealm").toString());
 			userServiceInfo.setWorkRealm(workRealm);
 		}
-		//用户证书
-		if(paramData.containsKey("userCertificate")){
-			String userCertificate=paramData.get("userCertificate").toString();
+		// 用户证书
+		if (paramData.containsKey("userCertificate")) {
+			String userCertificate = paramData.get("userCertificate").toString();
 			userServiceInfo.setUserCertificate(userCertificate);
 		}
-		
-		//设置用户认证手机号
-		if(paramData.containsKey("authMobileNumber")){
-			String authMobileNumber=paramData.get("authMobileNumber").toString();
-			userServiceInfo.setAuthMobileNumber(authMobileNumber);
-		}
-		
+
 		userManager.updateUserServiceInfo(userServiceInfo);
-		
-		if(paramData.containsKey("birthday") && paramData.get("birthday").toString().length()>0){
-			String birthday=paramData.get("birthday").toString();
+
+		if (paramData.containsKey("birthday") && paramData.get("birthday").toString().length() > 0) {
+			String birthday = paramData.get("birthday").toString();
 			try {
-				userInfo.setBirthday(DateUtils.formateDateTime(birthday+" 00:00:00"));
+				userInfo.setBirthday(DateUtils.formateDateTime(birthday + " 00:00:00"));
 			} catch (ParseException e) {
 				e.printStackTrace();
 			}
 		}
-		if(paramData.containsKey("userSex")){
-			String sex=paramData.get("userSex").toString();
+		if (paramData.containsKey("userSex")) {
+			String sex = paramData.get("userSex").toString();
 			userInfo.setUserSex(Byte.valueOf(sex));
 		}
-		if(paramData.containsKey("designationId")){
-			Long designationId=Long.valueOf(paramData.get("designationId").toString());
+		if (paramData.containsKey("designationId")) {
+			Long designationId = Long.valueOf(paramData.get("designationId").toString());
 			userInfo.setDesignationId(designationId);
 			integralManager.insertIntegralAddScoreIsONCEJob("TGFH", Long.valueOf(userId));
 		}
-		
-		//设置绑定手机号
-		if(paramData.containsKey("bindMobileNumber")){
-			String bindMobileNumber=paramData.get("bindMobileNumber").toString();
-			userInfo.setBindMobileNumber(bindMobileNumber);
-		}
-		
+
 		userInfo.setUserId(Long.valueOf(userId));
 		userManager.updateByUserIdSelective(userInfo);
-		
-		if(null != adepts){
+
+		if (null != adepts) {
 			adeptMapManager.deleteUserAdeptAll(Long.valueOf(userId));
-			for(String adept:adepts){
-				adeptMapManager.insertSelective(Long.valueOf(adept),Long.valueOf(userId));
+			for (String adept : adepts) {
+				adeptMapManager.insertSelective(Long.valueOf(adept), Long.valueOf(userId));
 			}
 		}
-		
-		//在第一次进入系统时，初始化为审核通过
+
+		// 在第一次进入系统时，初始化为审核通过
 		if (paramData.containsKey("userPosition")) {
 			userManager.updateUserPositionStatusCheckePass(Long.valueOf(userId));
 		}
@@ -1087,9 +1049,7 @@ public class UserService {
 
 		return rtnData;
 	}
-	
-	
-	
+
 	public Map<String, Object> testMessage(Map<String, Object> paramData) {
 		Map<String, Object> rtnMap = new HashMap<String, Object>();
 		rtnMap.put("data", "测试！");
@@ -1121,9 +1081,6 @@ public class UserService {
 						rtnMap.put("status", "999999");
 						rtnMap.put("message", "信息发送失败！");
 					}
-				}else{
-					rtnMap.put("status", "999999");
-					rtnMap.put("message", "用户未注册！");
 				}
 
 			}
@@ -1203,7 +1160,7 @@ public class UserService {
 	 * @desc 获取我邀请的用户
 	 */
 	public ResponseMessage<List<UserModel>> getInvationUserInfoByInvationUserId(Map<String, Object> paramData) {
-		ResponseMessage<List<UserModel>>  responseMessage = new ResponseMessage<List<UserModel>>();
+		ResponseMessage<List<UserModel>> responseMessage = new ResponseMessage<List<UserModel>>();
 		try {
 			if (paramData.containsKey("userStatus")) {
 
@@ -1290,24 +1247,25 @@ public class UserService {
 	 * @date 2016-03-24 19:30
 	 * @desc 提交职位审核
 	 */
-	public ResponseMessage<String> submitUpdateUserPosition(Map<String,Object> paramData) {
+	public ResponseMessage<String> submitUpdateUserPosition(Map<String, Object> paramData) {
 		ResponseMessage<String> responseMessage = new ResponseMessage<String>();
 
 		try {
-			if(paramData.containsKey("userPosition")){
-				String userPosition=paramData.get("userPosition").toString();
-				String userId=paramData.get("userId").toString();
-				int result = userManager.submitUpdateUserPosition(Long.valueOf(userId),Long.valueOf(userPosition));
-				if(result>0){
-					integralManager.insertIntegral(Long.valueOf("55"), Byte.valueOf("0"), Long.valueOf(userId), Integer.valueOf(200), Byte.valueOf("1"), Byte.valueOf("1"));
+			if (paramData.containsKey("userPosition")) {
+				String userPosition = paramData.get("userPosition").toString();
+				String userId = paramData.get("userId").toString();
+				int result = userManager.submitUpdateUserPosition(Long.valueOf(userId), Long.valueOf(userPosition));
+				if (result > 0) {
+					integralManager.insertIntegral(Long.valueOf("55"), Byte.valueOf("0"), Long.valueOf(userId),
+							Integer.valueOf(200), Byte.valueOf("1"), Byte.valueOf("1"));
 				}
 				responseMessage.setStatus(ExceptionConstants.responseSuccess.responseSuccess.code);
 				responseMessage.setMessage(ExceptionConstants.responseSuccess.responseSuccess.message);
-			}else{
+			} else {
 				responseMessage.setStatus(ExceptionConstants.parameterException.parameterException.errorCode);
 				responseMessage.setMessage(ExceptionConstants.parameterException.parameterException.errorMessage);
 			}
-			
+
 		} catch (Exception e) {
 			e.printStackTrace();
 			responseMessage.setStatus(ExceptionConstants.systemException.systemException.errorCode);
@@ -1316,46 +1274,103 @@ public class UserService {
 
 		return responseMessage;
 	}
-	
-	
-	public ResponseMessage<String> saveUserInfos(){
+
+	public ResponseMessage<String> saveUserInfos() {
 		ResponseMessage<String> responseMessage = new ResponseMessage<String>();
-		
-		try{
-			
-			
-		}catch(Exception e){
+
+		try {
+
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		
+
 		return responseMessage;
 	}
-	
-	
+
 	/**
 	 * @author liushuaic
 	 * @date 2016-05-31 15:45
 	 * @desc 获取我关注的用户
-	 * **/
-	public ResponseMessage<List<UserServiceInfo>> getMyFollowUser(Map<String,Object> paramMap){
-		
-		ResponseMessage<List<UserServiceInfo>> resData=new ResponseMessage<List<UserServiceInfo>>();
-		
-		if(paramMap.containsKey("userId")){
-			Long userId=Long.valueOf(paramMap.get("userId").toString());
-			List<UserServiceInfo> data=userServiceInfoManager.getMyFollowUser(userId);
+	 **/
+	public ResponseMessage<List<UserServiceInfo>> getMyFollowUser(Map<String, Object> paramMap) {
+
+		ResponseMessage<List<UserServiceInfo>> resData = new ResponseMessage<List<UserServiceInfo>>();
+
+		if (paramMap.containsKey("userId")) {
+			Long userId = Long.valueOf(paramMap.get("userId").toString());
+			List<UserServiceInfo> data = userServiceInfoManager.getMyFollowUser(userId);
 			resData.setData(data);
 			resData.setStatus(ExceptionConstants.responseSuccess.responseSuccess.code);
 			resData.setMessage(ExceptionConstants.responseSuccess.responseSuccess.message);
-		}else{
+		} else {
 			resData.setStatus(ExceptionConstants.systemException.systemException.errorCode);
 			resData.setMessage(ExceptionConstants.systemException.systemException.errorMessage);
 		}
-		
+
 		return resData;
 	}
- 
+
+	/**
+	 * @author houyt
+	 * @date 2016-10-09 16:45
+	 * @desc 查询我关注的用户
+	 **/
+	public ResponseMessage<List<UserServiceInfo>> getMyFollowUserPage(Map<String, Object> paramMap) {
+
+		ResponseMessage<List<UserServiceInfo>> resData = new ResponseMessage<List<UserServiceInfo>>();
+
+		if (paramMap.containsKey("serverUserId")&&paramMap.containsKey("page")) {
+			Long serverUserId = Long.valueOf(paramMap.get("serverUserId").toString());
+			Long userId=0L;
+			if(paramMap.containsKey("userId")){
+				userId=Long.valueOf(paramMap.get("userId").toString());
+			}
+			int currentPage = Integer.parseInt(paramMap.get("page").toString());
+			PageParameter page = new PageParameter();
+			page.setCurrentPage(currentPage);
+			List<UserServiceInfo> data = userServiceInfoManager.getMyFollowUserPage(serverUserId,userId,page);
+			System.out.println("data length : "+data.size());
+			resData.setData(data);
+			resData.setStatus(ExceptionConstants.responseSuccess.responseSuccess.code);
+			resData.setMessage(ExceptionConstants.responseSuccess.responseSuccess.message);
+		} else {
+			resData.setStatus(ExceptionConstants.systemException.systemException.errorCode);
+			resData.setMessage(ExceptionConstants.systemException.systemException.errorMessage);
+		}
+
+		return resData;
+	}
 	
+	/**
+	 * @author houyt
+	 * @date 2016-10-09 16:45
+	 * @desc 查询我的粉丝
+	 **/
+	public ResponseMessage<List<UserServiceInfo>> getMyFansUserPage(Map<String, Object> paramMap) {
+
+		ResponseMessage<List<UserServiceInfo>> resData = new ResponseMessage<List<UserServiceInfo>>();
+
+		if (paramMap.containsKey("serverUserId")&&paramMap.containsKey("page")) {
+			Long serverUserId = Long.valueOf(paramMap.get("serverUserId").toString());
+			Long userId = 0L;
+			if(paramMap.containsKey("userId")){
+				userId = Long.valueOf(paramMap.get("userId").toString());
+			}
+			int currentPage = Integer.parseInt(paramMap.get("page").toString());
+			PageParameter page = new PageParameter();
+			page.setCurrentPage(currentPage);
+			List<UserServiceInfo> data = userServiceInfoManager.getMyFansUserPage(serverUserId,userId,page);
+			resData.setData(data);
+			resData.setStatus(ExceptionConstants.responseSuccess.responseSuccess.code);
+			resData.setMessage(ExceptionConstants.responseSuccess.responseSuccess.message);
+		} else {
+			resData.setStatus(ExceptionConstants.systemException.systemException.errorCode);
+			resData.setMessage(ExceptionConstants.systemException.systemException.errorMessage);
+		}
+
+		return resData;
+	}
+
 	/**
 	 * @author liushuaic
 	 * @date 2016/07/09 11:15 查询某一个服务人员的信息
@@ -1364,22 +1379,23 @@ public class UserService {
 
 		Map<String, Object> rtnData = new HashMap<String, Object>();
 		String serverUserId = paramData.get("serverUserId").toString();
-		Long serarchUserid=0l;
-		if(paramData.containsKey("userId")){
-			serarchUserid=Long.valueOf(paramData.get("userId").toString());
+		Long serarchUserid = 0l;
+		if (paramData.containsKey("userId")) {
+			serarchUserid = Long.valueOf(paramData.get("userId").toString());
 		}
 
-		UserServiceInfo userServiceInfo = userServiceInfoManager.getUserServiceInfoByServerUserId(serarchUserid,Long.valueOf(serverUserId));
+		UserServiceInfo userServiceInfo = userServiceInfoManager.getUserServiceInfoByServerUserId(serarchUserid,
+				Long.valueOf(serverUserId));
 		// 邀请url
-		String invitationUrl = SystemProperties.getPropertieValue("invitationUrl")+ userServiceInfo.getInvitationCode();
+		String invitationUrl = SystemProperties.getPropertieValue("invitationUrl")
+				+ userServiceInfo.getInvitationCode();
 		userServiceInfo.setInvitationUrl(invitationUrl);
 
 		rtnData.put("data", userServiceInfo);
 		rtnData.put("status", ExceptionConstants.responseSuccess.responseSuccess.code);
 		rtnData.put("message", ExceptionConstants.responseSuccess.responseSuccess.message);
-		
+
 		return rtnData;
 	}
-	
-	
+
 }

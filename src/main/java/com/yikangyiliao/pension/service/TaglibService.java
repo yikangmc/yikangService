@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
 import com.yikangyiliao.pension.common.error.ExceptionConstants;
+import com.yikangyiliao.pension.common.page.PageParameter;
 import com.yikangyiliao.pension.common.response.ResponseMessage;
 import com.yikangyiliao.pension.entity.Taglib;
 import com.yikangyiliao.pension.manager.TaglibManager;
@@ -157,6 +158,37 @@ public class TaglibService {
 		return resData;
 	}
 	
+	
+	 /**
+     * @author houyt
+     * @date 2016-10-09 16:18
+     * @desc  获取我关注的标签
+     * */
+	public ResponseMessage<List<Taglib>> getMyWatchTaglibsByUseridPage(Map<String,Object> paramData){
+		ResponseMessage<List<Taglib>> resData=new ResponseMessage<List<Taglib>>();
+		try{
+			if(paramData.containsKey("serverUserId")&&paramData.containsKey("page")){
+				Long serverUserId=Long.valueOf(paramData.get("serverUserId").toString());
+				Long userId = 0L;
+				if(paramData.containsKey("userId")){
+					userId = Long.valueOf(paramData.get("userId").toString());
+				}
+				PageParameter page=new PageParameter();
+				int currentPage=Integer.valueOf(paramData.get("page").toString());
+				page.setCurrentPage(currentPage);
+				List<Taglib> taglibList = taglibManager.getMyWatchTaglibsByUseridPage(serverUserId,userId,page);
+				resData.setData(taglibList);
+			}else{
+				resData.setStatus(ExceptionConstants.parameterException.parameterException.errorCode);
+				resData.setMessage(ExceptionConstants.parameterException.parameterException.errorMessage);
+			}
+		}catch(Exception e){
+			e.printStackTrace();
+			logger.error(e.getMessage());
+		}
+		
+		return resData;
+	}
 	
 	/**
 	 * @author liushuaic

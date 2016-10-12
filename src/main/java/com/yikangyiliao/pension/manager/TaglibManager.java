@@ -7,6 +7,7 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import com.yikangyiliao.pension.common.page.PageParameter;
 import com.yikangyiliao.pension.dao.TaglibDao;
 import com.yikangyiliao.pension.entity.Taglib;
 
@@ -91,6 +92,20 @@ public class TaglibManager {
      * */
     public List<Taglib> getMyWatchTaglibsByUserid(Long userId){
     	return taglibDao.getMyWatchTaglibsByUserid(userId);
+    }
+    
+    
+    /**
+     * @author houyt
+     * @date 2016-10-09 16:18
+     * @desc  获取我关注的标签
+     * */
+    public List<Taglib> getMyWatchTaglibsByUseridPage(Long serverUserId,Long userId,PageParameter page){
+    	Map<String,Object> paramMap = new HashMap<String, Object>();
+    	paramMap.put("serverUserId", serverUserId);
+    	paramMap.put("userId", userId);
+    	paramMap.put("page", page);
+    	return taglibDao.getMyWatchTaglibsByUseridPage(paramMap);
     }
     
     /**

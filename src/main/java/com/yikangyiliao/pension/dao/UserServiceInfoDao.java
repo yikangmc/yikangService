@@ -107,6 +107,20 @@ public interface UserServiceInfoDao {
      * **/
     List<UserServiceInfo> getMyFollowUser(Long createUserId);
     
+    /**
+     * @author houyt
+     * @date 2016-10-12 14:24
+     * @desc 查询我关注的用户
+     * **/
+    List<UserServiceInfo> getMyFollowUserPage(Map<String, Object> paramMap);
+    
+    /**
+     * @author houyt
+     * @date 2016-10-12 14:24
+     * @desc 查询我的粉丝
+     * **/
+    List<UserServiceInfo> getMyFansUserPage(Map<String, Object> paramMap);
+    
     
     
     /**
