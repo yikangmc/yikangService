@@ -1056,6 +1056,12 @@ public class UserService {
 			integralManager.insertIntegralAddScoreIsONCEJob("TGFH", Long.valueOf(userId));
 		}
 		
+		//设置绑定手机号
+		if(paramData.containsKey("bindMobileNumber")){
+			String bindMobileNumber=paramData.get("bindMobileNumber").toString();
+			userInfo.setBindMobileNumber(bindMobileNumber);
+		}
+		
 		userInfo.setUserId(Long.valueOf(userId));
 		userManager.updateByUserIdSelective(userInfo);
 		
@@ -1109,6 +1115,9 @@ public class UserService {
 						rtnMap.put("status", "999999");
 						rtnMap.put("message", "信息发送失败！");
 					}
+				}else{
+					rtnMap.put("status", "999999");
+					rtnMap.put("message", "用户未注册！");
 				}
 
 			}

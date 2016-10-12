@@ -27,6 +27,7 @@ public class SMSUtil {
 		
 		
 		validateMessageMode("验证码模板","35100"),
+		validateMessageModeTwo("验证码模板【佳佳康复】验证码{1},请于{2}分钟内正确输入","120721"),
 		getMyPassword("返回我的密码模板","53405");
 		
 		public  String modeName;
@@ -58,7 +59,7 @@ public class SMSUtil {
 		restAPI.setAccount(smsAccount,smsAccountTokent);// 初始化主帐号和主帐号TOKEN
 		restAPI.setAppId(smsAppid);// 初始化应用ID
 		//result = restAPI.sendTemplateSMS("号码1,号码2等","模板Id" ,new String[]{"模板内容1","模板内容2"});
-		result = restAPI.sendTemplateSMS(mobilePhoneNumber,messageMode.validateMessageMode.modeId ,new String[]{captcha,waitTime});
+		result = restAPI.sendTemplateSMS(mobilePhoneNumber,messageMode.validateMessageModeTwo.modeId ,new String[]{captcha,waitTime});
 
 		System.out.println("SDKTestSendTemplateSMS result=" + result);
 		if("000000".equals(result.get("statusCode"))){
