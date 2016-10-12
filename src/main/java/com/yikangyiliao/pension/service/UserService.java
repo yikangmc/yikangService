@@ -1009,6 +1009,12 @@ public class UserService {
 			String userCertificate = paramData.get("userCertificate").toString();
 			userServiceInfo.setUserCertificate(userCertificate);
 		}
+		
+		//设置用户认证手机号
+		if(paramData.containsKey("authMobileNumber")){
+			String authMobileNumber=paramData.get("authMobileNumber").toString();
+			userServiceInfo.setAuthMobileNumber(authMobileNumber);
+		}
 
 		userManager.updateUserServiceInfo(userServiceInfo);
 
