@@ -1036,6 +1036,12 @@ public class UserService {
 			userServiceInfo.setUserCertificate(userCertificate);
 		}
 		
+		//设置用户认证手机号
+		if(paramData.containsKey("authMobileNumber")){
+			String authMobileNumber=paramData.get("authMobileNumber").toString();
+			userServiceInfo.setAuthMobileNumber(authMobileNumber);
+		}
+		
 		userManager.updateUserServiceInfo(userServiceInfo);
 		
 		if(paramData.containsKey("birthday") && paramData.get("birthday").toString().length()>0){
