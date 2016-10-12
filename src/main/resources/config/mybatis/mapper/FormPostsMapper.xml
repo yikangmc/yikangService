@@ -422,7 +422,7 @@
 	left join designations  				on ui.designation_id=designations.designation_id
 	inner join  recommend_datas rd  on (forum_posts.forum_post_id=rd.data_id and rd.recomend_group=2 and rd.is_delete=0)
 	where forum_posts.forum_post_group=0
- 	order by stars desc
+ 	order by rd.orders ASC,stars desc
   </select>
   
   <!-- 获取最热帖子 -->
