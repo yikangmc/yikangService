@@ -605,7 +605,7 @@
 			<if test="newUserPosition != null">
 				new_user_position = #{newUserPosition,jdbcType=INTEGER},
 			</if>
-			<if test="oraganizationName != null">
+			<if test="oraganizationName != null and oraganizationName != ''">
 				oraganization_name =
 				#{oraganizationName,jdbcType=VARCHAR},
 			</if>

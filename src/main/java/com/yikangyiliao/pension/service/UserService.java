@@ -996,7 +996,9 @@ public class UserService {
 		// 机构名称
 		if (paramData.containsKey("oraganizationName")) {
 			String oraganizationName = paramData.get("oraganizationName").toString();
-			userServiceInfo.setOraganizationName(oraganizationName);
+			if(!oraganizationName.equals("")){
+				userServiceInfo.setOraganizationName(oraganizationName);
+			}
 		}
 
 		// 工作领域
