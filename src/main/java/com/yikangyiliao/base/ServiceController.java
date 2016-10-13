@@ -132,7 +132,8 @@ public class ServiceController {
 									logger.error(LogUtils.getErrorStr(getClass().getName(), "doMethod:133"));
 								}
 							} else {
-								logger.error(LogUtils.getErrorStr(getClass().getName(), "doMethod:136"));
+								//logger.error(LogUtils.getErrorStr(getClass().getName(), "doMethod:136"));
+								logger.info("没有登陆！");
 							}
 						}
 						
