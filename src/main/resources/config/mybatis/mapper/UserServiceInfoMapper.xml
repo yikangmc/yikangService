@@ -612,6 +612,9 @@
 			<if test="userIntroduce != null">
 				user_introduce = #{userIntroduce,jdbcType=VARCHAR},
 			</if>
+			<if test="userCertificate != null">
+				user_certificate = #{userCertificate,jdbcType=VARCHAR},
+			</if>
 			<if test="authMobileNumber != null">
 				auth_mobile_number =#{authMobileNumber,jdbcType=VARCHAR},
 			</if>
