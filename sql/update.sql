@@ -39,6 +39,24 @@ CREATE TABLE `question_answers_comment` (
 
 
 
+---以下未发版---
+
+
+ALTER TABLE user_infos 			ADD COLUMN bind_mobile_number varchar(25)  DEFAULT ''  COMMENT '绑定手机号';
+
+ALTER TABLE user_service_infos  ADD COLUMN auth_mobile_number varchar(25)  DEFAULT ''  COMMENT '职位认证手机号';
+
+INSERT INTO adepts(adept_name,  create_time, update_time, is_delete,  type)
+     VALUES ('运动康复',  20160630092121, 20160630092121, 0,  6);
+
+INSERT INTO adepts(adept_name,  create_time, update_time,  is_delete, type)
+     VALUES ('言语康复', 20160630092121,  20160630092121, 0,  6);
+
+INSERT INTO adepts(adept_name,  create_time, update_time,  is_delete, type)
+     VALUES ('作业康复', 20160630092121,  20160630092121, 0,  6);
+
+INSERT INTO adepts(adept_name, create_time, update_time,  is_delete, type)
+     VALUES ('体态矫正', 20160630092121,  20160630092121, 0,  6);
 
 
 
