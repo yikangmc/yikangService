@@ -27,16 +27,25 @@ public class MessageThreads {
 		ThreadPoolExecutor threadPoolExecutor=
 				new ThreadPoolExecutor(12, 20, 3000, TimeUnit.MINUTES, new ArrayBlockingQueue<Runnable>(3));
 		threadPoolExecutor.execute(messageSender);
+		threadPoolExecutor.execute(messageSender);
+		threadPoolExecutor.execute(messageSender);
+		threadPoolExecutor.execute(messageSender);
+		threadPoolExecutor.execute(messageSender);
 	}
 
 	public static void main(String[] args) throws InterruptedException {
-		Message<String> message=new Message<String>();
-		message.setAlias("message_info_533");
-		message.setContent("测试信息");
+		
 		MessageThreads messageThreads=new MessageThreads();
 		messageThreads.startSendMessage();
-		MessageQueue.put(message);
 		
+		for(int i=0;i<50;i++){
+			Message<String> message=new Message<String>();
+			message.setAlias("message_info_934");
+			message.setContent("测试信息");
+			MessageQueue.put(message);
+			MessageQueue.put(message);
+			MessageQueue.put(message);
+		}
 	}
 	
 }
