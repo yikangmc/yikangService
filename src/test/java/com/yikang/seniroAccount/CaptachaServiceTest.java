@@ -23,7 +23,7 @@ public class CaptachaServiceTest {
 	public void TestGetCaptacha(){
 		try {
 			Map<String,Object> paramData=new HashMap<String, Object>();
-			paramData.put("mobileNumber","18637769291");
+			paramData.put("mobileNumber","13716907523");
 			SendRequest.sendPost("00-25-01?appId='234'&mobileNumber=13716907523",paramData);
 		} catch (IOException e) {
 			e.printStackTrace();
@@ -33,8 +33,8 @@ public class CaptachaServiceTest {
 	public void TestGetDeviceAlias(){
 		try {
 			Map<String,Object> paramData=new HashMap<String, Object>();
-			paramData.put("mobileNumber","18637769291");
-			paramData.put("captchar","21907");
+			paramData.put("mobileNumber","13716907523");
+			paramData.put("captchar","61971");
 			SendRequest.sendPost("00-25-02?appId='234'&mobileNumber=13716907523",paramData);
 		} catch (IOException e) {
 			e.printStackTrace();

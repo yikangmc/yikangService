@@ -1,4 +1,3 @@
-
 package com.yikang.seniroAccount;
 
 import java.io.IOException;
@@ -31,19 +30,21 @@ public class UserTest {
 	@Test
 	public void TestRegisterUser(){
 		try {
+//			byby1-60   专家身份的号    brbr1-30 普通号    密码都用六个 1
 //			for(int i=1;i<51;i++){
-				Map<String,Object> paramData=new HashMap<String, Object>();
-				paramData.put("loginName","13716907546");
-				paramData.put("password","123456");
-				paramData.put("userFrom","7");
-				SendRequest.sendPost("registerUser?appId=1",paramData);
-//			}
-//			for(int i=141;i<201;i++){
 //				Map<String,Object> paramData=new HashMap<String, Object>();
-//				paramData.put("loginName","bingren"+i);
-//				paramData.put("password","111111");
+//				paramData.put("loginName","13716907546");
+//				paramData.put("password","123456");
+//				paramData.put("userFrom","7");
 //				SendRequest.sendPost("registerUser?appId=1",paramData);
 //			}
+//			byby1-60   专家身份的号    brbr1-30 普通号    密码都用六个 1
+			for(int i=1;i<60;i++){
+				Map<String,Object> paramData=new HashMap<String, Object>();
+				paramData.put("loginName","byby"+i);
+				paramData.put("password","111111");
+				SendRequest.sendPost("registerUser?appId=1",paramData);
+			}
 
 		} catch (IOException e) {
 			e.printStackTrace();

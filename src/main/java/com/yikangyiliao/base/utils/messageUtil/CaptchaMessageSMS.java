@@ -1,5 +1,6 @@
 package com.yikangyiliao.base.utils.messageUtil;
 
+import java.io.Serializable;
 import java.util.Calendar;
 import java.util.Date;
 
@@ -8,8 +9,12 @@ import java.util.Date;
  * @date 2016-03-22 11:49
  * @desc 验证码信息对象
  **/
-public class CaptchaMessageSMS {
+public class CaptchaMessageSMS implements Serializable{
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -1670557839776485748L;
 	/**
 	 * 手机号
 	 */
