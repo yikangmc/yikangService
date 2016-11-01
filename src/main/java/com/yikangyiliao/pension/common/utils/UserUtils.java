@@ -2,7 +2,6 @@ package com.yikangyiliao.pension.common.utils;
 
 import org.springframework.context.ApplicationContext;
 
-import com.yikangyiliao.base.cache.RedisExample;
 import com.yikangyiliao.base.utils.ApplicationContextUtil;
 import com.yikangyiliao.pension.entity.User;
 
@@ -19,7 +18,7 @@ public class UserUtils {
 	
 	private static ApplicationContext applicationContext=ApplicationContextUtil.applicationContext;
 	
-	private static RedisExample redisExample= ApplicationContextUtil.applicationContext.getBean(RedisExample.class);
+//	private static RedisExample redisExample= ApplicationContextUtil.applicationContext.getBean(RedisExample.class);
 	
 	/**
 	 * TODO 根据accessTiket 获取用户名称

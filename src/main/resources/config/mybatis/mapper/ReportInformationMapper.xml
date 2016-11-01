@@ -1,0 +1,172 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yikangyiliao.pension.dao.ReportInformationDao">
+	<resultMap id="BaseResultMap"
+		type="com.yikangyiliao.pension.entity.ReportInformation">
+		<id column="report_id" jdbcType="BIGINT" property="reportId" />
+		<result column="report_time" jdbcType="TIMESTAMP" property="reportTime" />
+		<result column="report_time_millisecond" jdbcType="BIGINT"
+			property="reportTimeMillisecond" />
+		<result column="report_group" jdbcType="TINYINT" property="reportGroup" />
+		<result column="content_group" jdbcType="TINYINT" property="contentGroup" />
+		<result column="data_id" jdbcType="BIGINT" property="dataId" />
+		<result column="user_id" jdbcType="BIGINT" property="userId" />
+		<result column="report_user_id" jdbcType="BIGINT" property="reportUserId" />
+		<result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+		<result column="data_status" jdbcType="TINYINT" property="dataStatus" />
+
+	</resultMap>
+	<sql id="Base_Column_List">
+		report_id, report_time, report_time_millisecond,
+		report_group, content_group,
+		data_id,
+		user_id, report_user_id,
+		update_time,data_status
+	</sql>
+	<select id="selectByPrimaryKey" parameterType="java.lang.Long"
+		resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		from report_informations
+		where report_id = #{reportId,jdbcType=BIGINT}
+	</select>
+	<delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+		delete from
+		report_informations
+		where report_id = #{reportId,jdbcType=BIGINT}
+	</delete>
+	<insert id="insert" parameterType="com.yikangyiliao.pension.entity.ReportInformation">
+		insert into
+		report_informations (report_id, report_time,
+		report_time_millisecond,
+		report_group, content_group, data_id,
+		user_id, report_user_id)
+		values
+		(#{reportId,jdbcType=BIGINT}, #{reportTime,jdbcType=TIMESTAMP},
+		#{reportTimeMillisecond,jdbcType=BIGINT},
+		#{reportGroup,jdbcType=TINYINT}, #{contentGroup,jdbcType=TINYINT},
+		#{dataId,jdbcType=BIGINT},
+		#{userId,jdbcType=BIGINT},
+		#{reportUserId,jdbcType=BIGINT},
+		#{updateTime,jdbcType=TIMESTAMP},
+		#{dataStatus,jdbcType=TINYINT})
+	</insert>
+	<insert id="insertSelective" parameterType="com.yikangyiliao.pension.entity.ReportInformation">
+		insert into report_informations
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="reportId != null">
+				report_id,
+			</if>
+			<if test="reportTime != null">
+				report_time,
+			</if>
+			<if test="reportTimeMillisecond != null">
+				report_time_millisecond,
+			</if>
+			<if test="reportGroup != null">
+				report_group,
+			</if>
+			<if test="contentGroup != null">
+				content_group,
+			</if>
+			<if test="dataId != null">
+				data_id,
+			</if>
+			<if test="userId != null">
+				user_id,
+			</if>
+			<if test="reportUserId != null">
+				report_user_id,
+			</if>
+			<if test="updateTime != null">
+				update_time,
+			</if>
+			<if test="dataStatus != null">
+				data_status,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="reportId != null">
+				#{reportId,jdbcType=BIGINT},
+			</if>
+			<if test="reportTime != null">
+				#{reportTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="reportTimeMillisecond != null">
+				#{reportTimeMillisecond,jdbcType=BIGINT},
+			</if>
+			<if test="reportGroup != null">
+				#{reportGroup,jdbcType=TINYINT},
+			</if>
+			<if test="contentGroup != null">
+				#{contentGroup,jdbcType=TINYINT},
+			</if>
+			<if test="dataId != null">
+				#{dataId,jdbcType=BIGINT},
+			</if>
+			<if test="userId != null">
+				#{userId,jdbcType=BIGINT},
+			</if>
+			<if test="reportUserId != null">
+				#{reportUserId,jdbcType=BIGINT},
+			</if>
+			<if test="updateTime != null">
+				update_time,
+			</if>
+			<if test="dataStatus != null">
+				data_status,
+			</if>
+		</trim>
+	</insert>
+	<update id="updateByPrimaryKeySelective" parameterType="com.yikangyiliao.pension.entity.ReportInformation">
+		update report_informations
+		<set>
+			<if test="reportTime != null">
+				report_time = #{reportTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="reportTimeMillisecond != null">
+				report_time_millisecond =
+				#{reportTimeMillisecond,jdbcType=BIGINT},
+			</if>
+			<if test="reportGroup != null">
+				report_group = #{reportGroup,jdbcType=TINYINT},
+			</if>
+			<if test="contentGroup != null">
+				content_group = #{contentGroup,jdbcType=TINYINT},
+			</if>
+			<if test="dataId != null">
+				data_id = #{dataId,jdbcType=BIGINT},
+			</if>
+			<if test="userId != null">
+				user_id = #{userId,jdbcType=BIGINT},
+			</if>
+			<if test="reportUserId != null">
+				report_user_id = #{reportUserId,jdbcType=BIGINT},
+			</if>
+			<if test="updateTime != null">
+				update_time=#{updateTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="dataStatus != null">
+				data_status=#{dataStatus,jdbcType=TINYINT},
+			</if>
+		</set>
+		where report_id = #{reportId,jdbcType=BIGINT}
+	</update>
+	<update id="updateByPrimaryKey" parameterType="com.yikangyiliao.pension.entity.ReportInformation">
+		update
+		report_informations
+		set report_time = #{reportTime,jdbcType=TIMESTAMP},
+		report_time_millisecond = #{reportTimeMillisecond,jdbcType=BIGINT},
+		report_group = #{reportGroup,jdbcType=TINYINT},
+		content_group =
+		#{contentGroup,jdbcType=TINYINT},
+		data_id = #{dataId,jdbcType=BIGINT},
+		user_id = #{userId,jdbcType=BIGINT},
+		report_user_id =
+		#{reportUserId,jdbcType=BIGINT},
+		update_time=#{updateTime,jdbcType=TIMESTAMP},
+		data_status=#{dataStatus,jdbcType=TINYINT},
+		where report_id =
+		#{reportId,jdbcType=BIGINT}
+	</update>
+</mapper>

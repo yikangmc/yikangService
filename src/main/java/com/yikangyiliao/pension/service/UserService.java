@@ -1405,5 +1405,11 @@ public class UserService {
 
 		return rtnData;
 	}
+	
+	public static void main(String[] args) {
+		double z=5.5;
+		z=5.5/4.0;
+		System.out.println(z);
+	}
 
 }

@@ -339,6 +339,7 @@ public class FormPostManager {
 		paramMap.put("userId", userId);
 		paramMap.put("forumPostGroup", 1);
 		paramMap.put("page",page);
+		paramMap.put("statusData", 3);
 		return formPostsDao.getForumPostsByTaglibsIdPage(paramMap);
 	}
 

@@ -4,12 +4,13 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Random; 
+import java.util.Random;
 
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.ui.ModelMap;
 
+import com.yikangyiliao.base.cache.RedisClient;
 import com.yikangyiliao.base.utils.messageUtil.CaptchaMessageSMS;
 import com.yikangyiliao.base.utils.messageUtil.SMSUtil;
 import com.yikangyiliao.pension.common.error.ExceptionConstants;
@@ -25,15 +26,8 @@ public class MobileCaptchaUtil {
 	//验证码，缓存集合
 	private static Map<String,CaptchaMessageSMS> CAPTCHACACHE=new HashMap<String,CaptchaMessageSMS>();
 	
+	private static RedisClient redisClient=ApplicationContextUtil.applicationContext.getBean(RedisClient.class);
 	
-	static{
-//		CaptchaMessageSMS cms=new CaptchaMessageSMS();
-//		cms.setMobileNumber("13716907523");
-//		cms.setCaptcha("123");
-//		cms.setSendDate(Calendar.getInstance().getTime());
-//		cms.setDestoryTime(1);
-//		CAPTCHACACHE.put("13716907523", cms);
-	}
 	/**
 	 * @author liushuaic
 	 * @date 2015/09/01 20:00
@@ -103,7 +97,7 @@ public class MobileCaptchaUtil {
 			int captcha = random.nextInt(99999);
 			
 			Date currentDate=Calendar.getInstance().getTime();
-			CaptchaMessageSMS cacheCMS=(CaptchaMessageSMS) MobileCaptchaUtil.CAPTCHACACHE.get(mobileNumber);
+			CaptchaMessageSMS cacheCMS= (CaptchaMessageSMS)redisClient.get(mobileNumber);
 			
 			
 			//判断是大于0
@@ -126,7 +120,8 @@ public class MobileCaptchaUtil {
 						cms.setMobileNumber(mobileNumber); //设置手机号
 						cms.setSendDate(currentDate);     //设置发送时间
 						cms.setCaptcha(captcha+"");
-						MobileCaptchaUtil.CAPTCHACACHE.put(mobileNumber, cms);
+						//MobileCaptchaUtil.CAPTCHACACHE.put(mobileNumber, cms);
+						redisClient.save(mobileNumber, cms);
 						responseMessage.setStatus(ExceptionConstants.responseSuccess.responseSuccess.code);
 						responseMessage.setMessage("您的验证码，已经发送！请注意，手机提醒！");
 					} else {
@@ -154,8 +149,9 @@ public class MobileCaptchaUtil {
 	public static boolean validateCaptcha(String mobileNumber,String captcha){
 		
 		if(null != mobileNumber && mobileNumber.length()==11){
-			if(MobileCaptchaUtil.CAPTCHACACHE.containsKey(mobileNumber)){
-				CaptchaMessageSMS cms=MobileCaptchaUtil.CAPTCHACACHE.get(mobileNumber);
+			Object object=redisClient.get(mobileNumber);
+			if(null != object){
+				CaptchaMessageSMS cms=(CaptchaMessageSMS)object;
 				if(!cms.isOutOfValidateTime()){
 					if(cms.getCaptcha().equals(captcha)){
 						MobileCaptchaUtil.CAPTCHACACHE.remove(mobileNumber);
