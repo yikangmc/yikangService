@@ -452,7 +452,7 @@
   <select id="getFormPostsAll" resultMap="BaseResultMap">
   	select 
   		<include refid="Base_Column_List"></include>
-  	from forum_posts where forum_posts.forum_post_group=1 order by create_time desc limit 200
+  	from forum_posts where forum_posts.forum_post_group=1 and forum_posts.data_status=3 order by create_time desc limit 200
   </select>
   
 </mapper>
