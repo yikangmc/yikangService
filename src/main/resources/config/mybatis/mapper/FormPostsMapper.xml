@@ -218,7 +218,7 @@
   </resultMap>
   <select id="getIsEssence" resultMap="formPostsResultMap" parameterType="map">
   <if test="null == userId">
-  		select 
+  	select 
 		<include refid="Base_Column_List"></include>,
 		(select count(1) from forum_posts_star_lists fpsl where fpsl.create_user_id=forum_post_id) as stars,
 		(select count(1) from forum_posts_answers fpa 	  where fpa.form_post_id=forum_post_id) as answersNums,
@@ -366,6 +366,9 @@
 	left join (select * from forum_posts_star_lists where create_user_id=#{userId}) fpsl on fpsl.forum_posts_id=fp.forum_post_id
 	where fptm.tag_libs_id=#{taglibId}
     and forum_post_group=#{forumPostGroup}
+    <if test="statusData!=null">
+    	 and fp.data_status=3
+    </if>
     order by fp.create_time desc
  </select>
   
@@ -422,7 +425,7 @@
 	left join designations  				on ui.designation_id=designations.designation_id
 	inner join  recommend_datas rd  on (forum_posts.forum_post_id=rd.data_id and rd.recomend_group=2 and rd.is_delete=0)
 	where forum_posts.forum_post_group=0
- 	order by stars desc
+ 	order by rd.orders ASC,stars desc
   </select>
   
   <!-- 获取最热帖子 -->

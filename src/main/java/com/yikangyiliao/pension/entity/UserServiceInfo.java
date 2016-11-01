@@ -109,6 +109,10 @@ public class UserServiceInfo {
     
     private int questionAnswerNumber;
     
+    //认证手机号
+    private String authMobileNumber;
+    
+    
     public int getQuestionAnswerNumber() {
 		return questionAnswerNumber;
 	}
@@ -469,6 +473,14 @@ public class UserServiceInfo {
 
 	public void setWatchUserNumber(int watchUserNumber) {
 		this.watchUserNumber = watchUserNumber;
+	}
+
+	public String getAuthMobileNumber() {
+		return authMobileNumber;
+	}
+
+	public void setAuthMobileNumber(String authMobileNumber) {
+		this.authMobileNumber = authMobileNumber;
 	}
 
 	

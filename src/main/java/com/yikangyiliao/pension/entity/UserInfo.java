@@ -35,7 +35,11 @@ public class UserInfo {
     
     private Long designationId;
     
+    private Long reportValidNumber;
+    
     private String designationName;
+    
+    private String bindMobileNumber;
 
     public Long getUserInfoId() {
         return userInfoId;
@@ -171,5 +175,21 @@ public class UserInfo {
 
 	public void setDesignationName(String designationName) {
 		this.designationName = designationName;
+	}
+
+	public String getBindMobileNumber() {
+		return bindMobileNumber;
+	}
+
+	public void setBindMobileNumber(String bindMobileNumber) {
+		this.bindMobileNumber = bindMobileNumber;
+	}
+
+	public Long getReportValidNumber() {
+		return reportValidNumber;
+	}
+
+	public void setReportValidNumber(Long reportValidNumber) {
+		this.reportValidNumber = reportValidNumber;
 	}
 }

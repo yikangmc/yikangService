@@ -27,9 +27,15 @@
 <!-- 		<property name="password" value="yikangtest"></property> -->
 
 <!-- 北京测试 -->
+<<<<<<< HEAD
 		<property name="url" value="jdbc:mysql://yikangstaging.cdry2qjq29ol.rds.cn-north-1.amazonaws.com.cn:3306/yikangNew?useUnicode=yes&amp;characterEncoding=UTF8"></property>
 		<property name="username" value="yikangstaging"></property>
 		<property name="password" value="yikangstaging"></property>
+=======
+		<!-- <property name="url" value="jdbc:mysql://yikangstaging.cdry2qjq29ol.rds.cn-north-1.amazonaws.com.cn:3306/yikangNew?useUnicode=yes&amp;characterEncoding=UTF8"></property>
+		<property name="username" value="yikangstaging"></property>
+		<property name="password" value="yikangstaging"></property> -->
+>>>>>>> 55c5e1e0b51ed6b6651717c30874858acb1c0431
 		<property name="driverClassName" value="com.mysql.jdbc.Driver"></property>
 		<property name="validationQuery" value="select 1"></property>
 	</bean>

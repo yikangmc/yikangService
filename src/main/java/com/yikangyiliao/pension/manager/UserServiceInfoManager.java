@@ -7,6 +7,7 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import com.yikangyiliao.pension.common.page.PageParameter;
 import com.yikangyiliao.pension.dao.UserServiceInfoDao;
 import com.yikangyiliao.pension.entity.UserServiceInfo;
 
@@ -38,6 +39,33 @@ public class UserServiceInfoManager {
 	 * */
 	public List<UserServiceInfo> getMyFollowUser(Long createUserId){
 		return userServiceInfoDao.getMyFollowUser(createUserId);
+	}
+	
+	
+	/**
+     * @author houyt
+     * @date 2016-10-09 16:45
+     * @desc 查询我关注的用户
+     * **/
+	public List<UserServiceInfo> getMyFollowUserPage(Long serverUserId,Long userId,PageParameter page){
+		Map<String, Object> paramMap = new HashMap<String, Object>();
+		paramMap.put("userId", userId);
+		paramMap.put("serverUserId", serverUserId);
+		paramMap.put("page", page);
+		return userServiceInfoDao.getMyFollowUserPage(paramMap);
+	}
+	
+	/**
+     * @author houyt
+     * @date 2016-10-09 16:45
+     * @desc 查询我的粉丝
+     * **/
+	public List<UserServiceInfo> getMyFansUserPage(Long serverUserId,Long userId,PageParameter page){
+		Map<String, Object> paramMap = new HashMap<String, Object>();
+		paramMap.put("serverUserId", serverUserId);
+		paramMap.put("userId", userId);
+		paramMap.put("page", page);
+		return userServiceInfoDao.getMyFansUserPage(paramMap);
 	}
 	
 	  

@@ -310,8 +310,9 @@ public class UserTest {
 			adpets.add(1);
 			adpets.add(2);
 			
-			
-			paramData.put("adepts", adpets);
+			paramData.put("bindMobileNumber","13716907523");
+			paramData.put("userCertificate","asdfasdf");
+//			paramData.put("adepts", adpets);
 			
 			SendRequest.sendPost("00-17-12?appId=234&accessTicket=4286a50e808d04da0d39e4a83ef19f44aefb5c39877bd22903d981090d1f3b7c5e4c7afd323d91954ba85f0a1bf9bb45&machineCode=123123",paramData);
 		} catch (IOException e) {

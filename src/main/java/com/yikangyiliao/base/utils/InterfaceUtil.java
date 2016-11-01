@@ -180,6 +180,30 @@ public class InterfaceUtil {
 		mathodServiceConfig.put("00-17-15", getUserServiceInfoByServerUserId);
 
 		/**
+		 * @author houyt
+		 * @date 2016-10-09 16:45
+		 * @desc 查询我关注的用户
+		 **/
+		YiKangServiceConfige getMyFollowUserPage=new YiKangServiceConfige();
+		getMyFollowUserPage.setServiceName("userService");
+		getMyFollowUserPage.setMethodName("getMyFollowUserPage");
+		getMyFollowUserPage.setIsFileter(false);
+		mathodServiceConfig.put("00-17-16",getMyFollowUserPage);
+		
+		
+		/**
+		 * @author houyt
+		 * @date 2016-10-09 16:45
+		 * @desc 查询我的粉丝
+		 **/
+		YiKangServiceConfige getMyFansUserPage=new YiKangServiceConfige();
+		getMyFansUserPage.setServiceName("userService");
+		getMyFansUserPage.setMethodName("getMyFansUserPage");
+		getMyFansUserPage.setIsFileter(false);
+		mathodServiceConfig.put("00-17-17",getMyFansUserPage);
+		
+		
+		/**
 		 * @author liushuaic
 		 * @date 2015/09/01 14:19
 		 * @desc 设备管理
@@ -609,8 +633,25 @@ public class InterfaceUtil {
 		getTaglibByTaglibIdUserId.setServiceName("taglibService");
 		getTaglibByTaglibIdUserId.setMethodName("getTaglibByTaglibIdUserId");
 		getTaglibByTaglibIdUserId.setIsFileter(false);
+<<<<<<< HEAD
 		mathodServiceConfig.put("00-30-07", getTaglibByTaglibIdUserId);
 
+=======
+		mathodServiceConfig.put("00-30-07",getTaglibByTaglibIdUserId);
+		
+		/**
+	     * @author houyt
+	     * @date 2016-10-09 16:18
+	     * @desc  获取我关注的标签
+	     * */
+		YiKangServiceConfige getMyWatchTaglibsByUseridPage=new YiKangServiceConfige();
+		getMyWatchTaglibsByUseridPage.setServiceName("taglibService");
+		getMyWatchTaglibsByUseridPage.setMethodName("getMyWatchTaglibsByUseridPage");
+		getMyWatchTaglibsByUseridPage.setIsFileter(false);
+		mathodServiceConfig.put("00-30-09",getMyWatchTaglibsByUseridPage);
+		
+		
+>>>>>>> 55c5e1e0b51ed6b6651717c30874858acb1c0431
 		/**
 		 * @author liushuaic
 		 * @date 2016-05-12 15:03
@@ -1004,6 +1045,7 @@ public class InterfaceUtil {
 		getQuestionAnswersCommentDetail.setMethodName("getQuestionAnswersCommentDetail");
 		getQuestionAnswersCommentDetail.setIsFileter(false);
 		mathodServiceConfig.put("00-45-02", getQuestionAnswersCommentDetail);
+<<<<<<< HEAD
 
 		/**
 		 * 
@@ -1028,6 +1070,9 @@ public class InterfaceUtil {
 		addReportInformation.setIsFileter(false);
 		mathodServiceConfig.put("00-47-01", addReportInformation);
 
+=======
+		
+>>>>>>> 55c5e1e0b51ed6b6651717c30874858acb1c0431
 	}
 
 	public void loadConfigInterface(String filePath) {

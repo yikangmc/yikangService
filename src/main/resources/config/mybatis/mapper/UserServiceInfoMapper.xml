@@ -1,411 +1,414 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.yikangyiliao.pension.dao.UserServiceInfoDao">
-  <resultMap id="BaseResultMap" type="com.yikangyiliao.pension.entity.UserServiceInfo">
-    <id column="user_service_info_id" jdbcType="BIGINT" property="userServiceInfoId" />
-    <result column="user_id" jdbcType="BIGINT" property="userId" />
-    <result column="job_category" jdbcType="BIGINT" property="jobCategory" />
-    <result column="user_position" jdbcType="TINYINT" property="userPosition" />
-    <result column="provence_code" jdbcType="BIGINT" property="provenceCode" />
-    <result column="city_code" jdbcType="BIGINT" property="cityCode" />
-    <result column="district_code" jdbcType="BIGINT" property="districtCode" />
-    <result column="address_detail" jdbcType="VARCHAR" property="addressDetail" />
-    <result column="photo_url" jdbcType="VARCHAR" property="photoUrl" />
-    <result column="create_time" jdbcType="BIGINT" property="createTime" />
-    <result column="update_time" jdbcType="BIGINT" property="updateTime" />
-    <result column="is_delete" jdbcType="TINYINT" property="isDelete" />
-    <result column="user_service_name" jdbcType="VARCHAR" property="userServiceName" />
-    <result column="longitude" jdbcType="DOUBLE" property="longitude" />
-    <result column="latitude" jdbcType="DOUBLE" property="latitude" />
-    <result column="map_position_address" jdbcType="VARCHAR" property="mapPositionAddress" />
-    <result column="hospital" jdbcType="VARCHAR" property="hospital" />
-    <result column="offices" jdbcType="INTEGER" property="offices" />
-    <result column="adept" jdbcType="VARCHAR" property="adept" />
-    <result column="position_audit_status" jdbcType="TINYINT" property="positionAuditStatus" />
-    <result column="new_user_position" jdbcType="BIGINT" property="newUserPosition" />
-    <result column="oraganization_name" jdbcType="VARCHAR" property="oraganizationName" />
-    <result column="user_introduce" jdbcType="VARCHAR" property="userIntroduce" />
-    <result column="work_realm" jdbcType="TINYINT" property="workRealm" />
-    <result column="user_certificate" jdbcType="VARCHAR" property="userCertificate" />
-  </resultMap>
-  <sql id="Base_Column_List">
-    user_service_info_id, user_id, job_category, user_position, provence_code, city_code, 
-    district_code, address_detail, photo_url, create_time, update_time, is_delete, user_service_name, 
-    longitude, latitude, map_position_address, hospital, offices, adept, position_audit_status, 
-    new_user_position, oraganization_name, user_introduce, work_realm, user_certificate
-  </sql>
-  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
-    select 
-    <include refid="Base_Column_List" />
-    from user_service_infos
-    where user_service_info_id = #{userServiceInfoId,jdbcType=BIGINT}
-  </select>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
-    delete from user_service_infos
-    where user_service_info_id = #{userServiceInfoId,jdbcType=BIGINT}
-  </delete>
-  <insert id="insert" parameterType="com.yikangyiliao.pension.entity.UserServiceInfo">
-    insert into user_service_infos (user_service_info_id, user_id, job_category, 
-      user_position, provence_code, city_code, 
-      district_code, address_detail, photo_url, 
-      create_time, update_time, is_delete, 
-      user_service_name, longitude, latitude, 
-      map_position_address, hospital, offices, 
-      adept, position_audit_status, new_user_position, 
-      oraganization_name, user_introduce, work_realm, 
-      user_certificate)
-    values (#{userServiceInfoId,jdbcType=BIGINT}, #{userId,jdbcType=BIGINT}, #{jobCategory,jdbcType=BIGINT}, 
-      #{userPosition,jdbcType=TINYINT}, #{provenceCode,jdbcType=BIGINT}, #{cityCode,jdbcType=BIGINT}, 
-      #{districtCode,jdbcType=BIGINT}, #{addressDetail,jdbcType=VARCHAR}, #{photoUrl,jdbcType=VARCHAR}, 
-      #{createTime,jdbcType=BIGINT}, #{updateTime,jdbcType=BIGINT}, #{isDelete,jdbcType=TINYINT}, 
-      #{userServiceName,jdbcType=VARCHAR}, #{longitude,jdbcType=DOUBLE}, #{latitude,jdbcType=DOUBLE}, 
-      #{mapPositionAddress,jdbcType=VARCHAR}, #{hospital,jdbcType=VARCHAR}, #{offices,jdbcType=INTEGER}, 
-      #{adept,jdbcType=VARCHAR}, #{positionAuditStatus,jdbcType=TINYINT}, #{newUserPosition,jdbcType=BIGINT}, 
-      #{oraganizationName,jdbcType=VARCHAR}, #{userIntroduce,jdbcType=VARCHAR}, #{workRealm,jdbcType=TINYINT}, 
-      #{userCertificate,jdbcType=VARCHAR})
-  </insert>
-  <insert id="insertSelective" parameterType="com.yikangyiliao.pension.entity.UserServiceInfo">
-    insert into user_service_infos
-    <trim prefix="(" suffix=")" suffixOverrides=",">
-      <if test="userServiceInfoId != null">
-        user_service_info_id,
-      </if>
-      <if test="userId != null">
-        user_id,
-      </if>
-      <if test="jobCategory != null">
-        job_category,
-      </if>
-      <if test="userPosition != null">
-        user_position,
-      </if>
-      <if test="provenceCode != null">
-        provence_code,
-      </if>
-      <if test="cityCode != null">
-        city_code,
-      </if>
-      <if test="districtCode != null">
-        district_code,
-      </if>
-      <if test="addressDetail != null">
-        address_detail,
-      </if>
-      <if test="photoUrl != null">
-        photo_url,
-      </if>
-      <if test="createTime != null">
-        create_time,
-      </if>
-      <if test="updateTime != null">
-        update_time,
-      </if>
-      <if test="isDelete != null">
-        is_delete,
-      </if>
-      <if test="userServiceName != null">
-        user_service_name,
-      </if>
-      <if test="longitude != null">
-        longitude,
-      </if>
-      <if test="latitude != null">
-        latitude,
-      </if>
-      <if test="mapPositionAddress != null">
-        map_position_address,
-      </if>
-      <if test="hospital != null">
-        hospital,
-      </if>
-      <if test="offices != null">
-        offices,
-      </if>
-      <if test="adept != null">
-        adept,
-      </if>
-      <if test="positionAuditStatus != null">
-        position_audit_status,
-      </if>
-      <if test="newUserPosition != null">
-        new_user_position,
-      </if>
-      <if test="oraganizationName != null">
-        oraganization_name,
-      </if>
-      <if test="userIntroduce != null">
-        user_introduce,
-      </if>
-      <if test="workRealm != null">
-        work_realm,
-      </if>
-      <if test="userCertificate != null">
-        user_certificate,
-      </if>
-    </trim>
-    <trim prefix="values (" suffix=")" suffixOverrides=",">
-      <if test="userServiceInfoId != null">
-        #{userServiceInfoId,jdbcType=BIGINT},
-      </if>
-      <if test="userId != null">
-        #{userId,jdbcType=BIGINT},
-      </if>
-      <if test="jobCategory != null">
-        #{jobCategory,jdbcType=BIGINT},
-      </if>
-      <if test="userPosition != null">
-        #{userPosition,jdbcType=TINYINT},
-      </if>
-      <if test="provenceCode != null">
-        #{provenceCode,jdbcType=BIGINT},
-      </if>
-      <if test="cityCode != null">
-        #{cityCode,jdbcType=BIGINT},
-      </if>
-      <if test="districtCode != null">
-        #{districtCode,jdbcType=BIGINT},
-      </if>
-      <if test="addressDetail != null">
-        #{addressDetail,jdbcType=VARCHAR},
-      </if>
-      <if test="photoUrl != null">
-        #{photoUrl,jdbcType=VARCHAR},
-      </if>
-      <if test="createTime != null">
-        #{createTime,jdbcType=BIGINT},
-      </if>
-      <if test="updateTime != null">
-        #{updateTime,jdbcType=BIGINT},
-      </if>
-      <if test="isDelete != null">
-        #{isDelete,jdbcType=TINYINT},
-      </if>
-      <if test="userServiceName != null">
-        #{userServiceName,jdbcType=VARCHAR},
-      </if>
-      <if test="longitude != null">
-        #{longitude,jdbcType=DOUBLE},
-      </if>
-      <if test="latitude != null">
-        #{latitude,jdbcType=DOUBLE},
-      </if>
-      <if test="mapPositionAddress != null">
-        #{mapPositionAddress,jdbcType=VARCHAR},
-      </if>
-      <if test="hospital != null">
-        #{hospital,jdbcType=VARCHAR},
-      </if>
-      <if test="offices != null">
-        #{offices,jdbcType=INTEGER},
-      </if>
-      <if test="adept != null">
-        #{adept,jdbcType=VARCHAR},
-      </if>
-      <if test="positionAuditStatus != null">
-        #{positionAuditStatus,jdbcType=TINYINT},
-      </if>
-      <if test="newUserPosition != null">
-        #{newUserPosition,jdbcType=BIGINT},
-      </if>
-      <if test="oraganizationName != null">
-        #{oraganizationName,jdbcType=VARCHAR},
-      </if>
-      <if test="userIntroduce != null">
-        #{userIntroduce,jdbcType=VARCHAR},
-      </if>
-      <if test="workRealm != null">
-        #{workRealm,jdbcType=TINYINT},
-      </if>
-      <if test="userCertificate != null">
-        #{userCertificate,jdbcType=VARCHAR},
-      </if>
-    </trim>
-  </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="com.yikangyiliao.pension.entity.UserServiceInfo">
-    update user_service_infos
-    <set>
-      <if test="userId != null">
-        user_id = #{userId,jdbcType=BIGINT},
-      </if>
-      <if test="jobCategory != null">
-        job_category = #{jobCategory,jdbcType=BIGINT},
-      </if>
-      <if test="userPosition != null">
-        user_position = #{userPosition,jdbcType=TINYINT},
-      </if>
-      <if test="provenceCode != null">
-        provence_code = #{provenceCode,jdbcType=BIGINT},
-      </if>
-      <if test="cityCode != null">
-        city_code = #{cityCode,jdbcType=BIGINT},
-      </if>
-      <if test="districtCode != null">
-        district_code = #{districtCode,jdbcType=BIGINT},
-      </if>
-      <if test="addressDetail != null">
-        address_detail = #{addressDetail,jdbcType=VARCHAR},
-      </if>
-      <if test="photoUrl != null">
-        photo_url = #{photoUrl,jdbcType=VARCHAR},
-      </if>
-      <if test="createTime != null">
-        create_time = #{createTime,jdbcType=BIGINT},
-      </if>
-      <if test="updateTime != null">
-        update_time = #{updateTime,jdbcType=BIGINT},
-      </if>
-      <if test="isDelete != null">
-        is_delete = #{isDelete,jdbcType=TINYINT},
-      </if>
-      <if test="userServiceName != null">
-        user_service_name = #{userServiceName,jdbcType=VARCHAR},
-      </if>
-      <if test="longitude != null">
-        longitude = #{longitude,jdbcType=DOUBLE},
-      </if>
-      <if test="latitude != null">
-        latitude = #{latitude,jdbcType=DOUBLE},
-      </if>
-      <if test="mapPositionAddress != null">
-        map_position_address = #{mapPositionAddress,jdbcType=VARCHAR},
-      </if>
-      <if test="hospital != null">
-        hospital = #{hospital,jdbcType=VARCHAR},
-      </if>
-      <if test="offices != null">
-        offices = #{offices,jdbcType=INTEGER},
-      </if>
-      <if test="adept != null">
-        adept = #{adept,jdbcType=VARCHAR},
-      </if>
-      <if test="positionAuditStatus != null">
-        position_audit_status = #{positionAuditStatus,jdbcType=TINYINT},
-      </if>
-      <if test="newUserPosition != null">
-        new_user_position = #{newUserPosition,jdbcType=BIGINT},
-      </if>
-      <if test="oraganizationName != null">
-        oraganization_name = #{oraganizationName,jdbcType=VARCHAR},
-      </if>
-      <if test="userIntroduce != null">
-        user_introduce = #{userIntroduce,jdbcType=VARCHAR},
-      </if>
-      <if test="workRealm != null">
-        work_realm = #{workRealm,jdbcType=TINYINT},
-      </if>
-      <if test="userCertificate != null">
-        user_certificate = #{userCertificate,jdbcType=VARCHAR},
-      </if>
-    </set>
-    where user_service_info_id = #{userServiceInfoId,jdbcType=BIGINT}
-  </update>
-  <update id="updateByPrimaryKey" parameterType="com.yikangyiliao.pension.entity.UserServiceInfo">
-    update user_service_infos
-    set user_id = #{userId,jdbcType=BIGINT},
-      job_category = #{jobCategory,jdbcType=BIGINT},
-      user_position = #{userPosition,jdbcType=TINYINT},
-      provence_code = #{provenceCode,jdbcType=BIGINT},
-      city_code = #{cityCode,jdbcType=BIGINT},
-      district_code = #{districtCode,jdbcType=BIGINT},
-      address_detail = #{addressDetail,jdbcType=VARCHAR},
-      photo_url = #{photoUrl,jdbcType=VARCHAR},
-      create_time = #{createTime,jdbcType=BIGINT},
-      update_time = #{updateTime,jdbcType=BIGINT},
-      is_delete = #{isDelete,jdbcType=TINYINT},
-      user_service_name = #{userServiceName,jdbcType=VARCHAR},
-      longitude = #{longitude,jdbcType=DOUBLE},
-      latitude = #{latitude,jdbcType=DOUBLE},
-      map_position_address = #{mapPositionAddress,jdbcType=VARCHAR},
-      hospital = #{hospital,jdbcType=VARCHAR},
-      offices = #{offices,jdbcType=INTEGER},
-      adept = #{adept,jdbcType=VARCHAR},
-      position_audit_status = #{positionAuditStatus,jdbcType=TINYINT},
-      new_user_position = #{newUserPosition,jdbcType=BIGINT},
-      oraganization_name = #{oraganizationName,jdbcType=VARCHAR},
-      user_introduce = #{userIntroduce,jdbcType=VARCHAR},
-      work_realm = #{workRealm,jdbcType=TINYINT},
-      user_certificate = #{userCertificate,jdbcType=VARCHAR}
-    where user_service_info_id = #{userServiceInfoId,jdbcType=BIGINT}
-  </update>
+	<resultMap id="BaseResultMap"
+		type="com.yikangyiliao.pension.entity.UserServiceInfo">
+		<id column="user_service_info_id" property="userServiceInfoId"
+			jdbcType="BIGINT" />
+		<result column="user_id" property="userId" jdbcType="BIGINT" />
+		<result column="job_category" property="jobCategory" jdbcType="BIGINT" />
+		<result column="user_position" property="userPosition"
+			jdbcType="TINYINT" />
+		<result column="provence_code" property="provenceCode"
+			jdbcType="BIGINT" />
+		<result column="city_code" property="cityCode" jdbcType="BIGINT" />
+		<result column="district_code" property="districtCode"
+			jdbcType="BIGINT" />
+		<result column="address_detail" property="addressDetail"
+			jdbcType="VARCHAR" />
+		<result column="photo_url" property="photoUrl" jdbcType="VARCHAR" />
+		<result column="create_time" property="createTime" jdbcType="BIGINT" />
+		<result column="update_time" property="updateTime" jdbcType="BIGINT" />
+		<result column="is_delete" property="isDelete" jdbcType="TINYINT" />
+		<result column="user_service_name" property="userServiceName"
+			jdbcType="VARCHAR" />
+		<result column="longitude" property="longitude" jdbcType="DOUBLE" />
+		<result column="latitude" property="latitude" jdbcType="DOUBLE" />
+		<result column="map_position_address" property="mapPositionAddress"
+			jdbcType="VARCHAR" />
+		<result column="hospital" property="hospital" jdbcType="VARCHAR" />
+		<result column="offices" property="offices" jdbcType="INTEGER" />
+		<result column="adept" property="adept" jdbcType="VARCHAR" />
+		<result column="position_audit_status" property="positionAuditStatus"
+			jdbcType="TINYINT" />
+		<result column="new_user_position" property="newUserPosition"
+			jdbcType="BIGINT" />
+		<result column="oraganization_name" property="oraganizationName"
+			jdbcType="VARCHAR" />
+		<result column="user_introduce" property="userIntroduce"
+			jdbcType="VARCHAR" />
+		<result column="work_realm" property="workRealm" jdbcType="TINYINT" />
+		<result column="user_certificate" property="userCertificate"
+			jdbcType="VARCHAR" />
+		<result column="auth_mobile_number" property="authMobileNumber"
+			jdbcType="VARCHAR" />
+	</resultMap>
+	<sql id="Base_Column_List">
+		user_service_info_id, user_id, job_category, user_position,
+		provence_code, city_code,
+		district_code, address_detail, photo_url,
+		create_time, update_time,
+		is_delete, user_service_name,
+		longitude,
+		latitude, map_position_address, hospital, offices, adept,
+		position_audit_status,
+		new_user_position, oraganization_name,
+		user_introduce, work_realm, user_certificate,
+		auth_mobile_number
+	</sql>
+	<select id="selectByPrimaryKey" resultMap="BaseResultMap"
+		parameterType="java.lang.Long">
+		select
+		<include refid="Base_Column_List" />
+		from user_service_infos
+		where user_service_info_id =
+		#{userServiceInfoId,jdbcType=BIGINT}
+	</select>
+	<delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+		delete from
+		user_service_infos
+		where user_service_info_id =
+		#{userServiceInfoId,jdbcType=BIGINT}
+	</delete>
+	<insert id="insert" parameterType="com.yikangyiliao.pension.entity.UserServiceInfo">
+		insert into user_service_infos
+		(user_service_info_id, user_id,
+		job_category,
+		user_position,
+		provence_code, city_code,
+		district_code, address_detail, photo_url,
+		create_time, update_time, is_delete,
+		user_service_name, longitude,
+		latitude,
+		map_position_address, hospital, offices,
+		adept,
+		position_audit_status, new_user_position,
+		oraganization_name,
+		user_introduce, work_realm,
+		user_certificate, auth_mobile_number)
+		values (#{userServiceInfoId,jdbcType=BIGINT},
+		#{userId,jdbcType=BIGINT},
+		#{jobCategory,jdbcType=BIGINT},
+		#{userPosition,jdbcType=TINYINT}, #{provenceCode,jdbcType=BIGINT},
+		#{cityCode,jdbcType=BIGINT},
+		#{districtCode,jdbcType=BIGINT},
+		#{addressDetail,jdbcType=VARCHAR},
+		#{photoUrl,jdbcType=VARCHAR},
+		#{createTime,jdbcType=BIGINT}, #{updateTime,jdbcType=BIGINT},
+		#{isDelete,jdbcType=TINYINT},
+		#{userServiceName,jdbcType=VARCHAR},
+		#{longitude,jdbcType=DOUBLE},
+		#{latitude,jdbcType=DOUBLE},
+		#{mapPositionAddress,jdbcType=VARCHAR}, #{hospital,jdbcType=VARCHAR},
+		#{offices,jdbcType=INTEGER},
+		#{adept,jdbcType=VARCHAR},
+		#{positionAuditStatus,jdbcType=TINYINT},
+		#{newUserPosition,jdbcType=BIGINT},
+		#{oraganizationName,jdbcType=VARCHAR},
+		#{userIntroduce,jdbcType=VARCHAR}, #{workRealm,jdbcType=TINYINT},
+		#{userCertificate,jdbcType=VARCHAR},
+		#{authMobileNumber,jdbcType=VARCHAR})
+	</insert>
+	<insert id="insertSelective" parameterType="com.yikangyiliao.pension.entity.UserServiceInfo">
+		insert into user_service_infos
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="userServiceInfoId != null">
+				user_service_info_id,
+			</if>
+			<if test="userId != null">
+				user_id,
+			</if>
+			<if test="jobCategory != null">
+				job_category,
+			</if>
+			<if test="userPosition != null">
+				user_position,
+			</if>
+			<if test="provenceCode != null">
+				provence_code,
+			</if>
+			<if test="cityCode != null">
+				city_code,
+			</if>
+			<if test="districtCode != null">
+				district_code,
+			</if>
+			<if test="addressDetail != null">
+				address_detail,
+			</if>
+			<if test="photoUrl != null">
+				photo_url,
+			</if>
+			<if test="createTime != null">
+				create_time,
+			</if>
+			<if test="updateTime != null">
+				update_time,
+			</if>
+			<if test="isDelete != null">
+				is_delete,
+			</if>
+			<if test="userServiceName != null">
+				user_service_name,
+			</if>
+			<if test="longitude != null">
+				longitude,
+			</if>
+			<if test="latitude != null">
+				latitude,
+			</if>
+			<if test="mapPositionAddress != null">
+				map_position_address,
+			</if>
+			<if test="hospital != null">
+				hospital,
+			</if>
+			<if test="offices != null">
+				offices,
+			</if>
+			<if test="adept != null">
+				adept,
+			</if>
+			<if test="positionAuditStatus != null">
+				position_audit_status,
+			</if>
+			<if test="newUserPosition != null">
+				new_user_position,
+			</if>
+			<if test="oraganizationName != null">
+				oraganization_name,
+			</if>
+			<if test="userIntroduce != null">
+				user_introduce,
+			</if>
+			<if test="workRealm != null">
+				work_realm,
+			</if>
+			<if test="userCertificate != null">
+				user_certificate,
+			</if>
+			<if test="authMobileNumber != null">
+				auth_mobile_number,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="userServiceInfoId != null">
+				#{userServiceInfoId,jdbcType=BIGINT},
+			</if>
+			<if test="userId != null">
+				#{userId,jdbcType=BIGINT},
+			</if>
+			<if test="jobCategory != null">
+				#{jobCategory,jdbcType=BIGINT},
+			</if>
+			<if test="userPosition != null">
+				#{userPosition,jdbcType=TINYINT},
+			</if>
+			<if test="provenceCode != null">
+				#{provenceCode,jdbcType=BIGINT},
+			</if>
+			<if test="cityCode != null">
+				#{cityCode,jdbcType=BIGINT},
+			</if>
+			<if test="districtCode != null">
+				#{districtCode,jdbcType=BIGINT},
+			</if>
+			<if test="addressDetail != null">
+				#{addressDetail,jdbcType=VARCHAR},
+			</if>
+			<if test="photoUrl != null">
+				#{photoUrl,jdbcType=VARCHAR},
+			</if>
+			<if test="createTime != null">
+				#{createTime,jdbcType=BIGINT},
+			</if>
+			<if test="updateTime != null">
+				#{updateTime,jdbcType=BIGINT},
+			</if>
+			<if test="isDelete != null">
+				#{isDelete,jdbcType=TINYINT},
+			</if>
+			<if test="userServiceName != null">
+				#{userServiceName,jdbcType=VARCHAR},
+			</if>
+			<if test="longitude != null">
+				#{longitude,jdbcType=DOUBLE},
+			</if>
+			<if test="latitude != null">
+				#{latitude,jdbcType=DOUBLE},
+			</if>
+			<if test="mapPositionAddress != null">
+				#{mapPositionAddress,jdbcType=VARCHAR},
+			</if>
+			<if test="hospital != null">
+				#{hospital,jdbcType=VARCHAR},
+			</if>
+			<if test="offices != null">
+				#{offices,jdbcType=INTEGER},
+			</if>
+			<if test="adept != null">
+				#{adept,jdbcType=VARCHAR},
+			</if>
+			<if test="positionAuditStatus != null">
+				#{positionAuditStatus,jdbcType=TINYINT},
+			</if>
+			<if test="newUserPosition != null">
+				#{newUserPosition,jdbcType=BIGINT},
+			</if>
+			<if test="oraganizationName != null">
+				#{oraganizationName,jdbcType=VARCHAR},
+			</if>
+			<if test="userIntroduce != null">
+				#{userIntroduce,jdbcType=VARCHAR},
+			</if>
+			<if test="workRealm != null">
+				#{workRealm,jdbcType=TINYINT},
+			</if>
+			<if test="userCertificate != null">
+				#{userCertificate,jdbcType=VARCHAR},
+			</if>
+			<if test="authMobileNumber != null">
+				#{authMobileNumber,jdbcType=VARCHAR},
+			</if>
+		</trim>
+	</insert>
+	<update id="updateByPrimaryKeySelective" parameterType="com.yikangyiliao.pension.entity.UserServiceInfo">
+		update user_service_infos
+		<set>
+			<if test="userId != null">
+				user_id = #{userId,jdbcType=BIGINT},
+			</if>
+			<if test="jobCategory != null">
+				job_category = #{jobCategory,jdbcType=BIGINT},
+			</if>
+			<if test="userPosition != null">
+				user_position = #{userPosition,jdbcType=TINYINT},
+			</if>
+			<if test="provenceCode != null">
+				provence_code = #{provenceCode,jdbcType=BIGINT},
+			</if>
+			<if test="cityCode != null">
+				city_code = #{cityCode,jdbcType=BIGINT},
+			</if>
+			<if test="districtCode != null">
+				district_code = #{districtCode,jdbcType=BIGINT},
+			</if>
+			<if test="addressDetail != null">
+				address_detail = #{addressDetail,jdbcType=VARCHAR},
+			</if>
+			<if test="photoUrl != null">
+				photo_url = #{photoUrl,jdbcType=VARCHAR},
+			</if>
+			<if test="createTime != null">
+				create_time = #{createTime,jdbcType=BIGINT},
+			</if>
+			<if test="updateTime != null">
+				update_time = #{updateTime,jdbcType=BIGINT},
+			</if>
+			<if test="isDelete != null">
+				is_delete = #{isDelete,jdbcType=TINYINT},
+			</if>
+			<if test="userServiceName != null">
+				user_service_name = #{userServiceName,jdbcType=VARCHAR},
+			</if>
+			<if test="longitude != null">
+				longitude = #{longitude,jdbcType=DOUBLE},
+			</if>
+			<if test="latitude != null">
+				latitude = #{latitude,jdbcType=DOUBLE},
+			</if>
+			<if test="mapPositionAddress != null">
+				map_position_address =
+				#{mapPositionAddress,jdbcType=VARCHAR},
+			</if>
+			<if test="hospital != null">
+				hospital = #{hospital,jdbcType=VARCHAR},
+			</if>
+			<if test="offices != null">
+				offices = #{offices,jdbcType=INTEGER},
+			</if>
+			<if test="adept != null">
+				adept = #{adept,jdbcType=VARCHAR},
+			</if>
+			<if test="positionAuditStatus != null">
+				position_audit_status =
+				#{positionAuditStatus,jdbcType=TINYINT},
+			</if>
+			<if test="newUserPosition != null">
+				new_user_position = #{newUserPosition,jdbcType=BIGINT},
+			</if>
+			<if test="oraganizationName != null">
+				oraganization_name =
+				#{oraganizationName,jdbcType=VARCHAR},
+			</if>
+			<if test="userIntroduce != null">
+				user_introduce = #{userIntroduce,jdbcType=VARCHAR},
+			</if>
+			<if test="workRealm != null">
+				work_realm = #{workRealm,jdbcType=TINYINT},
+			</if>
+			<if test="userCertificate != null">
+				user_certificate = #{userCertificate,jdbcType=VARCHAR},
+			</if>
+			<if test="authMobileNumber != null">
+				auth_mobile_number =
+				#{authMobileNumber,jdbcType=VARCHAR},
+			</if>
+		</set>
+		where user_service_info_id = #{userServiceInfoId,jdbcType=BIGINT}
+	</update>
+	<update id="updateByPrimaryKey" parameterType="com.yikangyiliao.pension.entity.UserServiceInfo">
+		update
+		user_service_infos
+		set user_id = #{userId,jdbcType=BIGINT},
+		job_category = #{jobCategory,jdbcType=BIGINT},
+		user_position =
+		#{userPosition,jdbcType=TINYINT},
+		provence_code =
+		#{provenceCode,jdbcType=BIGINT},
+		city_code =
+		#{cityCode,jdbcType=BIGINT},
+		district_code =
+		#{districtCode,jdbcType=BIGINT},
+		address_detail =
+		#{addressDetail,jdbcType=VARCHAR},
+		photo_url =
+		#{photoUrl,jdbcType=VARCHAR},
+		create_time =
+		#{createTime,jdbcType=BIGINT},
+		update_time =
+		#{updateTime,jdbcType=BIGINT},
+		is_delete =
+		#{isDelete,jdbcType=TINYINT},
+		user_service_name =
+		#{userServiceName,jdbcType=VARCHAR},
+		longitude =
+		#{longitude,jdbcType=DOUBLE},
+		latitude = #{latitude,jdbcType=DOUBLE},
+		map_position_address = #{mapPositionAddress,jdbcType=VARCHAR},
+		hospital = #{hospital,jdbcType=VARCHAR},
+		offices =
+		#{offices,jdbcType=INTEGER},
+		adept = #{adept,jdbcType=VARCHAR},
+		position_audit_status = #{positionAuditStatus,jdbcType=TINYINT},
+		new_user_position = #{newUserPosition,jdbcType=BIGINT},
+		oraganization_name = #{oraganizationName,jdbcType=VARCHAR},
+		user_introduce = #{userIntroduce,jdbcType=VARCHAR},
+		work_realm =
+		#{workRealm,jdbcType=TINYINT},
+		user_certificate =
+		#{userCertificate,jdbcType=VARCHAR},
+		auth_mobile_number =
+		#{authMobileNumber,jdbcType=VARCHAR}
+		where user_service_info_id =
+		#{userServiceInfoId,jdbcType=BIGINT}
+	</update>
 
 
 	<!-- 查询某个服务人员的信息， 根据用户id -->
 	<select id="getUserServiceInfoByUserId" resultType="map"
 		parameterType="long">
 		select
-		us.user_id 			as userId,
-		us.job_category 	as jobCategory,
-		us.user_position 	as userPosition,
-		us.city_code 		as cityCode,
-		us.district_code 	as districtCode,
-		us.address_detail	as addressDetail,
-		us.photo_url 		as photoUrl,
-		us.create_time 		as createTime,
-		us.update_time
-		as updateTime,
-		us.user_service_name 	as userName,
-		us.map_position_address as mapPositionAddress,
-		us.hospital,
-		us.offices,
-		us.adept,
-		users.invitation_code 	as invitationCode,
-		'' as
-		'invitationUrl',
-		count(sa.senior_id) 	as nums
-		(select count(follow_user_maps_id) from follow_user_maps) as isFollow
-		from
-		user_service_infos us
-		inner join users on us.user_id=users.user_id
-		left join senior_account sa on us.user_id=sa.create_user_id
-		where us.user_id =
-		#{userId,jdbcType=BIGINT}
-	</select>
-
-
-	<resultMap type="com.yikangyiliao.pension.entity.UserServiceInfo"
-		id="UserServiceInfoMapForTwo">
-		<result column="userId" 		property="userId" />
-		<result column="jobCategory" 	property="jobCategory" />
-		<result column="userPosition" 	property="userPosition" />
-		<result column="cityCode" 		property="cityCode" />
-		<result column="districtCode" 	property="districtCode" />
-		<result column="photoUrl" 		property="photoUrl" />
-		<result column="createTime" 	property="createTime" />
-		<result column="updateTime" 	property="updateTime" />
-		<result column="userServiceName" property="userServiceName" />
-		<result column="user_name"		 property="userName" />
-		<result column="mapPositionAddress" property="mapPositionAddress" />
-		<result column="addressDetail" 	property="addressDetail" />
-		<result column="hospital" 		property="hospital" />
-		<result column="offices" 		property="offices" />
-		<result column="invitationUrl" 	property="invitationUrl" />
-		<result column="infoWrite" 		property="infoWrite" />
-		<result column="positionAuditStatus" property="positionAuditStatus" />
-		<result column="nums" 			property="nums" />
-		<result column="invitationCode" property="invitationCode" />
-		<result column="birthday" 		property="birthday" />
-		<result column="user_sex" 		property="userSex" />
-		<result column="user_introduce" property="userIntroduce"/>
-		<result column="user_certificate" property="userCertificate"/>
-		<result column="designation_name" property="designationName"/>
-		
-
-		<association property="officeObj" column="offices" javaType="com.yikangyiliao.pension.entity.Office">
-			<id column="office_id" property="officeId" />
-			<result column="office_name" property="officeName" />
-		</association>
-		<collection property="adepts"  fetchType="eager" column="userId" select="com.yikangyiliao.pension.dao.AdeptDao.getAdeptsByUserId">      
-        </collection>
-	</resultMap>
-
-
-	<!-- 查询某个服务人员的信息， 根据用户id -->
-	<select id="getUserServiceInfoByUserIdTwo" resultMap="UserServiceInfoMapForTwo"
-		parameterType="long">
-		select
-		ui.user_sex,
-		ui.birthday,
-		ui.user_name,
 		us.user_id as userId,
 		us.job_category as
 		jobCategory,
@@ -417,14 +420,95 @@
 		us.create_time as createTime,
 		us.update_time
 		as updateTime,
-		us.user_service_name as userServiceName,
+		us.user_service_name as userName,
 		us.map_position_address as mapPositionAddress,
+		us.hospital,
+		us.offices,
+		us.adept,
+		users.invitation_code as invitationCode,
+		'' as
+		'invitationUrl',
+		count(sa.senior_id) as nums
+		(select
+		count(follow_user_maps_id) from follow_user_maps) as isFollow
+		from
+		user_service_infos us
+		inner join users on us.user_id=users.user_id
+		left
+		join senior_account sa on us.user_id=sa.create_user_id
+		where us.user_id
+		=
+		#{userId,jdbcType=BIGINT}
+	</select>
+
+
+	<resultMap type="com.yikangyiliao.pension.entity.UserServiceInfo"
+		id="UserServiceInfoMapForTwo">
+		<result column="userId" property="userId" />
+		<result column="jobCategory" property="jobCategory" />
+		<result column="userPosition" property="userPosition" />
+		<result column="cityCode" property="cityCode" />
+		<result column="districtCode" property="districtCode" />
+		<result column="photoUrl" property="photoUrl" />
+		<result column="createTime" property="createTime" />
+		<result column="updateTime" property="updateTime" />
+		<result column="userServiceName" property="userServiceName" />
+		<result column="user_name" property="userName" />
+		<result column="mapPositionAddress" property="mapPositionAddress" />
+		<result column="addressDetail" property="addressDetail" />
+		<result column="hospital" property="hospital" />
+		<result column="offices" property="offices" />
+		<result column="invitationUrl" property="invitationUrl" />
+		<result column="infoWrite" property="infoWrite" />
+		<result column="positionAuditStatus" property="positionAuditStatus" />
+		<result column="nums" property="nums" />
+		<result column="invitationCode" property="invitationCode" />
+		<result column="birthday" property="birthday" />
+		<result column="user_sex" property="userSex" />
+		<result column="user_introduce" property="userIntroduce" />
+		<result column="user_certificate" property="userCertificate" />
+		<result column="designation_name" property="designationName" />
+
+
+		<association property="officeObj" column="offices"
+			javaType="com.yikangyiliao.pension.entity.Office">
+			<id column="office_id" property="officeId" />
+			<result column="office_name" property="officeName" />
+		</association>
+		<collection property="adepts" fetchType="eager" column="userId"
+			select="com.yikangyiliao.pension.dao.AdeptDao.getAdeptsByUserId">
+		</collection>
+	</resultMap>
+
+
+	<!-- 查询某个服务人员的信息， 根据用户id -->
+	<select id="getUserServiceInfoByUserIdTwo" resultMap="UserServiceInfoMapForTwo"
+		parameterType="long">
+		select
+		ui.user_sex,
+		ui.birthday,
+		ui.user_name,
+		us.user_id as
+		userId,
+		us.job_category as
+		jobCategory,
+		us.user_position as userPosition,
+		us.city_code as cityCode,
+		us.district_code as districtCode,
+		us.address_detail as addressDetail,
+		us.photo_url as photoUrl,
+		us.create_time as createTime,
+		us.update_time
+		as updateTime,
+		us.user_service_name as userServiceName,
+		us.map_position_address as
+		mapPositionAddress,
 		us.hospital,
 		us.offices,
 		offices.office_id,
 		offices.office_name,
-        ui.user_introduce,
-        us.user_certificate,
+		ui.user_introduce,
+		us.user_certificate,
 		users.invitation_code as
 		invitationCode,
 		'' as 'invitationUrl',
@@ -433,20 +517,29 @@
 		positionAuditStatus,
 		users.info_write as
 		infoWrite,
-		adepts.adept_id as adeptId,
+		adepts.adept_id as
+		adeptId,
 		adepts.adept_name as adeptName,
-		us.position_audit_status as positionAuditStatus,
-		IFNULL(designations.designation_name,'') as designation_name
+		us.position_audit_status as
+		positionAuditStatus,
+		IFNULL(designations.designation_name,'') as
+		designation_name
 		from
 		user_service_infos us
-		inner join users on us.user_id=users.user_id
-		left join senior_account sa 	on us.user_id=sa.create_user_id
-		left join user_adept_maps uam 	on us.user_id=uam.user_id
-		left join adepts  on uam.adept_id=adepts.adept_id
+		inner join users on
+		us.user_id=users.user_id
+		left join senior_account sa on
+		us.user_id=sa.create_user_id
+		left join user_adept_maps uam on
+		us.user_id=uam.user_id
+		left join adepts on uam.adept_id=adepts.adept_id
 		left join offices on us.offices=offices.office_id
-		left join user_infos ui on users.user_id=ui.user_id
-		left join designations  on ui.designation_id=designations.designation_id
-		where us.user_id = #{userId,jdbcType=BIGINT}
+		left join user_infos
+		ui on users.user_id=ui.user_id
+		left join designations on
+		ui.designation_id=designations.designation_id
+		where us.user_id =
+		#{userId,jdbcType=BIGINT}
 	</select>
 
 	<!-- 修改用户信息， 根据 userId -->
@@ -506,17 +599,25 @@
 				adept = #{adept,jdbcType=VARCHAR},
 			</if>
 			<if test="positionAuditStatus != null">
-				position_audit_status = #{positionAuditStatus,jdbcType=TINYINT},
+				position_audit_status =
+				#{positionAuditStatus,jdbcType=TINYINT},
 			</if>
 			<if test="newUserPosition != null">
 				new_user_position = #{newUserPosition,jdbcType=INTEGER},
 			</if>
-		  <if test="oraganizationName != null">
-	        oraganization_name = #{oraganizationName,jdbcType=VARCHAR},
-	      </if>
-	      <if test="userIntroduce != null">
-	        user_introduce = #{userIntroduce,jdbcType=VARCHAR},
-	      </if>
+			<if test="oraganizationName != null and oraganizationName != ''">
+				oraganization_name =
+				#{oraganizationName,jdbcType=VARCHAR},
+			</if>
+			<if test="userIntroduce != null">
+				user_introduce = #{userIntroduce,jdbcType=VARCHAR},
+			</if>
+			<if test="userCertificate != null">
+				user_certificate = #{userCertificate,jdbcType=VARCHAR},
+			</if>
+			<if test="authMobileNumber != null">
+				auth_mobile_number =#{authMobileNumber,jdbcType=VARCHAR},
+			</if>
 		</set>
 		where user_id = #{userId,jdbcType=BIGINT}
 	</update>
@@ -524,8 +625,8 @@
 	<!-- 清空用户信息 -->
 	<update id="updateUserServiceInfoIsEmptyByUserId" parameterType="long">
 		update
-		user_service_infos 
-		set 
+		user_service_infos
+		set
 		job_category=-2,
 		user_position=0,
 		provence_code='',
@@ -548,7 +649,8 @@
 	<update id="submitUpdateUserPosition" parameterType="map">
 		update
 		user_service_infos
-		set new_user_position = #{userPosition}, position_audit_status=1
+		set new_user_position = #{userPosition},
+		position_audit_status=1
 		where
 		user_id=#{userId}
 	</update>
@@ -557,7 +659,8 @@
 		parameterType="map">
 		update
 		user_service_infos
-		set position_audit_status=#{positionAuditStatus}
+		set
+		position_audit_status=#{positionAuditStatus}
 		where
 		user_id=#{userId}
 	</update>
@@ -570,127 +673,253 @@
 		position_audit_status=#{positionAuditStatus},user_position=new_user_position
 		where user_id=#{userId}
 	</update>
-	
-	<!--查询我关注的用户  -->
-	<resultMap type="com.yikangyiliao.pension.entity.UserServiceInfo" extends="BaseResultMap" id="getMyFollowUserResultMap">
-		<result column="userName" property="userName"/>
-		<result column="followCount" property="followCount"/>
-		<collection  property="formPosts" column="user_id" fetchType="eager" select="com.yikangyiliao.pension.dao.FormPostsDao.getUserNewForumPostByCreateUserId"></collection>		
-		<collection property="adepts" javaType="com.yikangyiliao.pension.entity.Adept">
-			<result column="adept_id" property="adeptId"/>
-			<result column="adept_name" property="adeptName"/>
+
+	<!--查询我关注的用户 -->
+	<resultMap type="com.yikangyiliao.pension.entity.UserServiceInfo"
+		extends="BaseResultMap" id="getMyFollowUserResultMap">
+		<result column="userName" property="userName" />
+		<result column="photo_url" property="photoUrl" />
+		<result column="designation_name" property="designationName" />
+		<result column="user_position" property="userPosition" />
+		<result column="is_follow" property="isFollow" />
+		<result column="followCount" property="followCount" />
+		<collection property="formPosts" column="user_id"
+			fetchType="eager"
+			select="com.yikangyiliao.pension.dao.FormPostsDao.getUserNewForumPostByCreateUserId"></collection>
+		<collection property="adepts"
+			javaType="com.yikangyiliao.pension.entity.Adept">
+			<result column="adept_id" property="adeptId" />
+			<result column="adept_name" property="adeptName" />
 		</collection>
 	</resultMap>
-	<select id="getMyFollowUser" parameterType="long" resultMap="getMyFollowUserResultMap">
-		select 
-				usi.user_service_info_id,
-				usi.user_id, 
-				usi.job_category, usi.user_position, usi.provence_code, usi.city_code, 
-				usi.district_code, usi.address_detail, usi.photo_url, usi.create_time, usi.update_time, 
-				usi.map_position_address, usi.offices,
-				usi.oraganization_name, usi.user_introduce, usi.work_realm,usi.user_certificate,
-				fui.user_name as userName,
-				(select count(follow_user_maps_id) from follow_user_maps where follow_user_id=usi.user_id) as followCount,
-				adepts.adept_id,
-				adepts.adept_name
-		from follow_user_maps fum inner join user_service_infos usi on fum.follow_user_id=usi.user_id
-		left join user_infos fui on fui.user_id = fum.follow_user_id
-		left join user_adept_maps uam on usi.user_id=uam.user_id
-		left join adepts on uam.adept_id=adepts.adept_id  
-		where create_user_id=#{createUserId} order by fum.create_time desc 
+	<select id="getMyFollowUser" parameterType="long"
+		resultMap="getMyFollowUserResultMap">
+		select
+		usi.user_service_info_id,
+		usi.user_id,
+		usi.job_category, usi.user_position, usi.provence_code, usi.city_code,
+		usi.district_code, usi.address_detail, usi.photo_url, usi.create_time,
+		usi.update_time,
+		usi.map_position_address, usi.offices,
+		usi.oraganization_name, usi.user_introduce,
+		usi.work_realm,usi.user_certificate,
+		fui.user_name as userName,
+		(select
+		count(follow_user_maps_id) from follow_user_maps where
+		follow_user_id=usi.user_id) as followCount,
+		adepts.adept_id,
+		adepts.adept_name
+		from follow_user_maps fum inner join
+		user_service_infos usi on
+		fum.follow_user_id=usi.user_id
+		left join
+		user_infos fui on fui.user_id
+		= fum.follow_user_id
+		left join
+		user_adept_maps uam on
+		usi.user_id=uam.user_id
+		left join adepts on
+		uam.adept_id=adepts.adept_id
+		where create_user_id=#{createUserId} order
+		by fum.create_time desc
 	</select>
-	
+
+	<resultMap type="com.yikangyiliao.pension.entity.UserServiceInfo"
+		extends="BaseResultMap" id="getMyFollowUserPageResultMap">
+		<result column="userName" property="userName" />
+		<result column="photo_url" property="photoUrl" />
+		<result column="designation_name" property="designationName" />
+		<result column="user_position" property="userPosition" />
+		<result column="is_follow" property="isFollow" />
+		<result column="followCount" property="followCount" />
+	</resultMap>
+	<select id="getMyFollowUserPage" parameterType="map"
+		resultMap="getMyFollowUserPageResultMap">
+		<!-- select usi.user_service_info_id, usi.user_id, usi.job_category, usi.user_position, 
+			usi.provence_code, usi.city_code, usi.district_code, usi.address_detail, 
+			usi.photo_url, usi.create_time, usi.update_time, usi.map_position_address, 
+			usi.offices, usi.oraganization_name, usi.user_introduce, usi.work_realm,usi.user_certificate, 
+			fui.user_name as userName, (select if(ifnull(fum.follow_user_maps_id,0)>0,1,0) 
+			from follow_user_maps fum where fum.create_user_id =#{userId} and fui.user_id 
+			= fum.follow_user_id) as is_follow, (select count(follow_user_maps_id) from 
+			follow_user_maps where follow_user_id=usi.user_id) as followCount, adepts.adept_id, 
+			adepts.adept_name from follow_user_maps fum inner join user_service_infos 
+			usi on fum.follow_user_id=usi.user_id left join user_infos fui on fui.user_id 
+			= fum.follow_user_id left join user_adept_maps uam on usi.user_id=uam.user_id 
+			left join adepts on uam.adept_id=adepts.adept_id where create_user_id=#{serverUserId} 
+			order by fum.create_time desc -->
+		select
+		uis.user_id,
+		uis.user_name as userName,
+		uis.photo_url,
+		(select
+		designation_name from designations where
+		designation_id=uis.designation_id) as designation_name,
+		usi.user_position,
+		(select if(ifnull(fum.follow_user_maps_id,0)>0,1,0)
+		from follow_user_maps
+		where create_user_id =#{userId} and
+		follow_user_id=fum.follow_user_id)
+		as is_follow
+		from follow_user_maps
+		fum
+		inner JOIN user_infos uis on fum.follow_user_id=uis.user_id
+		LEFT
+		JOIN user_service_infos usi on fum.follow_user_id=usi.user_id
+		where
+		fum.create_user_id=#{serverUserId} order by fum.create_time desc
+	</select>
+
+	<select id="getMyFansUserPage" parameterType="map"
+		resultMap="getMyFollowUserPageResultMap">
+		select
+		uis.user_id,
+		uis.user_name as userName,
+		uis.photo_url,
+		(select designation_name from designations where
+		designation_id=uis.designation_id) as designation_name,
+		usi.user_position,
+		(select if(ifnull(fum.follow_user_maps_id,0)>0,1,0)
+		from follow_user_maps
+		where create_user_id =#{userId} and
+		follow_user_id=fum.create_user_id)
+		as is_follow
+		from follow_user_maps
+		fum
+		inner JOIN user_infos uis on fum.create_user_id=uis.user_id
+		LEFT
+		JOIN user_service_infos usi on fum.create_user_id=usi.user_id
+		where
+		fum.follow_user_id=#{serverUserId} order by fum.create_time desc
+	</select>
+
+
 	<!-- 查询某一个服务人员 -->
-	<resultMap type="com.yikangyiliao.pension.entity.UserServiceInfo" id="getUserServiceInfoByUserIdResultMap">
-		<result column="userId" 		property="userId" />
-		<result column="jobCategory" 	property="jobCategory" />
-		<result column="userPosition" 	property="userPosition" />
-		<result column="cityCode" 		property="cityCode" />
-		<result column="districtCode" 	property="districtCode" />
-		<result column="photoUrl" 		property="photoUrl" />
-		<result column="createTime" 	property="createTime" />
-		<result column="updateTime" 	property="updateTime" />
+	<resultMap type="com.yikangyiliao.pension.entity.UserServiceInfo"
+		id="getUserServiceInfoByUserIdResultMap">
+		<result column="userId" property="userId" />
+		<result column="jobCategory" property="jobCategory" />
+		<result column="userPosition" property="userPosition" />
+		<result column="cityCode" property="cityCode" />
+		<result column="districtCode" property="districtCode" />
+		<result column="photoUrl" property="photoUrl" />
+		<result column="createTime" property="createTime" />
+		<result column="updateTime" property="updateTime" />
 		<result column="userServiceName" property="userServiceName" />
 		<result column="userServiceName" property="userName" />
 		<result column="mapPositionAddress" property="mapPositionAddress" />
-		<result column="addressDetail" 	property="addressDetail" />
-		<result column="hospital" 		property="hospital" />
-		<result column="offices" 		property="offices" />
-		<result column="invitationUrl" 	property="invitationUrl" />
-		<result column="infoWrite" 		property="infoWrite" />
-		<result column="nums" 			property="nums" />
+		<result column="addressDetail" property="addressDetail" />
+		<result column="hospital" property="hospital" />
+		<result column="offices" property="offices" />
+		<result column="invitationUrl" property="invitationUrl" />
+		<result column="infoWrite" property="infoWrite" />
+		<result column="nums" property="nums" />
 		<result column="invitationCode" property="invitationCode" />
-		<result column="birthday" 		property="birthday" />
-		<result column="user_sex" 		property="userSex" />
-		<result column="user_introduce" property="userIntroduce"/>
-		<result column="user_certificate" property="userCertificate"/>
-		<result column="designation_name" property="designationName"/>
-		<result column="followUserNumber" property="followUserNumber"/>
-		<result column="forumPostsTznumber" property="forumPostsTznumber"/>
-		<result column="watchTaglibNumber" property="watchTaglibNumber"/>
-		<result column="questionAnswerNumber" property="questionAnswerNumber"/>
-		
-		<result column="is_follow" property="isFollow"/>
-		<result column="watchUserNumber" property="watchUserNumber"/>
-		
+		<result column="birthday" property="birthday" />
+		<result column="user_sex" property="userSex" />
+		<result column="user_introduce" property="userIntroduce" />
+		<result column="user_certificate" property="userCertificate" />
+		<result column="designation_name" property="designationName" />
+		<result column="followUserNumber" property="followUserNumber" />
+		<result column="forumPostsTznumber" property="forumPostsTznumber" />
+		<result column="watchTaglibNumber" property="watchTaglibNumber" />
+		<result column="questionAnswerNumber" property="questionAnswerNumber" />
 
-		<association property="officeObj" column="offices" javaType="com.yikangyiliao.pension.entity.Office">
+		<result column="is_follow" property="isFollow" />
+		<result column="watchUserNumber" property="watchUserNumber" />
+
+
+		<association property="officeObj" column="offices"
+			javaType="com.yikangyiliao.pension.entity.Office">
 			<id column="office_id" property="officeId" />
 			<result column="office_name" property="officeName" />
 		</association>
-		<collection property="adepts"  fetchType="eager" column="userId" select="com.yikangyiliao.pension.dao.AdeptDao.getAdeptsByUserId">      
-        </collection>
+		<collection property="adepts" fetchType="eager" column="userId"
+			select="com.yikangyiliao.pension.dao.AdeptDao.getAdeptsByUserId">
+		</collection>
 	</resultMap>
-	
-	<select id="getUserServiceInfoByServerUserId" parameterType="long" resultMap="getUserServiceInfoByUserIdResultMap">
+
+	<select id="getUserServiceInfoByServerUserId" parameterType="long"
+		resultMap="getUserServiceInfoByUserIdResultMap">
 		select
 		ui.user_sex,
 		ui.birthday,
-		us.user_id 			as userId,
-		us.job_category 	as jobCategory,
-		us.user_position 	as userPosition,
-		us.city_code 		as cityCode,
-		us.district_code 	as districtCode,
-		us.address_detail 	as addressDetail,
-		us.photo_url 		as photoUrl,
-		us.create_time 		as createTime,
+		us.user_id as userId,
+		us.job_category as jobCategory,
+		us.user_position as userPosition,
+		us.city_code as cityCode,
+		us.district_code as districtCode,
+		us.address_detail as addressDetail,
+		us.photo_url as photoUrl,
+		us.create_time as createTime,
 		us.update_time
 		as updateTime,
-		ui.user_name as userServiceName,
+		ui.user_name
+		as userServiceName,
 		us.map_position_address as mapPositionAddress,
 		us.hospital,
 		us.offices,
 		offices.office_id,
 		offices.office_name,
-        ui.user_introduce,
-        us.user_certificate,
-		users.invitation_code as invitationCode,
+		ui.user_introduce,
+		us.user_certificate,
+		users.invitation_code as
+		invitationCode,
 		'' as 'invitationUrl',
 		count(sa.senior_id) as nums ,
-		us.position_audit_status as positionAuditStatus,
-		users.info_write 	as infoWrite,
-		adepts.adept_id 	as adeptId,
-		adepts.adept_name 	as adeptName,
-		us.position_audit_status as positionAuditStatus,
+		us.position_audit_status as
+		positionAuditStatus,
+		users.info_write as
+		infoWrite,
+		adepts.adept_id as
+		adeptId,
+		adepts.adept_name as adeptName,
+		us.position_audit_status as
+		positionAuditStatus,
 		designations.designation_name,
-		(select count(1) from follow_user_maps where follow_user_id=us.user_id) as followUserNumber,
-		(select count(1) from forum_posts where forum_post_group=0 and create_user_id=us.user_id) as forumPostsTznumber,
-		(select count(1) from question_answers where create_user_id=us.user_id) as questionAnswerNumber,
-		(select count(1) from user_taglib_maps where create_user_id=us.user_id) as watchTaglibNumber,
-		(select if(ifnull(fum.follow_user_maps_id,0)>0,1,0) from follow_user_maps fum  where fum.create_user_id =#{serarchUserId} and fum.follow_user_id=#{userId}) as is_follow,
-		(select count(1) from follow_user_maps where create_user_id=us.user_id) as watchUserNumber
+		(select count(1)
+		from follow_user_maps
+		where follow_user_id=us.user_id) as
+		followUserNumber,
+		(select count(1)
+		from forum_posts where
+		forum_post_group=0 and
+		create_user_id=us.user_id) as
+		forumPostsTznumber,
+		(select count(1) from
+		question_answers where
+		create_user_id=us.user_id) as
+		questionAnswerNumber,
+		(select count(1)
+		from user_taglib_maps where
+		create_user_id=us.user_id) as
+		watchTaglibNumber,
+		(select
+		if(ifnull(fum.follow_user_maps_id,0)>0,1,0)
+		from follow_user_maps fum
+		where fum.create_user_id =#{serarchUserId}
+		and
+		fum.follow_user_id=#{userId}) as is_follow,
+		(select count(1) from
+		follow_user_maps where create_user_id=us.user_id) as watchUserNumber
 		from
 		user_service_infos us
 		inner join users on us.user_id=users.user_id
-		left join senior_account sa 	on us.user_id=sa.create_user_id
-		left join user_adept_maps uam 	on us.user_id=uam.user_id
-		left join adepts  on uam.adept_id=adepts.adept_id
-		left join offices on us.offices=offices.office_id
-		left join user_infos ui on users.user_id=ui.user_id
-		left join designations  on ui.designation_id=designations.designation_id
-		where us.user_id = #{userId,jdbcType=BIGINT}
+		left join senior_account sa on us.user_id=sa.create_user_id
+		left join
+		user_adept_maps uam on us.user_id=uam.user_id
+		left join adepts on
+		uam.adept_id=adepts.adept_id
+		left join offices on
+		us.offices=offices.office_id
+		left join user_infos ui on
+		users.user_id=ui.user_id
+		left join designations on
+		ui.designation_id=designations.designation_id
+		where us.user_id =
+		#{userId,jdbcType=BIGINT}
 	</select>
-	
-	
+
+
 
 </mapper>

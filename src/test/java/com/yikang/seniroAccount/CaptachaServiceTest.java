@@ -20,11 +20,22 @@ public class CaptachaServiceTest {
 	 * @desc 测试00-25-01 发送验证码
 	 * */
 	@Test
+	public void TestGetCaptacha(){
+		try {
+			Map<String,Object> paramData=new HashMap<String, Object>();
+			paramData.put("mobileNumber","18637769291");
+			SendRequest.sendPost("00-25-01?appId='234'&mobileNumber=13716907523",paramData);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+	@Test
 	public void TestGetDeviceAlias(){
 		try {
 			Map<String,Object> paramData=new HashMap<String, Object>();
-			paramData.put("mobileNumber","13716907523");
-			SendRequest.sendPost("00-25-01?appId='234'&mobileNumber=13716907523",paramData);
+			paramData.put("mobileNumber","18637769291");
+			paramData.put("captchar","21907");
+			SendRequest.sendPost("00-25-02?appId='234'&mobileNumber=13716907523",paramData);
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
