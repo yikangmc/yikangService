@@ -136,6 +136,7 @@ public class ForumPostService {
 			}
 			FormPosts formPosts=formPostManager.insertPerformencePublishForumPosts(title, forumPostDetailContent,
 					forumPostHtmlDetailContent, tags, Long.valueOf(userId), imgs, recommendPicUrl);
+			//******************************************************************************
 			try{
 				OperationMessage operationMessage=new OperationMessage();
 				operationMessage.setContent(formPosts.getForumPostId().toString());
@@ -146,7 +147,7 @@ public class ForumPostService {
 			}
 
 			integralManager.insertIntegralAddScoreIsUsualJob("FBZJS", Byte.valueOf("2"), Long.valueOf(userId));
-		
+			//******************************************************************************
 		}else {
 			res.setStatus(ExceptionConstants.parameterException.parameterException.errorCode);
 			res.setMessage(ExceptionConstants.parameterException.parameterException.errorMessage);
