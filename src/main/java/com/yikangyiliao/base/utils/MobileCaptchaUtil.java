@@ -154,7 +154,6 @@ public class MobileCaptchaUtil {
 				CaptchaMessageSMS cms=(CaptchaMessageSMS)object;
 				if(!cms.isOutOfValidateTime()){
 					if(cms.getCaptcha().equals(captcha)){
-						MobileCaptchaUtil.CAPTCHACACHE.remove(mobileNumber);
 						return  true;
 					}
 				}else{

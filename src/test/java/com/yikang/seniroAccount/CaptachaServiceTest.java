@@ -33,8 +33,8 @@ public class CaptachaServiceTest {
 	public void TestGetDeviceAlias(){
 		try {
 			Map<String,Object> paramData=new HashMap<String, Object>();
-			paramData.put("mobileNumber","13716907523");
-			paramData.put("captchar","61971");
+			paramData.put("mobileNumber","18310877578");
+			paramData.put("captchar","2592");
 			SendRequest.sendPost("00-25-02?appId='234'&mobileNumber=13716907523",paramData);
 		} catch (IOException e) {
 			e.printStackTrace();

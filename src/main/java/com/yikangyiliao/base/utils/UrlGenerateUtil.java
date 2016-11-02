@@ -11,7 +11,7 @@ public class UrlGenerateUtil {
 	 * @desc 生成文章分享url
 	 * **/
 	public static String generateShareForumPostUrl(String uuid){
-		String shareUrl=System.getProperty("shareForumPostUrl");
+		String shareUrl=SystemProperties.getPropertieValue("shareForumPostUrl");
 		return shareUrl+uuid;
 	}
 	
@@ -21,7 +21,7 @@ public class UrlGenerateUtil {
 	 * @desc 生成问题回答分享url
 	 * */
 	public static String generateShareQuestionAnswerUrl(){
-		String shareQuestionAnswerUrl=System.getProperty("shareQuestionAnswerDetailUrl");
+		String shareQuestionAnswerUrl=SystemProperties.getPropertieValue("shareQuestionAnswerDetailUrl");
 		String uuid=UUID.randomUUID().toString();
 		return shareQuestionAnswerUrl+uuid;
 	}

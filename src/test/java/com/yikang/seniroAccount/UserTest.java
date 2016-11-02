@@ -39,9 +39,10 @@ public class UserTest {
 //				SendRequest.sendPost("registerUser?appId=1",paramData);
 //			}
 //			byby1-60   专家身份的号    brbr1-30 普通号    密码都用六个 1
-			for(int i=1;i<60;i++){
+//			for(int i=1;i<61;i++){
+			for(int i=1;i<31;i++){
 				Map<String,Object> paramData=new HashMap<String, Object>();
-				paramData.put("loginName","byby"+i);
+				paramData.put("loginName","brbr"+i);
 				paramData.put("password","111111");
 				SendRequest.sendPost("registerUser?appId=1",paramData);
 			}
