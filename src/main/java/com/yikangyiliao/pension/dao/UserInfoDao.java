@@ -56,4 +56,11 @@ public interface UserInfoDao {
      * @desc 根据accountId查询 用户信息
      * */
     UserInfo getUserIdByThreePartAccountId(String accountId);
+    
+    /**
+     * @author liushuaic
+     * @date 2016/11/11 17:42
+     * @desc 获取用户信息根据用户名称
+     * */
+    UserInfo getUserInfoByLoginName(String userName);
 }

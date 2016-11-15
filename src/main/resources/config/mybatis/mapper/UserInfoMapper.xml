@@ -386,6 +386,12 @@
 		inner join users on users.user_id=ui.user_id where
 		tac.account_id=#{accountId}
 	</select>
-
+	
+	<!-- 根据用户的名称获取用户信息 -->
+	<select id="getUserInfoByLoginName" parameterType="String" resultMap="BaseResultMap">
+		select ui.* from user_infos ui inner join users on ui.user_id = users.user_id 
+		WHERE users.login_name =#{loginName}
+	</select>
+	
 
 </mapper>
